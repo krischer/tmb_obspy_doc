@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.io.nied.fnetmt &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.io.nied.fnetmt</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">F-net moment tensor file format support for ObsPy.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org) and Yannik Behr</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA @UnusedWildImport</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">UTCDateTime</span>
+<span class="kn">from</span> <span class="nn">obspy.core.event</span> <span class="k">import</span> <span class="p">(</span><span class="n">Catalog</span><span class="p">,</span> <span class="n">Comment</span><span class="p">,</span> <span class="n">Event</span><span class="p">,</span>
+                              <span class="n">Origin</span><span class="p">,</span> <span class="n">Magnitude</span><span class="p">,</span> <span class="n">FocalMechanism</span><span class="p">,</span> <span class="n">MomentTensor</span><span class="p">,</span>
+                              <span class="n">Tensor</span><span class="p">,</span> <span class="n">NodalPlane</span><span class="p">,</span> <span class="n">NodalPlanes</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">util</span>
+
+
+<div class="viewcode-block" id="FNETMTException"><a class="viewcode-back" href="../../../../packages/obspy.io.nied.fnetmt.FNETMTException.html#obspy.io.nied.fnetmt.FNETMTException">[docs]</a><span class="k">class</span> <span class="nc">FNETMTException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="_get_resource_id"><a class="viewcode-back" href="../../../../packages/obspy.io.nied.fnetmt._get_resource_id.html#obspy.io.nied.fnetmt._get_resource_id">[docs]</a><span class="k">def</span> <span class="nf">_get_resource_id</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">res_type</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function to create consistent resource ids.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">res_id</span> <span class="o">=</span> <span class="s2">&quot;smi:local/fnetmt/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">res_type</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tag</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">res_id</span> <span class="o">+=</span> <span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="n">tag</span>
+    <span class="k">return</span> <span class="n">res_id</span></div>
+
+
+<div class="viewcode-block" id="_buffer_proxy"><a class="viewcode-back" href="../../../../packages/obspy.io.nied.fnetmt._buffer_proxy.html#obspy.io.nied.fnetmt._buffer_proxy">[docs]</a><span class="k">def</span> <span class="nf">_buffer_proxy</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">reset_fp</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">file_mode</span><span class="o">=</span><span class="s2">&quot;rb&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calls a function with an open file or file-like object as the first</span>
+<span class="sd">    argument. If the file originally was a filename, the file will be</span>
+<span class="sd">    opened, otherwise it will just be passed to the underlying function.</span>
+
+<span class="sd">    :param filename_or_buf: File to pass.</span>
+<span class="sd">    :type filename_or_buf: str, open file, or file-like object.</span>
+<span class="sd">    :param function: The function to call.</span>
+<span class="sd">    :param reset_fp: If True, the file pointer will be set to the initial</span>
+<span class="sd">        position after the function has been called.</span>
+<span class="sd">    :type reset_fp: bool</span>
+<span class="sd">    :param file_mode: Mode to open file in if necessary.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="n">filename_or_buf</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+        <span class="n">is_buffer</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="n">is_buffer</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="n">is_buffer</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">ret_val</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">reset_fp</span><span class="p">:</span>
+            <span class="n">filename_or_buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret_val</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="n">file_mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">function</span><span class="p">(</span><span class="n">fh</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_is_fnetmt_catalog"><a class="viewcode-back" href="../../../../packages/obspy.io.nied.fnetmt._is_fnetmt_catalog.html#obspy.io.nied.fnetmt._is_fnetmt_catalog">[docs]</a><span class="k">def</span> <span class="nf">_is_fnetmt_catalog</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks if the file is an F-net moment tensor file.</span>
+
+<span class="sd">    :param filename_or_buf: File to test.</span>
+<span class="sd">    :type filename_or_buf: str or file-like object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_buffer_proxy</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="n">_internal_is_fnetmt_catalog</span><span class="p">,</span>
+                             <span class="n">reset_fp</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Happens for example when passing the data as a string which would be</span>
+    <span class="c1"># interpreted as a filename.</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="_internal_is_fnetmt_catalog"><a class="viewcode-back" href="../../../../packages/obspy.io.nied.fnetmt._internal_is_fnetmt_catalog.html#obspy.io.nied.fnetmt._internal_is_fnetmt_catalog">[docs]</a><span class="k">def</span> <span class="nf">_internal_is_fnetmt_catalog</span><span class="p">(</span><span class="n">buf</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test whether file is an F-net moment tensor catalog file by reading the</span>
+<span class="sd">    header and the first data line. Reads at most 40 lines.</span>
+
+<span class="sd">    :param buf: File to read.</span>
+<span class="sd">    :type buf: Open file or open file like object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+            <span class="c1"># read at most 40 lines</span>
+            <span class="k">if</span> <span class="n">cnt</span> <span class="o">&gt;</span> <span class="mi">40</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;Total Number&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Total Number:\s+(\d+)\s+&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+                    <span class="n">nevents</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;Origin Time&#39;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">nevents</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+                    <span class="n">a</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">21</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="kc">False</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+            <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="_read_fnetmt_catalog"><a class="viewcode-back" href="../../../../packages/obspy.io.nied.fnetmt._read_fnetmt_catalog.html#obspy.io.nied.fnetmt._read_fnetmt_catalog">[docs]</a><span class="k">def</span> <span class="nf">_read_fnetmt_catalog</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads an F-net moment tensor catalog file to a</span>
+<span class="sd">    :class:`~obspy.core.event.Catalog` object.</span>
+
+<span class="sd">    :param filename_or_buf: File to read.</span>
+<span class="sd">    :type filename_or_buf: str or file-like object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_buffer_proxy</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="n">_internal_read_fnetmt_catalog</span><span class="p">,</span>
+                         <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_internal_read_fnetmt_catalog"><a class="viewcode-back" href="../../../../packages/obspy.io.nied.fnetmt._internal_read_fnetmt_catalog.html#obspy.io.nied.fnetmt._internal_read_fnetmt_catalog">[docs]</a><span class="k">def</span> <span class="nf">_internal_read_fnetmt_catalog</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads an F-net moment tensor catalog file to a</span>
+<span class="sd">    :class:`~obspy.core.event.Catalog` object.</span>
+
+<span class="sd">    :param buf: File to read.</span>
+<span class="sd">    :type buf: Open file or open file like object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cur_pos</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+
+    <span class="c1"># This also works with BytesIO and what not.</span>
+    <span class="n">buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+    <span class="n">buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">cur_pos</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># First read the headerlines containing the data request parameters</span>
+    <span class="n">headerlines</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">buf</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">:</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;Total Number&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Total Number:\s+(\d+)\s+&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+                <span class="n">nevents</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;Origin Time&#39;</span><span class="p">):</span>
+            <span class="k">break</span>
+        <span class="n">headerlines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="n">cur_pos</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+
+    <span class="c1"># Now read the catalog</span>
+    <span class="k">while</span> <span class="n">buf</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">:</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="c1"># If there is something, jump back to the beginning of the line and</span>
+        <span class="c1"># read the next event.</span>
+        <span class="k">if</span> <span class="n">line</span><span class="p">:</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_internal_read_single_fnetmt_entry</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">()))</span>
+
+    <span class="c1"># Consistency check</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)</span> <span class="o">!=</span> <span class="n">nevents</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">FNETMTException</span><span class="p">(</span><span class="s1">&#39;Parsing failed! Expected </span><span class="si">%d</span><span class="s1"> events but read </span><span class="si">%d</span><span class="s1">.&#39;</span>
+                              <span class="o">%</span> <span class="p">(</span><span class="n">nevents</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)))</span>
+
+    <span class="k">return</span> <span class="n">Catalog</span><span class="p">(</span><span class="n">resource_id</span><span class="o">=</span><span class="n">_get_resource_id</span><span class="p">(</span><span class="s2">&quot;catalog&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())),</span>
+                   <span class="n">events</span><span class="o">=</span><span class="n">events</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">headerlines</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="_internal_read_single_fnetmt_entry"><a class="viewcode-back" href="../../../../packages/obspy.io.nied.fnetmt._internal_read_single_fnetmt_entry.html#obspy.io.nied.fnetmt._internal_read_single_fnetmt_entry">[docs]</a><span class="k">def</span> <span class="nf">_internal_read_single_fnetmt_entry</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads a single F-net moment tensor solution to a</span>
+<span class="sd">    :class:`~obspy.core.event.Event` object.</span>
+
+<span class="sd">    :param line: String containing moment tensor information.</span>
+<span class="sd">    :type line: str.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">a</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">()</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;%Y/%m/</span><span class="si">%d</span><span class="s1">,%H:%M:%S.</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="n">ot</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">()</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;%Y/%m/</span><span class="si">%d</span><span class="s1">,%H:%M:%S&#39;</span><span class="p">)</span>
+    <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">depjma</span><span class="p">,</span> <span class="n">magjma</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+    <span class="n">depjma</span> <span class="o">*=</span> <span class="mi">1000</span>
+    <span class="n">region</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">strike</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)))</span>
+    <span class="n">dip</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)))</span>
+    <span class="n">rake</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)))</span>
+    <span class="n">mo</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+    <span class="n">depmt</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span> <span class="o">*</span> <span class="mi">1000</span>
+    <span class="n">magmt</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span>
+    <span class="n">var_red</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">12</span><span class="p">])</span>
+    <span class="n">mxx</span><span class="p">,</span> <span class="n">mxy</span><span class="p">,</span> <span class="n">mxz</span><span class="p">,</span> <span class="n">myy</span><span class="p">,</span> <span class="n">myz</span><span class="p">,</span> <span class="n">mzz</span><span class="p">,</span> <span class="n">unit</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">13</span><span class="p">:</span><span class="mi">20</span><span class="p">])</span>
+
+    <span class="n">event_name</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">gen_sc3_id</span><span class="p">(</span><span class="n">ot</span><span class="p">)</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span><span class="n">event_type</span><span class="o">=</span><span class="s2">&quot;earthquake&quot;</span><span class="p">)</span>
+    <span class="n">e</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="s1">&#39;event&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Standard JMA solution</span>
+    <span class="n">o_jma</span> <span class="o">=</span> <span class="n">Origin</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">ot</span><span class="p">,</span> <span class="n">latitude</span><span class="o">=</span><span class="n">lat</span><span class="p">,</span> <span class="n">longitude</span><span class="o">=</span><span class="n">lon</span><span class="p">,</span>
+                   <span class="n">depth</span><span class="o">=</span><span class="n">depjma</span><span class="p">,</span> <span class="n">depth_type</span><span class="o">=</span><span class="s2">&quot;from location&quot;</span><span class="p">,</span>
+                   <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">)</span>
+    <span class="n">o_jma</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span>
+                                         <span class="s1">&#39;origin&#39;</span><span class="p">,</span> <span class="s1">&#39;JMA&#39;</span><span class="p">)</span>
+    <span class="n">m_jma</span> <span class="o">=</span> <span class="n">Magnitude</span><span class="p">(</span><span class="n">mag</span><span class="o">=</span><span class="n">magjma</span><span class="p">,</span> <span class="n">magnitude_type</span><span class="o">=</span><span class="s1">&#39;ML&#39;</span><span class="p">,</span>
+                      <span class="n">origin_id</span><span class="o">=</span><span class="n">o_jma</span><span class="o">.</span><span class="n">resource_id</span><span class="p">)</span>
+    <span class="n">m_jma</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span>
+                                         <span class="s1">&#39;magnitude&#39;</span><span class="p">,</span> <span class="s1">&#39;JMA&#39;</span><span class="p">)</span>
+    <span class="c1"># MT solution</span>
+    <span class="n">o_mt</span> <span class="o">=</span> <span class="n">Origin</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">ot</span><span class="p">,</span> <span class="n">latitude</span><span class="o">=</span><span class="n">lat</span><span class="p">,</span> <span class="n">longitude</span><span class="o">=</span><span class="n">lon</span><span class="p">,</span>
+                  <span class="n">depth</span><span class="o">=</span><span class="n">depmt</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
+                  <span class="n">depth_type</span><span class="o">=</span><span class="s2">&quot;from moment tensor inversion&quot;</span><span class="p">)</span>
+    <span class="n">o_mt</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span>
+                                        <span class="s1">&#39;origin&#39;</span><span class="p">,</span> <span class="s1">&#39;MT&#39;</span><span class="p">)</span>
+    <span class="n">m_mt</span> <span class="o">=</span> <span class="n">Magnitude</span><span class="p">(</span><span class="n">mag</span><span class="o">=</span><span class="n">magmt</span><span class="p">,</span> <span class="n">magnitude_type</span><span class="o">=</span><span class="s1">&#39;Mw&#39;</span><span class="p">,</span>
+                     <span class="n">origin_id</span><span class="o">=</span><span class="n">o_mt</span><span class="o">.</span><span class="n">resource_id</span><span class="p">)</span>
+    <span class="n">m_mt</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span>
+                                        <span class="s1">&#39;magnitude&#39;</span><span class="p">,</span> <span class="s1">&#39;MT&#39;</span><span class="p">)</span>
+    <span class="n">foc_mec</span> <span class="o">=</span> <span class="n">FocalMechanism</span><span class="p">(</span><span class="n">triggering_origin_id</span><span class="o">=</span><span class="n">o_jma</span><span class="o">.</span><span class="n">resource_id</span><span class="p">)</span>
+    <span class="n">foc_mec</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span>
+                                           <span class="s2">&quot;focal_mechanism&quot;</span><span class="p">)</span>
+    <span class="n">nod1</span> <span class="o">=</span> <span class="n">NodalPlane</span><span class="p">(</span><span class="n">strike</span><span class="o">=</span><span class="n">strike</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dip</span><span class="o">=</span><span class="n">dip</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rake</span><span class="o">=</span><span class="n">rake</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">nod2</span> <span class="o">=</span> <span class="n">NodalPlane</span><span class="p">(</span><span class="n">strike</span><span class="o">=</span><span class="n">strike</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dip</span><span class="o">=</span><span class="n">dip</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">rake</span><span class="o">=</span><span class="n">rake</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">nod</span> <span class="o">=</span> <span class="n">NodalPlanes</span><span class="p">(</span><span class="n">nodal_plane_1</span><span class="o">=</span><span class="n">nod1</span><span class="p">,</span> <span class="n">nodal_plane_2</span><span class="o">=</span><span class="n">nod2</span><span class="p">)</span>
+    <span class="n">foc_mec</span><span class="o">.</span><span class="n">nodal_planes</span> <span class="o">=</span> <span class="n">nod</span>
+
+    <span class="n">tensor</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">m_rr</span><span class="o">=</span><span class="n">mxx</span><span class="p">,</span> <span class="n">m_tt</span><span class="o">=</span><span class="n">myy</span><span class="p">,</span> <span class="n">m_pp</span><span class="o">=</span><span class="n">mzz</span><span class="p">,</span> <span class="n">m_rt</span><span class="o">=</span><span class="n">mxy</span><span class="p">,</span> <span class="n">m_rp</span><span class="o">=</span><span class="n">mxz</span><span class="p">,</span> <span class="n">m_tp</span><span class="o">=</span><span class="n">myz</span><span class="p">)</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">Comment</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Basis system: North,East,Down (Jost and </span><span class="se">\</span>
+<span class="s2">    Herrmann 1989&quot;</span><span class="p">)</span>
+    <span class="n">cm</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="s1">&#39;comment&#39;</span><span class="p">,</span> <span class="s1">&#39;mt&#39;</span><span class="p">)</span>
+    <span class="n">mt</span> <span class="o">=</span> <span class="n">MomentTensor</span><span class="p">(</span><span class="n">derived_origin_id</span><span class="o">=</span><span class="n">o_mt</span><span class="o">.</span><span class="n">resource_id</span><span class="p">,</span>
+                      <span class="n">moment_magnitude_id</span><span class="o">=</span><span class="n">m_mt</span><span class="o">.</span><span class="n">resource_id</span><span class="p">,</span>
+                      <span class="n">scalar_moment</span><span class="o">=</span><span class="n">mo</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="p">[</span><span class="n">cm</span><span class="p">],</span>
+                      <span class="n">tensor</span><span class="o">=</span><span class="n">tensor</span><span class="p">,</span> <span class="n">variance_reduction</span><span class="o">=</span><span class="n">var_red</span><span class="p">)</span>
+    <span class="n">mt</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span>
+                                      <span class="s1">&#39;moment_tensor&#39;</span><span class="p">)</span>
+    <span class="n">foc_mec</span><span class="o">.</span><span class="n">moment_tensor</span> <span class="o">=</span> <span class="n">mt</span>
+    <span class="n">e</span><span class="o">.</span><span class="n">origins</span> <span class="o">=</span> <span class="p">[</span><span class="n">o_jma</span><span class="p">,</span> <span class="n">o_mt</span><span class="p">]</span>
+    <span class="n">e</span><span class="o">.</span><span class="n">magnitudes</span> <span class="o">=</span> <span class="p">[</span><span class="n">m_jma</span><span class="p">,</span> <span class="n">m_mt</span><span class="p">]</span>
+    <span class="n">e</span><span class="o">.</span><span class="n">focal_mechanisms</span> <span class="o">=</span> <span class="p">[</span><span class="n">foc_mec</span><span class="p">]</span>
+    <span class="n">e</span><span class="o">.</span><span class="n">preferred_magnitude_id</span> <span class="o">=</span> <span class="n">m_mt</span><span class="o">.</span><span class="n">resource_id</span><span class="o">.</span><span class="n">id</span>
+    <span class="n">e</span><span class="o">.</span><span class="n">preferred_origin_id</span> <span class="o">=</span> <span class="n">o_mt</span><span class="o">.</span><span class="n">resource_id</span><span class="o">.</span><span class="n">id</span>
+    <span class="n">e</span><span class="o">.</span><span class="n">preferred_focal_mechanism_id</span> <span class="o">=</span> <span class="n">foc_mec</span><span class="o">.</span><span class="n">resource_id</span><span class="o">.</span><span class="n">id</span>
+    <span class="k">return</span> <span class="n">e</span></div>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

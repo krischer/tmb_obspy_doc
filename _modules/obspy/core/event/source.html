@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.core.event.source &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.core.event.source</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">obspy.core.event.source - Classes for handling seismic source characteristics</span>
+<span class="sd">=============================================================================</span>
+<span class="sd">This module provides a class hierarchy to consistently handle event metadata.</span>
+<span class="sd">This class hierarchy is closely modelled after the de-facto standard format</span>
+<span class="sd">`QuakeML &lt;https://quake.ethz.ch/quakeml/&gt;`_.</span>
+
+<span class="sd">.. figure:: /_images/Event.png</span>
+
+<span class="sd">.. note::</span>
+
+<span class="sd">    For handling additional information not covered by the QuakeML standard and</span>
+<span class="sd">    how to output it to QuakeML see the :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">obspy.core.event.base</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">_event_type_class_factory</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">,</span> <span class="n">CreationInfo</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">obspy.core.event.header</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">EvaluationMode</span><span class="p">,</span> <span class="n">EvaluationStatus</span><span class="p">,</span> <span class="n">MomentTensorCategory</span><span class="p">,</span> <span class="n">MTInversionType</span><span class="p">,</span>
+    <span class="n">SourceTimeFunctionType</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">)</span>
+
+
+<span class="n">__Axis</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__Axis&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;azimuth&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;plunge&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;length&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">)])</span>
+
+
+<div class="viewcode-block" id="Axis"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.source.Axis.html#obspy.core.event.source.Axis">[docs]</a><span class="k">class</span> <span class="nc">Axis</span><span class="p">(</span><span class="n">__Axis</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class describes an eigenvector of a moment tensor expressed in its</span>
+<span class="sd">    principal-axes system. It uses the angles azimuth, plunge, and the</span>
+<span class="sd">    eigenvalue length.</span>
+
+<span class="sd">    :type azimuth: float</span>
+<span class="sd">    :param azimuth: Azimuth of eigenvector of moment tensor expressed in</span>
+<span class="sd">        principal-axes system. Measured clockwise from South-North direction at</span>
+<span class="sd">        epicenter. Unit: deg</span>
+<span class="sd">    :type azimuth_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param azimuth_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type plunge: float</span>
+<span class="sd">    :param plunge: Plunge of eigenvector of moment tensor expressed in</span>
+<span class="sd">        principal-axes system. Measured against downward vertical direction at</span>
+<span class="sd">        epicenter. Unit: deg</span>
+<span class="sd">    :type plunge_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param plunge_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type length: float</span>
+<span class="sd">    :param length: Eigenvalue of moment tensor expressed in principal-axes</span>
+<span class="sd">        system. Unit: Nm</span>
+<span class="sd">    :type length_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param length_errors: AttribDict containing error quantities.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">__NodalPlane</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__NodalPlane&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;strike&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;dip&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;rake&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">)])</span>
+
+
+<div class="viewcode-block" id="NodalPlane"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.source.NodalPlane.html#obspy.core.event.source.NodalPlane">[docs]</a><span class="k">class</span> <span class="nc">NodalPlane</span><span class="p">(</span><span class="n">__NodalPlane</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class describes a nodal plane using the attributes strike, dip, and</span>
+<span class="sd">    rake. For a definition of the angles see Aki &amp; Richards (1980).</span>
+
+<span class="sd">    :type strike: float</span>
+<span class="sd">    :param strike: Strike angle of nodal plane. Unit: deg</span>
+<span class="sd">    :type strike_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param strike_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type dip: float</span>
+<span class="sd">    :param dip: Dip angle of nodal plane. Unit: deg</span>
+<span class="sd">    :type dip_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param dip_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type rake: float</span>
+<span class="sd">    :param rake: Rake angle of nodal plane. Unit: deg</span>
+<span class="sd">    :type rake_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param rake_errors: AttribDict containing error quantities.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">__NodalPlanes</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__NodalPlanes&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;nodal_plane_1&quot;</span><span class="p">,</span> <span class="n">NodalPlane</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;nodal_plane_2&quot;</span><span class="p">,</span> <span class="n">NodalPlane</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;preferred_plane&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">)])</span>
+
+
+<div class="viewcode-block" id="NodalPlanes"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.source.NodalPlanes.html#obspy.core.event.source.NodalPlanes">[docs]</a><span class="k">class</span> <span class="nc">NodalPlanes</span><span class="p">(</span><span class="n">__NodalPlanes</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class describes the nodal planes of a double-couple moment-tensor</span>
+<span class="sd">    solution. The attribute ``preferred_plane`` can be used to define which</span>
+<span class="sd">    plane is the preferred one.</span>
+
+<span class="sd">    :type nodal_plane_1: :class:`~obspy.core.event.source.NodalPlane`, optional</span>
+<span class="sd">    :param nodal_plane_1: First nodal plane of double-couple moment tensor</span>
+<span class="sd">        solution.</span>
+<span class="sd">    :type nodal_plane_2: :class:`~obspy.core.event.source.NodalPlane`, optional</span>
+<span class="sd">    :param nodal_plane_2: Second nodal plane of double-couple moment tensor</span>
+<span class="sd">        solution.</span>
+<span class="sd">    :type preferred_plane: int, optional</span>
+<span class="sd">    :param preferred_plane: Indicator for preferred nodal plane of moment</span>
+<span class="sd">        tensor solution. It can take integer values ``1`` or ``2``.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">__PrincipalAxes</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__PrincipalAxes&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;t_axis&quot;</span><span class="p">,</span> <span class="n">Axis</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;p_axis&quot;</span><span class="p">,</span> <span class="n">Axis</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;n_axis&quot;</span><span class="p">,</span> <span class="n">Axis</span><span class="p">)])</span>
+
+
+<div class="viewcode-block" id="PrincipalAxes"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.source.PrincipalAxes.html#obspy.core.event.source.PrincipalAxes">[docs]</a><span class="k">class</span> <span class="nc">PrincipalAxes</span><span class="p">(</span><span class="n">__PrincipalAxes</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class describes the principal axes of a double-couple moment tensor</span>
+<span class="sd">    solution. t_axis and p_axis are required, while n_axis is optional.</span>
+
+<span class="sd">    :type t_axis: :class:`~obspy.core.event.source.Axis`</span>
+<span class="sd">    :param t_axis: T (tension) axis of a double-couple moment tensor solution.</span>
+<span class="sd">    :type p_axis: :class:`~obspy.core.event.source.Axis`</span>
+<span class="sd">    :param p_axis: P (pressure) axis of a double-couple moment tensor solution.</span>
+<span class="sd">    :type n_axis: :class:`~obspy.core.event.source.Axis`, optional</span>
+<span class="sd">    :param n_axis: N (neutral) axis of a double-couple moment tensor solution.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">__Tensor</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__Tensor&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;m_rr&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;m_tt&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;m_pp&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;m_rt&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;m_rp&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;m_tp&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">)])</span>
+
+
+<div class="viewcode-block" id="Tensor"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.source.Tensor.html#obspy.core.event.source.Tensor">[docs]</a><span class="k">class</span> <span class="nc">Tensor</span><span class="p">(</span><span class="n">__Tensor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The Tensor class represents the six moment-tensor elements Mrr, Mtt, Mpp,</span>
+<span class="sd">    Mrt, Mrp, Mtp in the spherical coordinate system defined by local upward</span>
+<span class="sd">    vertical (r), North-South (t), and West-East (p) directions.</span>
+
+<span class="sd">    :type m_rr: float</span>
+<span class="sd">    :param m_rr: Moment-tensor element Mrr. Unit: Nm</span>
+<span class="sd">    :type m_rr_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param m_rr_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type m_tt: float</span>
+<span class="sd">    :param m_tt: Moment-tensor element Mtt. Unit: Nm</span>
+<span class="sd">    :type m_tt_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param m_tt_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type m_pp: float</span>
+<span class="sd">    :param m_pp: Moment-tensor element Mpp. Unit: Nm</span>
+<span class="sd">    :type m_pp_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param m_pp_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type m_rt: float</span>
+<span class="sd">    :param m_rt: Moment-tensor element Mrt. Unit: Nm</span>
+<span class="sd">    :type m_rt_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param m_rt_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type m_rp: float</span>
+<span class="sd">    :param m_rp: Moment-tensor element Mrp. Unit: Nm</span>
+<span class="sd">    :type m_rp_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param m_rp_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type m_tp: float</span>
+<span class="sd">    :param m_tp: Moment-tensor element Mtp. Unit: Nm</span>
+<span class="sd">    :type m_tp_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param m_tp_errors: AttribDict containing error quantities.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">__SourceTimeFunction</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__SourceTimeFunction&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="n">SourceTimeFunctionType</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;duration&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;rise_time&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;decay_time&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)])</span>
+
+
+<div class="viewcode-block" id="SourceTimeFunction"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.source.SourceTimeFunction.html#obspy.core.event.source.SourceTimeFunction">[docs]</a><span class="k">class</span> <span class="nc">SourceTimeFunction</span><span class="p">(</span><span class="n">__SourceTimeFunction</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Source time function used in moment-tensor inversion.</span>
+
+<span class="sd">    :type type: str</span>
+<span class="sd">    :param type: Type of source time function.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.SourceTimeFunctionType` for</span>
+<span class="sd">        allowed values.</span>
+<span class="sd">    :type duration: float</span>
+<span class="sd">    :param duration: Source time function duration. Unit: s</span>
+<span class="sd">    :type rise_time: float, optional</span>
+<span class="sd">    :param rise_time: Source time function rise time. Unit: s</span>
+<span class="sd">    :type decay_time: float, optional</span>
+<span class="sd">    :param decay_time: Source time function decay time. Unit: s</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">__MomentTensor</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__MomentTensor&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;resource_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;derived_origin_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;moment_magnitude_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;scalar_moment&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;tensor&quot;</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;variance&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;variance_reduction&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;double_couple&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;clvd&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;iso&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;greens_function_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;filter_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;source_time_function&quot;</span><span class="p">,</span> <span class="n">SourceTimeFunction</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;method_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="n">MomentTensorCategory</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;inversion_type&quot;</span><span class="p">,</span> <span class="n">MTInversionType</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;creation_info&quot;</span><span class="p">,</span> <span class="n">CreationInfo</span><span class="p">)],</span>
+    <span class="n">class_contains</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">,</span> <span class="s2">&quot;data_used&quot;</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="MomentTensor"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.source.MomentTensor.html#obspy.core.event.source.MomentTensor">[docs]</a><span class="k">class</span> <span class="nc">MomentTensor</span><span class="p">(</span><span class="n">__MomentTensor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class represents a moment tensor solution for an event. It is an</span>
+<span class="sd">    optional part of a FocalMechanism description.</span>
+
+<span class="sd">    :type resource_id: :class:`~obspy.core.event.base.ResourceIdentifier`</span>
+<span class="sd">    :param resource_id: Resource identifier of MomentTensor.</span>
+<span class="sd">    :type force_resource_id: bool, optional</span>
+<span class="sd">    :param force_resource_id: If set to False, the automatic initialization of</span>
+<span class="sd">        `resource_id` attribute in case it is not specified will be skipped.</span>
+<span class="sd">    :type derived_origin_id: :class:`~obspy.core.event.base.ResourceIdentifier`</span>
+<span class="sd">    :param derived_origin_id: Refers to the resource_id of the Origin derived</span>
+<span class="sd">        in the moment tensor inversion.</span>
+<span class="sd">    :type moment_magnitude_id:</span>
+<span class="sd">        :class:`~obspy.core.event.base.ResourceIdentifier`, optional</span>
+<span class="sd">    :param moment_magnitude_id: Refers to the publicID of the Magnitude object</span>
+<span class="sd">        which represents the derived moment magnitude.</span>
+<span class="sd">    :type scalar_moment: float, optional</span>
+<span class="sd">    :param scalar_moment: Scalar moment as derived in moment tensor inversion.</span>
+<span class="sd">        Unit: Nm</span>
+<span class="sd">    :type scalar_moment_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param scalar_moment_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type tensor: :class:`~obspy.core.event.source.Tensor`, optional</span>
+<span class="sd">    :param tensor: Tensor object holding the moment tensor elements.</span>
+<span class="sd">    :type variance: float, optional</span>
+<span class="sd">    :param variance: Variance of moment tensor inversion.</span>
+<span class="sd">    :type variance_reduction: float, optional</span>
+<span class="sd">    :param variance_reduction: Variance reduction of moment tensor inversion,</span>
+<span class="sd">        given in percent (Dreger 2003). This is a goodness-of-fit measure.</span>
+<span class="sd">    :type double_couple: float, optional</span>
+<span class="sd">    :param double_couple: Double couple parameter obtained from moment tensor</span>
+<span class="sd">        inversion (decimal fraction between 0 and 1).</span>
+<span class="sd">    :type clvd: float, optional</span>
+<span class="sd">    :param clvd: CLVD (compensated linear vector dipole) parameter obtained</span>
+<span class="sd">        from moment tensor inversion (decimal fraction between 0 and 1).</span>
+<span class="sd">    :type iso: float, optional</span>
+<span class="sd">    :param iso: Isotropic part obtained from moment tensor inversion (decimal</span>
+<span class="sd">        fraction between 0 and 1).</span>
+<span class="sd">    :type greens_function_id:</span>
+<span class="sd">        :class:`~obspy.core.event.base.ResourceIdentifier`, optional</span>
+<span class="sd">    :param greens_function_id: Resource identifier of the Green’s function used</span>
+<span class="sd">        in moment tensor inversion.</span>
+<span class="sd">    :type filter_id: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param filter_id: Resource identifier of the filter setup used in moment</span>
+<span class="sd">        tensor inversion.</span>
+<span class="sd">    :type source_time_function:</span>
+<span class="sd">        :class:`~obspy.core.event.source.SourceTimeFunction`, optional</span>
+<span class="sd">    :param source_time_function: Source time function used in moment-tensor</span>
+<span class="sd">        inversion.</span>
+<span class="sd">    :type data_used: list of :class:`~obspy.core.event.base.DataUsed`, optional</span>
+<span class="sd">    :param data_used: Describes waveform data used for moment-tensor inversion.</span>
+<span class="sd">    :type method_id: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param method_id: Resource identifier of the method used for moment-tensor</span>
+<span class="sd">        inversion.</span>
+<span class="sd">    :type category: str, optional</span>
+<span class="sd">    :param category: Moment tensor category.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.MomentTensorCategory` for allowed</span>
+<span class="sd">        values.</span>
+<span class="sd">    :type inversion_type: str, optional</span>
+<span class="sd">    :param inversion_type: Moment tensor inversion type. Users should avoid to</span>
+<span class="sd">        give contradictory information in inversion_type and method_id.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.MTInversionType` for allowed</span>
+<span class="sd">        values.</span>
+<span class="sd">    :type comments: list of :class:`~obspy.core.event.base.Comment`, optional</span>
+<span class="sd">    :param comments: Additional comments.</span>
+<span class="sd">    :type creation_info: :class:`~obspy.core.event.base.CreationInfo`, optional</span>
+<span class="sd">    :param creation_info: Creation information used to describe author,</span>
+<span class="sd">        version, and creation time.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">__FocalMechanism</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__FocalMechanism&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;resource_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;triggering_origin_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;nodal_planes&quot;</span><span class="p">,</span> <span class="n">NodalPlanes</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;principal_axes&quot;</span><span class="p">,</span> <span class="n">PrincipalAxes</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;azimuthal_gap&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;station_polarity_count&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;misfit&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;station_distribution_ratio&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;method_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;evaluation_mode&quot;</span><span class="p">,</span> <span class="n">EvaluationMode</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;evaluation_status&quot;</span><span class="p">,</span> <span class="n">EvaluationStatus</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;moment_tensor&quot;</span><span class="p">,</span> <span class="n">MomentTensor</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;creation_info&quot;</span><span class="p">,</span> <span class="n">CreationInfo</span><span class="p">)],</span>
+    <span class="n">class_contains</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;waveform_id&#39;</span><span class="p">,</span> <span class="s1">&#39;comments&#39;</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="FocalMechanism"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.source.FocalMechanism.html#obspy.core.event.source.FocalMechanism">[docs]</a><span class="k">class</span> <span class="nc">FocalMechanism</span><span class="p">(</span><span class="n">__FocalMechanism</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class describes the focal mechanism of an event. It includes different</span>
+<span class="sd">    descriptions like nodal planes, principal axes, and a moment tensor. The</span>
+<span class="sd">    moment tensor description is provided by objects of the class MomentTensor</span>
+<span class="sd">    which can be specified as child elements of FocalMechanism.</span>
+
+<span class="sd">    :type resource_id: :class:`~obspy.core.event.base.ResourceIdentifier`</span>
+<span class="sd">    :param resource_id: Resource identifier of FocalMechanism.</span>
+<span class="sd">    :type force_resource_id: bool, optional</span>
+<span class="sd">    :param force_resource_id: If set to False, the automatic initialization of</span>
+<span class="sd">        `resource_id` attribute in case it is not specified will be skipped.</span>
+<span class="sd">    :type triggering_origin_id:</span>
+<span class="sd">        :class:`~obspy.core.event.base.ResourceIdentifier`, optional</span>
+<span class="sd">    :param triggering_origin_id: Refers to the resource_id of the triggering</span>
+<span class="sd">        origin.</span>
+<span class="sd">    :type nodal_planes: :class:`~obspy.core.event.source.NodalPlanes`, optional</span>
+<span class="sd">    :param nodal_planes: Nodal planes of the focal mechanism.</span>
+<span class="sd">    :type principal_axes: :class:`~obspy.core.event.source.PrincipalAxes`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param principal_axes: Principal axes of the focal mechanism.</span>
+<span class="sd">    :type azimuthal_gap: float, optional</span>
+<span class="sd">    :param azimuthal_gap: Largest azimuthal gap in distribution of stations</span>
+<span class="sd">        used for determination of focal mechanism. Unit: deg</span>
+<span class="sd">    :type station_polarity_count: int, optional</span>
+<span class="sd">    :param station_polarity_count:</span>
+<span class="sd">    :type misfit: float, optional</span>
+<span class="sd">    :param misfit: Fraction of misfit polarities in a first-motion focal</span>
+<span class="sd">        mechanism determination. Decimal fraction between 0 and 1.</span>
+<span class="sd">    :type station_distribution_ratio: float, optional</span>
+<span class="sd">    :param station_distribution_ratio: Station distribution ratio (STDR)</span>
+<span class="sd">        parameter. Indicates how the stations are distributed about the focal</span>
+<span class="sd">        sphere (Reasenberg and Oppenheimer 1985). Decimal fraction between 0</span>
+<span class="sd">        and 1.</span>
+<span class="sd">    :type method_id: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param method_id: Resource identifier of the method used for determination</span>
+<span class="sd">        of the focal mechanism.</span>
+<span class="sd">    :type waveform_id: list of</span>
+<span class="sd">        :class:`~obspy.core.event.base.WaveformStreamID`, optional</span>
+<span class="sd">    :param waveform_id: Refers to a set of waveform streams from which the</span>
+<span class="sd">        focal mechanism was derived.</span>
+<span class="sd">    :type evaluation_mode: str, optional</span>
+<span class="sd">    :param evaluation_mode: Evaluation mode of FocalMechanism.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.EvaluationMode` for allowed</span>
+<span class="sd">        values.</span>
+<span class="sd">    :type evaluation_status: str, optional</span>
+<span class="sd">    :param evaluation_status: Evaluation status of FocalMechanism.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.EvaluationStatus` for allowed</span>
+<span class="sd">        values.</span>
+<span class="sd">    :type moment_tensor: :class:`~obspy.core.event.source.MomentTensor`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param moment_tensor: Moment tensor description for this focal mechanism.</span>
+<span class="sd">    :type comments: list of :class:`~obspy.core.event.base.Comment`, optional</span>
+<span class="sd">    :param comments: Additional comments.</span>
+<span class="sd">    :type creation_info: :class:`~obspy.core.event.base.CreationInfo`, optional</span>
+<span class="sd">    :param creation_info: Creation information used to describe author,</span>
+<span class="sd">        version, and creation time.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="farfield"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.source.farfield.html#obspy.core.event.source.farfield">[docs]</a><span class="k">def</span> <span class="nf">farfield</span><span class="p">(</span><span class="n">mt</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the P/S farfield radiation pattern</span>
+<span class="sd">    based on [Aki1980]_ eq. 4.29.</span>
+
+<span class="sd">    :param mt: Focal mechanism NM x 6 (Mxx, Myy, Mzz, Mxy, Mxz, Myz - the</span>
+<span class="sd">               six independent components of the moment tensor)</span>
+
+<span class="sd">    :param points: 3D vector array with shape [3,npts] (x,y,z) or [2,npts]</span>
+<span class="sd">                   (theta,phi) The normalized displacement of the moment</span>
+<span class="sd">                   tensor source is computed at these points.</span>
+<span class="sd">    :type type: str</span>
+<span class="sd">    :param type: &#39;P&#39; or &#39;S&#39; (P or S wave).</span>
+
+<span class="sd">    :return: 3D vector array with shape [3,npts] that contains the</span>
+<span class="sd">             displacement vector for each grid point</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="nb">type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;type must be &#39;P&#39; or &#39;S&#39;&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">is_p_wave</span> <span class="o">=</span> <span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;P&quot;</span>
+
+    <span class="n">ndim</span><span class="p">,</span> <span class="n">npoints</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">if</span> <span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="c1"># points are given as theta,phi</span>
+        <span class="n">_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="n">npoints</span><span class="p">))</span>
+        <span class="n">_points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">_points</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">_points</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="n">_points</span>
+        <span class="n">ndim</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="k">elif</span> <span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="c1"># points are given as x,y,z, (same system as the moment tensor)</span>
+        <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;points should have shape 2 x npoints or 3 x npoints&#39;</span><span class="p">)</span>
+    <span class="n">m_pq</span> <span class="o">=</span> <span class="n">_fullmt</span><span class="p">(</span><span class="n">mt</span><span class="p">)</span>
+
+    <span class="c1"># precompute directional cosine array</span>
+    <span class="n">dists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span>
+                    <span class="n">points</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">points</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">gammas</span> <span class="o">=</span> <span class="n">points</span> <span class="o">/</span> <span class="n">dists</span>
+
+    <span class="c1"># initialize displacement array</span>
+    <span class="n">disp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">ndim</span><span class="p">,</span> <span class="n">npoints</span><span class="p">))</span>
+
+    <span class="c1"># loop through points</span>
+    <span class="k">if</span> <span class="n">is_p_wave</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">ipoint</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">npoints</span><span class="p">):</span>
+            <span class="c1"># loop through displacement component [n index]</span>
+            <span class="n">gamma</span> <span class="o">=</span> <span class="n">gammas</span><span class="p">[:,</span> <span class="n">ipoint</span><span class="p">]</span>
+            <span class="n">gammapq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="n">gamma</span><span class="p">)</span>
+            <span class="n">gammatimesmt</span> <span class="o">=</span> <span class="n">gammapq</span> <span class="o">*</span> <span class="n">m_pq</span>
+            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">):</span>
+                <span class="n">disp</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">ipoint</span><span class="p">]</span> <span class="o">=</span> <span class="n">gamma</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">gammatimesmt</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">ipoint</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">npoints</span><span class="p">):</span>
+            <span class="c1"># loop through displacement component [n index]</span>
+            <span class="n">gamma</span> <span class="o">=</span> <span class="n">gammas</span><span class="p">[:,</span> <span class="n">ipoint</span><span class="p">]</span>
+            <span class="n">m_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">m_pq</span><span class="p">,</span> <span class="n">gamma</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">):</span>
+                <span class="n">psum</span> <span class="o">=</span> <span class="mf">0.0</span>
+                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">):</span>
+                    <span class="n">deltanp</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="n">p</span><span class="p">)</span>
+                    <span class="n">psum</span> <span class="o">+=</span> <span class="p">(</span><span class="n">gamma</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="n">gamma</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">-</span> <span class="n">deltanp</span><span class="p">)</span> <span class="o">*</span> <span class="n">m_p</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+                <span class="n">disp</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="n">ipoint</span><span class="p">]</span> <span class="o">=</span> <span class="n">psum</span>
+
+    <span class="k">return</span> <span class="n">disp</span></div>
+
+
+<div class="viewcode-block" id="_fullmt"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.source._fullmt.html#obspy.core.event.source._fullmt">[docs]</a><span class="k">def</span> <span class="nf">_fullmt</span><span class="p">(</span><span class="n">mt</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;takes 6 comp moment tensor and returns full 3x3 moment tensor&quot;&quot;&quot;</span>
+    <span class="n">mt_full</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(([[</span><span class="n">mt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mt</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">mt</span><span class="p">[</span><span class="mi">4</span><span class="p">]],</span>
+                         <span class="p">[</span><span class="n">mt</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">mt</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">mt</span><span class="p">[</span><span class="mi">5</span><span class="p">]],</span>
+                         <span class="p">[</span><span class="n">mt</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">mt</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">mt</span><span class="p">[</span><span class="mi">2</span><span class="p">]]]))</span>
+    <span class="k">return</span> <span class="n">mt_full</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

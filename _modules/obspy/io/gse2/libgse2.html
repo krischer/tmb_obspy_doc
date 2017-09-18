@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.io.gse2.libgse2 &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.io.gse2.libgse2</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># --------------------------------------------------------------------</span>
+<span class="c1"># Filename: libgse2.py</span>
+<span class="c1">#  Purpose: Python wrapper for gse_functions of Stefan Stange</span>
+<span class="c1">#   Author: Moritz Beyreuther</span>
+<span class="c1">#    Email: moritz.beyreuther@geophysik.uni-muenchen.de</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (C) 2008-2012 Moritz Beyreuther</span>
+<span class="c1"># ---------------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Lowlevel module internally used for handling GSE2 files.</span>
+
+<span class="sd">Python wrappers for gse_functions - The GSE2 library of Stefan Stange.</span>
+<span class="sd">Currently CM6 compressed GSE2 files are supported, this should be</span>
+<span class="sd">sufficient for most cases. Gse_functions is written in C and</span>
+<span class="sd">interfaced via python-ctypes.</span>
+
+<span class="sd">See: http://www.orfeus-eu.org/software/seismo_softwarelibrary.html#gse</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+<span class="kn">from</span> <span class="nn">future.utils</span> <span class="k">import</span> <span class="n">native_str</span>
+
+<span class="kn">import</span> <span class="nn">ctypes</span> <span class="k">as</span> <span class="nn">C</span>
+<span class="kn">import</span> <span class="nn">doctest</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">UTCDateTime</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.deprecation_helpers</span> <span class="k">import</span> \
+    <span class="n">DynamicAttributeImportRerouteModule</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.libnames</span> <span class="k">import</span> <span class="n">_load_cdll</span>
+
+
+<span class="c1"># Import shared libgse2</span>
+<span class="n">clibgse2</span> <span class="o">=</span> <span class="n">_load_cdll</span><span class="p">(</span><span class="s2">&quot;gse2&quot;</span><span class="p">)</span>
+
+<span class="n">clibgse2</span><span class="o">.</span><span class="n">decomp_6b_buffer</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">ctypeslib</span><span class="o">.</span><span class="n">ndpointer</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                           <span class="n">flags</span><span class="o">=</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;C_CONTIGUOUS&#39;</span><span class="p">)),</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">CFUNCTYPE</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">c_char</span><span class="p">),</span> <span class="n">C</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">),</span> <span class="n">C</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">]</span>
+<span class="n">clibgse2</span><span class="o">.</span><span class="n">decomp_6b_buffer</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_int</span>
+
+<span class="n">clibgse2</span><span class="o">.</span><span class="n">rem_2nd_diff</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">ctypeslib</span><span class="o">.</span><span class="n">ndpointer</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                           <span class="n">flags</span><span class="o">=</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;C_CONTIGUOUS&#39;</span><span class="p">)),</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">c_int</span><span class="p">]</span>
+<span class="n">clibgse2</span><span class="o">.</span><span class="n">rem_2nd_diff</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_int</span>
+
+<span class="n">clibgse2</span><span class="o">.</span><span class="n">check_sum</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">ctypeslib</span><span class="o">.</span><span class="n">ndpointer</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                           <span class="n">flags</span><span class="o">=</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;C_CONTIGUOUS&#39;</span><span class="p">)),</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">c_int32</span><span class="p">]</span>
+<span class="n">clibgse2</span><span class="o">.</span><span class="n">check_sum</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_int</span>  <span class="c1"># do not know why not C.c_int32</span>
+
+<span class="n">clibgse2</span><span class="o">.</span><span class="n">diff_2nd</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">ctypeslib</span><span class="o">.</span><span class="n">ndpointer</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                           <span class="n">flags</span><span class="o">=</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;C_CONTIGUOUS&#39;</span><span class="p">)),</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">c_int</span><span class="p">]</span>
+<span class="n">clibgse2</span><span class="o">.</span><span class="n">diff_2nd</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_void_p</span>
+
+<span class="n">clibgse2</span><span class="o">.</span><span class="n">compress_6b_buffer</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">ctypeslib</span><span class="o">.</span><span class="n">ndpointer</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                           <span class="n">flags</span><span class="o">=</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;C_CONTIGUOUS&#39;</span><span class="p">)),</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">CFUNCTYPE</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">c_char</span><span class="p">)]</span>
+<span class="n">clibgse2</span><span class="o">.</span><span class="n">compress_6b_buffer</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_int</span>
+
+
+<div class="viewcode-block" id="ChksumError"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.gse2.libgse2.ChksumError.html#obspy.io.gse2.libgse2.ChksumError">[docs]</a><span class="k">class</span> <span class="nc">ChksumError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception type for mismatching checksums</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="GSEUtiError"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.gse2.libgse2.GSEUtiError.html#obspy.io.gse2.libgse2.GSEUtiError">[docs]</a><span class="k">class</span> <span class="nc">GSEUtiError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception type for other errors in GSE_UTI</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<span class="c1"># example header of tests/data/loc_RNON20040609200559.z:</span>
+<span class="c1">#</span>
+<span class="c1"># WID2 2009/05/18 06:47:20.255 RNHA  EHN      CM6      750  200.000000</span>
+<span class="c1"># 0123456789012345678901234567890123456789012345678901234567890123456789</span>
+<span class="c1"># 0         10        20        30        40        50        60</span>
+<span class="c1">#  9.49e-02   1.000    M24  -1.0 -0.0</span>
+<span class="c1"># 0123456789012345678901234567890123456789012345678901234567890123456789</span>
+<span class="c1"># 70        80        90        100</span>
+<div class="viewcode-block" id="_str"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.gse2.libgse2._str.html#obspy.io.gse2.libgse2._str">[docs]</a><span class="k">def</span> <span class="nf">_str</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></div>
+
+
+<span class="n">GSE2_FIELDS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># local used date fields</span>
+    <span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;minute&#39;</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;second&#39;</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;microsecond&#39;</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="c1"># global ObsPy stats names</span>
+    <span class="p">(</span><span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="n">_str</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;channel&#39;</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()),</span>
+    <span class="p">(</span><span class="s1">&#39;gse2.auxid&#39;</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="n">_str</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;gse2.datatype&#39;</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="n">_str</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;npts&#39;</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;sampling_rate&#39;</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;calib&#39;</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;gse2.calper&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;gse2.instype&#39;</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="n">_str</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;gse2.hang&#39;</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;gse2.vang&#39;</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="is_gse2"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.gse2.libgse2.is_gse2.html#obspy.io.gse2.libgse2.is_gse2">[docs]</a><span class="k">def</span> <span class="nf">is_gse2</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks whether a file is GSE2 or not. Returns True or False.</span>
+
+<span class="sd">    :type f: file</span>
+<span class="sd">    :param f: file pointer to start of GSE2 file to be checked.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+    <span class="n">widi</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">widi</span> <span class="o">!=</span> <span class="sa">b</span><span class="s1">&#39;WID2&#39;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;File is not in GSE2 format&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="read_header"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.gse2.libgse2.read_header.html#obspy.io.gse2.libgse2.read_header">[docs]</a><span class="k">def</span> <span class="nf">read_header</span><span class="p">(</span><span class="n">fh</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads GSE2 header from file pointer and returns it as dictionary.</span>
+
+<span class="sd">    The method searches for the next available WID2 field beginning from the</span>
+<span class="sd">    current file position.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># search for WID2 field</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+    <span class="k">while</span> <span class="n">line</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;WID2&#39;</span><span class="p">):</span>
+            <span class="c1"># valid GSE2 header</span>
+            <span class="k">break</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">EOFError</span>
+    <span class="c1"># fetch header</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">header</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">fct</span> <span class="ow">in</span> <span class="n">GSE2_FIELDS</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">fct</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)])</span>
+        <span class="k">if</span> <span class="s1">&#39;gse2.&#39;</span> <span class="ow">in</span> <span class="n">key</span><span class="p">:</span>
+            <span class="n">header</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">[</span><span class="mi">5</span><span class="p">:]]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">header</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="c1"># convert and remove date entries from header dict</span>
+    <span class="n">header</span><span class="p">[</span><span class="s1">&#39;microsecond&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">1000</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">header</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span>
+            <span class="s2">&quot;year month day hour minute second microsecond&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">()}</span>
+    <span class="n">header</span><span class="p">[</span><span class="s1">&#39;starttime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="o">**</span><span class="n">date</span><span class="p">)</span>
+    <span class="c1"># search for STA2 line (mandatory but often omitted in practice)</span>
+    <span class="c1"># according to manual this has to follow immediately after WID2</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;STA2&#39;</span><span class="p">):</span>
+        <span class="n">header2</span> <span class="o">=</span> <span class="n">parse_sta2</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;network&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">header2</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;network&quot;</span><span class="p">)</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">header2</span><span class="p">)</span>
+    <span class="c1"># in case no STA2 line is encountered we need to rewind the file pointer,</span>
+    <span class="c1"># otherwise we might miss the DAT2 line afterwards.</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fh</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+    <span class="c1"># Py3k: convert to unicode</span>
+    <span class="n">header</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+                          <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">header</span><span class="o">.</span><span class="n">items</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="write_header"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.gse2.libgse2.write_header.html#obspy.io.gse2.libgse2.write_header">[docs]</a><span class="k">def</span> <span class="nf">write_header</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">headdict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Rewriting the write_header Function of gse_functions.c</span>
+
+<span class="sd">    Different operating systems are delivering different output for the</span>
+<span class="sd">    scientific format of floats (fprintf libc6). Here we ensure to deliver</span>
+<span class="sd">    in a for GSE2 valid format independent of the OS. For speed issues we</span>
+<span class="sd">    simple cut any number ending with E+0XX or E-0XX down to E+XX or E-XX.</span>
+<span class="sd">    This fails for numbers XX&gt;99, but should not occur.</span>
+
+<span class="sd">    :type f: file</span>
+<span class="sd">    :param f: File pointer to to GSE2 file to write</span>
+<span class="sd">    :type headdict: dict</span>
+<span class="sd">    :param headdict: ObsPy header</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">calib</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%10.2e</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;calib&#39;</span><span class="p">])</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;starttime&#39;</span><span class="p">]</span>
+    <span class="n">fmt</span> <span class="o">=</span> <span class="s2">&quot;WID2 </span><span class="si">%4d</span><span class="s2">/</span><span class="si">%02d</span><span class="s2">/</span><span class="si">%02d</span><span class="s2"> </span><span class="si">%02d</span><span class="s2">:</span><span class="si">%02d</span><span class="s2">:</span><span class="si">%06.3f</span><span class="s2"> </span><span class="si">%-5s</span><span class="s2"> </span><span class="si">%-3s</span><span class="s2"> </span><span class="si">%-4s</span><span class="s2"> </span><span class="si">%-3s</span><span class="s2"> </span><span class="si">%8d</span><span class="s2"> &quot;</span> <span class="o">+</span> \
+          <span class="s2">&quot;</span><span class="si">%11.6f</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> </span><span class="si">%7.3f</span><span class="s2"> </span><span class="si">%-6s</span><span class="s2"> </span><span class="si">%5.1f</span><span class="s2"> </span><span class="si">%4.1f</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">((</span><span class="n">fmt</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="n">date</span><span class="o">.</span><span class="n">year</span><span class="p">,</span>
+            <span class="n">date</span><span class="o">.</span><span class="n">month</span><span class="p">,</span>
+            <span class="n">date</span><span class="o">.</span><span class="n">day</span><span class="p">,</span>
+            <span class="n">date</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span>
+            <span class="n">date</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span>
+            <span class="n">date</span><span class="o">.</span><span class="n">second</span> <span class="o">+</span> <span class="n">date</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">/</span> <span class="mf">1e6</span><span class="p">,</span>
+            <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">],</span>
+            <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">],</span>
+            <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">][</span><span class="s1">&#39;auxid&#39;</span><span class="p">],</span>
+            <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">][</span><span class="s1">&#39;datatype&#39;</span><span class="p">],</span>
+            <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;npts&#39;</span><span class="p">],</span>
+            <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;sampling_rate&#39;</span><span class="p">],</span>
+            <span class="n">calib</span><span class="p">,</span>
+            <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">][</span><span class="s1">&#39;calper&#39;</span><span class="p">],</span>
+            <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">][</span><span class="s1">&#39;instype&#39;</span><span class="p">],</span>
+            <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">][</span><span class="s1">&#39;hang&#39;</span><span class="p">],</span>
+            <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">][</span><span class="s1">&#39;vang&#39;</span><span class="p">]))</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">)</span>
+            <span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">sta2_line</span> <span class="o">=</span> <span class="n">compile_sta2</span><span class="p">(</span><span class="n">headdict</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;GSE2: Error while compiling the STA2 header line, omitting it.&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">sta2_line</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="uncompress_cm6"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.gse2.libgse2.uncompress_cm6.html#obspy.io.gse2.libgse2.uncompress_cm6">[docs]</a><span class="k">def</span> <span class="nf">uncompress_cm6</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">n_samps</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Uncompress n_samps of CM6 compressed data from file pointer fp.</span>
+
+<span class="sd">    :type f: file</span>
+<span class="sd">    :param f: File Pointer</span>
+<span class="sd">    :type n_samps: int</span>
+<span class="sd">    :param n_samps: Number of samples</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">read83</span><span class="p">(</span><span class="n">cbuf</span><span class="p">,</span> <span class="n">vptr</span><span class="p">):</span>  <span class="c1"># @UnusedVariable</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">line</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="c1"># avoid buffer overflow through clipping to 82</span>
+        <span class="n">sb</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="n">line</span><span class="p">[:</span><span class="mi">82</span><span class="p">])</span>
+        <span class="c1"># copy also null termination &quot;\0&quot;, that is max 83 bytes</span>
+        <span class="n">C</span><span class="o">.</span><span class="n">memmove</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">addressof</span><span class="p">(</span><span class="n">cbuf</span><span class="o">.</span><span class="n">contents</span><span class="p">),</span> <span class="n">C</span><span class="o">.</span><span class="n">addressof</span><span class="p">(</span><span class="n">sb</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">C</span><span class="o">.</span><span class="n">addressof</span><span class="p">(</span><span class="n">sb</span><span class="p">)</span>
+
+    <span class="n">cread83</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">CFUNCTYPE</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">c_char</span><span class="p">),</span> <span class="n">C</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">)(</span><span class="n">read83</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n_samps</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># aborts with segmentation fault when n_samps == 0</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n_samps</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">clibgse2</span><span class="o">.</span><span class="n">decomp_6b_buffer</span><span class="p">(</span><span class="n">n_samps</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">cread83</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">!=</span> <span class="n">n_samps</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GSEUtiError</span><span class="p">(</span><span class="s2">&quot;Mismatching length in lib.decomp_6b&quot;</span><span class="p">)</span>
+        <span class="n">clibgse2</span><span class="o">.</span><span class="n">rem_2nd_diff</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_samps</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="compress_cm6"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.gse2.libgse2.compress_cm6.html#obspy.io.gse2.libgse2.compress_cm6">[docs]</a><span class="k">def</span> <span class="nf">compress_cm6</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    CM6 compress data</span>
+
+<span class="sd">    :type data: :class:`numpy.ndarray`, dtype=int32</span>
+<span class="sd">    :param data: the data to write</span>
+<span class="sd">    :returns: NumPy chararray containing compressed samples</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># closure, must be container</span>
+    <span class="c1"># 4 character bytes per int32_t</span>
+    <span class="n">carr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">writer</span><span class="p">(</span><span class="n">char</span><span class="p">):</span>
+        <span class="n">carr</span><span class="p">[</span><span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">char</span>
+        <span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="n">cwriter</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">CFUNCTYPE</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">c_char</span><span class="p">)(</span><span class="n">writer</span><span class="p">)</span>
+    <span class="n">ierr</span> <span class="o">=</span> <span class="n">clibgse2</span><span class="o">.</span><span class="n">compress_6b_buffer</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">cwriter</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ierr</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Error status after compress_6b_buffer is NOT 0 but </span><span class="si">%d</span><span class="s2">&quot;</span>
+        <span class="k">raise</span> <span class="n">GSEUtiError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">ierr</span><span class="p">)</span>
+    <span class="n">cnt</span> <span class="o">=</span> <span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">cnt</span> <span class="o">&lt;</span> <span class="mi">80</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">carr</span><span class="p">[:</span><span class="n">cnt</span><span class="p">]</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;|S</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">cnt</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">carr</span><span class="p">[:(</span><span class="n">cnt</span> <span class="o">//</span> <span class="mi">80</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">80</span><span class="p">]</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;|S80&#39;</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="verify_checksum"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.gse2.libgse2.verify_checksum.html#obspy.io.gse2.libgse2.verify_checksum">[docs]</a><span class="k">def</span> <span class="nf">verify_checksum</span><span class="p">(</span><span class="n">fh</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate checksum from data, as in gse_driver.c line 60</span>
+
+<span class="sd">    :type fh: file</span>
+<span class="sd">    :param fh: File Pointer</span>
+<span class="sd">    :type version: int</span>
+<span class="sd">    :param version: GSE version, either 1 or 2, defaults to 2.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">chksum_data</span> <span class="o">=</span> <span class="n">clibgse2</span><span class="o">.</span><span class="n">check_sum</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">C</span><span class="o">.</span><span class="n">c_int32</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="c1"># find checksum within file</span>
+    <span class="n">buf</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+    <span class="n">chksum_file</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">chk_line</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;CHK</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">version</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">buf</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">buf</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">chk_line</span><span class="p">):</span>
+            <span class="n">chksum_file</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">buf</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">break</span>
+        <span class="n">buf</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">chksum_data</span> <span class="o">!=</span> <span class="n">chksum_file</span><span class="p">:</span>
+        <span class="c1"># 2012-02-12, should be deleted in a year from now</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">chksum_data</span><span class="p">)</span> <span class="o">==</span> <span class="nb">abs</span><span class="p">(</span><span class="n">chksum_file</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Checksum differs only in absolute value. If this file &quot;</span> <span class="o">+</span> \
+                <span class="s2">&quot;was written with ObsPy GSE2, this is due to a bug in &quot;</span> <span class="o">+</span> \
+                <span class="s2">&quot;the obspy.io.gse2.write routine (resolved with [3431]), &quot;</span> <span class="o">+</span> \
+                <span class="s2">&quot;and thus this message can be safely ignored.&quot;</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Mismatching checksums, CHK </span><span class="si">%d</span><span class="s2"> != CHK </span><span class="si">%d</span><span class="s2">&quot;</span>
+        <span class="k">raise</span> <span class="n">ChksumError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="n">chksum_data</span><span class="p">,</span> <span class="n">chksum_file</span><span class="p">))</span>
+    <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="read_integer_data"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.gse2.libgse2.read_integer_data.html#obspy.io.gse2.libgse2.read_integer_data">[docs]</a><span class="k">def</span> <span class="nf">read_integer_data</span><span class="p">(</span><span class="n">fh</span><span class="p">,</span> <span class="n">npts</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads npts points of uncompressed integers from given file handler.</span>
+
+<span class="sd">    :type fh: file</span>
+<span class="sd">    :param fh: File Pointer</span>
+<span class="sd">    :type npts: int</span>
+<span class="sd">    :param npts: Number of samples to read</span>
+<span class="sd">    :rtype: :class:`numpy.ndarray`, dtype=int32</span>
+<span class="sd">    :return: Data as numpy.ndarray of type int32.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># find next DAT2 section within file</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">in_data_section</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">npts</span><span class="p">:</span>
+        <span class="n">buf</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">buf</span><span class="p">:</span>
+            <span class="c1"># break loop if no data is given</span>
+            <span class="k">break</span>
+        <span class="k">if</span> <span class="n">buf</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="sa">b</span><span class="s2">&quot;DAT1&quot;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&quot;DAT2&quot;</span><span class="p">):</span>
+            <span class="n">in_data_section</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">in_data_section</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">buf</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot; &quot;</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="read"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.gse2.libgse2.read.html#obspy.io.gse2.libgse2.read">[docs]</a><span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">verify_chksum</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read GSE2 file and return header and data.</span>
+
+<span class="sd">    Currently supports only CM6 compressed GSE2 files, this should be</span>
+<span class="sd">    sufficient for most cases. Data are in circular frequency counts, for</span>
+<span class="sd">    correction of calper multiply by 2PI and calper: data * 2 * pi *</span>
+<span class="sd">    header[&#39;calper&#39;].</span>
+
+<span class="sd">    :type f: file</span>
+<span class="sd">    :param f: Open file pointer of GSE2 file to read, opened in binary mode,</span>
+<span class="sd">              e.g. f = open(&#39;myfile&#39;,&#39;rb&#39;)</span>
+<span class="sd">    :type test_chksum: bool</span>
+<span class="sd">    :param verify_chksum: If True verify Checksum and raise Exception if it</span>
+<span class="sd">                          is not correct</span>
+<span class="sd">    :rtype: Dictionary, :class:`numpy.ndarray`, dtype=int32</span>
+<span class="sd">    :return: Header entries and data as numpy.ndarray of type int32.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">headdict</span> <span class="o">=</span> <span class="n">read_header</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">][</span><span class="s1">&#39;datatype&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;CM6&#39;</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">uncompress_cm6</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;npts&#39;</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;INT&#39;</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">read_integer_data</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;npts&#39;</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Unsupported data type </span><span class="si">%s</span><span class="s2"> in GSE2 file&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="c1"># test checksum only if enabled</span>
+    <span class="k">if</span> <span class="n">verify_chksum</span><span class="p">:</span>
+        <span class="n">verify_checksum</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">headdict</span><span class="p">,</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="write"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.gse2.libgse2.write.html#obspy.io.gse2.libgse2.write">[docs]</a><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">headdict</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write GSE2 file, given the header and data.</span>
+
+<span class="sd">    Currently supports only CM6 compressed GSE2 files, this should be</span>
+<span class="sd">    sufficient for most cases. Data are in circular frequency counts, for</span>
+<span class="sd">    correction of calper multiply by 2PI and calper:</span>
+<span class="sd">    data * 2 * pi * header[&#39;calper&#39;].</span>
+
+<span class="sd">    Warning: The data are actually compressed in place for performance</span>
+<span class="sd">    issues, if you still want to use the data afterwards use data.copy()</span>
+
+<span class="sd">    :note: headdict dictionary entries C{&#39;datatype&#39;, &#39;n_samps&#39;,</span>
+<span class="sd">           &#39;samp_rate&#39;} are absolutely necessary</span>
+<span class="sd">    :type data: :class:`numpy.ndarray`, dtype=int32</span>
+<span class="sd">    :param data: Contains the data.</span>
+<span class="sd">    :type f: file</span>
+<span class="sd">    :param f: Open file pointer of GSE2 file to write, opened in binary</span>
+<span class="sd">              mode, e.g. f = open(&#39;myfile&#39;,&#39;wb&#39;)</span>
+<span class="sd">    :type inplace: bool</span>
+<span class="sd">    :param inplace: If True, do compression not on a copy of the data but</span>
+<span class="sd">                    on the data itself --- note this will change the data</span>
+<span class="sd">                    values and make them therefore unusable</span>
+<span class="sd">    :type headdict: dict</span>
+<span class="sd">    :param headdict: ObsPy Header</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="n">chksum</span> <span class="o">=</span> <span class="n">clibgse2</span><span class="o">.</span><span class="n">check_sum</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">c_int32</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="c1"># Maximum values above 2^26 will result in corrupted/wrong data!</span>
+    <span class="c1"># do this after chksum as chksum does the type checking for NumPy array</span>
+    <span class="c1"># for you</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">inplace</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">26</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">OverflowError</span><span class="p">(</span><span class="s2">&quot;Compression Error, data must be less equal 2^26&quot;</span><span class="p">)</span>
+    <span class="n">clibgse2</span><span class="o">.</span><span class="n">diff_2nd</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">data_cm6</span> <span class="o">=</span> <span class="n">compress_cm6</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="c1"># set some defaults if not available and convert header entries</span>
+    <span class="n">headdict</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;calib&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">headdict</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;gse2&#39;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;auxid&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;datatype&#39;</span><span class="p">,</span> <span class="s1">&#39;CM6&#39;</span><span class="p">)</span>
+    <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;calper&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;instype&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;hang&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">headdict</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;vang&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># This is the actual function where the header is written. It avoids</span>
+    <span class="c1"># the different format of 10.4e with fprintf on Windows and Linux.</span>
+    <span class="c1"># For further details, see the __doc__ of write_header</span>
+    <span class="n">write_header</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">headdict</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;DAT2</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data_cm6</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span> <span class="o">+</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">((</span><span class="s2">&quot;CHK2 </span><span class="si">%8ld</span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">chksum</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="parse_sta2"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.gse2.libgse2.parse_sta2.html#obspy.io.gse2.libgse2.parse_sta2">[docs]</a><span class="k">def</span> <span class="nf">parse_sta2</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parses a string with a GSE2 STA2 header line.</span>
+
+<span class="sd">    Official Definition::</span>
+
+<span class="sd">        Position Name     Format    Description</span>
+<span class="sd">           1-4   &quot;STA2&quot;   a4        Must be &quot;STA2&quot;</span>
+<span class="sd">          6-14   Network  a9        Network identifier</span>
+<span class="sd">         16-34   Lat      f9.5      Latitude (degrees, S is negative)</span>
+<span class="sd">         36-45   Lon      f10.5     Longitude (degrees, W is negative)</span>
+<span class="sd">         47-58   Coordsys a12       Reference coordinate system (e.g., WGS-84)</span>
+<span class="sd">         60-64   Elev     f5.3      Elevation (km)</span>
+<span class="sd">         66-70   Edepth   f5.3      Emplacement depth (km)</span>
+
+<span class="sd">    Corrected Definition (end column of &quot;Lat&quot; field wrong)::</span>
+
+<span class="sd">        Position Name     Format    Description</span>
+<span class="sd">           1-4   &quot;STA2&quot;   a4        Must be &quot;STA2&quot;</span>
+<span class="sd">          6-14   Network  a9        Network identifier</span>
+<span class="sd">         16-24   Lat      f9.5      Latitude (degrees, S is negative)</span>
+<span class="sd">         26-35   Lon      f10.5     Longitude (degrees, W is negative)</span>
+<span class="sd">         37-48   Coordsys a12       Reference coordinate system (e.g., WGS-84)</span>
+<span class="sd">         50-54   Elev     f5.3      Elevation (km)</span>
+<span class="sd">         56-60   Edepth   f5.3      Emplacement depth (km)</span>
+
+<span class="sd">    However, many files in practice do not adhere to these defined fixed</span>
+<span class="sd">    positions. Here are some real-world examples:</span>
+
+<span class="sd">    &gt;&gt;&gt; l = &quot;STA2           -999.0000 -999.00000              -.999 -.999&quot;</span>
+<span class="sd">    &gt;&gt;&gt; for k, v in sorted(parse_sta2(l).items()):  \</span>
+<span class="sd">            # doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">    ...     print(k, v)</span>
+<span class="sd">    coordsys</span>
+<span class="sd">    edepth -0.999</span>
+<span class="sd">    elev -0.999</span>
+<span class="sd">    lat -999.0</span>
+<span class="sd">    lon -999.0</span>
+<span class="sd">    network</span>
+<span class="sd">    &gt;&gt;&gt; l = &quot;STA2 ABCD       12.34567   1.234567 WGS-84       -123.456 1.234&quot;</span>
+<span class="sd">    &gt;&gt;&gt; for k, v in sorted(parse_sta2(l).items()):</span>
+<span class="sd">    ...     print(k, v)</span>
+<span class="sd">    coordsys WGS-84</span>
+<span class="sd">    edepth 1.234</span>
+<span class="sd">    elev -123.456</span>
+<span class="sd">    lat 12.34567</span>
+<span class="sd">    lon 1.234567</span>
+<span class="sd">    network ABCD</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">lat</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">15</span><span class="p">:</span><span class="mi">24</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">lat</span><span class="p">:</span>
+            <span class="n">lat</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lat</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">lon</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">25</span><span class="p">:</span><span class="mi">35</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">lon</span><span class="p">:</span>
+            <span class="n">lon</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lon</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">elev_edepth</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">48</span><span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">elev</span><span class="p">,</span> <span class="n">edepth</span> <span class="o">=</span> <span class="n">elev_edepth</span> <span class="ow">or</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">elev</span><span class="p">:</span>
+            <span class="n">elev</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">elev</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">elev</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">edepth</span><span class="p">:</span>
+            <span class="n">edepth</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">edepth</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">edepth</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;network&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">14</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lat</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lon</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;coordsys&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">36</span><span class="p">:</span><span class="mi">48</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;elev&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">elev</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;edepth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">edepth</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;GSE2: Invalid STA2 header, ignoring.&#39;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">header</span></div>
+
+
+<div class="viewcode-block" id="compile_sta2"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.gse2.libgse2.compile_sta2.html#obspy.io.gse2.libgse2.compile_sta2">[docs]</a><span class="k">def</span> <span class="nf">compile_sta2</span><span class="p">(</span><span class="n">stats</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a STA2 line as a string (including newline at end) from a</span>
+<span class="sd">    :class:`~obspy.core.stats.Stats` object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fmt1</span> <span class="o">=</span> <span class="s2">&quot;STA2 </span><span class="si">%-9s</span><span class="s2"> </span><span class="si">%9s</span><span class="s2"> </span><span class="si">%10s</span><span class="s2"> </span><span class="si">%-12s</span><span class="s2"> &quot;</span>
+    <span class="n">fmt2</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%5s</span><span class="s2"> </span><span class="si">%5s</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="c1"># compile first part, problems can only arise with invalid lat/lon values</span>
+    <span class="c1"># or if coordsys has more than 12 characters. raise in case of problems.</span>
+    <span class="n">lat</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">)</span>
+    <span class="n">lon</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span>
+    <span class="n">coordsys</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;coordsys&#39;</span><span class="p">)</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">fmt1</span> <span class="o">%</span> <span class="p">(</span>
+        <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;network&#39;</span><span class="p">],</span>
+        <span class="n">lat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s1">&#39;</span><span class="si">{:9.5f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">lon</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s1">&#39;</span><span class="si">{:10.5f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">coordsys</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">49</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;GSE2: Invalid header values, unable to compile valid &quot;</span>
+               <span class="s2">&quot;STA2 line. Omitting STA2 line in output&quot;</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">()</span>
+    <span class="c1"># compile second part, in many cases it is impossible to adhere to manual.</span>
+    <span class="c1"># follow common practice, just not adhere to fixed format strictly.</span>
+    <span class="n">elev</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;elev&#39;</span><span class="p">)</span>
+    <span class="n">edepth</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;edepth&#39;</span><span class="p">)</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span> <span class="o">+</span> <span class="n">fmt2</span> <span class="o">%</span> <span class="p">(</span>
+        <span class="n">elev</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s1">&#39;</span><span class="si">{:5.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">elev</span><span class="p">)</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">edepth</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s1">&#39;</span><span class="si">{:5.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">edepth</span><span class="p">)</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">((</span><span class="s1">&#39;elev&#39;</span><span class="p">,</span> <span class="s1">&#39;edepth&#39;</span><span class="p">),</span> <span class="p">(</span><span class="n">elev</span><span class="p">,</span> <span class="n">edepth</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%5.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;gse2&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Bad value in GSE2 &#39;</span><span class="si">%s</span><span class="s2">&#39; header field detected. &quot;</span>
+                   <span class="s2">&quot;The last two header fields of the STA2 line in the &quot;</span>
+                   <span class="s2">&quot;output file will deviate from the official fixed &quot;</span>
+                   <span class="s2">&quot;column format description (because they can not be &quot;</span>
+                   <span class="s2">&quot;represented as &#39;</span><span class="si">%%</span><span class="s2">f5.3&#39; properly).&quot;</span><span class="p">)</span> <span class="o">%</span> <span class="n">key</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">line</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">)</span></div>
+
+
+<span class="c1"># Remove once 0.11 has been released.</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">DynamicAttributeImportRerouteModule</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="vm">__doc__</span><span class="p">,</span> <span class="n">locs</span><span class="o">=</span><span class="nb">locals</span><span class="p">(),</span>
+    <span class="n">original_module</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">],</span>
+    <span class="n">import_map</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">function_map</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;isGse2&#39;</span><span class="p">:</span> <span class="s1">&#39;obspy.io.gse2.libgse2.is_gse2&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;readHeader&#39;</span><span class="p">:</span> <span class="s1">&#39;obspy.io.gse2.libgse2.read_header&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;verifyChecksum&#39;</span><span class="p">:</span> <span class="s1">&#39;obspy.io.gse2.libgse2.verify_checksum&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;writeHeader&#39;</span><span class="p">:</span> <span class="s1">&#39;obspy.io.gse2.libgse2.write_header&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;compile_STA2&#39;</span><span class="p">:</span> <span class="s1">&#39;obspy.io.gse2.libgse2.compile_sta2&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;compress_CM6&#39;</span><span class="p">:</span> <span class="s1">&#39;obspy.io.gse2.libgse2.compress_cm6&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;parse_STA2&#39;</span><span class="p">:</span> <span class="s1">&#39;obspy.io.gse2.libgse2.parse_sta2&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;uncompress_CM6&#39;</span><span class="p">:</span> <span class="s1">&#39;obspy.io.gse2.libgse2.uncompress_cm6&#39;</span>
+    <span class="p">})</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

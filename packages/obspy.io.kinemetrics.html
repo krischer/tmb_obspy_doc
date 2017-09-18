@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.io.kinemetrics - Evt format support for ObsPy &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="obspy.io.mseed - MiniSEED read and write support" href="obspy.io.mseed.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../py-modindex.html" title="Python Module Index"
+         >modules</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="obspy.io.mseed.html" title="obspy.io.mseed - MiniSEED read and write support"
+         accesskey="N">next</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="index.html" accesskey="U">ObsPy Library Reference</a></li> 
+    </ol>
+  
+  <span class="target" id="module-obspy.io.kinemetrics"></span><div class="section" id="obspy-io-kinemetrics-evt-format-support-for-obspy">
+<h1>obspy.io.kinemetrics - Evt format support for ObsPy<a class="headerlink" href="#obspy-io-kinemetrics-evt-format-support-for-obspy" title="Permalink to this headline">¶</a></h1>
+<p>Evt read support for ObsPy.</p>
+<p>This module provides read support for the Evt Kinemetrics data format.
+It is based on the Kinemetrics description of the format and the provided
+C code (Kw2asc.c (see “KW2ASC.SRC” File in /doc section)).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">copyright:</th><td class="field-body">The ObsPy Development Team (<a class="reference external" href="mailto:devs&#37;&#52;&#48;obspy&#46;org">devs<span>&#64;</span>obspy<span>&#46;</span>org</a>), Henri Martin, Thomas Lecocq,
+Kinemetrics(c)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">license:</th><td class="field-body">GNU Lesser General Public License, Version 3
+(<a class="reference external" href="https://www.gnu.org/copyleft/lesser.html">https://www.gnu.org/copyleft/lesser.html</a>)</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="reading">
+<h2>Reading<a class="headerlink" href="#reading" title="Permalink to this headline">¶</a></h2>
+<p>Similar to reading any other waveform data format using obspy.core:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">read</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;/path/to/BI008_MEMA-04823.evt&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span>  
+<span class="go">&lt;obspy.core.stream.Stream object at 0x...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="p">(</span><span class="n">st</span><span class="p">)</span>  
+<span class="go">3 Trace(s) in Stream:</span>
+<span class="go">.MEMA..0 | 2013-08-15T09:20:28.000000Z - 2013-08-15T09:20:50.996000Z |</span>
+<span class="go">250.0 Hz, 5750 samples</span>
+<span class="go">.MEMA..1 | 2013-08-15T09:20:28.000000Z - 2013-08-15T09:20:50.996000Z |</span>
+<span class="go">250.0 Hz, 5750 samples</span>
+<span class="go">.MEMA..2 | 2013-08-15T09:20:28.000000Z - 2013-08-15T09:20:50.996000Z |</span>
+<span class="go">250.0 Hz, 5750 samples</span>
+</pre></div>
+</div>
+<p>Each trace will have a <code class="docutils literal"><span class="pre">stats</span></code> attribute containing the usual information and
+a <code class="docutils literal"><span class="pre">kinemetrics_evt</span></code> dictionary with specific attributes.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">All the Header’s attributes are not read (can be implemented if necessary
+for someone.)</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stats_evt</span> <span class="o">=</span> <span class="n">st</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;kinemetrics_evt&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">st</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="p">)</span>  
+<span class="go">         network:</span>
+<span class="go">         station: MEMA</span>
+<span class="go">        location:</span>
+<span class="go">         channel: 0</span>
+<span class="go">       starttime: 2013-08-15T09:20:28.000000Z</span>
+<span class="go">         endtime: 2013-08-15T09:20:50.996000Z</span>
+<span class="go">   sampling_rate: 250.0</span>
+<span class="go">           delta: 0.004</span>
+<span class="go">            npts: 5750</span>
+<span class="go">           calib: 1.0</span>
+<span class="go">         _format: KINEMETRICS_EVT</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">stats_evt</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="gp">... </span>    
+<span class="go">a2dbits 24</span>
+<span class="go">batteryvoltage -134</span>
+<span class="go">chan_azimuth 0</span>
+<span class="go">chan_calcoil 0.05000000074...</span>
+<span class="go">chan_damping 0.70700001716...</span>
+<span class="go">chan_east 0</span>
+<span class="go">chan_fullscale 2.5</span>
+<span class="go">chan_gain 1</span>
+<span class="go">chan_id</span>
+<span class="go">chan_natfreq 196.0</span>
+<span class="go">chan_north 0</span>
+<span class="go">chan_range 3</span>
+<span class="go">chan_sensitivity 2.5</span>
+<span class="go">chan_sensorgain 1</span>
+<span class="go">chan_up 0</span>
+<span class="go">comment MEMBACH</span>
+<span class="go">duration 230</span>
+<span class="go">elevation 298</span>
+<span class="go">gpslastlock 2013-08-15T09:19:20.000Z</span>
+<span class="go">gpsstatus Present ON</span>
+<span class="go">installedchan 4</span>
+<span class="go">instrument New Etna</span>
+<span class="go">latitude 50.609794616...</span>
+<span class="go">longitude 6.0092501640...</span>
+<span class="go">maxchannels 12</span>
+<span class="go">nchannels 3</span>
+<span class="go">nscans 6</span>
+<span class="go">samplebytes 3</span>
+<span class="go">serialnumber 4823</span>
+<span class="go">starttime 2013-08-15T09:20:28.000Z</span>
+<span class="go">stnid MEMA</span>
+<span class="go">temperature 76</span>
+<span class="go">triggertime 2013-08-15T09:20:34.600Z</span>
+</pre></div>
+</div>
+<p>The actual data is stored as <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.13)"><code class="xref py py-class docutils literal"><span class="pre">numpy.ndarray</span></code></a> in the <code class="docutils literal"><span class="pre">data</span></code> attribute
+of each trace.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">st</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>  
+<span class="go">&lt;... &#39;numpy.ndarray&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="go">[-0.02446475 -0.02453492 -0.02446709 ..., -0.02452556 -0.02450685</span>
+<span class="go"> -0.02442499]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="writing">
+<h2>Writing<a class="headerlink" href="#writing" title="Permalink to this headline">¶</a></h2>
+<p>Not implemented</p>
+</div>
+<div class="section" id="modules">
+<h2>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="autogen/obspy.io.kinemetrics.core.html#module-obspy.io.kinemetrics.core" title="obspy.io.kinemetrics.core"><code class="xref py py-obj docutils literal"><span class="pre">core</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

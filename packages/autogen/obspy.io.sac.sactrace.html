@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.io.sac.sactrace &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../contents.html">ObsPy Documentation (1.0.3)</a></li> 
+    </ol>
+  
+  <div class="section" id="module-obspy.io.sac.sactrace">
+<span id="obspy-io-sac-sactrace"></span><h1>obspy.io.sac.sactrace<a class="headerlink" href="#module-obspy.io.sac.sactrace" title="Permalink to this headline">¶</a></h1>
+<p>Python interface to the Seismic Analysis Code (SAC) file format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">copyright:</th><td class="field-body">The Los Alamos National Security, LLC, Yannik Behr, C. J. Ammon,
+C. Satriano, L. Krischer, and J. MacCarthy</td>
+</tr>
+<tr class="field-even field"><th class="field-name">license:</th><td class="field-body">GNU Lesser General Public License, Version 3
+(<a class="reference external" href="https://www.gnu.org/copyleft/lesser.html">https://www.gnu.org/copyleft/lesser.html</a>)</td>
+</tr>
+</tbody>
+</table>
+<p>The SACTrace object maintains consistency between SAC headers and manages
+header values in a user-friendly way. This includes some value-checking, native
+Python logicals (True, False) and nulls (None) instead of SAC’s 0, 1, or
+-12345…</p>
+<p>SAC headers are implemented as properties, with appropriate getters and
+setters.</p>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><strong>Read and write SAC binary or ASCII</strong><ul>
+<li>autodetect or specify expected byteorder</li>
+<li>optional file size checking and/or header consistency checks</li>
+<li>header-only reading and writing</li>
+<li>“overwrite OK” checking (‘lovrok’ header)</li>
+</ul>
+</li>
+<li><strong>Convenient access and manipulation of relative and absolute time
+headers</strong></li>
+<li><strong>User-friendly header printing/viewing</strong></li>
+<li><strong>Fast access to header values from attributes</strong><ul>
+<li>With type checking, null handling, and enumerated value checking</li>
+</ul>
+</li>
+<li><strong>Convert to/from ObsPy Traces</strong><ul>
+<li>Conversion from ObsPy Trace to SAC trace retains detected previous
+SAC header values.</li>
+<li>Conversion to ObsPy Trace retains the <em>complete</em> SAC header.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="section" id="usage-examples">
+<h2>Usage examples<a class="headerlink" href="#usage-examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="read-write-sac-files">
+<h3>Read/write SAC files<a class="headerlink" href="#read-write-sac-files" title="Permalink to this headline">¶</a></h3>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># read from a binary file</span>
+<span class="n">sac</span> <span class="o">=</span> <span class="n">SACTrace</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+<span class="c1"># read header only</span>
+<span class="n">sac</span> <span class="o">=</span> <span class="n">SACTrace</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># write header-only, file must exist</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># read from an ASCII file</span>
+<span class="n">sac</span> <span class="o">=</span> <span class="n">SACTrace</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">ascii</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># write a binary SAC file for a Sun machine</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;big&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="build-a-sactrace-from-a-header-dictionary-and-data-array">
+<h3>Build a SACTrace from a header dictionary and data array<a class="headerlink" href="#build-a-sactrace-from-a-header-dictionary-and-data-array" title="Permalink to this headline">¶</a></h3>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;kstnm&#39;</span><span class="p">:</span> <span class="s1">&#39;ANMO&#39;</span><span class="p">,</span> <span class="s1">&#39;kcmpnm&#39;</span><span class="p">:</span> <span class="s1">&#39;BHZ&#39;</span><span class="p">,</span> <span class="s1">&#39;stla&#39;</span><span class="p">:</span> <span class="mf">40.5</span><span class="p">,</span> <span class="s1">&#39;stlo&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">108.23</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="s1">&#39;evla&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">15.123</span><span class="p">,</span> <span class="s1">&#39;evlo&#39;</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span> <span class="s1">&#39;evdp&#39;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="s1">&#39;nzyear&#39;</span><span class="p">:</span> <span class="mi">2012</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="s1">&#39;nzjday&#39;</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span> <span class="s1">&#39;nzhour&#39;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span> <span class="s1">&#39;nzmin&#39;</span><span class="p">:</span> <span class="mi">43</span><span class="p">,</span> <span class="s1">&#39;nzsec&#39;</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="s1">&#39;nzmsec&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;delta&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="o">/</span><span class="mi">40</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sac</span> <span class="o">=</span> <span class="n">SACTrace</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="o">**</span><span class="n">header</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sac</span><span class="p">)</span>  
+<span class="go">Reference Time = 05/02/2012 (123) 13:43:17.100000</span>
+<span class="go">   iztype IB: begin time</span>
+<span class="go">b          = 0.0</span>
+<span class="go">delta      = 0.0250000...</span>
+<span class="go">e          = 2.4750000...</span>
+<span class="go">evdp       = 50.0</span>
+<span class="go">evla       = -15.123000...</span>
+<span class="go">evlo       = 123.0</span>
+<span class="go">iftype     = itime</span>
+<span class="go">internal0  = 2.0</span>
+<span class="go">iztype     = ib</span>
+<span class="go">kcmpnm     = BHZ</span>
+<span class="go">kstnm      = ANMO</span>
+<span class="go">lcalda     = False</span>
+<span class="go">leven      = True</span>
+<span class="go">lovrok     = True</span>
+<span class="go">lpspol     = True</span>
+<span class="go">npts       = 100</span>
+<span class="go">nvhdr      = 6</span>
+<span class="go">nzhour     = 13</span>
+<span class="go">nzjday     = 123</span>
+<span class="go">nzmin      = 43</span>
+<span class="go">nzmsec     = 100</span>
+<span class="go">nzsec      = 17</span>
+<span class="go">nzyear     = 2012</span>
+<span class="go">stla       = 40.5</span>
+<span class="go">stlo       = -108.23000...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reference-time-and-relative-time-headers">
+<h3>Reference-time and relative time headers<a class="headerlink" href="#reference-time-and-relative-time-headers" title="Permalink to this headline">¶</a></h3>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sac</span> <span class="o">=</span> <span class="n">SACTrace</span><span class="p">(</span><span class="n">nzyear</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">nzjday</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nzhour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nzmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nzsec</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="gp">... </span>               <span class="n">nzmsec</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">t1</span><span class="o">=</span><span class="mf">23.5</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sac</span><span class="o">.</span><span class="n">reftime</span><span class="p">)</span>
+<span class="go">2000-01-01T00:00:00.000000Z</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sac</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">sac</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="n">sac</span><span class="o">.</span><span class="n">t1</span>
+<span class="go">(0.0, 99.0, 23.5)</span>
+</pre></div>
+</div>
+<p>Move reference time by relative seconds, relative time headers are
+preserved.</p>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sac</span> <span class="o">=</span> <span class="n">SACTrace</span><span class="p">(</span><span class="n">nzyear</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">nzjday</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nzhour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nzmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nzsec</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="gp">... </span>               <span class="n">nzmsec</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">t1</span><span class="o">=</span><span class="mf">23.5</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sac</span><span class="o">.</span><span class="n">reftime</span> <span class="o">-=</span> <span class="mf">2.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sac</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">sac</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="n">sac</span><span class="o">.</span><span class="n">t1</span>
+<span class="go">(2.5, 101.5, 26.0)</span>
+</pre></div>
+</div>
+<p>Set reference time to new absolute time, relative time headers are
+preserved.</p>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sac</span> <span class="o">=</span> <span class="n">SACTrace</span><span class="p">(</span><span class="n">nzyear</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">nzjday</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nzhour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nzmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nzsec</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="gp">... </span>               <span class="n">nzmsec</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">t1</span><span class="o">=</span><span class="mf">23.5</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># set the reftime two minutes later</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sac</span><span class="o">.</span><span class="n">reftime</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sac</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">sac</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="n">sac</span><span class="o">.</span><span class="n">t1</span>
+<span class="go">(-120.0, -21.0, -96.5)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="quick-header-viewing">
+<h3>Quick header viewing<a class="headerlink" href="#quick-header-viewing" title="Permalink to this headline">¶</a></h3>
+<p>Print non-null header values.</p>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sac</span> <span class="o">=</span> <span class="n">SACTrace</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sac</span><span class="p">)</span>  
+<span class="go">Reference Time = 01/01/1970 (001) 00:00:00.000000</span>
+<span class="go">   iztype IB: begin time</span>
+<span class="go">b          = 0.0</span>
+<span class="go">delta      = 1.0</span>
+<span class="go">e          = 0.0</span>
+<span class="go">iftype     = itime</span>
+<span class="go">internal0  = 2.0</span>
+<span class="go">iztype     = ib</span>
+<span class="go">lcalda     = False</span>
+<span class="go">leven      = True</span>
+<span class="go">lovrok     = True</span>
+<span class="go">lpspol     = True</span>
+<span class="go">npts       = 0</span>
+<span class="go">nvhdr      = 6</span>
+<span class="go">nzhour     = 0</span>
+<span class="go">nzjday     = 1</span>
+<span class="go">nzmin      = 0</span>
+<span class="go">nzmsec     = 0</span>
+<span class="go">nzsec      = 0</span>
+<span class="go">nzyear     = 1970</span>
+</pre></div>
+</div>
+<p>Print relative time header values.</p>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sac</span> <span class="o">=</span> <span class="n">SACTrace</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sac</span><span class="o">.</span><span class="n">lh</span><span class="p">(</span><span class="s1">&#39;picks&#39;</span><span class="p">)</span>  
+<span class="go">Reference Time = 01/01/1970 (001) 00:00:00.000000</span>
+<span class="go">   iztype IB: begin time</span>
+<span class="go">a          = None</span>
+<span class="go">b          = 0.0</span>
+<span class="go">e          = 0.0</span>
+<span class="go">f          = None</span>
+<span class="go">o          = None</span>
+<span class="go">t0         = None</span>
+<span class="go">t1         = None</span>
+<span class="go">t2         = None</span>
+<span class="go">t3         = None</span>
+<span class="go">t4         = None</span>
+<span class="go">t5         = None</span>
+<span class="go">t6         = None</span>
+<span class="go">t7         = None</span>
+<span class="go">t8         = None</span>
+<span class="go">t9         = None</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="header-values-as-attributes">
+<h3>Header values as attributes<a class="headerlink" href="#header-values-as-attributes" title="Permalink to this headline">¶</a></h3>
+<p>Great for interactive use, with (ipython) tab-completion…</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">sac</span><span class="o">.&lt;</span><span class="n">tab</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sac</span><span class="o">.</span><span class="n">a</span>                 <span class="n">sac</span><span class="o">.</span><span class="n">kevnm</span>             <span class="n">sac</span><span class="o">.</span><span class="n">nzsec</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">az</span>                <span class="n">sac</span><span class="o">.</span><span class="n">kf</span>                <span class="n">sac</span><span class="o">.</span><span class="n">nzyear</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">b</span>                 <span class="n">sac</span><span class="o">.</span><span class="n">khole</span>             <span class="n">sac</span><span class="o">.</span><span class="n">o</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">baz</span>               <span class="n">sac</span><span class="o">.</span><span class="n">kinst</span>             <span class="n">sac</span><span class="o">.</span><span class="n">odelta</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">byteorder</span>         <span class="n">sac</span><span class="o">.</span><span class="n">knetwk</span>            <span class="n">sac</span><span class="o">.</span><span class="n">read</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">cmpaz</span>             <span class="n">sac</span><span class="o">.</span><span class="n">ko</span>                <span class="n">sac</span><span class="o">.</span><span class="n">reftime</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">cmpinc</span>            <span class="n">sac</span><span class="o">.</span><span class="n">kstnm</span>             <span class="n">sac</span><span class="o">.</span><span class="n">scale</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">copy</span>              <span class="n">sac</span><span class="o">.</span><span class="n">kt0</span>               <span class="n">sac</span><span class="o">.</span><span class="n">stdp</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">data</span>              <span class="n">sac</span><span class="o">.</span><span class="n">kt1</span>               <span class="n">sac</span><span class="o">.</span><span class="n">stel</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">delta</span>             <span class="n">sac</span><span class="o">.</span><span class="n">kt2</span>               <span class="n">sac</span><span class="o">.</span><span class="n">stla</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">depmax</span>            <span class="n">sac</span><span class="o">.</span><span class="n">kt3</span>               <span class="n">sac</span><span class="o">.</span><span class="n">stlo</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">depmen</span>            <span class="n">sac</span><span class="o">.</span><span class="n">kt4</span>               <span class="n">sac</span><span class="o">.</span><span class="n">t0</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">depmin</span>            <span class="n">sac</span><span class="o">.</span><span class="n">kt5</span>               <span class="n">sac</span><span class="o">.</span><span class="n">t1</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">dist</span>              <span class="n">sac</span><span class="o">.</span><span class="n">kt6</span>               <span class="n">sac</span><span class="o">.</span><span class="n">t2</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">e</span>                 <span class="n">sac</span><span class="o">.</span><span class="n">kt7</span>               <span class="n">sac</span><span class="o">.</span><span class="n">t3</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">evdp</span>              <span class="n">sac</span><span class="o">.</span><span class="n">kt8</span>               <span class="n">sac</span><span class="o">.</span><span class="n">t4</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">evla</span>              <span class="n">sac</span><span class="o">.</span><span class="n">kt9</span>               <span class="n">sac</span><span class="o">.</span><span class="n">t5</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">evlo</span>              <span class="n">sac</span><span class="o">.</span><span class="n">kuser0</span>            <span class="n">sac</span><span class="o">.</span><span class="n">t6</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">f</span>                 <span class="n">sac</span><span class="o">.</span><span class="n">kuser1</span>            <span class="n">sac</span><span class="o">.</span><span class="n">t7</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">from_obspy_trace</span>  <span class="n">sac</span><span class="o">.</span><span class="n">kuser2</span>            <span class="n">sac</span><span class="o">.</span><span class="n">t8</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">gcarc</span>             <span class="n">sac</span><span class="o">.</span><span class="n">lcalda</span>            <span class="n">sac</span><span class="o">.</span><span class="n">t9</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">idep</span>              <span class="n">sac</span><span class="o">.</span><span class="n">leven</span>             <span class="n">sac</span><span class="o">.</span><span class="n">to_obspy_trace</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">ievreg</span>            <span class="n">sac</span><span class="o">.</span><span class="n">lh</span>                <span class="n">sac</span><span class="o">.</span><span class="n">unused23</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">ievtyp</span>            <span class="n">sac</span><span class="o">.</span><span class="n">listhdr</span>           <span class="n">sac</span><span class="o">.</span><span class="n">user0</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">iftype</span>            <span class="n">sac</span><span class="o">.</span><span class="n">lovrok</span>            <span class="n">sac</span><span class="o">.</span><span class="n">user1</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">iinst</span>             <span class="n">sac</span><span class="o">.</span><span class="n">lpspol</span>            <span class="n">sac</span><span class="o">.</span><span class="n">user2</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">imagsrc</span>           <span class="n">sac</span><span class="o">.</span><span class="n">mag</span>               <span class="n">sac</span><span class="o">.</span><span class="n">user3</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">imagtyp</span>           <span class="n">sac</span><span class="o">.</span><span class="n">nevid</span>             <span class="n">sac</span><span class="o">.</span><span class="n">user4</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">internal0</span>         <span class="n">sac</span><span class="o">.</span><span class="n">norid</span>             <span class="n">sac</span><span class="o">.</span><span class="n">user5</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">iqual</span>             <span class="n">sac</span><span class="o">.</span><span class="n">npts</span>              <span class="n">sac</span><span class="o">.</span><span class="n">user6</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">istreg</span>            <span class="n">sac</span><span class="o">.</span><span class="n">nvhdr</span>             <span class="n">sac</span><span class="o">.</span><span class="n">user7</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">isynth</span>            <span class="n">sac</span><span class="o">.</span><span class="n">nwfid</span>             <span class="n">sac</span><span class="o">.</span><span class="n">user8</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">iztype</span>            <span class="n">sac</span><span class="o">.</span><span class="n">nzhour</span>            <span class="n">sac</span><span class="o">.</span><span class="n">user9</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">ka</span>                <span class="n">sac</span><span class="o">.</span><span class="n">nzjday</span>            <span class="n">sac</span><span class="o">.</span><span class="n">validate</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">kcmpnm</span>            <span class="n">sac</span><span class="o">.</span><span class="n">nzmin</span>             <span class="n">sac</span><span class="o">.</span><span class="n">write</span>
+<span class="n">sac</span><span class="o">.</span><span class="n">kdatrd</span>            <span class="n">sac</span><span class="o">.</span><span class="n">nzmsec</span>
+</pre></div>
+</div>
+<p>…and documentation (in IPython)!</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span>sac.iztype?
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Type</span><span class="p">:</span>        <span class="nb">property</span>
+<span class="n">String</span> <span class="n">form</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">property</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x106404940</span><span class="o">&gt;</span>
+<span class="n">Docstring</span><span class="p">:</span>
+<span class="n">I</span>    <span class="n">Reference</span> <span class="n">time</span> <span class="n">equivalence</span><span class="p">:</span>
+
+<span class="o">*</span> <span class="n">IUNKN</span> <span class="p">(</span><span class="mi">5</span><span class="p">):</span> <span class="n">Unknown</span>
+<span class="o">*</span> <span class="n">IB</span> <span class="p">(</span><span class="mi">9</span><span class="p">):</span> <span class="n">Begin</span> <span class="n">time</span>
+<span class="o">*</span> <span class="n">IDAY</span> <span class="p">(</span><span class="mi">10</span><span class="p">):</span> <span class="n">Midnight</span> <span class="n">of</span> <span class="n">reference</span> <span class="n">GMT</span> <span class="n">day</span>
+<span class="o">*</span> <span class="n">IO</span> <span class="p">(</span><span class="mi">11</span><span class="p">):</span> <span class="n">Event</span> <span class="n">origin</span> <span class="n">time</span>
+<span class="o">*</span> <span class="n">IA</span> <span class="p">(</span><span class="mi">12</span><span class="p">):</span> <span class="n">First</span> <span class="n">arrival</span> <span class="n">time</span>
+<span class="o">*</span> <span class="n">ITn</span> <span class="p">(</span><span class="mi">13</span><span class="o">-</span><span class="mi">22</span><span class="p">):</span> <span class="n">User</span> <span class="n">defined</span> <span class="n">time</span> <span class="n">pick</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">9</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="convert-to-from-obspy-traces">
+<h3>Convert to/from ObsPy Traces<a class="headerlink" href="#convert-to-from-obspy-traces" title="Permalink to this headline">¶</a></h3>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">read</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">read</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="p">)</span>  
+<span class="go">         network: BW</span>
+<span class="go">         station: RJOB</span>
+<span class="go">        location:</span>
+<span class="go">         channel: EHZ</span>
+<span class="go">       starttime: 2009-08-24T00:20:03.000000Z</span>
+<span class="go">         endtime: 2009-08-24T00:20:32.990000Z</span>
+<span class="go">   sampling_rate: 100.0</span>
+<span class="go">           delta: 0.01</span>
+<span class="go">            npts: 3000</span>
+<span class="go">           calib: 1.0</span>
+<span class="go">    back_azimuth: 100.0</span>
+<span class="go">     inclination: 30.0</span>
+<span class="go">        response: Channel Response</span>
+<span class="go">            ...</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sac</span> <span class="o">=</span> <span class="n">SACTrace</span><span class="o">.</span><span class="n">from_obspy_trace</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sac</span><span class="p">)</span>  
+<span class="go">Reference Time = 08/24/2009 (236) 00:20:03.000000</span>
+<span class="go">   iztype IB: begin time</span>
+<span class="go">b          = 0.0</span>
+<span class="go">delta      = 0.009999999...</span>
+<span class="go">e          = 29.989999...</span>
+<span class="go">iftype     = itime</span>
+<span class="go">iztype     = ib</span>
+<span class="go">kcmpnm     = EHZ</span>
+<span class="go">knetwk     = BW</span>
+<span class="go">kstnm      = RJOB</span>
+<span class="go">lcalda     = False</span>
+<span class="go">leven      = True</span>
+<span class="go">lovrok     = True</span>
+<span class="go">lpspol     = True</span>
+<span class="go">npts       = 3000</span>
+<span class="go">nvhdr      = 6</span>
+<span class="go">nzhour     = 0</span>
+<span class="go">nzjday     = 236</span>
+<span class="go">nzmin      = 20</span>
+<span class="go">nzmsec     = 0</span>
+<span class="go">nzsec      = 3</span>
+<span class="go">nzyear     = 2009</span>
+<span class="go">scale      = 1.0</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tr2</span> <span class="o">=</span> <span class="n">sac</span><span class="o">.</span><span class="n">to_obspy_trace</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr2</span><span class="o">.</span><span class="n">stats</span><span class="p">)</span>  
+<span class="go">         network: BW</span>
+<span class="go">         station: RJOB</span>
+<span class="go">        location:</span>
+<span class="go">         channel: EHZ</span>
+<span class="go">       starttime: 2009-08-24T00:20:03.000000Z</span>
+<span class="go">         endtime: 2009-08-24T00:20:32.990000Z</span>
+<span class="go">   sampling_rate: 100.0</span>
+<span class="go">           delta: 0.01</span>
+<span class="go">            npts: 3000</span>
+<span class="go">           calib: 1.0</span>
+<span class="go">             sac: AttribDict(...)</span>
+</pre></div>
+</div>
+<p class="rubric">Private Functions</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Private functions are mainly for internal/developer use and their API might change without notice.</p>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.sac.sactrace._boolgetter.html#obspy.io.sac.sactrace._boolgetter" title="obspy.io.sac.sactrace._boolgetter"><code class="xref py py-obj docutils literal"><span class="pre">_boolgetter</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.sac.sactrace._boolsetter.html#obspy.io.sac.sactrace._boolsetter" title="obspy.io.sac.sactrace._boolsetter"><code class="xref py py-obj docutils literal"><span class="pre">_boolsetter</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.sac.sactrace._enumgetter.html#obspy.io.sac.sactrace._enumgetter" title="obspy.io.sac.sactrace._enumgetter"><code class="xref py py-obj docutils literal"><span class="pre">_enumgetter</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.sac.sactrace._enumsetter.html#obspy.io.sac.sactrace._enumsetter" title="obspy.io.sac.sactrace._enumsetter"><code class="xref py py-obj docutils literal"><span class="pre">_enumsetter</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.sac.sactrace._floatgetter.html#obspy.io.sac.sactrace._floatgetter" title="obspy.io.sac.sactrace._floatgetter"><code class="xref py py-obj docutils literal"><span class="pre">_floatgetter</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.sac.sactrace._floatsetter.html#obspy.io.sac.sactrace._floatsetter" title="obspy.io.sac.sactrace._floatsetter"><code class="xref py py-obj docutils literal"><span class="pre">_floatsetter</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.sac.sactrace._geosetter.html#obspy.io.sac.sactrace._geosetter" title="obspy.io.sac.sactrace._geosetter"><code class="xref py py-obj docutils literal"><span class="pre">_geosetter</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.sac.sactrace._get_e.html#obspy.io.sac.sactrace._get_e" title="obspy.io.sac.sactrace._get_e"><code class="xref py py-obj docutils literal"><span class="pre">_get_e</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.sac.sactrace._get_kevnm.html#obspy.io.sac.sactrace._get_kevnm" title="obspy.io.sac.sactrace._get_kevnm"><code class="xref py py-obj docutils literal"><span class="pre">_get_kevnm</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.sac.sactrace._intgetter.html#obspy.io.sac.sactrace._intgetter" title="obspy.io.sac.sactrace._intgetter"><code class="xref py py-obj docutils literal"><span class="pre">_intgetter</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.sac.sactrace._intsetter.html#obspy.io.sac.sactrace._intsetter" title="obspy.io.sac.sactrace._intsetter"><code class="xref py py-obj docutils literal"><span class="pre">_intsetter</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.sac.sactrace._make_data_func.html#obspy.io.sac.sactrace._make_data_func" title="obspy.io.sac.sactrace._make_data_func"><code class="xref py py-obj docutils literal"><span class="pre">_make_data_func</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.sac.sactrace._reltime_setter.html#obspy.io.sac.sactrace._reltime_setter" title="obspy.io.sac.sactrace._reltime_setter"><code class="xref py py-obj docutils literal"><span class="pre">_reltime_setter</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.sac.sactrace._set_iztype.html#obspy.io.sac.sactrace._set_iztype" title="obspy.io.sac.sactrace._set_iztype"><code class="xref py py-obj docutils literal"><span class="pre">_set_iztype</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.sac.sactrace._set_kevnm.html#obspy.io.sac.sactrace._set_kevnm" title="obspy.io.sac.sactrace._set_kevnm"><code class="xref py py-obj docutils literal"><span class="pre">_set_kevnm</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.sac.sactrace._set_lcalda.html#obspy.io.sac.sactrace._set_lcalda" title="obspy.io.sac.sactrace._set_lcalda"><code class="xref py py-obj docutils literal"><span class="pre">_set_lcalda</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.sac.sactrace._strgetter.html#obspy.io.sac.sactrace._strgetter" title="obspy.io.sac.sactrace._strgetter"><code class="xref py py-obj docutils literal"><span class="pre">_strgetter</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.sac.sactrace._strsetter.html#obspy.io.sac.sactrace._strsetter" title="obspy.io.sac.sactrace._strsetter"><code class="xref py py-obj docutils literal"><span class="pre">_strsetter</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.sac.sactrace.SACTrace.html#obspy.io.sac.sactrace.SACTrace" title="obspy.io.sac.sactrace.SACTrace"><code class="xref py py-obj docutils literal"><span class="pre">SACTrace</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

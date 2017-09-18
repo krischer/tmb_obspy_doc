@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.core.stream.Stream.plot &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../contents.html">ObsPy Documentation (1.0.3)</a></li> 
+    </ol>
+  
+  <div class="section" id="obspy-core-stream-stream-plot">
+<h1>obspy.core.stream.Stream.plot<a class="headerlink" href="#obspy-core-stream-stream-plot" title="Permalink to this headline">¶</a></h1>
+<dl class="method">
+<dt id="obspy.core.stream.Stream.plot">
+<code class="descclassname">Stream.</code><code class="descname">plot</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/obspy/core/stream.html#Stream.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#obspy.core.stream.Stream.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a waveform plot of the current ObsPy Stream object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>outfile</strong> – Output file string. Also used to automatically
+determine the output format. Supported file formats depend on your
+matplotlib backend. Most backends support png, pdf, ps, eps and
+svg. Defaults to <code class="docutils literal"><span class="pre">None</span></code>.</li>
+<li><strong>format</strong> – Format of the graph picture. If no format is given the
+outfile parameter will be used to try to automatically determine
+the output format. If no format is found it defaults to png output.
+If no outfile is specified but a format is, than a binary
+imagestring will be returned.
+Defaults to <code class="docutils literal"><span class="pre">None</span></code>.</li>
+<li><strong>starttime</strong> – Start time of the graph as a
+<a class="reference internal" href="obspy.core.utcdatetime.UTCDateTime.html#obspy.core.utcdatetime.UTCDateTime" title="obspy.core.utcdatetime.UTCDateTime"><code class="xref py py-class docutils literal"><span class="pre">UTCDateTime</span></code></a> object. If not set
+the graph will be plotted from the beginning.
+Defaults to <code class="docutils literal"><span class="pre">None</span></code>.</li>
+<li><strong>endtime</strong> – End time of the graph as a
+<a class="reference internal" href="obspy.core.utcdatetime.UTCDateTime.html#obspy.core.utcdatetime.UTCDateTime" title="obspy.core.utcdatetime.UTCDateTime"><code class="xref py py-class docutils literal"><span class="pre">UTCDateTime</span></code></a> object. If not set
+the graph will be plotted until the end.
+Defaults to <code class="docutils literal"><span class="pre">None</span></code>.</li>
+<li><strong>fig</strong> – Use an existing matplotlib figure instance.
+Defaults to <code class="docutils literal"><span class="pre">None</span></code>.</li>
+<li><strong>automerge</strong> – If automerge is True, Traces with the same id will be
+merged.
+Defaults to <code class="docutils literal"><span class="pre">True</span></code>.</li>
+<li><strong>size</strong> – Size tuple in pixel for the output file. This corresponds
+to the resolution of the graph for vector formats.
+Defaults to <code class="docutils literal"><span class="pre">(800,</span> <span class="pre">250)</span></code> pixel per channel for <code class="docutils literal"><span class="pre">type='normal'</span></code>
+or <code class="docutils literal"><span class="pre">type='relative'</span></code>, <code class="docutils literal"><span class="pre">(800,</span> <span class="pre">600)</span></code> for <code class="docutils literal"><span class="pre">type='dayplot'</span></code>, and
+<code class="docutils literal"><span class="pre">(1000,</span> <span class="pre">600)</span></code> for <code class="docutils literal"><span class="pre">type='section'</span></code>.</li>
+<li><strong>dpi</strong> – Dots per inch of the output file. This also affects the
+size of most elements in the graph (text, linewidth, …).
+Defaults to <code class="docutils literal"><span class="pre">100</span></code>.</li>
+<li><strong>color</strong> – Color of the graph as a matplotlib color string as
+described below. If <code class="docutils literal"><span class="pre">type='dayplot'</span></code> a list/tuple of color
+strings is expected that will be periodically repeated for each
+line plotted. If <code class="docutils literal"><span class="pre">type='section'</span></code> then the values <code class="docutils literal"><span class="pre">'network'</span></code>,
+<code class="docutils literal"><span class="pre">'station'</span></code> or <code class="docutils literal"><span class="pre">'channel'</span></code> are also accepted, and traces will
+be uniquely colored by the given information.
+Defaults to <code class="docutils literal"><span class="pre">'black'</span></code> or to <code class="docutils literal"><span class="pre">('#B2000F',</span> <span class="pre">'#004C12',</span> <span class="pre">'#847200',</span>
+<span class="pre">'#0E01FF')</span></code> for <code class="docutils literal"><span class="pre">type='dayplot'</span></code>.</li>
+<li><strong>bgcolor</strong> – Background color of the graph.
+Defaults to <code class="docutils literal"><span class="pre">'white'</span></code>.</li>
+<li><strong>face_color</strong> – Face color of the matplotlib canvas.
+Defaults to <code class="docutils literal"><span class="pre">'white'</span></code>.</li>
+<li><strong>transparent</strong> – Make all backgrounds transparent (True/False). This
+will override the <code class="docutils literal"><span class="pre">bgcolor</span></code> and <code class="docutils literal"><span class="pre">face_color</span></code> arguments.
+Defaults to <code class="docutils literal"><span class="pre">False</span></code>.</li>
+<li><strong>number_of_ticks</strong> – The number of ticks on the x-axis.
+Defaults to <code class="docutils literal"><span class="pre">4</span></code>.</li>
+<li><strong>tick_format</strong> – The way the time axis is formatted.
+Defaults to <code class="docutils literal"><span class="pre">'%H:%M:%S'</span></code> or <code class="docutils literal"><span class="pre">'%.2f'</span></code> if <code class="docutils literal"><span class="pre">type='relative'</span></code>.</li>
+<li><strong>tick_rotation</strong> – Tick rotation in degrees.
+Defaults to <code class="docutils literal"><span class="pre">0</span></code>.</li>
+<li><strong>handle</strong> – Whether or not to return the matplotlib figure instance
+after the plot has been created.
+Defaults to <code class="docutils literal"><span class="pre">False</span></code>.</li>
+<li><strong>method</strong> – By default, all traces with more than 400,000 samples
+will be plotted with a fast method that cannot be zoomed.
+Setting this argument to <code class="docutils literal"><span class="pre">'full'</span></code> will straight up plot the data.
+This results in a potentially worse performance but the interactive
+matplotlib view can be used properly.
+Defaults to ‘fast’.</li>
+<li><strong>type</strong> – Type may be set to either: <code class="docutils literal"><span class="pre">'normal'</span></code> to produce the
+standard plot; <code class="docutils literal"><span class="pre">'dayplot'</span></code> to create a one-day plot for a single
+Trace; <code class="docutils literal"><span class="pre">'relative'</span></code> to convert all date/time information to a
+relative scale starting the seismogram at 0 seconds; <code class="docutils literal"><span class="pre">'section'</span></code>
+to plot all seismograms in a single coordinate system shifted
+according to their distance from a reference point. Defaults to
+<code class="docutils literal"><span class="pre">'normal'</span></code>.</li>
+<li><strong>equal_scale</strong> – If enabled all plots are equally scaled.
+Defaults to <code class="docutils literal"><span class="pre">True</span></code>.</li>
+<li><strong>show</strong> – If True, show the plot interactively after plotting. This
+is ignored if any of <code class="docutils literal"><span class="pre">outfile</span></code>, <code class="docutils literal"><span class="pre">format</span></code>, <code class="docutils literal"><span class="pre">handle</span></code>, or
+<code class="docutils literal"><span class="pre">fig</span></code> are specified.
+Defaults to <code class="docutils literal"><span class="pre">True</span></code>.</li>
+<li><strong>draw</strong> – If True, the figure canvas is explicitly re-drawn, which
+ensures that <em>existing</em> figures are fresh. It makes no difference
+for figures that are not yet visible.
+Defaults to <code class="docutils literal"><span class="pre">True</span></code>.</li>
+<li><strong>block</strong> – If True block call to showing plot. Only works if the
+active matplotlib backend supports it.
+Defaults to <code class="docutils literal"><span class="pre">True</span></code>.</li>
+<li><strong>linewidth</strong> – Float value in points of the line width.
+Defaults to <code class="docutils literal"><span class="pre">1.0</span></code>.</li>
+<li><strong>linestyle</strong> – Line style.
+Defaults to <code class="docutils literal"><span class="pre">'-'</span></code></li>
+<li><strong>grid_color</strong> – Color of the grid.
+Defaults to <code class="docutils literal"><span class="pre">'black'</span></code>.</li>
+<li><strong>grid_linewidth</strong> – Float value in points of the grid line width.
+Defaults to <code class="docutils literal"><span class="pre">0.5</span></code>.</li>
+<li><strong>grid_linestyle</strong> – Grid line style.
+Defaults to <code class="docutils literal"><span class="pre">':'</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Dayplot Parameters</strong></p>
+<p>The following parameters are only available if <code class="docutils literal"><span class="pre">type='dayplot'</span></code> is
+set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>vertical_scaling_range</strong> – Determines how each line is scaled in
+its given space. Every line will be centered around its mean value
+and then clamped to fit its given space. This argument is the range
+in data units that will be used to clamp the data. If the range is
+smaller than the actual range, the lines’ data may overshoot to
+other lines which is usually a desired effect. Larger ranges will
+result in a vertical padding.
+If <code class="docutils literal"><span class="pre">0</span></code>, the actual range of the data will be used and no
+overshooting or additional padding will occur.
+If <code class="docutils literal"><span class="pre">None</span></code> the range will be chosen to be the 99.5-percentile of
+the actual range - so some values will overshoot.
+Defaults to <code class="docutils literal"><span class="pre">None</span></code>.</li>
+<li><strong>interval</strong> – This defines the interval length in minutes for one
+line.
+Defaults to <code class="docutils literal"><span class="pre">15</span></code>.</li>
+<li><strong>time_offset</strong> – Only used if <code class="docutils literal"><span class="pre">type='dayplot'</span></code>. The difference
+between the timezone of the data (specified with the kwarg
+<code class="docutils literal"><span class="pre">timezone</span></code>) and UTC time in hours. Will be displayed in a string.
+Defaults to the current offset of the system time to UTC time.</li>
+<li><strong>timezone</strong> – Defines the name of the user defined time scale. Will
+be displayed in a string together with the actual offset defined in
+the kwarg <code class="docutils literal"><span class="pre">time_offset</span></code>.
+Defaults to <code class="docutils literal"><span class="pre">'local</span> <span class="pre">time'</span></code>.</li>
+<li><strong>localization_dict</strong> – <p>Enables limited localization of the dayplot
+through the usage of a dictionary. To change the labels to, e.g.
+German, use the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">localization_dict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;time in&#39;</span><span class="p">:</span> <span class="s1">&#39;Zeit in&#39;</span><span class="p">,</span> <span class="s1">&#39;seconds&#39;</span><span class="p">:</span> <span class="s1">&#39;Sekunden&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;minutes&#39;</span><span class="p">:</span> <span class="s1">&#39;Minuten&#39;</span><span class="p">,</span> <span class="s1">&#39;hours&#39;</span><span class="p">:</span> <span class="s1">&#39;Stunden&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><strong>data_unit</strong> – If given, the scale of the data will be drawn on the
+right hand side in the form <code class="docutils literal"><span class="pre">&quot;%f</span> <span class="pre">{data_unit}&quot;</span></code>. The unit is
+supposed to be a string containing the actual unit of the data. Can
+be a LaTeX expression if matplotlib has been built with LaTeX
+support, e.g., <code class="docutils literal"><span class="pre">&quot;$\\frac{m}{s}$&quot;</span></code>. Be careful to escape the
+backslashes, or use r-prefixed strings, e.g.,
+<code class="docutils literal"><span class="pre">r&quot;$\\frac{m}{s}$&quot;</span></code>.
+Defaults to <code class="docutils literal"><span class="pre">None</span></code>, meaning no scale is drawn.</li>
+<li><strong>events</strong> – <p>An optional list of events can be drawn on the plot if
+given.  They will be displayed as yellow stars with optional
+annotations.  They are given as a list of dictionaries. Each
+dictionary at least needs to have a “time” key, containing a
+UTCDateTime object with the origin time of the event. Furthermore
+every event can have an optional “text” key which will then be
+displayed as an annotation.
+Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">events</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="o">...</span><span class="p">),</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Event A&quot;</span><span class="p">},</span> <span class="p">{</span><span class="o">...</span><span class="p">}]</span>
+</pre></div>
+</div>
+<p>It can also be a <a class="reference internal" href="obspy.core.event.Catalog.html#obspy.core.event.Catalog" title="obspy.core.event.Catalog"><code class="xref py py-class docutils literal"><span class="pre">Catalog</span></code></a> object. In this
+case each event will be annotated with its corresponding
+Flinn-Engdahl region and the magnitude.
+Events can also be automatically downloaded with the help of
+obspy.clients.fdsn. Just pass a dictionary with a “min_magnitude”
+key, e.g.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;min_magnitude&quot;</span><span class="p">:</span> <span class="mf">5.5</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Defaults to <code class="docutils literal"><span class="pre">[]</span></code>.</p>
+</li>
+<li><strong>x_labels_size</strong> – Size of x labels in points or fontsize.
+Defaults to <code class="docutils literal"><span class="pre">8</span></code>.</li>
+<li><strong>y_labels_size</strong> – Size of y labels in points or fontsize.
+Defaults to <code class="docutils literal"><span class="pre">8</span></code>.</li>
+<li><strong>title_size</strong> – Size of the title in points or fontsize.
+Defaults to <code class="docutils literal"><span class="pre">10</span></code>.</li>
+<li><strong>subplots_adjust_left</strong> – The left side of the subplots of the
+figure in fraction of the figure width.
+Defaults to <code class="docutils literal"><span class="pre">0.12</span></code>.</li>
+<li><strong>subplots_adjust_right</strong> – The right side of the subplots of the
+figure in fraction of the figure width.
+Defaults to <code class="docutils literal"><span class="pre">0.88</span></code>.</li>
+<li><strong>subplots_adjust_top</strong> – The top side of the subplots of the figure
+in fraction of the figure width.
+Defaults to <code class="docutils literal"><span class="pre">0.95</span></code>.</li>
+<li><strong>subplots_adjust_bottom</strong> – The bottom side of the subplots of the
+figure in fraction of the figure width.
+Defaults to <code class="docutils literal"><span class="pre">0.1</span></code>.</li>
+<li><strong>right_vertical_labels</strong> – Whether or not to display labels on the
+right side of the dayplot.
+Defaults to <code class="docutils literal"><span class="pre">False</span></code>.</li>
+<li><strong>one_tick_per_line</strong> – Whether or not to display one tick per line.
+Defaults to <code class="docutils literal"><span class="pre">False</span></code>.</li>
+<li><strong>show_y_UTC_label</strong> – Whether or not to display the Y UTC vertical
+label.
+Defaults to <code class="docutils literal"><span class="pre">True</span></code>.</li>
+<li><strong>title</strong> – The title to display on top of the plot.
+Defaults to <code class="docutils literal"><span class="pre">self.stream[0].id</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Section Parameters</strong></p>
+<p>These parameters are only available if <code class="docutils literal"><span class="pre">type='section'</span></code> is set. To
+plot a record section the ObsPy header <code class="docutils literal"><span class="pre">trace.stats.distance</span></code> must be
+defined in meters (Default). Or <code class="docutils literal"><span class="pre">trace.stats.coordinates.latitude</span></code> &amp;
+<code class="docutils literal"><span class="pre">trace.stats.coordinates.longitude</span></code> must be set if plotted in
+azimuthal distances (<code class="docutils literal"><span class="pre">dist_degree=True</span></code>) along with <code class="docutils literal"><span class="pre">ev_coord</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em>, </em><em>optional</em>) – Scale the traces width with this factor.
+Defaults to <code class="docutils literal"><span class="pre">1.0</span></code>.</li>
+<li><strong>vred</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em>, </em><em>optional</em>) – Perform velocity reduction, in m/s.</li>
+<li><strong>norm_method</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – Defines how the traces are normalized, either
+against each <code class="docutils literal"><span class="pre">trace</span></code> or against the global maximum <code class="docutils literal"><span class="pre">stream</span></code>.
+Defaults to <code class="docutils literal"><span class="pre">trace</span></code>.</li>
+<li><strong>offset_min</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/2.7/library/constants.html#None" title="(in Python v2.7)"><em>None</em></a><em>, </em><em>optional</em>) – Minimum offset in meters to plot.
+Defaults to minimum offset of all traces.</li>
+<li><strong>offset_max</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/2.7/library/constants.html#None" title="(in Python v2.7)"><em>None</em></a><em>, </em><em>optional</em>) – Maximum offset in meters to plot.
+Defaults to maximum offset of all traces.</li>
+<li><strong>dist_degree</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Plot trace distance in degree from epicenter. If
+<code class="docutils literal"><span class="pre">True</span></code>, parameter <code class="docutils literal"><span class="pre">ev_coord</span></code> has to be defined.
+Defaults to <code class="docutils literal"><span class="pre">False</span></code>.</li>
+<li><strong>ev_coord</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#tuple" title="(in Python v2.7)"><em>tuple</em></a><em> or </em><a class="reference external" href="https://docs.python.org/2.7/library/constants.html#None" title="(in Python v2.7)"><em>None</em></a><em>, </em><em>optional</em>) – Event’s coordinates as tuple
+<code class="docutils literal"><span class="pre">(latitude,</span> <span class="pre">longitude)</span></code>.</li>
+<li><strong>plot_dx</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a><em>, </em><em>optional</em>) – Spacing of ticks on the spatial x-axis.
+Either m or degree, depending on <code class="docutils literal"><span class="pre">dist_degree</span></code>.</li>
+<li><strong>recordstart</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em>, </em><em>optional</em>) – Seconds to crop from the beginning.</li>
+<li><strong>recordlength</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em>, </em><em>optional</em>) – Length of the record section in seconds.</li>
+<li><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em>, </em><em>optional</em>) – Transparency of the traces between 0.0 - 1.0.
+Defaults to <code class="docutils literal"><span class="pre">0.5</span></code>.</li>
+<li><strong>time_down</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Flip the plot horizontally, time goes down.
+Defaults to <code class="docutils literal"><span class="pre">False</span></code>, i.e., time goes up.</li>
+<li><strong>reftime</strong> (<a class="reference internal" href="obspy.core.utcdatetime.UTCDateTime.html#obspy.core.utcdatetime.UTCDateTime" title="obspy.core.utcdatetime.UTCDateTime"><code class="xref py py-class docutils literal"><span class="pre">UTCDateTime</span></code></a>, optional) – The reference time to which the time scale will refer.
+Defaults to the minimum start time of the visible traces.</li>
+<li><strong>orientation</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>, </em><em>optional</em>) – The orientation of the time axis, either
+<code class="docutils literal"><span class="pre">'vertical'</span></code> or <code class="docutils literal"><span class="pre">'horizontal'</span></code>. Defaults to <code class="docutils literal"><span class="pre">'vertical'</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Relative Parameters</strong></p>
+<p>The following parameters are only available if <code class="docutils literal"><span class="pre">type='relative'</span></code> is
+set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reftime</strong> (<a class="reference internal" href="obspy.core.utcdatetime.UTCDateTime.html#obspy.core.utcdatetime.UTCDateTime" title="obspy.core.utcdatetime.UTCDateTime"><code class="xref py py-class docutils literal"><span class="pre">UTCDateTime</span></code></a>, optional) – The reference time to which the relative scale will
+refer.
+Defaults to <code class="docutils literal"><span class="pre">starttime</span></code>.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Color Options</p>
+<p>Colors can be specified as defined in the <a class="reference external" href="http://matplotlib.org/api/colors_api.html#module-matplotlib.colors" title="(in Matplotlib v2.0.2)"><code class="xref py py-mod docutils literal"><span class="pre">matplotlib.colors</span></code></a>
+documentation.</p>
+<p>Short Version: For all color values, you can either use:</p>
+<ul class="simple">
+<li>legal <a class="reference external" href="https://www.w3.org/TR/css3-color/#html4">HTML color names</a>,
+e.g. <code class="docutils literal"><span class="pre">'blue'</span></code>,</li>
+<li>HTML hex strings, e.g. <code class="docutils literal"><span class="pre">'#EE00FF'</span></code>,</li>
+<li>pass an string of a R, G, B tuple, where each of the components is a
+float value in the range of 0 to 1, e.g. <code class="docutils literal"><span class="pre">'(1,</span> <span class="pre">0.25,</span> <span class="pre">0.5)'</span></code>, or</li>
+<li>use single letters for the basic built-in colors, such as <code class="docutils literal"><span class="pre">'b'</span></code>
+(blue), <code class="docutils literal"><span class="pre">'g'</span></code> (green), <code class="docutils literal"><span class="pre">'r'</span></code> (red), <code class="docutils literal"><span class="pre">'c'</span></code> (cyan), <code class="docutils literal"><span class="pre">'m'</span></code>
+(magenta), <code class="docutils literal"><span class="pre">'y'</span></code> (yellow), <code class="docutils literal"><span class="pre">'k'</span></code> (black), <code class="docutils literal"><span class="pre">'w'</span></code> (white).</li>
+</ul>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">read</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">read</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>  
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../../packages/autogen/obspy-core-stream-Stream-plot-1.py">Source code</a>, <a class="reference external" href="../../packages/autogen/obspy-core-stream-Stream-plot-1.png">png</a>, <a class="reference external" href="../../packages/autogen/obspy-core-stream-Stream-plot-1.hires.png">hires.png</a>)</p>
+<div class="figure">
+<img alt="../../_images/obspy-core-stream-Stream-plot-1.png" class="img-responsive" src="../../_images/obspy-core-stream-Stream-plot-1.png" />
+</div>
+</dd></dl>
+
+</div>
+
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

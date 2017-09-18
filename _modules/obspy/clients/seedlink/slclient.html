@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.clients.seedlink.slclient &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.clients.seedlink.slclient</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module to create and use a connection to a SeedLink server using a</span>
+<span class="sd">SeedLinkConnection object.</span>
+
+<span class="sd">A new SeedLink application can be created by sub-classing SLClient and</span>
+<span class="sd">overriding at least the packet_handler method of SLClient.</span>
+
+<span class="sd">Part of Python implementation of libslink of Chad Trabant and</span>
+<span class="sd">JSeedLink of Anthony Lomax</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org) &amp; Anthony Lomax</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+
+<span class="kn">from</span> <span class="nn">obspy.core.util.decorator</span> <span class="k">import</span> <span class="n">deprecated</span>
+<span class="kn">from</span> <span class="nn">.client.seedlinkconnection</span> <span class="k">import</span> <span class="n">SeedLinkConnection</span>
+<span class="kn">from</span> <span class="nn">.seedlinkexception</span> <span class="k">import</span> <span class="n">SeedLinkException</span>
+<span class="kn">from</span> <span class="nn">.slpacket</span> <span class="k">import</span> <span class="n">SLPacket</span>
+
+
+<span class="n">USAGE</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">## General program options ##</span>
+<span class="s2">-V             report program version</span>
+<span class="s2">-h             show this usage message</span>
+<span class="s2">-v             be more verbose, multiple flags can be used</span>
+<span class="s2">-p             print details of data packets</span>
+<span class="s2">-nd delay      network re-connect delay (seconds), default 30</span>
+<span class="s2">-nt timeout    network timeout (seconds), re-establish connection if no</span>
+<span class="s2">               data/keepalives are received in this time, default 600</span>
+<span class="s2">-k interval    send keepalive (heartbeat) packets this often (seconds)</span>
+<span class="s2">-x statefile   save/restore stream state information to this file</span>
+<span class="s2">-t begintime   sets a beginning time for the initiation of data transmission</span>
+<span class="s2">               (year,month,day,hour,minute,second)</span>
+<span class="s2">-e endtime     sets an end time for windowed data transmission</span>
+<span class="s2">               (year,month,day,hour,minute,second)</span>
+<span class="s2">-i infolevel   request this INFO level, write response to std out, and exit</span>
+<span class="s2">               infolevel is one of: ID, STATIONS, STREAMS, GAPS, CONNECTIONS,</span>
+<span class="s2">               ALL</span>
+
+<span class="s2">## Data stream selection ##</span>
+<span class="s2">-l listfile    read a stream list from this file for multi-station mode</span>
+<span class="s2">-s selectors   selectors for uni-station or default for multi-station</span>
+<span class="s2">-S streams     select streams for multi-station (requires SeedLink &gt;= 2.5)</span>
+<span class="s2">  &#39;streams&#39; = &#39;stream1[:selectors1],stream2[:selectors2],...&#39;</span>
+<span class="s2">       &#39;stream&#39; is in NET_STA format, for example:</span>
+<span class="s2">       -S </span><span class="se">\&quot;</span><span class="s2">IU_KONO:BHE BHN,GE_WLF,MN_AQU:HH?.D</span><span class="se">\&quot;</span><span class="s2"></span>
+
+<span class="s2">&lt;[host]:port&gt;  Address of the SeedLink server in host:port format</span>
+<span class="s2">               if host is omitted (i.e. &#39;:18000&#39;), localhost is assumed</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+
+<span class="c1"># default logger</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;obspy.clients.seedlink&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="SLClient"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.slclient.SLClient.html#obspy.clients.seedlink.slclient.SLClient">[docs]</a><span class="k">class</span> <span class="nc">SLClient</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Basic class to create and use a connection to a SeedLink server using a</span>
+<span class="sd">    SeedLinkConnection object.</span>
+
+<span class="sd">    A new SeedLink application can be created by sub-classing SLClient and</span>
+<span class="sd">    overriding at least the packet_handler method of SLClient.</span>
+
+<span class="sd">    :var slconn: SeedLinkConnection object for communicating with the</span>
+<span class="sd">        SeedLinkConnection over a socket.</span>
+<span class="sd">    :type slconn: SeedLinkConnection</span>
+<span class="sd">    :var verbose: Verbosity level, 0 is lowest.</span>
+<span class="sd">    :type verbose: int</span>
+<span class="sd">    :var ppackets: Flag to indicate show detailed packet information.</span>
+<span class="sd">    :type  ppackets: bool</span>
+<span class="sd">    :var streamfile: Name of file containing stream list for multi-station</span>
+<span class="sd">        mode.</span>
+<span class="sd">    :type  streamfile: str</span>
+<span class="sd">    :var selectors: Selectors for uni-station or default selectors for</span>
+<span class="sd">        multi-station.</span>
+<span class="sd">    :type  selectors: str</span>
+<span class="sd">    :var multiselect: Selectors for multi-station.</span>
+<span class="sd">    :type  multiselect: str</span>
+<span class="sd">    :var statefile: Name of file for reading (if exists) and storing state.</span>
+<span class="sd">    :type  statefile: str</span>
+<span class="sd">    :var begin_time: Beginning of time window for read start in past.</span>
+<span class="sd">    :type  begin_time: str</span>
+<span class="sd">    :var end_time: End of time window for reading windowed data.</span>
+<span class="sd">    :type  end_time: str</span>
+<span class="sd">    :var infolevel: INFO LEVEL for info request only.</span>
+<span class="sd">    :type  infolevel: str</span>
+<span class="sd">    :type timeout: float</span>
+<span class="sd">    :param timeout: Timeout in seconds, passed on to the underlying</span>
+<span class="sd">        SeedLinkConnection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">VERSION</span> <span class="o">=</span> <span class="s2">&quot;1.2.0X00&quot;</span>
+    <span class="n">VERSION_YEAR</span> <span class="o">=</span> <span class="s2">&quot;2011&quot;</span>
+    <span class="n">VERSION_DATE</span> <span class="o">=</span> <span class="s2">&quot;24Nov&quot;</span> <span class="o">+</span> <span class="n">VERSION_YEAR</span>
+    <span class="n">COPYRIGHT_YEAR</span> <span class="o">=</span> <span class="n">VERSION_YEAR</span>
+    <span class="n">PROGRAM_NAME</span> <span class="o">=</span> <span class="s2">&quot;SLClient v&quot;</span> <span class="o">+</span> <span class="n">VERSION</span>
+    <span class="n">VERSION_INFO</span> <span class="o">=</span> <span class="n">PROGRAM_NAME</span> <span class="o">+</span> <span class="s2">&quot; (&quot;</span> <span class="o">+</span> <span class="n">VERSION_DATE</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
+
+<div class="viewcode-block" id="SLClient.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.slclient.SLClient.__init__.html#obspy.clients.seedlink.slclient.SLClient.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loglevel</span><span class="o">=</span><span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a new instance of SLClient with the specified logging object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">numeric_level</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">logging</span><span class="p">,</span> <span class="n">loglevel</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">numeric_level</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid log level: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">loglevel</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">numeric_level</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">numeric_level</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ppackets</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">streamfile</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selectors</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">multiselect</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">statefile</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">begin_time</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">infolevel</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">timeout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span> <span class="o">=</span> <span class="n">SeedLinkConnection</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;parseCmdLineArgs&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;parse_cmd_line_args&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">parseCmdLineArgs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;parseCmdLineArgs&#39; has been renamed to</span>
+<span class="sd">        &#39;parse_cmd_line_args&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_cmd_line_args</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SLClient.parse_cmd_line_args"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.slclient.SLClient.parse_cmd_line_args.html#obspy.clients.seedlink.slclient.SLClient.parse_cmd_line_args">[docs]</a>    <span class="k">def</span> <span class="nf">parse_cmd_line_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parses the command line arguments.</span>
+
+<span class="sd">        :type args: list</span>
+<span class="sd">        :param args: main method arguments.</span>
+<span class="sd">        :return: -1 on error, 1 if version or help argument found, 0 otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">print_usage</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="n">optind</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">optind</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;-V&quot;</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">VERSION_INFO</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+                <span class="k">return</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;-h&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">print_usage</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                <span class="k">return</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;-v&quot;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;-p&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ppackets</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;-nt&quot;</span><span class="p">:</span>
+                <span class="n">optind</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">set_net_timeout</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]))</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;-nd&quot;</span><span class="p">:</span>
+                <span class="n">optind</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">set_net_delay</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]))</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;-k&quot;</span><span class="p">:</span>
+                <span class="n">optind</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">set_keep_alive</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]))</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;-l&quot;</span><span class="p">:</span>
+                <span class="n">optind</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">streamfile</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;-s&quot;</span><span class="p">:</span>
+                <span class="n">optind</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">selectors</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;-S&quot;</span><span class="p">:</span>
+                <span class="n">optind</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">multiselect</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;-x&quot;</span><span class="p">:</span>
+                <span class="n">optind</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">statefile</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;-t&quot;</span><span class="p">:</span>
+                <span class="n">optind</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">begin_time</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;-e&quot;</span><span class="p">:</span>
+                <span class="n">optind</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;-i&quot;</span><span class="p">:</span>
+                <span class="n">optind</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">infolevel</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unknown option: &quot;</span> <span class="o">+</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">],</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">get_sl_address</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">set_sl_address</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unknown option: &quot;</span> <span class="o">+</span> <span class="n">args</span><span class="p">[</span><span class="n">optind</span><span class="p">],</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="n">optind</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="SLClient.initialize"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.slclient.SLClient.initialize.html#obspy.clients.seedlink.slclient.SLClient.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes this SLClient.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">get_sl_address</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;no SeedLink server specified&quot;</span>
+            <span class="k">raise</span> <span class="n">SeedLinkException</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ppackets</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">get_sl_address</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">set_sl_address</span><span class="p">(</span><span class="s2">&quot;127.0.0.1&quot;</span> <span class="o">+</span>
+                                       <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">get_sl_address</span><span class="p">())</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">streamfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">read_stream_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">streamfile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectors</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiselect</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">parse_stream_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">multiselect</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectors</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">streamfile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">set_uni_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selectors</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">statefile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">set_state_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">statefile</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">begin_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">set_begin_time</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">begin_time</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">set_end_time</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SLClient.run"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.slclient.SLClient.run.html#obspy.clients.seedlink.slclient.SLClient.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">packet_handler</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Start this SLClient.</span>
+
+<span class="sd">        :type packet_handler: func</span>
+<span class="sd">        :param packet_handler: Custom packet handler funtion to override</span>
+<span class="sd">            `self.packet_handler` for this seedlink request. The function will</span>
+<span class="sd">            be repeatedly called with two arguments: the current packet counter</span>
+<span class="sd">            (`int`) and the currently served seedlink packet</span>
+<span class="sd">            (:class:`~obspy.clients.seedlink.SLPacket`). The function should</span>
+<span class="sd">            return `True` to abort the request or `False` to continue the</span>
+<span class="sd">            request.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">packet_handler</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">packet_handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">packet_handler</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">infolevel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">request_info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">infolevel</span><span class="p">)</span>
+        <span class="c1"># Loop with the connection manager</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">slpack</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+        <span class="k">while</span> <span class="n">slpack</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">slpack</span> <span class="o">==</span> <span class="n">SLPacket</span><span class="o">.</span><span class="n">SLTERMINATE</span><span class="p">):</span>
+                <span class="k">break</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># do something with packet</span>
+                <span class="n">terminate</span> <span class="o">=</span> <span class="n">packet_handler</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">slpack</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">terminate</span><span class="p">:</span>
+                    <span class="k">break</span>
+            <span class="k">except</span> <span class="n">SeedLinkException</span> <span class="k">as</span> <span class="n">sle</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="n">sle</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span><span class="p">:</span>
+                <span class="n">count</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DEBUG INFO: &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Packet count reset to 1&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">slpack</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+
+        <span class="c1"># Close the SeedLinkConnection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;packetHandler&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;packet_handler&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">packetHandler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;packetHandler&#39; has been renamed to</span>
+<span class="sd">        &#39;packet_handler&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">packet_handler</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SLClient.packet_handler"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.slclient.SLClient.packet_handler.html#obspy.clients.seedlink.slclient.SLClient.packet_handler">[docs]</a>    <span class="k">def</span> <span class="nf">packet_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">slpack</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Processes each packet received from the SeedLinkConnection.</span>
+
+<span class="sd">        This method should be overridden when sub-classing SLClient.</span>
+
+<span class="sd">        :type count: int</span>
+<span class="sd">        :param count:  Packet counter.</span>
+<span class="sd">        :type slpack: :class:`~obspy.clients.seedlink.slpacket.SLPacket`</span>
+<span class="sd">        :param slpack: packet to process.</span>
+
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        :return: True if connection to SeedLink server should be closed and</span>
+<span class="sd">            session terminated, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># check if not a complete packet</span>
+        <span class="k">if</span> <span class="n">slpack</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span><span class="n">slpack</span> <span class="o">==</span> <span class="n">SLPacket</span><span class="o">.</span><span class="n">SLNOPACKET</span><span class="p">)</span> <span class="ow">or</span> \
+                <span class="p">(</span><span class="n">slpack</span> <span class="o">==</span> <span class="n">SLPacket</span><span class="o">.</span><span class="n">SLERROR</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># get basic packet info</span>
+        <span class="n">seqnum</span> <span class="o">=</span> <span class="n">slpack</span><span class="o">.</span><span class="n">get_sequence_number</span><span class="p">()</span>
+        <span class="nb">type</span> <span class="o">=</span> <span class="n">slpack</span><span class="o">.</span><span class="n">get_type</span><span class="p">()</span>
+
+        <span class="c1"># process INFO packets here</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span> <span class="o">==</span> <span class="n">SLPacket</span><span class="o">.</span><span class="n">TYPE_SLINF</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span> <span class="o">==</span> <span class="n">SLPacket</span><span class="o">.</span><span class="n">TYPE_SLINFT</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Complete INFO:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">get_info_string</span><span class="p">())</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">infolevel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># can send an in-line INFO request here</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># if (count % 100 == 0 and not self.slconn.state.expect_info):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">infostr</span> <span class="o">=</span> <span class="s2">&quot;ID&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">slconn</span><span class="o">.</span><span class="n">request_info</span><span class="p">(</span><span class="n">infostr</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">SeedLinkException</span> <span class="k">as</span> <span class="n">sle</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="n">sle</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="c1"># if here, must be a data blockette</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;: packet seqnum:&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">seqnum</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;: blockette type: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ppackets</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># process packet data</span>
+        <span class="n">trace</span> <span class="o">=</span> <span class="n">slpack</span><span class="o">.</span><span class="n">get_trace</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">trace</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;: blockette contains a trace: &quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;starttime&#39;</span><span class="p">],</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; dt:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;sampling_rate&#39;</span><span class="p">]),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; npts:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;npts&#39;</span><span class="p">]),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; sampletype:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;sampletype&#39;</span><span class="p">]),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; dataquality:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;dataquality&#39;</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;blockette contains a trace: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;: blockette contains no trace&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;printUsage&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;print_usage&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">printUsage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;printUsage&#39; has been renamed to</span>
+<span class="sd">        &#39;print_usage&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">print_usage</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SLClient.print_usage"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.slclient.SLClient.print_usage.html#obspy.clients.seedlink.slclient.SLClient.print_usage">[docs]</a>    <span class="k">def</span> <span class="nf">print_usage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">concise</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prints the usage message for this class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Usage: python </span><span class="si">%s</span><span class="s2"> [options] &lt;[host]:port&gt;&quot;</span> <span class="o">%</span>
+              <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">concise</span><span class="p">:</span>
+            <span class="n">usage</span> <span class="o">=</span> <span class="s2">&quot;Use &#39;-h&#39; for detailed help&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">usage</span> <span class="o">=</span> <span class="n">USAGE</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">usage</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SLClient.main"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.slclient.SLClient.main.html#obspy.clients.seedlink.slclient.SLClient.main">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Main method - creates and runs an SLClient using the specified</span>
+<span class="sd">        command line arguments</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sl_client</span> <span class="o">=</span> <span class="n">SLClient</span><span class="p">()</span>
+            <span class="n">rval</span> <span class="o">=</span> <span class="n">sl_client</span><span class="o">.</span><span class="n">parse_cmd_line_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">rval</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">rval</span><span class="p">)</span>
+            <span class="n">sl_client</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+            <span class="n">sl_client</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">SLClient</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

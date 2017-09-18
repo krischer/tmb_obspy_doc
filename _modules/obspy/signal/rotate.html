@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.signal.rotate &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.signal.rotate</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># ------------------------------------------------------------------</span>
+<span class="c1"># Filename: rotate.py</span>
+<span class="c1">#  Purpose: Various Seismogram Rotation Functions</span>
+<span class="c1">#   Author: Tobias Megies, Tom Richter, Lion Krischer</span>
+<span class="c1">#    Email: tobias.megies@geophysik.uni-muenchen.de</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (C) 2009-2013 Tobias Megies, Tom Richter, Lion Krischer</span>
+<span class="c1"># --------------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Various Seismogram Rotation Functions</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">cos</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sin</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">obspy.core.util.decorator</span> <span class="k">import</span> <span class="n">deprecated</span>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;rotate_NE_RT() has been renamed to rotate_ne_rt().&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">rotate_NE_RT</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># noqa</span>
+    <span class="k">return</span> <span class="n">rotate_ne_rt</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="rotate_ne_rt"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.rotate.rotate_ne_rt.html#obspy.signal.rotate.rotate_ne_rt">[docs]</a><span class="k">def</span> <span class="nf">rotate_ne_rt</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">ba</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Rotates horizontal components of a seismogram.</span>
+
+<span class="sd">    The North- and East-Component of a seismogram will be rotated in Radial</span>
+<span class="sd">    and Transversal Component. The angle is given as the back-azimuth, that is</span>
+<span class="sd">    defined as the angle measured between the vector pointing from the station</span>
+<span class="sd">    to the source and the vector pointing from the station to the North.</span>
+
+<span class="sd">    :type n: :class:`~numpy.ndarray`</span>
+<span class="sd">    :param n: Data of the North component of the seismogram.</span>
+<span class="sd">    :type e: :class:`~numpy.ndarray`</span>
+<span class="sd">    :param e: Data of the East component of the seismogram.</span>
+<span class="sd">    :type ba: float</span>
+<span class="sd">    :param ba: The back azimuth from station to source in degrees.</span>
+<span class="sd">    :return: Radial and Transversal component of seismogram.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;North and East component have different length.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ba</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">ba</span> <span class="o">&gt;</span> <span class="mi">360</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Back Azimuth should be between 0 and 360 degrees.&quot;</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">e</span> <span class="o">*</span> <span class="n">sin</span><span class="p">((</span><span class="n">ba</span> <span class="o">+</span> <span class="mi">180</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">360</span><span class="p">)</span> <span class="o">+</span> <span class="n">n</span> <span class="o">*</span> <span class="n">cos</span><span class="p">((</span><span class="n">ba</span> <span class="o">+</span> <span class="mi">180</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">360</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">e</span> <span class="o">*</span> <span class="n">cos</span><span class="p">((</span><span class="n">ba</span> <span class="o">+</span> <span class="mi">180</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">360</span><span class="p">)</span> <span class="o">-</span> <span class="n">n</span> <span class="o">*</span> <span class="n">sin</span><span class="p">((</span><span class="n">ba</span> <span class="o">+</span> <span class="mi">180</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">360</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">r</span><span class="p">,</span> <span class="n">t</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;rotate_RT_NE() has been renamed to rotate_rt_ne().&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">rotate_RT_NE</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># noqa</span>
+    <span class="k">return</span> <span class="n">rotate_rt_ne</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="rotate_rt_ne"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.rotate.rotate_rt_ne.html#obspy.signal.rotate.rotate_rt_ne">[docs]</a><span class="k">def</span> <span class="nf">rotate_rt_ne</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">ba</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Rotates horizontal components of a seismogram.</span>
+
+<span class="sd">    Rotates from radial and transversal components to North and East</span>
+<span class="sd">    components.</span>
+
+<span class="sd">    This is the inverse transformation of the transformation described</span>
+<span class="sd">    in :func:`rotate_ne_rt`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ba</span> <span class="o">=</span> <span class="mf">360.0</span> <span class="o">-</span> <span class="n">ba</span>
+    <span class="k">return</span> <span class="n">rotate_ne_rt</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">ba</span><span class="p">)</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;rotate_ZNE_LQT() has been renamed to rotate_zne_lqt().&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">rotate_ZNE_LQT</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># noqa</span>
+    <span class="k">return</span> <span class="n">rotate_zne_lqt</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="rotate_zne_lqt"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.rotate.rotate_zne_lqt.html#obspy.signal.rotate.rotate_zne_lqt">[docs]</a><span class="k">def</span> <span class="nf">rotate_zne_lqt</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">ba</span><span class="p">,</span> <span class="n">inc</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Rotates all components of a seismogram.</span>
+
+<span class="sd">    The components will be rotated from ZNE (Z, North, East, left-handed) to</span>
+<span class="sd">    LQT (e.g. ray coordinate system, right-handed). The rotation angles are</span>
+<span class="sd">    given as the back-azimuth and inclination.</span>
+
+<span class="sd">    The transformation consists of 3 steps::</span>
+
+<span class="sd">        1. mirroring of E-component at ZN plain: ZNE -&gt; ZNW</span>
+<span class="sd">        2. negative rotation of coordinate system around Z-axis with angle ba:</span>
+<span class="sd">           ZNW -&gt; ZRT</span>
+<span class="sd">        3. negative rotation of coordinate system around T-axis with angle inc:</span>
+<span class="sd">           ZRT -&gt; LQT</span>
+
+<span class="sd">    :type z: :class:`~numpy.ndarray`</span>
+<span class="sd">    :param z: Data of the Z component of the seismogram.</span>
+<span class="sd">    :type n: :class:`~numpy.ndarray`</span>
+<span class="sd">    :param n: Data of the North component of the seismogram.</span>
+<span class="sd">    :type e: :class:`~numpy.ndarray`</span>
+<span class="sd">    :param e: Data of the East component of the seismogram.</span>
+<span class="sd">    :type ba: float</span>
+<span class="sd">    :param ba: The back azimuth from station to source in degrees.</span>
+<span class="sd">    :type inc: float</span>
+<span class="sd">    :param inc: The inclination of the ray at the station in degrees.</span>
+<span class="sd">    :return: L-, Q- and T-component of seismogram.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Z, North and East component have different length!?!&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ba</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">ba</span> <span class="o">&gt;</span> <span class="mi">360</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Back Azimuth should be between 0 and 360 degrees!&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">inc</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">inc</span> <span class="o">&gt;</span> <span class="mi">360</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Inclination should be between 0 and 360 degrees!&quot;</span><span class="p">)</span>
+    <span class="n">ba</span> <span class="o">*=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">360</span>
+    <span class="n">inc</span> <span class="o">*=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">360</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">z</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span> <span class="o">-</span> <span class="n">n</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">ba</span><span class="p">)</span> <span class="o">-</span> <span class="n">e</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">ba</span><span class="p">)</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">z</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span> <span class="o">+</span> <span class="n">n</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">ba</span><span class="p">)</span> <span class="o">+</span> <span class="n">e</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">ba</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">ba</span><span class="p">)</span> <span class="o">-</span> <span class="n">e</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">ba</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">l</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">t</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;rotate_LQT_ZNE() has been renamed to rotate_lqt_zne().&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">rotate_LQT_ZNE</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># noqa</span>
+    <span class="k">return</span> <span class="n">rotate_lqt_zne</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="rotate_lqt_zne"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.rotate.rotate_lqt_zne.html#obspy.signal.rotate.rotate_lqt_zne">[docs]</a><span class="k">def</span> <span class="nf">rotate_lqt_zne</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">ba</span><span class="p">,</span> <span class="n">inc</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Rotates all components of a seismogram.</span>
+
+<span class="sd">    The components will be rotated from LQT to ZNE.</span>
+<span class="sd">    This is the inverse transformation of the transformation described</span>
+<span class="sd">    in :func:`rotate_zne_lqt`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;L, Q and T component have different length!?!&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ba</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">ba</span> <span class="o">&gt;</span> <span class="mi">360</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Back Azimuth should be between 0 and 360 degrees!&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">inc</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">inc</span> <span class="o">&gt;</span> <span class="mi">360</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Inclination should be between 0 and 360 degrees!&quot;</span><span class="p">)</span>
+    <span class="n">ba</span> <span class="o">*=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">360</span>
+    <span class="n">inc</span> <span class="o">*=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">360</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">l</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span> <span class="o">+</span> <span class="n">q</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="o">-</span><span class="n">l</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">ba</span><span class="p">)</span> <span class="o">+</span> <span class="n">q</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">ba</span><span class="p">)</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">ba</span><span class="p">)</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="o">-</span><span class="n">l</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">ba</span><span class="p">)</span> <span class="o">+</span> <span class="n">q</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">inc</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">ba</span><span class="p">)</span> <span class="o">-</span> <span class="n">t</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">ba</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">z</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">e</span></div>
+
+
+<div class="viewcode-block" id="_dip_azimuth2zse_base_vector"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.rotate._dip_azimuth2zse_base_vector.html#obspy.signal.rotate._dip_azimuth2zse_base_vector">[docs]</a><span class="k">def</span> <span class="nf">_dip_azimuth2zse_base_vector</span><span class="p">(</span><span class="n">dip</span><span class="p">,</span> <span class="n">azimuth</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function converting a vector described with azimuth and dip of unit</span>
+<span class="sd">    length to a vector in the ZSE (Vertical, South, East) base.</span>
+
+<span class="sd">    The definition of azimuth and dip is according to the SEED reference</span>
+<span class="sd">    manual, as are the following examples (they use rounding for small</span>
+<span class="sd">    numerical inaccuracies - also positive and negative zero are treated as</span>
+<span class="sd">    equal):</span>
+
+<span class="sd">    &gt;&gt;&gt; r = lambda x: np.array([_i if _i != -0.0 else 0.0\</span>
+<span class="sd">        for _i in np.round(x, 10)])</span>
+<span class="sd">    &gt;&gt;&gt; r(_dip_azimuth2zse_base_vector(-90, 0)) #doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">    array([ 1., 0., 0.])</span>
+<span class="sd">    &gt;&gt;&gt; r(_dip_azimuth2zse_base_vector(90, 0)) #doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">    array([-1., 0., 0.])</span>
+<span class="sd">    &gt;&gt;&gt; r(_dip_azimuth2zse_base_vector(0, 0)) #doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">    array([ 0., -1., 0.])</span>
+<span class="sd">    &gt;&gt;&gt; r(_dip_azimuth2zse_base_vector(0, 180)) #doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">    array([ 0., 1., 0.])</span>
+<span class="sd">    &gt;&gt;&gt; r(_dip_azimuth2zse_base_vector(0, 90)) #doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">    array([ 0., 0., 1.])</span>
+<span class="sd">    &gt;&gt;&gt; r(_dip_azimuth2zse_base_vector(0, 270)) #doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">    array([ 0., 0., -1.])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dip</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">dip</span><span class="p">)</span>
+    <span class="n">azimuth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">azimuth</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dip</span><span class="p">),</span>
+                     <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">azimuth</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dip</span><span class="p">),</span>
+                     <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">azimuth</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dip</span><span class="p">)])</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;rotate2ZNE() has been renamed to rotate2zne().&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">rotate2ZNE</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># noqa</span>
+    <span class="k">return</span> <span class="n">rotate2zne</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="rotate2zne"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.rotate.rotate2zne.html#obspy.signal.rotate.rotate2zne">[docs]</a><span class="k">def</span> <span class="nf">rotate2zne</span><span class="p">(</span><span class="n">data_1</span><span class="p">,</span> <span class="n">azimuth_1</span><span class="p">,</span> <span class="n">dip_1</span><span class="p">,</span> <span class="n">data_2</span><span class="p">,</span> <span class="n">azimuth_2</span><span class="p">,</span> <span class="n">dip_2</span><span class="p">,</span> <span class="n">data_3</span><span class="p">,</span>
+               <span class="n">azimuth_3</span><span class="p">,</span> <span class="n">dip_3</span><span class="p">,</span> <span class="n">inverse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Rotates an arbitrarily oriented three-component vector to ZNE.</span>
+
+<span class="sd">    Each components orientation is described with a azimuth and a dip. The</span>
+<span class="sd">    azimuth is defined as the degrees from North, clockwise and the dip is the</span>
+<span class="sd">    defined as the number of degrees, down from horizontal. Both definitions</span>
+<span class="sd">    are according to the SEED standard.</span>
+
+<span class="sd">    The three components need not be orthogonal to each other but the</span>
+<span class="sd">    components have to be linearly independent. The function performs a full</span>
+<span class="sd">    base change to orthogonal Vertical, North, and East orientations.</span>
+
+<span class="sd">    :param data_1: Data component 1.</span>
+<span class="sd">    :param azimuth_1: The azimuth of component 1.</span>
+<span class="sd">    :param dip_1: The dip of component 1.</span>
+<span class="sd">    :param data_2: Data component 2.</span>
+<span class="sd">    :param azimuth_2: The azimuth of component 2.</span>
+<span class="sd">    :param dip_2: The dip of component 2.</span>
+<span class="sd">    :param data_3: Data component 3.</span>
+<span class="sd">    :param azimuth_3: The azimuth of component 3.</span>
+<span class="sd">    :param dip_3: The dip of component 3.</span>
+<span class="sd">    :param inverse: If `True`, the data arrays will be converted from ZNE to</span>
+<span class="sd">        whatever coordinate system the azimuths and dips specify. In that</span>
+<span class="sd">        case data_1, data_2, data_3 have to be data arrays for Z, N,</span>
+<span class="sd">        and E and the dips and azimuths specify where to transform to.</span>
+<span class="sd">    :type inverse: bool</span>
+
+<span class="sd">    :rtype: Tuple of three NumPy arrays.</span>
+<span class="sd">    :returns: The three rotated components, oriented in Z, N, and E if</span>
+<span class="sd">        `inverse` is `False`. Otherwise they will be oriented as specified</span>
+<span class="sd">        by the dips and azimuths.</span>
+
+<span class="sd">    An input of ZNE yields an output of ZNE</span>
+
+<span class="sd">    &gt;&gt;&gt; rotate2zne(np.arange(3), 0, -90, np.arange(3) * 2, 0, 0, \</span>
+<span class="sd">            np.arange(3) * 3, 90, 0) # doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">    (array([ 0., 1., 2.]), array([ 0., 2., 4.]), array([ 0., 3., 6.]))</span>
+
+<span class="sd">    An input of ZSE yields an output of ZNE</span>
+
+<span class="sd">    &gt;&gt;&gt; rotate2zne(np.arange(3), 0, -90, np.arange(3) * 2, 180, 0, \</span>
+<span class="sd">            np.arange(3) * 3, 90, 0) # doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">    (array([ 0., 1., 2.]), array([ 0., -2., -4.]), array([ 0., 3., 6.]))</span>
+
+<span class="sd">    Mixed up components should get rotated to ZNE.</span>
+
+<span class="sd">    &gt;&gt;&gt; rotate2zne(np.arange(3), 0, 0, np.arange(3) * 2, 90, 0, \</span>
+<span class="sd">            np.arange(3) * 3, 0, -90) # doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">    (array([ 0., 3., 6.]), array([ 0., 1., 2.]), array([ 0., 2., 4.]))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i_</span><span class="p">)</span> <span class="k">for</span> <span class="n">i_</span> <span class="ow">in</span> <span class="p">(</span><span class="n">data_1</span><span class="p">,</span> <span class="n">data_2</span><span class="p">,</span> <span class="n">data_3</span><span class="p">)))</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;All three data arrays must be of same length.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="c1"># Internally works in Vertical, South, and East components; a right handed</span>
+    <span class="c1"># coordinate system.</span>
+
+    <span class="c1"># Define the base vectors of the old base in terms of the new base vectors.</span>
+    <span class="n">base_vector_1</span> <span class="o">=</span> <span class="n">_dip_azimuth2zse_base_vector</span><span class="p">(</span><span class="n">dip_1</span><span class="p">,</span> <span class="n">azimuth_1</span><span class="p">)</span>
+    <span class="n">base_vector_2</span> <span class="o">=</span> <span class="n">_dip_azimuth2zse_base_vector</span><span class="p">(</span><span class="n">dip_2</span><span class="p">,</span> <span class="n">azimuth_2</span><span class="p">)</span>
+    <span class="n">base_vector_3</span> <span class="o">=</span> <span class="n">_dip_azimuth2zse_base_vector</span><span class="p">(</span><span class="n">dip_3</span><span class="p">,</span> <span class="n">azimuth_3</span><span class="p">)</span>
+
+    <span class="c1"># Build transformation matrix.</span>
+    <span class="n">_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">([</span><span class="n">base_vector_1</span><span class="p">,</span> <span class="n">base_vector_2</span><span class="p">,</span> <span class="n">base_vector_3</span><span class="p">])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">inverse</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">_t</span><span class="p">,</span> <span class="p">[</span><span class="n">data_1</span><span class="p">,</span> <span class="n">data_2</span><span class="p">,</span> <span class="n">data_3</span><span class="p">])</span>
+        <span class="n">y</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">_t</span><span class="p">),</span> <span class="p">[</span><span class="n">data_1</span><span class="p">,</span> <span class="o">-</span><span class="n">data_2</span><span class="p">,</span> <span class="n">data_3</span><span class="p">])</span>
+
+    <span class="c1"># Replace all negative zeros. These might confuse some further</span>
+    <span class="c1"># processing programs.</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">x</span><span class="p">[</span><span class="n">x</span> <span class="o">==</span> <span class="o">-</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">y</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="o">-</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">z</span><span class="p">[</span><span class="n">z</span> <span class="o">==</span> <span class="o">-</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

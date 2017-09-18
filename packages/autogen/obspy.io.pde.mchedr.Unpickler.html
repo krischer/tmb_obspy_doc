@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.io.pde.mchedr.Unpickler &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../contents.html">ObsPy Documentation (1.0.3)</a></li> 
+    </ol>
+  
+  <div class="section" id="obspy-io-pde-mchedr-unpickler">
+<h1>obspy.io.pde.mchedr.Unpickler<a class="headerlink" href="#obspy-io-pde-mchedr-unpickler" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="obspy.io.pde.mchedr.Unpickler">
+<em class="property">class </em><code class="descname">Unpickler</code><a class="reference internal" href="../../_modules/obspy/io/pde/mchedr.html#Unpickler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#obspy.io.pde.mchedr.Unpickler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>De-serializes a mchedr string into an ObsPy Catalog object.</p>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Unpickler.__dict__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Unpickler.__doc__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Unpickler.__module__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Unpickler.__weakref__</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Public Methods</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler.load.html#obspy.io.pde.mchedr.Unpickler.load" title="obspy.io.pde.mchedr.Unpickler.load"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler.load</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler.loads.html#obspy.io.pde.mchedr.Unpickler.loads" title="obspy.io.pde.mchedr.Unpickler.loads"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler.loads</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Unpickler.next</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Private Methods</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Private methods are mainly for internal/developer use and their API might change without notice.</p>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._angle_between.html#obspy.io.pde.mchedr.Unpickler._angle_between" title="obspy.io.pde.mchedr.Unpickler._angle_between"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._angle_between</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._coordinate_sign.html#obspy.io.pde.mchedr.Unpickler._coordinate_sign" title="obspy.io.pde.mchedr.Unpickler._coordinate_sign"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._coordinate_sign</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._decode_fe_region_number.html#obspy.io.pde.mchedr.Unpickler._decode_fe_region_number" title="obspy.io.pde.mchedr.Unpickler._decode_fe_region_number"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._decode_fe_region_number</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._deserialize.html#obspy.io.pde.mchedr.Unpickler._deserialize" title="obspy.io.pde.mchedr.Unpickler._deserialize"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._deserialize</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._float.html#obspy.io.pde.mchedr.Unpickler._float" title="obspy.io.pde.mchedr.Unpickler._float"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._float</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._float_unused.html#obspy.io.pde.mchedr.Unpickler._float_unused" title="obspy.io.pde.mchedr.Unpickler._float_unused"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._float_unused</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._float_with_format.html#obspy.io.pde.mchedr.Unpickler._float_with_format" title="obspy.io.pde.mchedr.Unpickler._float_with_format"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._float_with_format</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._int.html#obspy.io.pde.mchedr.Unpickler._int" title="obspy.io.pde.mchedr.Unpickler._int"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._int</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._int_unused.html#obspy.io.pde.mchedr.Unpickler._int_unused" title="obspy.io.pde.mchedr.Unpickler._int_unused"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._int_unused</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._int_zero.html#obspy.io.pde.mchedr.Unpickler._int_zero" title="obspy.io.pde.mchedr.Unpickler._int_zero"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._int_zero</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._lat_err_to_deg.html#obspy.io.pde.mchedr.Unpickler._lat_err_to_deg" title="obspy.io.pde.mchedr.Unpickler._lat_err_to_deg"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._lat_err_to_deg</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._lon_err_to_deg.html#obspy.io.pde.mchedr.Unpickler._lon_err_to_deg" title="obspy.io.pde.mchedr.Unpickler._lon_err_to_deg"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._lon_err_to_deg</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._parse_record_a.html#obspy.io.pde.mchedr.Unpickler._parse_record_a" title="obspy.io.pde.mchedr.Unpickler._parse_record_a"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._parse_record_a</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._parse_record_ae.html#obspy.io.pde.mchedr.Unpickler._parse_record_ae" title="obspy.io.pde.mchedr.Unpickler._parse_record_ae"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._parse_record_ae</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._parse_record_ah.html#obspy.io.pde.mchedr.Unpickler._parse_record_ah" title="obspy.io.pde.mchedr.Unpickler._parse_record_ah"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._parse_record_ah</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._parse_record_c.html#obspy.io.pde.mchedr.Unpickler._parse_record_c" title="obspy.io.pde.mchedr.Unpickler._parse_record_c"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._parse_record_c</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._parse_record_da.html#obspy.io.pde.mchedr.Unpickler._parse_record_da" title="obspy.io.pde.mchedr.Unpickler._parse_record_da"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._parse_record_da</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._parse_record_dc.html#obspy.io.pde.mchedr.Unpickler._parse_record_dc" title="obspy.io.pde.mchedr.Unpickler._parse_record_dc"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._parse_record_dc</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._parse_record_dp.html#obspy.io.pde.mchedr.Unpickler._parse_record_dp" title="obspy.io.pde.mchedr.Unpickler._parse_record_dp"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._parse_record_dp</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._parse_record_dt.html#obspy.io.pde.mchedr.Unpickler._parse_record_dt" title="obspy.io.pde.mchedr.Unpickler._parse_record_dt"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._parse_record_dt</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._parse_record_e.html#obspy.io.pde.mchedr.Unpickler._parse_record_e" title="obspy.io.pde.mchedr.Unpickler._parse_record_e"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._parse_record_e</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._parse_record_hy.html#obspy.io.pde.mchedr.Unpickler._parse_record_hy" title="obspy.io.pde.mchedr.Unpickler._parse_record_hy"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._parse_record_hy</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._parse_record_l.html#obspy.io.pde.mchedr.Unpickler._parse_record_l" title="obspy.io.pde.mchedr.Unpickler._parse_record_l"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._parse_record_l</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._parse_record_m.html#obspy.io.pde.mchedr.Unpickler._parse_record_m" title="obspy.io.pde.mchedr.Unpickler._parse_record_m"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._parse_record_m</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._parse_record_p.html#obspy.io.pde.mchedr.Unpickler._parse_record_p" title="obspy.io.pde.mchedr.Unpickler._parse_record_p"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._parse_record_p</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._parse_record_s.html#obspy.io.pde.mchedr.Unpickler._parse_record_s" title="obspy.io.pde.mchedr.Unpickler._parse_record_s"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._parse_record_s</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._spherical_to_cartesian.html#obspy.io.pde.mchedr.Unpickler._spherical_to_cartesian" title="obspy.io.pde.mchedr.Unpickler._spherical_to_cartesian"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._spherical_to_cartesian</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._store_uncertainty.html#obspy.io.pde.mchedr.Unpickler._store_uncertainty" title="obspy.io.pde.mchedr.Unpickler._store_uncertainty"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._store_uncertainty</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._tensor_code_sign.html#obspy.io.pde.mchedr.Unpickler._tensor_code_sign" title="obspy.io.pde.mchedr.Unpickler._tensor_code_sign"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._tensor_code_sign</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._tensor_store.html#obspy.io.pde.mchedr.Unpickler._tensor_store" title="obspy.io.pde.mchedr.Unpickler._tensor_store"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._tensor_store</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._to_deg.html#obspy.io.pde.mchedr.Unpickler._to_deg" title="obspy.io.pde.mchedr.Unpickler._to_deg"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._to_deg</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler._to_rad.html#obspy.io.pde.mchedr.Unpickler._to_rad" title="obspy.io.pde.mchedr.Unpickler._to_rad"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler._to_rad</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Special Methods</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler.__format__.html#obspy.io.pde.mchedr.Unpickler.__format__" title="obspy.io.pde.mchedr.Unpickler.__format__"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler.__format__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler.__init__.html#obspy.io.pde.mchedr.Unpickler.__init__" title="obspy.io.pde.mchedr.Unpickler.__init__"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler.__init__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Unpickler.__long__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Unpickler.__native__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler.__new__.html#obspy.io.pde.mchedr.Unpickler.__new__" title="obspy.io.pde.mchedr.Unpickler.__new__"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler.__new__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Unpickler.__nonzero__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler.__reduce__.html#obspy.io.pde.mchedr.Unpickler.__reduce__" title="obspy.io.pde.mchedr.Unpickler.__reduce__"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler.__reduce__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler.__reduce_ex__.html#obspy.io.pde.mchedr.Unpickler.__reduce_ex__" title="obspy.io.pde.mchedr.Unpickler.__reduce_ex__"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler.__reduce_ex__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler.__sizeof__.html#obspy.io.pde.mchedr.Unpickler.__sizeof__" title="obspy.io.pde.mchedr.Unpickler.__sizeof__"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler.__sizeof__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.io.pde.mchedr.Unpickler.__subclasshook__.html#obspy.io.pde.mchedr.Unpickler.__subclasshook__" title="obspy.io.pde.mchedr.Unpickler.__subclasshook__"><code class="xref py py-obj docutils literal"><span class="pre">Unpickler.__subclasshook__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Unpickler.__unicode__</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

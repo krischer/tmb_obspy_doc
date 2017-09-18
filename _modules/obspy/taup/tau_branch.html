@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.taup.tau_branch &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.taup.tau_branch</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Object dealing with branches in the model.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+<span class="kn">from</span> <span class="nn">future.utils</span> <span class="k">import</span> <span class="n">native_str</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">obspy.core.util.decorator</span> <span class="k">import</span> <span class="n">deprecated</span>
+<span class="kn">from</span> <span class="nn">.c_wrappers</span> <span class="k">import</span> <span class="n">clibtau</span>
+<span class="kn">from</span> <span class="nn">.helper_classes</span> <span class="k">import</span> <span class="p">(</span><span class="n">SlownessLayer</span><span class="p">,</span> <span class="n">SlownessModelError</span><span class="p">,</span>
+                             <span class="n">TauModelError</span><span class="p">,</span> <span class="n">TimeDist</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.slowness_layer</span> <span class="k">import</span> <span class="n">bullen_depth_for</span><span class="p">,</span> <span class="n">bullen_radial_slowness</span>
+
+
+<div class="viewcode-block" id="TauBranch"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_branch.TauBranch.html#obspy.taup.tau_branch.TauBranch">[docs]</a><span class="k">class</span> <span class="nc">TauBranch</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides storage and methods for distance, time and tau increments for a</span>
+<span class="sd">    branch. A branch is a group of layers bounded by discontinuities or</span>
+<span class="sd">    reversals in slowness gradient.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="TauBranch.__init__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_branch.TauBranch.__init__.html#obspy.taup.tau_branch.TauBranch.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top_depth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bot_depth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">is_p_wave</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">top_depth</span> <span class="o">=</span> <span class="n">top_depth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span> <span class="o">=</span> <span class="n">bot_depth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span> <span class="o">=</span> <span class="n">is_p_wave</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="TauBranch.__str__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_branch.TauBranch.__str__.html#obspy.taup.tau_branch.TauBranch.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="s2">&quot;Tau Branch</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">desc</span> <span class="o">+=</span> <span class="s2">&quot; top_depth = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top_depth</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">desc</span> <span class="o">+=</span> <span class="s2">&quot; bot_depth = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">desc</span> <span class="o">+=</span> <span class="s2">&quot; max_ray_param=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_ray_param</span><span class="p">)</span> <span class="o">+</span> \
+            <span class="s2">&quot; min_turn_ray_param=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_turn_ray_param</span><span class="p">)</span>
+        <span class="n">desc</span> <span class="o">+=</span> <span class="s2">&quot; min_ray_param=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_ray_param</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">desc</span></div>
+
+<div class="viewcode-block" id="TauBranch.__eq__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_branch.TauBranch.__eq__.html#obspy.taup.tau_branch.TauBranch.__eq__">[docs]</a>    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="vm">__dict__</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;createBranch&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;create_branch&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">createBranch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;createBranch&#39; has been renamed to</span>
+<span class="sd">        &#39;create_branch&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_branch</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TauBranch.create_branch"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_branch.TauBranch.create_branch.html#obspy.taup.tau_branch.TauBranch.create_branch">[docs]</a>    <span class="k">def</span> <span class="nf">create_branch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s_mod</span><span class="p">,</span> <span class="n">min_p_so_far</span><span class="p">,</span> <span class="n">ray_params</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates tau for this branch, between slowness layers top_layer_num</span>
+<span class="sd">        and bot_layer_num, inclusive.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">top_layer_num</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">layer_number_below</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top_depth</span><span class="p">,</span>
+                                                 <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+        <span class="n">bot_layer_num</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">layer_number_above</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">,</span>
+                                                 <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+        <span class="n">top_s_layer</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span><span class="n">top_layer_num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+        <span class="n">bot_s_layer</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span><span class="n">bot_layer_num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">top_s_layer</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_depth</span> \
+                <span class="ow">or</span> <span class="n">bot_s_layer</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">top_s_layer</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_depth</span> \
+                    <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">top_s_layer</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span> <span class="o">-</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">top_depth</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.000001</span><span class="p">:</span>
+                <span class="c1"># Really close, so just move the top.</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Changing top_depth&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top_depth</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;--&gt;&quot;</span> <span class="o">+</span>
+                      <span class="nb">str</span><span class="p">(</span><span class="n">top_s_layer</span><span class="o">.</span><span class="n">top_depth</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">top_depth</span> <span class="o">=</span> <span class="n">top_s_layer</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">bot_s_layer</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span> <span class="ow">and</span> \
+                    <span class="nb">abs</span><span class="p">(</span><span class="n">bot_s_layer</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.000001</span><span class="p">:</span>
+                <span class="c1"># Really close, so just move the bottom.</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Changing bot_depth&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;--&gt;&quot;</span> <span class="o">+</span>
+                      <span class="nb">str</span><span class="p">(</span><span class="n">bot_s_layer</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span> <span class="o">=</span> <span class="n">bot_s_layer</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">TauModelError</span><span class="p">(</span><span class="s2">&quot;create_branch: TauBranch not compatible &quot;</span>
+                                    <span class="s2">&quot;with slowness sampling at top_depth&quot;</span> <span class="o">+</span>
+                                    <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top_depth</span><span class="p">))</span>
+        <span class="c1"># Here we set min_turn_ray_param to be the ray parameter that turns</span>
+        <span class="c1"># within the layer, not including total reflections off of the bottom.</span>
+        <span class="c1"># max_ray_param is the largest ray parameter that can penetrate this</span>
+        <span class="c1"># branch. min_ray_param is the minimum ray parameter that turns or is</span>
+        <span class="c1"># totally reflected in this branch.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_ray_param</span> <span class="o">=</span> <span class="n">min_p_so_far</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_turn_ray_param</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">get_min_turn_ray_param</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_ray_param</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">get_min_ray_param</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">,</span>
+                                                     <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+
+        <span class="n">time_dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_time_dist</span><span class="p">(</span><span class="n">s_mod</span><span class="p">,</span> <span class="n">top_layer_num</span><span class="p">,</span> <span class="n">bot_layer_num</span><span class="p">,</span>
+                                        <span class="n">ray_params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">time_dist</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dist</span> <span class="o">=</span> <span class="n">time_dist</span><span class="p">[</span><span class="s1">&#39;dist&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tau</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">-</span> <span class="n">ray_params</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dist</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;calcTimeDist&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;calc_time_dist&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">calcTimeDist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;calcTimeDist&#39; has been renamed to</span>
+<span class="sd">        &#39;calc_time_dist&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_time_dist</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TauBranch.calc_time_dist"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_branch.TauBranch.calc_time_dist.html#obspy.taup.tau_branch.TauBranch.calc_time_dist">[docs]</a>    <span class="k">def</span> <span class="nf">calc_time_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s_mod</span><span class="p">,</span> <span class="n">top_layer_num</span><span class="p">,</span> <span class="n">bot_layer_num</span><span class="p">,</span> <span class="n">ray_params</span><span class="p">,</span>
+                       <span class="n">allow_turn_in_layer</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">time_dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">ray_params</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TimeDist</span><span class="p">)</span>
+        <span class="n">time_dist</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ray_params</span>
+
+        <span class="n">layer_num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">top_layer_num</span><span class="p">,</span> <span class="n">bot_layer_num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span><span class="n">layer_num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+
+        <span class="n">plen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ray_params</span><span class="p">)</span>
+        <span class="n">llen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer_num</span><span class="p">)</span>
+        <span class="n">ray_params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">ray_params</span><span class="p">,</span> <span class="n">llen</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">plen</span><span class="p">,</span> <span class="n">llen</span><span class="p">))</span>
+        <span class="n">layer_num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">layer_num</span><span class="p">,</span> <span class="n">plen</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">plen</span><span class="p">,</span> <span class="n">llen</span><span class="p">))</span>
+
+        <span class="c1"># Ignore some errors because we pass in a few invalid combinations that</span>
+        <span class="c1"># are masked out later.</span>
+        <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">):</span>
+            <span class="n">time</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">layer_time_dist</span><span class="p">(</span>
+                <span class="n">ray_params</span><span class="p">,</span> <span class="n">layer_num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">allow_turn</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">clibtau</span><span class="o">.</span><span class="n">tau_branch_calc_time_dist_inner_loop</span><span class="p">(</span>
+            <span class="n">ray_params</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">dist</span><span class="p">,</span> <span class="n">layer</span><span class="p">,</span> <span class="n">time_dist</span><span class="p">,</span> <span class="n">ray_params</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">ray_params</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_ray_param</span><span class="p">,</span> <span class="n">allow_turn_in_layer</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">time_dist</span></div>
+
+<div class="viewcode-block" id="TauBranch.insert"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_branch.TauBranch.insert.html#obspy.taup.tau_branch.TauBranch.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ray_param</span><span class="p">,</span> <span class="n">s_mod</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inserts the distance, time, and tau increment for the slowness sample</span>
+<span class="sd">        given to the branch. This is used for making the depth correction to a</span>
+<span class="sd">        tau model for a non-surface source.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">top_layer_num</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">layer_number_below</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top_depth</span><span class="p">,</span>
+                                                 <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+        <span class="n">bot_layer_num</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">layer_number_above</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">,</span>
+                                                 <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+        <span class="n">top_s_layer</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span><span class="n">top_layer_num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+        <span class="n">bot_s_layer</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span><span class="n">bot_layer_num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">top_s_layer</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_depth</span> \
+                <span class="ow">or</span> <span class="n">bot_s_layer</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">TauModelError</span><span class="p">(</span>
+                <span class="s2">&quot;TauBranch depths not compatible with slowness sampling.&quot;</span><span class="p">)</span>
+
+        <span class="n">new_time</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">new_dist</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">if</span> <span class="n">top_s_layer</span><span class="p">[</span><span class="s1">&#39;bot_p&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">ray_param</span> <span class="ow">and</span> \
+                <span class="n">top_s_layer</span><span class="p">[</span><span class="s1">&#39;top_p&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">ray_param</span><span class="p">:</span>
+            <span class="n">layer_num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">top_layer_num</span><span class="p">,</span> <span class="n">bot_layer_num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">layers</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span><span class="n">layer_num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+            <span class="c1"># So we don&#39;t sum below the turning depth.</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumprod</span><span class="p">(</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_p&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">ray_param</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">)</span>
+            <span class="n">layer_num</span> <span class="o">=</span> <span class="n">layer_num</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer_num</span><span class="p">):</span>
+                <span class="n">time</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">layer_time_dist</span><span class="p">(</span><span class="n">ray_param</span><span class="p">,</span> <span class="n">layer_num</span><span class="p">,</span>
+                                                   <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+                <span class="n">new_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+                <span class="n">new_dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">shift_branch</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_dist</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_time</span> <span class="o">-</span> <span class="n">ray_param</span> <span class="o">*</span> <span class="n">new_dist</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;shiftBranch&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;shift_branch&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">shiftBranch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;shiftBranch&#39; has been renamed to</span>
+<span class="sd">        &#39;shift_branch&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_branch</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TauBranch.shift_branch"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_branch.TauBranch.shift_branch.html#obspy.taup.tau_branch.TauBranch.shift_branch">[docs]</a>    <span class="k">def</span> <span class="nf">shift_branch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="n">new_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">new_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">index</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">new_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">[</span><span class="n">index</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">new_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">[</span><span class="n">index</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="TauBranch.difference"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_branch.TauBranch.difference.html#obspy.taup.tau_branch.TauBranch.difference">[docs]</a>    <span class="k">def</span> <span class="nf">difference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top_branch</span><span class="p">,</span> <span class="n">index_p</span><span class="p">,</span> <span class="n">index_s</span><span class="p">,</span> <span class="n">s_mod</span><span class="p">,</span> <span class="n">min_p_so_far</span><span class="p">,</span>
+                   <span class="n">ray_params</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates a new tau branch by &quot;subtracting&quot; the given tau branch from</span>
+<span class="sd">        this tau branch (self). The given tau branch is assumed to by the</span>
+<span class="sd">        upper part of this branch. index_p specifies where a new ray</span>
+<span class="sd">        corresponding to a P wave sample has been added; it is -1 if no ray</span>
+<span class="sd">        parameter has been added to top_branch. index_s  is similar to index_p</span>
+<span class="sd">        except for a S wave sample. Note that although the ray parameters</span>
+<span class="sd">        for index_p and index_s were for the P and S waves that turned at the</span>
+<span class="sd">        source depth, both ray parameters need to be added to both P and S</span>
+<span class="sd">        branches.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">top_branch</span><span class="o">.</span><span class="n">top_depth</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_depth</span> \
+                <span class="ow">or</span> <span class="n">top_branch</span><span class="o">.</span><span class="n">bot_depth</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">top_branch</span><span class="o">.</span><span class="n">top_depth</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_depth</span> \
+                    <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">top_branch</span><span class="o">.</span><span class="n">top_depth</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_depth</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.000001</span><span class="p">:</span>
+                <span class="c1"># Really close, just move top.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">top_depth</span> <span class="o">=</span> <span class="n">top_branch</span><span class="o">.</span><span class="n">top_depth</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">TauModelError</span><span class="p">(</span>
+                    <span class="s2">&quot;TauBranch not compatible with slowness sampling.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">top_branch</span><span class="o">.</span><span class="n">is_p_wave</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">TauModelError</span><span class="p">(</span>
+                <span class="s2">&quot;Can&#39;t subtract branches is is_p_wave doesn&#39;t agree.&quot;</span><span class="p">)</span>
+        <span class="c1"># Find the top and bottom slowness layers of the bottom half.</span>
+        <span class="n">top_layer_num</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">layer_number_below</span><span class="p">(</span><span class="n">top_branch</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">,</span>
+                                                 <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+        <span class="n">bot_layer_num</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">layer_number_below</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">,</span>
+                                                 <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+        <span class="n">top_s_layer</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span><span class="n">top_layer_num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+        <span class="n">bot_s_layer</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span><span class="n">bot_layer_num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">bot_s_layer</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span> \
+                <span class="ow">and</span> <span class="n">bot_s_layer</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">:</span>
+            <span class="c1"># Gone one too far.</span>
+            <span class="n">bot_layer_num</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">bot_s_layer</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span><span class="n">bot_layer_num</span><span class="p">,</span>
+                                                   <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">top_s_layer</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">top_branch</span><span class="o">.</span><span class="n">bot_depth</span> \
+                <span class="ow">or</span> <span class="n">bot_s_layer</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">TauModelError</span><span class="p">(</span>
+                <span class="s2">&quot;TauBranch not compatible with slowness sampling.&quot;</span><span class="p">)</span>
+        <span class="c1"># Make sure index_p and index_s really correspond to new ray</span>
+        <span class="c1"># parameters at the top of this branch.</span>
+        <span class="n">s_layer</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span><span class="n">s_mod</span><span class="o">.</span><span class="n">layer_number_below</span><span class="p">(</span>
+            <span class="n">top_branch</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">index_p</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">s_layer</span><span class="p">[</span><span class="s1">&#39;top_p&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">ray_params</span><span class="p">[</span><span class="n">index_p</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="n">TauModelError</span><span class="p">(</span><span class="s2">&quot;P wave index doesn&#39;t match top layer.&quot;</span><span class="p">)</span>
+        <span class="n">s_layer</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span><span class="n">s_mod</span><span class="o">.</span><span class="n">layer_number_below</span><span class="p">(</span>
+            <span class="n">top_branch</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">index_s</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">s_layer</span><span class="p">[</span><span class="s1">&#39;top_p&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">ray_params</span><span class="p">[</span><span class="n">index_s</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="n">TauModelError</span><span class="p">(</span><span class="s2">&quot;S wave index doesn&#39;t match top layer.&quot;</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">s_layer</span>
+        <span class="c1"># Construct the new TauBranch, going from the bottom of the top half</span>
+        <span class="c1"># to the bottom of the whole branch.</span>
+        <span class="n">bot_branch</span> <span class="o">=</span> <span class="n">TauBranch</span><span class="p">(</span><span class="n">top_branch</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">,</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+        <span class="n">bot_branch</span><span class="o">.</span><span class="n">max_ray_param</span> <span class="o">=</span> <span class="n">top_branch</span><span class="o">.</span><span class="n">min_ray_param</span>
+        <span class="n">bot_branch</span><span class="o">.</span><span class="n">min_turn_ray_param</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_turn_ray_param</span>
+        <span class="n">bot_branch</span><span class="o">.</span><span class="n">min_ray_param</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_ray_param</span>
+        <span class="n">p_ray_param</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">s_ray_param</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">array_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">index_p</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">array_length</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">p_ray_param</span> <span class="o">=</span> <span class="n">ray_params</span><span class="p">[</span><span class="n">index_p</span><span class="p">:</span><span class="n">index_p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">time_dist_p</span> <span class="o">=</span> <span class="n">bot_branch</span><span class="o">.</span><span class="n">calc_time_dist</span><span class="p">(</span>
+                <span class="n">s_mod</span><span class="p">,</span> <span class="n">top_layer_num</span><span class="p">,</span> <span class="n">bot_layer_num</span><span class="p">,</span> <span class="n">p_ray_param</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">index_s</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">index_s</span> <span class="o">!=</span> <span class="n">index_p</span><span class="p">:</span>
+            <span class="n">array_length</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">s_ray_param</span> <span class="o">=</span> <span class="n">ray_params</span><span class="p">[</span><span class="n">index_s</span><span class="p">:</span><span class="n">index_s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">time_dist_s</span> <span class="o">=</span> <span class="n">bot_branch</span><span class="o">.</span><span class="n">calc_time_dist</span><span class="p">(</span><span class="n">s_mod</span><span class="p">,</span> <span class="n">top_layer_num</span><span class="p">,</span>
+                                                    <span class="n">bot_layer_num</span><span class="p">,</span> <span class="n">s_ray_param</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># In case index_s==P then only need one.</span>
+            <span class="n">index_s</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">index_p</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># Then both indices are -1 so no new ray parameters are added.</span>
+            <span class="n">bot_branch</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">-</span> <span class="n">top_branch</span><span class="o">.</span><span class="n">time</span>
+            <span class="n">bot_branch</span><span class="o">.</span><span class="n">dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dist</span> <span class="o">-</span> <span class="n">top_branch</span><span class="o">.</span><span class="n">dist</span>
+            <span class="n">bot_branch</span><span class="o">.</span><span class="n">tau</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span> <span class="o">-</span> <span class="n">top_branch</span><span class="o">.</span><span class="n">tau</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">bot_branch</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">array_length</span><span class="p">)</span>
+            <span class="n">bot_branch</span><span class="o">.</span><span class="n">dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">array_length</span><span class="p">)</span>
+            <span class="n">bot_branch</span><span class="o">.</span><span class="n">tau</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">array_length</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">index_s</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># Only index_p != -1.</span>
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">time</span><span class="p">[:</span><span class="n">index_p</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[:</span><span class="n">index_p</span><span class="p">]</span> <span class="o">-</span>
+                                             <span class="n">top_branch</span><span class="o">.</span><span class="n">time</span><span class="p">[:</span><span class="n">index_p</span><span class="p">])</span>
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">dist</span><span class="p">[:</span><span class="n">index_p</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">[:</span><span class="n">index_p</span><span class="p">]</span> <span class="o">-</span>
+                                             <span class="n">top_branch</span><span class="o">.</span><span class="n">dist</span><span class="p">[:</span><span class="n">index_p</span><span class="p">])</span>
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">tau</span><span class="p">[:</span><span class="n">index_p</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">[:</span><span class="n">index_p</span><span class="p">]</span> <span class="o">-</span>
+                                            <span class="n">top_branch</span><span class="o">.</span><span class="n">tau</span><span class="p">[:</span><span class="n">index_p</span><span class="p">])</span>
+
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">index_p</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_dist_p</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">dist</span><span class="p">[</span><span class="n">index_p</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_dist_p</span><span class="p">[</span><span class="s1">&#39;dist&#39;</span><span class="p">]</span>
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">tau</span><span class="p">[</span><span class="n">index_p</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">time_dist_p</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">-</span>
+                                           <span class="n">p_ray_param</span> <span class="o">*</span> <span class="n">time_dist_p</span><span class="p">[</span><span class="s1">&#39;dist&#39;</span><span class="p">])</span>
+
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">index_p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">index_p</span><span class="p">:]</span> <span class="o">-</span>
+                                                 <span class="n">top_branch</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">index_p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:])</span>
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">dist</span><span class="p">[</span><span class="n">index_p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">[</span><span class="n">index_p</span><span class="p">:]</span> <span class="o">-</span>
+                                                 <span class="n">top_branch</span><span class="o">.</span><span class="n">dist</span><span class="p">[</span><span class="n">index_p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:])</span>
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">tau</span><span class="p">[</span><span class="n">index_p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">[</span><span class="n">index_p</span><span class="p">:]</span> <span class="o">-</span>
+                                                <span class="n">top_branch</span><span class="o">.</span><span class="n">tau</span><span class="p">[</span><span class="n">index_p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:])</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Both index_p and S are != -1 so have two new samples</span>
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">time</span><span class="p">[:</span><span class="n">index_s</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[:</span><span class="n">index_s</span><span class="p">]</span> <span class="o">-</span>
+                                             <span class="n">top_branch</span><span class="o">.</span><span class="n">time</span><span class="p">[:</span><span class="n">index_s</span><span class="p">])</span>
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">dist</span><span class="p">[:</span><span class="n">index_s</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">[:</span><span class="n">index_s</span><span class="p">]</span> <span class="o">-</span>
+                                             <span class="n">top_branch</span><span class="o">.</span><span class="n">dist</span><span class="p">[:</span><span class="n">index_s</span><span class="p">])</span>
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">tau</span><span class="p">[:</span><span class="n">index_s</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">[:</span><span class="n">index_s</span><span class="p">]</span> <span class="o">-</span>
+                                            <span class="n">top_branch</span><span class="o">.</span><span class="n">tau</span><span class="p">[:</span><span class="n">index_s</span><span class="p">])</span>
+
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">index_s</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_dist_s</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">dist</span><span class="p">[</span><span class="n">index_s</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_dist_s</span><span class="p">[</span><span class="s1">&#39;dist&#39;</span><span class="p">]</span>
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">tau</span><span class="p">[</span><span class="n">index_s</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">time_dist_s</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">-</span>
+                                           <span class="n">s_ray_param</span> <span class="o">*</span> <span class="n">time_dist_s</span><span class="p">[</span><span class="s1">&#39;dist&#39;</span><span class="p">])</span>
+
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">index_s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span><span class="n">index_p</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">index_s</span><span class="p">:</span><span class="n">index_p</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span>
+                    <span class="n">top_branch</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">index_s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span><span class="n">index_p</span><span class="p">])</span>
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">dist</span><span class="p">[</span><span class="n">index_s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span><span class="n">index_p</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">[</span><span class="n">index_s</span><span class="p">:</span><span class="n">index_p</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span>
+                    <span class="n">top_branch</span><span class="o">.</span><span class="n">dist</span><span class="p">[</span><span class="n">index_s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span><span class="n">index_p</span><span class="p">])</span>
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">tau</span><span class="p">[</span><span class="n">index_s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span><span class="n">index_p</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">[</span><span class="n">index_s</span><span class="p">:</span><span class="n">index_p</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span>
+                    <span class="n">top_branch</span><span class="o">.</span><span class="n">tau</span><span class="p">[</span><span class="n">index_s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span><span class="n">index_p</span><span class="p">])</span>
+
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">index_p</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_dist_p</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">dist</span><span class="p">[</span><span class="n">index_p</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_dist_p</span><span class="p">[</span><span class="s1">&#39;dist&#39;</span><span class="p">]</span>
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">tau</span><span class="p">[</span><span class="n">index_p</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">time_dist_p</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">-</span>
+                                           <span class="n">p_ray_param</span> <span class="o">*</span> <span class="n">time_dist_p</span><span class="p">[</span><span class="s1">&#39;dist&#39;</span><span class="p">])</span>
+
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">index_p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">index_p</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">-</span>
+                                                 <span class="n">top_branch</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">index_p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:])</span>
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">dist</span><span class="p">[</span><span class="n">index_p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="p">[</span><span class="n">index_p</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">-</span>
+                                                 <span class="n">top_branch</span><span class="o">.</span><span class="n">dist</span><span class="p">[</span><span class="n">index_p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:])</span>
+                <span class="n">bot_branch</span><span class="o">.</span><span class="n">tau</span><span class="p">[</span><span class="n">index_p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="p">[</span><span class="n">index_p</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">-</span>
+                                                <span class="n">top_branch</span><span class="o">.</span><span class="n">tau</span><span class="p">[</span><span class="n">index_p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:])</span>
+
+        <span class="k">return</span> <span class="n">bot_branch</span></div>
+
+<div class="viewcode-block" id="TauBranch.path"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_branch.TauBranch.path.html#obspy.taup.tau_branch.TauBranch.path">[docs]</a>    <span class="k">def</span> <span class="nf">path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ray_param</span><span class="p">,</span> <span class="n">downgoing</span><span class="p">,</span> <span class="n">s_mod</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Called from TauPPath to calculate ray paths.</span>
+<span class="sd">        :param ray_param:</span>
+<span class="sd">        :param downgoing:</span>
+<span class="sd">        :param s_mod:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">ray_param</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_ray_param</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TimeDist</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">ray_param</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">top_layer_num</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">layer_number_below</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top_depth</span><span class="p">,</span>
+                                                     <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+            <span class="n">bot_layer_num</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">layer_number_above</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">,</span>
+                                                     <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+        <span class="c1"># except NoSuchLayerError as e:</span>
+        <span class="k">except</span> <span class="n">SlownessModelError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">SlownessModelError</span><span class="p">(</span><span class="s2">&quot;SlownessModel and TauModel are likely&quot;</span>
+                                     <span class="s2">&quot;out of sync.&quot;</span><span class="p">)</span>
+
+        <span class="n">the_path</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">bot_layer_num</span> <span class="o">-</span> <span class="n">top_layer_num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TimeDist</span><span class="p">)</span>
+        <span class="n">path_index</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Check to make sure layers and branches are compatible.</span>
+        <span class="n">s_layer</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span><span class="n">top_layer_num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">s_layer</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_depth</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">SlownessModelError</span><span class="p">(</span><span class="s2">&quot;Branch and slowness model are not in &quot;</span>
+                                     <span class="s2">&quot;agreement.&quot;</span><span class="p">)</span>
+        <span class="n">s_layer</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span><span class="n">bot_layer_num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">s_layer</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">SlownessModelError</span><span class="p">(</span><span class="s2">&quot;Branch and slowness model are not in &quot;</span>
+                                     <span class="s2">&quot;agreement.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Downgoing branches:</span>
+        <span class="k">if</span> <span class="n">downgoing</span><span class="p">:</span>
+            <span class="n">s_layer_num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">top_layer_num</span><span class="p">,</span> <span class="n">bot_layer_num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">s_layer</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span><span class="n">s_layer_num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumprod</span><span class="p">(</span><span class="n">s_layer</span><span class="p">[</span><span class="s1">&#39;bot_p&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">ray_param</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">)</span>
+            <span class="n">mask</span> <span class="o">&amp;=</span> <span class="n">s_layer</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">s_layer</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span>
+            <span class="n">s_layer_num</span> <span class="o">=</span> <span class="n">s_layer_num</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+            <span class="n">s_layer</span> <span class="o">=</span> <span class="n">s_layer</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s_layer</span><span class="p">):</span>
+                <span class="n">path_index_end</span> <span class="o">=</span> <span class="n">path_index</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">s_layer</span><span class="p">)</span>
+                <span class="n">time</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">layer_time_dist</span><span class="p">(</span>
+                    <span class="n">ray_param</span><span class="p">,</span>
+                    <span class="n">s_layer_num</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+                <span class="n">the_path</span><span class="p">[</span><span class="n">path_index</span><span class="p">:</span><span class="n">path_index_end</span><span class="p">][</span><span class="s1">&#39;p&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ray_param</span>
+                <span class="n">the_path</span><span class="p">[</span><span class="n">path_index</span><span class="p">:</span><span class="n">path_index_end</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
+                <span class="n">the_path</span><span class="p">[</span><span class="n">path_index</span><span class="p">:</span><span class="n">path_index_end</span><span class="p">][</span><span class="s1">&#39;dist&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span>
+                <span class="n">the_path</span><span class="p">[</span><span class="n">path_index</span><span class="p">:</span><span class="n">path_index_end</span><span class="p">][</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="n">s_layer</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span>
+                <span class="n">path_index</span> <span class="o">=</span> <span class="n">path_index_end</span>
+
+            <span class="c1"># Apply Bullen laws on last element, if available.</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s_layer_num</span><span class="p">):</span>
+                <span class="n">s_layer_num</span> <span class="o">=</span> <span class="n">s_layer_num</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">s_layer_num</span> <span class="o">=</span> <span class="n">top_layer_num</span>
+            <span class="k">if</span> <span class="n">s_layer_num</span> <span class="o">&lt;=</span> <span class="n">bot_layer_num</span><span class="p">:</span>
+                <span class="n">s_layer</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span><span class="n">s_layer_num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">s_layer</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">s_layer</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]:</span>
+                    <span class="n">turn_depth</span> <span class="o">=</span> <span class="n">bullen_depth_for</span><span class="p">(</span><span class="n">s_layer</span><span class="p">,</span> <span class="n">ray_param</span><span class="p">,</span>
+                                                  <span class="n">s_mod</span><span class="o">.</span><span class="n">radius_of_planet</span><span class="p">)</span>
+                    <span class="n">turn_s_layer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+                        <span class="p">(</span><span class="n">s_layer</span><span class="p">[</span><span class="s1">&#39;top_p&#39;</span><span class="p">],</span> <span class="n">s_layer</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">],</span> <span class="n">ray_param</span><span class="p">,</span>
+                         <span class="n">turn_depth</span><span class="p">)],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">SlownessLayer</span><span class="p">)</span>
+                    <span class="n">time</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">bullen_radial_slowness</span><span class="p">(</span>
+                        <span class="n">turn_s_layer</span><span class="p">,</span>
+                        <span class="n">ray_param</span><span class="p">,</span>
+                        <span class="n">s_mod</span><span class="o">.</span><span class="n">radius_of_planet</span><span class="p">)</span>
+                    <span class="n">the_path</span><span class="p">[</span><span class="n">path_index</span><span class="p">][</span><span class="s1">&#39;p&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ray_param</span>
+                    <span class="n">the_path</span><span class="p">[</span><span class="n">path_index</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
+                    <span class="n">the_path</span><span class="p">[</span><span class="n">path_index</span><span class="p">][</span><span class="s1">&#39;dist&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span>
+                    <span class="n">the_path</span><span class="p">[</span><span class="n">path_index</span><span class="p">][</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">turn_s_layer</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span>
+                    <span class="n">path_index</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># Upgoing branches:</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s_layer_num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">bot_layer_num</span><span class="p">,</span> <span class="n">top_layer_num</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">s_layer</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span><span class="n">s_layer_num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">s_layer</span><span class="p">[</span><span class="s1">&#39;top_p&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">ray_param</span><span class="p">,</span>
+                                 <span class="n">s_layer</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">s_layer</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">])</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumprod</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">)</span>
+            <span class="n">mask</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Always leave one element for Bullen.</span>
+
+            <span class="c1"># Apply Bullen laws on first available element, if possible.</span>
+            <span class="n">first_unmasked</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+            <span class="n">s_layer_2</span> <span class="o">=</span> <span class="n">s_layer</span><span class="p">[</span><span class="n">first_unmasked</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">s_layer_2</span><span class="p">[</span><span class="s1">&#39;bot_p&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">ray_param</span><span class="p">:</span>
+                <span class="n">turn_depth</span> <span class="o">=</span> <span class="n">bullen_depth_for</span><span class="p">(</span><span class="n">s_layer_2</span><span class="p">,</span> <span class="n">ray_param</span><span class="p">,</span>
+                                              <span class="n">s_mod</span><span class="o">.</span><span class="n">radius_of_planet</span><span class="p">)</span>
+                <span class="n">turn_s_layer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span>
+                    <span class="n">s_layer_2</span><span class="p">[</span><span class="s1">&#39;top_p&#39;</span><span class="p">],</span> <span class="n">s_layer_2</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">],</span> <span class="n">ray_param</span><span class="p">,</span>
+                    <span class="n">turn_depth</span><span class="p">)],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">SlownessLayer</span><span class="p">)</span>
+                <span class="n">time</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">bullen_radial_slowness</span><span class="p">(</span>
+                    <span class="n">turn_s_layer</span><span class="p">,</span>
+                    <span class="n">ray_param</span><span class="p">,</span>
+                    <span class="n">s_mod</span><span class="o">.</span><span class="n">radius_of_planet</span><span class="p">)</span>
+                <span class="n">the_path</span><span class="p">[</span><span class="n">path_index</span><span class="p">][</span><span class="s1">&#39;p&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ray_param</span>
+                <span class="n">the_path</span><span class="p">[</span><span class="n">path_index</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
+                <span class="n">the_path</span><span class="p">[</span><span class="n">path_index</span><span class="p">][</span><span class="s1">&#39;dist&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span>
+                <span class="n">the_path</span><span class="p">[</span><span class="n">path_index</span><span class="p">][</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">turn_s_layer</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span>
+                <span class="n">path_index</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">mask</span><span class="p">[</span><span class="n">first_unmasked</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="c1"># Apply regular time/distance calculation on all unmasked and</span>
+            <span class="c1"># non-zero thickness layers.</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">mask</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">s_layer</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">s_layer</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">])</span>
+            <span class="n">s_layer</span> <span class="o">=</span> <span class="n">s_layer</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+            <span class="n">s_layer_num</span> <span class="o">=</span> <span class="n">s_layer_num</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s_layer</span><span class="p">):</span>
+                <span class="n">path_index_end</span> <span class="o">=</span> <span class="n">path_index</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">s_layer</span><span class="p">)</span>
+                <span class="n">time</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">s_mod</span><span class="o">.</span><span class="n">layer_time_dist</span><span class="p">(</span>
+                    <span class="n">ray_param</span><span class="p">,</span>
+                    <span class="n">s_layer_num</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">is_p_wave</span><span class="p">)</span>
+                <span class="n">the_path</span><span class="p">[</span><span class="n">path_index</span><span class="p">:</span><span class="n">path_index_end</span><span class="p">][</span><span class="s1">&#39;p&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ray_param</span>
+                <span class="n">the_path</span><span class="p">[</span><span class="n">path_index</span><span class="p">:</span><span class="n">path_index_end</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
+                <span class="n">the_path</span><span class="p">[</span><span class="n">path_index</span><span class="p">:</span><span class="n">path_index_end</span><span class="p">][</span><span class="s1">&#39;dist&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span>
+                <span class="n">the_path</span><span class="p">[</span><span class="n">path_index</span><span class="p">:</span><span class="n">path_index_end</span><span class="p">][</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="n">s_layer</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span>
+                <span class="n">path_index</span> <span class="o">=</span> <span class="n">path_index_end</span>
+
+        <span class="n">temp_path</span> <span class="o">=</span> <span class="n">the_path</span><span class="p">[:</span><span class="n">path_index</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">temp_path</span></div>
+
+<div class="viewcode-block" id="TauBranch._to_array"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_branch.TauBranch._to_array.html#obspy.taup.tau_branch.TauBranch._to_array">[docs]</a>    <span class="k">def</span> <span class="nf">_to_array</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Store all attributes for serialization in a structured array.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dtypes</span> <span class="o">=</span> <span class="p">[(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;debug&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;dist&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;is_p_wave&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;max_ray_param&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;min_ray_param&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;min_turn_ray_param&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;tau&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;top_depth&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">)]</span>
+        <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtypes</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="n">dtypes</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">dtype</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">arr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">arr</span></div>
+
+<div class="viewcode-block" id="TauBranch._from_array"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_branch.TauBranch._from_array.html#obspy.taup.tau_branch.TauBranch._from_array">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_from_array</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create instance object from a structured array used in serialization.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">branch</span> <span class="o">=</span> <span class="n">TauBranch</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">arr</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">names</span><span class="p">:</span>
+            <span class="c1"># restore scalar types from 0d array</span>
+            <span class="n">arr_</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">arr_</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">arr_</span> <span class="o">=</span> <span class="n">arr_</span><span class="p">[()]</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">branch</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">arr_</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">branch</span></div></div>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

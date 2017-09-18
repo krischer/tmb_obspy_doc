@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.clients.fdsn.mass_downloader &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../contents.html">ObsPy Documentation (1.0.3)</a></li> 
+    </ol>
+  
+  <div class="section" id="module-obspy.clients.fdsn.mass_downloader">
+<span id="obspy-clients-fdsn-mass-downloader"></span><h1>obspy.clients.fdsn.mass_downloader<a class="headerlink" href="#module-obspy.clients.fdsn.mass_downloader" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="mass-downloader-for-fdsn-compliant-web-services">
+<h2>Mass Downloader for FDSN Compliant Web Services<a class="headerlink" href="#mass-downloader-for-fdsn-compliant-web-services" title="Permalink to this headline">¶</a></h2>
+<p>This package contains functionality to query and integrate data from any number
+of <a class="reference external" href="https://www.fdsn.org/webservices/">FDSN web service</a> providers
+simultaneously. The package aims to formulate download requests in a way that
+is convenient for seismologists without having to worry about political and
+technical data center issues. It can be used by itself or as a library
+component integrated into a bigger project.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">copyright:</th><td class="field-body">Lion Krischer (<a class="reference external" href="mailto:krischer&#37;&#52;&#48;geophysik&#46;uni-muenchen&#46;de">krischer<span>&#64;</span>geophysik<span>&#46;</span>uni-muenchen<span>&#46;</span>de</a>), 2014-2015</td>
+</tr>
+<tr class="field-even field"><th class="field-name">license:</th><td class="field-body">GNU Lesser General Public License, Version 3
+(<a class="reference external" href="https://www.gnu.org/copyleft/lesser.html">https://www.gnu.org/copyleft/lesser.html</a>)</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="why-would-you-want-to-use-this">
+<h3>Why Would You Want to Use This?<a class="headerlink" href="#why-would-you-want-to-use-this" title="Permalink to this headline">¶</a></h3>
+<p>Directly using the FDSN web services for example via the
+<a class="reference internal" href="../obspy.clients.fdsn.html#module-obspy.clients.fdsn" title="obspy.clients.fdsn"><code class="xref py py-mod docutils literal"><span class="pre">obspy.clients.fdsn</span></code></a> client is fine for small amounts of data but quickly
+becomes cumbersome for larger data sets. Many data centers do provide tools to
+easily download larger amounts of data but that is usually only from one data
+center. Now most seismologists don’t really care a lot where the data they
+download originates - they just want the data for their use case and
+oftentimes they want as much data as they can get. As the number of FDSN
+compliant web services increases this becomes more and more cumbersome.  That
+is where this module comes in. You</p>
+<ol class="arabic simple">
+<li>specify the <strong>geographical region</strong> from which to download data,</li>
+<li>define a number of <strong>other restrictions</strong> (temporal, data quality, …),</li>
+<li>and launch the download.</li>
+</ol>
+<p>The mass downloader module will acquire all waveforms and associated station
+information across all known FDSN web service implementations producing a
+<strong>clean data set</strong> ready for further use.  It works by</p>
+<ol class="arabic simple">
+<li>figuring out what stations each provider offers,</li>
+<li>downloading MiniSEED and associated StationXML meta information in an
+efficient and data center friendly manner, and</li>
+<li>dealing with all the nasty real-world data issues like missing or incomplete
+data, duplicate data across data centers, e.g.<ul>
+<li>Basic optional automatic quality control by assuring that the data has
+no-gaps/overlaps or is available for a certain percentage of the requested
+time span.</li>
+<li>It can relaunch download to acquire missing pieces which might happen for
+example if a data center has been offline.</li>
+<li>It can assure that there always is a corresponding StationXML file for the
+waveforms.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="section" id="usage-examples">
+<h3>Usage Examples<a class="headerlink" href="#usage-examples" title="Permalink to this headline">¶</a></h3>
+<p>Before delving into the nitty-gritty details of how it works and why it does
+things in a certain way we’ll demonstrate the usage of this module on two
+annotated examples. They can serve as templates for your own needs.</p>
+<div class="section" id="earthquake-data">
+<h4>Earthquake Data<a class="headerlink" href="#earthquake-data" title="Permalink to this headline">¶</a></h4>
+<p>The classic seismological data set consists of waveform recordings for a
+certain earthquake. This example downloads all data it can find for the
+Tohoku-Oki Earthquake from 5 minutes before the earthquake centroid time to 1
+hour after.  It will furthermore only download data with an epicentral distance
+between 70.0 and 90.0 degrees and some additional restrictions. Be aware that
+this example will attempt to download data from all FDSN data centers that
+ObsPy knows of and combine it into one data set.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">obspy</span>
+<span class="kn">from</span> <span class="nn">obspy.clients.fdsn.mass_downloader</span> <span class="kn">import</span> <span class="n">CircularDomain</span><span class="p">,</span> \
+    <span class="n">Restrictions</span><span class="p">,</span> <span class="n">MassDownloader</span>
+
+<span class="n">origin_time</span> <span class="o">=</span> <span class="n">obspy</span><span class="o">.</span><span class="n">UTCDateTime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+
+<span class="c1"># Circular domain around the epicenter. This will download all data between</span>
+<span class="c1"># 70 and 90 degrees distance from the epicenter. This module also offers</span>
+<span class="c1"># rectangular and global domains. More complex domains can be defined by</span>
+<span class="c1"># inheriting from the Domain class.</span>
+<span class="n">domain</span> <span class="o">=</span> <span class="n">CircularDomain</span><span class="p">(</span><span class="n">latitude</span><span class="o">=</span><span class="mf">37.52</span><span class="p">,</span> <span class="n">longitude</span><span class="o">=</span><span class="mf">143.04</span><span class="p">,</span>
+                        <span class="n">minradius</span><span class="o">=</span><span class="mf">70.0</span><span class="p">,</span> <span class="n">maxradius</span><span class="o">=</span><span class="mf">90.0</span><span class="p">)</span>
+
+<span class="n">restrictions</span> <span class="o">=</span> <span class="n">Restrictions</span><span class="p">(</span>
+    <span class="c1"># Get data from 5 minutes before the event to one hour after the</span>
+    <span class="c1"># event. This defines the temporal bounds of the waveform data.</span>
+    <span class="n">starttime</span><span class="o">=</span><span class="n">origin_time</span> <span class="o">-</span> <span class="mi">5</span> <span class="o">*</span> <span class="mi">60</span><span class="p">,</span>
+    <span class="n">endtime</span><span class="o">=</span><span class="n">origin_time</span> <span class="o">+</span> <span class="mi">3600</span><span class="p">,</span>
+    <span class="c1"># You might not want to deal with gaps in the data. If this setting is</span>
+    <span class="c1"># True, any trace with a gap/overlap will be discarded.</span>
+    <span class="n">reject_channels_with_gaps</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="c1"># And you might only want waveforms that have data for at least 95 % of</span>
+    <span class="c1"># the requested time span. Any trace that is shorter than 95 % of the</span>
+    <span class="c1"># desired total duration will be discarded.</span>
+    <span class="n">minimum_length</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span>
+    <span class="c1"># No two stations should be closer than 10 km to each other. This is</span>
+    <span class="c1"># useful to for example filter out stations that are part of different</span>
+    <span class="c1"># networks but at the same physical station. Settings this option to</span>
+    <span class="c1"># zero or None will disable that filtering.</span>
+    <span class="n">minimum_interstation_distance_in_m</span><span class="o">=</span><span class="mf">10E3</span><span class="p">,</span>
+    <span class="c1"># Only HH or BH channels. If a station has HH channels, those will be</span>
+    <span class="c1"># downloaded, otherwise the BH. Nothing will be downloaded if it has</span>
+    <span class="c1"># neither. You can add more/less patterns if you like.</span>
+    <span class="n">channel_priorities</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;HH[ZNE]&quot;</span><span class="p">,</span> <span class="s2">&quot;BH[ZNE]&quot;</span><span class="p">],</span>
+    <span class="c1"># Location codes are arbitrary and there is no rule as to which</span>
+    <span class="c1"># location is best. Same logic as for the previous setting.</span>
+    <span class="n">location_priorities</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;00&quot;</span><span class="p">,</span> <span class="s2">&quot;10&quot;</span><span class="p">])</span>
+
+<span class="c1"># No specified providers will result in all known ones being queried.</span>
+<span class="n">mdl</span> <span class="o">=</span> <span class="n">MassDownloader</span><span class="p">()</span>
+<span class="c1"># The data will be downloaded to the ``./waveforms/`` and ``./stations/``</span>
+<span class="c1"># folders with automatically chosen file names.</span>
+<span class="n">mdl</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">restrictions</span><span class="p">,</span> <span class="n">mseed_storage</span><span class="o">=</span><span class="s2">&quot;waveforms&quot;</span><span class="p">,</span>
+             <span class="n">stationxml_storage</span><span class="o">=</span><span class="s2">&quot;stations&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="continuous-request">
+<h4>Continuous Request<a class="headerlink" href="#continuous-request" title="Permalink to this headline">¶</a></h4>
+<p>Another use case requiring massive amounts of data are noise studies. Ambient
+seismic noise correlations require continuous recordings from stations over a
+large time span. This example downloads data, from within a certain
+geographical domain, for a whole year. Individual MiniSEED files will be split
+per day. The download helpers will attempt to optimize the queries to the data
+centers and split up the files again if required.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">obspy</span>
+<span class="kn">from</span> <span class="nn">obspy.clients.fdsn.mass_downloader</span> <span class="kn">import</span> <span class="n">RectangularDomain</span><span class="p">,</span> \
+    <span class="n">Restrictions</span><span class="p">,</span> <span class="n">MassDownloader</span>
+
+<span class="c1"># Rectangular domain containing parts of southern Germany.</span>
+<span class="n">domain</span> <span class="o">=</span> <span class="n">RectangularDomain</span><span class="p">(</span><span class="n">minlatitude</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">maxlatitude</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                           <span class="n">minlongitude</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">maxlongitude</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
+
+<span class="n">restrictions</span> <span class="o">=</span> <span class="n">Restrictions</span><span class="p">(</span>
+    <span class="c1"># Get data for a whole year.</span>
+    <span class="n">starttime</span><span class="o">=</span><span class="n">obspy</span><span class="o">.</span><span class="n">UTCDateTime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">endtime</span><span class="o">=</span><span class="n">obspy</span><span class="o">.</span><span class="n">UTCDateTime</span><span class="p">(</span><span class="mi">2013</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="c1"># Chunk it to have one file per day.</span>
+    <span class="n">chunklength_in_sec</span><span class="o">=</span><span class="mi">86400</span><span class="p">,</span>
+    <span class="c1"># Considering the enormous amount of data associated with continuous</span>
+    <span class="c1"># requests, you might want to limit the data based on SEED identifiers.</span>
+    <span class="c1"># If the location code is specified, the location priority list is not</span>
+    <span class="c1"># used; the same is true for the channel argument and priority list.</span>
+    <span class="n">network</span><span class="o">=</span><span class="s2">&quot;BW&quot;</span><span class="p">,</span> <span class="n">station</span><span class="o">=</span><span class="s2">&quot;A*&quot;</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;EH*&quot;</span><span class="p">,</span>
+    <span class="c1"># The typical use case for such a data set are noise correlations where</span>
+    <span class="c1"># gaps are dealt with at a later stage.</span>
+    <span class="n">reject_channels_with_gaps</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+    <span class="c1"># Same is true with the minimum length. All data might be useful.</span>
+    <span class="n">minimum_length</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="c1"># Guard against the same station having different names.</span>
+    <span class="n">minimum_interstation_distance_in_m</span><span class="o">=</span><span class="mf">100.0</span><span class="p">)</span>
+
+<span class="c1"># Restrict the number of providers if you know which serve the desired</span>
+<span class="c1"># data. If in doubt just don&#39;t specify - then all providers will be</span>
+<span class="c1"># queried.</span>
+<span class="n">mdl</span> <span class="o">=</span> <span class="n">MassDownloader</span><span class="p">(</span><span class="n">providers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;LMU&quot;</span><span class="p">,</span> <span class="s2">&quot;GFZ&quot;</span><span class="p">])</span>
+<span class="n">mdl</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">restrictions</span><span class="p">,</span> <span class="n">mseed_storage</span><span class="o">=</span><span class="s2">&quot;waveforms&quot;</span><span class="p">,</span>
+             <span class="n">stationxml_storage</span><span class="o">=</span><span class="s2">&quot;stations&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h3>
+<p>Using the download helpers requires the definition of three separate things,
+all of which are detailed in the following paragraphs.</p>
+<ol class="arabic simple">
+<li><strong>Data Selection:</strong> The data to be downloaded can be defined by enforcing
+geographical or temporal constraints and a couple of other options.</li>
+<li><strong>Storage Options:</strong> Choosing where the final MiniSEED and StationXML files
+should be stored.</li>
+<li><strong>Start the Download:</strong> Choose from which provider(s) to download and then
+launch the downloading process.</li>
+</ol>
+<div class="section" id="step-1-data-selection">
+<h4>Step 1: Data Selection<a class="headerlink" href="#step-1-data-selection" title="Permalink to this headline">¶</a></h4>
+<p>Data set selection serves the purpose to limit the data to be downloaded to
+data useful for the purpose at hand. It is handled by two objects:
+subclasses of the  <a class="reference internal" href="obspy.clients.fdsn.mass_downloader.domain.Domain.html#obspy.clients.fdsn.mass_downloader.domain.Domain" title="obspy.clients.fdsn.mass_downloader.domain.Domain"><code class="xref py py-class docutils literal"><span class="pre">Domain</span></code></a>
+object and the
+<a class="reference internal" href="obspy.clients.fdsn.mass_downloader.restrictions.Restrictions.html#obspy.clients.fdsn.mass_downloader.restrictions.Restrictions" title="obspy.clients.fdsn.mass_downloader.restrictions.Restrictions"><code class="xref py py-class docutils literal"><span class="pre">Restrictions</span></code></a> class.</p>
+<p>The <a class="reference internal" href="obspy.clients.fdsn.mass_downloader.domain.html#module-obspy.clients.fdsn.mass_downloader.domain" title="obspy.clients.fdsn.mass_downloader.domain"><code class="xref py py-class docutils literal"><span class="pre">domain</span></code></a> module currently
+defines three different domain types used to limit the geographical extent of
+the queried data:
+<a class="reference internal" href="obspy.clients.fdsn.mass_downloader.domain.RectangularDomain.html#obspy.clients.fdsn.mass_downloader.domain.RectangularDomain" title="obspy.clients.fdsn.mass_downloader.domain.RectangularDomain"><code class="xref py py-class docutils literal"><span class="pre">RectangularDomain</span></code></a>,
+<a class="reference internal" href="obspy.clients.fdsn.mass_downloader.domain.CircularDomain.html#obspy.clients.fdsn.mass_downloader.domain.CircularDomain" title="obspy.clients.fdsn.mass_downloader.domain.CircularDomain"><code class="xref py py-class docutils literal"><span class="pre">CircularDomain</span></code></a>, and
+<a class="reference internal" href="obspy.clients.fdsn.mass_downloader.domain.GlobalDomain.html#obspy.clients.fdsn.mass_downloader.domain.GlobalDomain" title="obspy.clients.fdsn.mass_downloader.domain.GlobalDomain"><code class="xref py py-class docutils literal"><span class="pre">GlobalDomain</span></code></a>. Subclassing
+<a class="reference internal" href="obspy.clients.fdsn.mass_downloader.domain.Domain.html#obspy.clients.fdsn.mass_downloader.domain.Domain" title="obspy.clients.fdsn.mass_downloader.domain.Domain"><code class="xref py py-class docutils literal"><span class="pre">Domain</span></code></a> enables the
+construction of arbitrarily complex domains. Please see the
+<a class="reference internal" href="obspy.clients.fdsn.mass_downloader.domain.html#module-obspy.clients.fdsn.mass_downloader.domain" title="obspy.clients.fdsn.mass_downloader.domain"><code class="xref py py-class docutils literal"><span class="pre">domain</span></code></a> module for more details.
+Instances of these classes will later be passed to the function sparking the
+downloading process. A rectangular domain for example is defined like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.clients.fdsn.mass_downloader.domain</span> <span class="k">import</span> <span class="n">RectangularDomain</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">domain</span> <span class="o">=</span> <span class="n">RectangularDomain</span><span class="p">(</span><span class="n">minlatitude</span><span class="o">=-</span><span class="mi">10</span><span class="p">,</span> <span class="n">maxlatitude</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="gp">... </span>                           <span class="n">minlongitude</span><span class="o">=-</span><span class="mi">10</span><span class="p">,</span> <span class="n">maxlongitude</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Additional restrictions like temporal bounds, SEED identifier wildcards,
+and other things are set with the help of
+the <a class="reference internal" href="obspy.clients.fdsn.mass_downloader.restrictions.Restrictions.html#obspy.clients.fdsn.mass_downloader.restrictions.Restrictions" title="obspy.clients.fdsn.mass_downloader.restrictions.Restrictions"><code class="xref py py-class docutils literal"><span class="pre">Restrictions</span></code></a>
+class. Please refer to its documentation for a more detailed explanation of
+the parameters.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">UTCDateTime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.clients.fdsn.mass_downloader</span> <span class="k">import</span> <span class="n">Restrictions</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">restrict</span> <span class="o">=</span> <span class="n">Restrictions</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">starttime</span><span class="o">=</span><span class="n">UTCDateTime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">endtime</span><span class="o">=</span><span class="n">UTCDateTime</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">network</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">station</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">reject_channels_with_gaps</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">minimum_length</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">minimum_interstation_distance_in_m</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">channel_priorities</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;HH[ZNE]&quot;</span><span class="p">,</span> <span class="s2">&quot;BH[ZNE]&quot;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">location_priorities</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;00&quot;</span><span class="p">,</span> <span class="s2">&quot;01&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-2-storage-options">
+<h4>Step 2: Storage Options<a class="headerlink" href="#step-2-storage-options" title="Permalink to this headline">¶</a></h4>
+<p>After determining what to download, the helpers must know where to store the
+requested data. That requires some flexibility in case the mass downloader
+is to be integrated as a component into a bigger system. An example is
+a toolbox that has a database to manage its data.</p>
+<p>A major concern is to not download pre-existing data. In order to enable such
+a use case the download helpers can be given functions that are evaluated when
+determining the file names of the requested data. Depending on the return
+value, the helper class will download the whole, part, or even none, of that
+particular piece of data.</p>
+<div class="section" id="storing-miniseed-waveforms">
+<h5>Storing MiniSEED waveforms<a class="headerlink" href="#storing-miniseed-waveforms" title="Permalink to this headline">¶</a></h5>
+<p>The MiniSEED storage rules are set by the <code class="docutils literal"><span class="pre">mseed_storage</span></code> argument of the
+<a class="reference internal" href="obspy.clients.fdsn.mass_downloader.mass_downloader.MassDownloader.download.html#obspy.clients.fdsn.mass_downloader.mass_downloader.MassDownloader.download" title="obspy.clients.fdsn.mass_downloader.mass_downloader.MassDownloader.download"><code class="xref py py-meth docutils literal"><span class="pre">download()</span></code></a>
+method of the
+<a class="reference internal" href="obspy.clients.fdsn.mass_downloader.mass_downloader.MassDownloader.html#obspy.clients.fdsn.mass_downloader.mass_downloader.MassDownloader" title="obspy.clients.fdsn.mass_downloader.mass_downloader.MassDownloader"><code class="xref py py-class docutils literal"><span class="pre">MassDownloader</span></code></a>
+class</p>
+<p><strong>Option 1: Folder Name</strong></p>
+<p>In the simplest case it is just a folder name:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mseed_storage</span> <span class="o">=</span> <span class="s2">&quot;waveforms&quot;</span>
+</pre></div>
+</div>
+<p>This will cause all MiniSEED files to be stored as</p>
+<p><code class="docutils literal"><span class="pre">waveforms/NETWORK.STATION.LOCATION.CHANNEL__STARTTIME__ENDTIME.mseed</span></code>.</p>
+<p>An example of this is</p>
+<p><code class="docutils literal"><span class="pre">waveforms/BW.FURT..BHZ__20141027T163723Z__20141027T163733Z.mseed</span></code></p>
+<p>which is rather general but also quite long.</p>
+<p><strong>Option 2: String Template</strong></p>
+<p>For more control use the second possibility and provide a string containing
+<code class="docutils literal"><span class="pre">{network}</span></code>, <code class="docutils literal"><span class="pre">{station}</span></code>, <code class="docutils literal"><span class="pre">{location}</span></code>, <code class="docutils literal"><span class="pre">{channel}</span></code>, <code class="docutils literal"><span class="pre">{starttime}</span></code>,
+and <code class="docutils literal"><span class="pre">{endtime}</span></code> format specifiers. These values will be interpolated to
+acquire the final filename. The start and end times will be formatted with
+<code class="docutils literal"><span class="pre">strftime()</span></code> with the specifier <code class="docutils literal"><span class="pre">&quot;%Y%m%dT%H%M%SZ&quot;</span></code> in an effort to
+avoid colons which are troublesome in file names on many systems.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mseed_storage</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;some_folder/</span><span class="si">{network}</span><span class="s2">/</span><span class="si">{station}</span><span class="s2">/&quot;</span>
+<span class="gp">... </span>                 <span class="s2">&quot;</span><span class="si">{channel}</span><span class="s2">.</span><span class="si">{location}</span><span class="s2">.</span><span class="si">{starttime}</span><span class="s2">.</span><span class="si">{endtime}</span><span class="s2">.mseed&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>results in</p>
+<p><code class="docutils literal"><span class="pre">some_folder/BW/FURT/BHZ..20141027T163723Z.20141027T163733Z.mseed</span></code>.</p>
+<p>The download helpers will create any non-existing folders along the path.</p>
+<p><strong>Option 3: Custom Function</strong></p>
+<p>The most complex but also most powerful possibility is to use a function which
+will be evaluated to determine the filename. <strong>If the function returns</strong>
+<code class="docutils literal"><span class="pre">True</span></code> <strong>, the MiniSEED file is assumed to already be available and will not
+be downloaded again; keep in mind that in that case no station data will be
+downloaded for that channel.</strong> If it returns a string, the MiniSEED file will
+be saved to that path. Utilize closures to use any other parameters in the
+function. This hypothetical function checks if the file is already in a
+database and otherwise returns a string which will be interpreted as a
+filename.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">get_mseed_storage</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">station</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">starttime</span><span class="p">,</span>
+<span class="gp">... </span>                      <span class="n">endtime</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c1"># Returning True means that neither the data nor the StationXML file</span>
+<span class="gp">... </span>    <span class="c1"># will be downloaded.</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="n">is_in_db</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">station</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">starttime</span><span class="p">,</span> <span class="n">endtime</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="kc">True</span>
+<span class="gp">... </span>    <span class="c1"># If a string is returned the file will be saved in that location.</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ROOT</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">.mseed&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">station</span><span class="p">,</span>
+<span class="gp">... </span>                                                     <span class="n">location</span><span class="p">,</span> <span class="n">channel</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mseed_storage</span> <span class="o">=</span> <span class="n">get_mseed_storage</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">No matter which approach is chosen, if a file already exists, it will not
+be overwritten; it will be parsed and the download helper class will
+attempt to download matching StationXML files.</p>
+</div>
+</div>
+<div class="section" id="storing-stationxml-files">
+<h5>Storing StationXML files<a class="headerlink" href="#storing-stationxml-files" title="Permalink to this headline">¶</a></h5>
+<p>The same logic applies to the StationXML files. This time the rules are set by
+the <code class="docutils literal"><span class="pre">stationxml_storage</span></code> argument of the
+<a class="reference internal" href="obspy.clients.fdsn.mass_downloader.mass_downloader.MassDownloader.download.html#obspy.clients.fdsn.mass_downloader.mass_downloader.MassDownloader.download" title="obspy.clients.fdsn.mass_downloader.mass_downloader.MassDownloader.download"><code class="xref py py-func docutils literal"><span class="pre">download()</span></code></a>
+method of the
+<a class="reference internal" href="obspy.clients.fdsn.mass_downloader.mass_downloader.MassDownloader.html#obspy.clients.fdsn.mass_downloader.mass_downloader.MassDownloader" title="obspy.clients.fdsn.mass_downloader.mass_downloader.MassDownloader"><code class="xref py py-class docutils literal"><span class="pre">MassDownloader</span></code></a>
+class. StationXML files will be downloaded on a per-station basis thus all
+channels and locations from one station will end up in the same StationXML
+file.</p>
+<p><strong>Option 1: Folder Name</strong></p>
+<p>A simple string will be interpreted as a folder name. This example will save
+the files to <code class="docutils literal"><span class="pre">&quot;stations/NETWORK.STATION.xml&quot;</span></code>, e.g. to
+<code class="docutils literal"><span class="pre">&quot;stations/BW.FURT.xml&quot;</span></code>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stationxml_storage</span> <span class="o">=</span> <span class="s2">&quot;stations&quot;</span>
+</pre></div>
+</div>
+<p><strong>Option 2: String Template</strong></p>
+<p>Another option is to provide a string formatting template, e.g.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stationxml_storage</span> <span class="o">=</span> <span class="s2">&quot;some_folder/</span><span class="si">{network}</span><span class="s2">/</span><span class="si">{station}</span><span class="s2">.xml&quot;</span>
+</pre></div>
+</div>
+<p>will write to <code class="docutils literal"><span class="pre">&quot;some_folder/NETWORK/STATION.xml&quot;</span></code>, in this case for example
+to <code class="docutils literal"><span class="pre">&quot;some_folder/BW/FURT.xml&quot;</span></code>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the StationXML file already exists, it will be opened to see what is in
+the file. In case it does not contain all necessary channels, it will be
+deleted and <strong>only those channels needed in the current run will be
+downloaded again</strong>. Pass a custom function to the <code class="docutils literal"><span class="pre">stationxml_path</span></code>
+argument if you require different behavior as documented in the
+following section.</p>
+</div>
+<p><strong>Option 3: Custom Function</strong></p>
+<p>As with the waveform data, the StationXML paths can also be set with the help
+of a function. The function in this case is a bit more complex than for the
+waveform case. It has to return a dictionary with three keys:
+<code class="docutils literal"><span class="pre">&quot;available_channels&quot;</span></code>, <code class="docutils literal"><span class="pre">&quot;missing_channels&quot;</span></code>, and <code class="docutils literal"><span class="pre">&quot;filename&quot;</span></code>.
+<code class="docutils literal"><span class="pre">&quot;available_channels&quot;</span></code> is a list of channels that are already available as
+station information and that require no new download. Make sure to include all
+already available channels; this information is later used to discard
+MiniSEED files that have no corresponding station information.
+<code class="docutils literal"><span class="pre">&quot;missing_channels&quot;</span></code> is a list of channels for that particular station that
+must be downloaded and <code class="docutils literal"><span class="pre">&quot;filename&quot;</span></code> determines where to save these. Please
+note that in this particular case the StationXML file will be overwritten if it
+already exists and only the <code class="docutils literal"><span class="pre">&quot;missing_channels&quot;</span></code> will be downloaded to it,
+independent of what already exists in the file.</p>
+<p>Alternatively the function can also return a string and the behaviour is the
+same as two first options for the <code class="docutils literal"><span class="pre">stationxml_storage</span></code> argument.</p>
+<p>The next example illustrates a complex use case where the availability of each
+channel’s station information is queried in some database and only those
+channels that do not exist yet will be downloaded. Use closures to pass more
+arguments to the function.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">get_stationxml_storage</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">station</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">starttime</span><span class="p">,</span> <span class="n">endtime</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">available_channels</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">... </span>    <span class="n">missing_channels</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">location</span><span class="p">,</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">is_in_db</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">station</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">starttime</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="n">endtime</span><span class="p">):</span>
+<span class="gp">... </span>            <span class="n">available_channels</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">location</span><span class="p">,</span> <span class="n">channel</span><span class="p">))</span>
+<span class="gp">... </span>        <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="n">missing_channels</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">location</span><span class="p">,</span> <span class="n">channel</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ROOT</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">.xml&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">station</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="p">{</span>
+<span class="gp">... </span>        <span class="s2">&quot;available_channels&quot;</span><span class="p">:</span> <span class="n">available_channels</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">&quot;missing_channels&quot;</span><span class="p">:</span> <span class="n">missing_channels</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="n">filename</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stationxml_storage</span> <span class="o">=</span> <span class="n">get_stationxml_storage</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="step-3-start-the-download">
+<h4>Step 3: Start the Download<a class="headerlink" href="#step-3-start-the-download" title="Permalink to this headline">¶</a></h4>
+<p>The final step is to actually start the download. Pass the previously created
+domain, restrictions, and path settings and off you go. Two more parameters of
+interest are the <code class="docutils literal"><span class="pre">chunk_size_in_mb</span></code> setting which controls how much data is
+requested per thread, client and request. <code class="docutils literal"><span class="pre">threads_per_clients</span></code> control how
+many threads are used to download data in parallel per data center - 3 is a
+value in agreement with some data centers.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mdl</span> <span class="o">=</span> <span class="n">MassDownloader</span><span class="p">()</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdl</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">restrictions</span><span class="p">,</span> <span class="n">chunk_size_in_mb</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+<span class="gp">... </span>             <span class="n">threads_per_client</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">mseed_storage</span><span class="o">=</span><span class="n">mseed_storage</span><span class="p">,</span>
+<span class="gp">... </span>             <span class="n">stationxml_storage</span><span class="o">=</span><span class="n">stationxml_storage</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="how-it-works">
+<h3>How it Works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h3>
+<p>At a high level the mass downloader works by looping over each FDSN web service
+and downloading whatever it offers. A bit more detail:</p>
+<ol class="arabic">
+<li><p class="first">Loop over all passed or known FDSN web service implementations and
+auto-discover if they are available and what they can do. If an
+implementation has a <code class="docutils literal"><span class="pre">dataselect</span></code> and a <code class="docutils literal"><span class="pre">station</span></code> service it will be
+part of the following steps. Otherwise it will be discarded.</p>
+</li>
+<li><p class="first">For each web service client:</p>
+<ol class="loweralpha simple">
+<li>Request the availability for the given time and domain settings. It will
+request a text file from the <code class="docutils literal"><span class="pre">station</span></code> service at the channel level. If
+the service supports the <code class="docutils literal"><span class="pre">matchtimeseries</span></code> parameter it will be used
+and the availability is considered to be <em>“reliable”</em> for the further
+stages.</li>
+<li>Channel and location priorities are applied resulting in a single
+instrument per station.</li>
+<li>Any already existing network + station combinations are discarded.</li>
+<li>If the availability for the particular client is considered reliable it
+will perform the minimum distance filtering now. If no stations have
+already been downloaded it will select the largest subset of stations
+satisfying the minimum interstation distance constraint. Otherwise it
+will successively add new stations with the largest distance to the
+closest already existing station until no more stations satisfying the
+minimum distance remain. This results in the maximum possible amount of
+chosen stations satisfying the constraints.</li>
+<li>Download the MiniSEED data - this is threaded and it will use a bulk
+request honoring the desired <code class="docutils literal"><span class="pre">chunk_size_in_mb</span></code> setting. Afterwards it
+splits the MiniSEED files again to match the desired restrictions. The
+split happens at the record level thus no information available in the
+original MiniSEED records is lost.</li>
+<li>Any MiniSEED files not fulfilling the minimum length or no/gap overlap
+restrictions will be deleted. Faulty MiniSEED files as well.</li>
+<li>For each downloaded MiniSEED file: Download the corresponding StationXML
+file at the response level.</li>
+<li>If the <code class="docutils literal"><span class="pre">sanitize</span></code> argument of the Restrictions object is <code class="docutils literal"><span class="pre">True</span></code>,
+delete all MiniSEED files for which no station information could be
+downloaded. This is a useful setting if you want a clean data set.</li>
+</ol>
+<ol class="loweralpha simple" start="7">
+<li>If the availability information is not reliable, perform the minimum
+interstation distance filtering now. This is a bit unfortunate but many
+client do return pretty terrible availability information (or interpret
+the <code class="docutils literal"><span class="pre">station</span></code> service differently) so there is no way around that for
+now.</li>
+<li>Rinse and repeat for all remaining FDSN web service implementations.</li>
+</ol>
+</li>
+</ol>
+<div class="section" id="logging">
+<h4>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h4>
+<p>The download helpers utilizes Python’s <a class="reference external" href="https://docs.python.org/2/library/logging.html">logging facilities</a>. By default it will log to
+stdout at the <code class="docutils literal"><span class="pre">logging.INFO</span></code> level which provides a fair amount of detail. If
+you want to change the log level or setup a different stream handler, just get
+the corresponding logger after you import the download helpers module:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;obspy.clients.fdsn.mass_downloader&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+<div class="section" id="further-documentation">
+<h4>Further Documentation<a class="headerlink" href="#further-documentation" title="Permalink to this headline">¶</a></h4>
+<p>Further functionality of this module is documented at a couple of other places:</p>
+<ul class="simple">
+<li><a class="reference internal" href="obspy.clients.fdsn.mass_downloader.domain.html#module-obspy.clients.fdsn.mass_downloader.domain" title="obspy.clients.fdsn.mass_downloader.domain"><code class="xref py py-mod docutils literal"><span class="pre">domain</span></code></a> module</li>
+<li><a class="reference internal" href="obspy.clients.fdsn.mass_downloader.restrictions.Restrictions.html#obspy.clients.fdsn.mass_downloader.restrictions.Restrictions" title="obspy.clients.fdsn.mass_downloader.restrictions.Restrictions"><code class="xref py py-class docutils literal"><span class="pre">Restrictions</span></code></a> class</li>
+<li><a class="reference internal" href="obspy.clients.fdsn.mass_downloader.mass_downloader.MassDownloader.html#obspy.clients.fdsn.mass_downloader.mass_downloader.MassDownloader" title="obspy.clients.fdsn.mass_downloader.mass_downloader.MassDownloader"><code class="xref py py-class docutils literal"><span class="pre">MassDownloader</span></code></a> class</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

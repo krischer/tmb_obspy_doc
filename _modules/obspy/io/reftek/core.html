@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.io.reftek.core &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.io.reftek.core</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">REFTEK130 read support, core routines.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+<span class="kn">from</span> <span class="nn">future.utils</span> <span class="k">import</span> <span class="n">native_str</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">Trace</span><span class="p">,</span> <span class="n">Stream</span><span class="p">,</span> <span class="n">UTCDateTime</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.obspy_types</span> <span class="k">import</span> <span class="n">ObsPyException</span>
+
+<span class="kn">from</span> <span class="nn">.packet</span> <span class="k">import</span> <span class="p">(</span><span class="n">Packet</span><span class="p">,</span> <span class="n">EHPacket</span><span class="p">,</span> <span class="n">_initial_unpack_packets</span><span class="p">,</span> <span class="n">PACKET_TYPES</span><span class="p">,</span>
+                     <span class="n">PACKET_TYPES_IMPLEMENTED</span><span class="p">,</span> <span class="n">PACKET_FINAL_DTYPE</span><span class="p">,</span>
+                     <span class="n">Reftek130UnpackPacketError</span><span class="p">,</span> <span class="n">_unpack_C0_C2_data</span><span class="p">)</span>
+
+
+<span class="n">NOW</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="Reftek130Exception"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.core.Reftek130Exception.html#obspy.io.reftek.core.Reftek130Exception">[docs]</a><span class="k">class</span> <span class="nc">Reftek130Exception</span><span class="p">(</span><span class="n">ObsPyException</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="_is_reftek130"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.core._is_reftek130.html#obspy.io.reftek.core._is_reftek130">[docs]</a><span class="k">def</span> <span class="nf">_is_reftek130</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks whether a file is REFTEK130 format or not.</span>
+
+<span class="sd">    :type filename: str</span>
+<span class="sd">    :param filename: REFTEK130 file to be checked.</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    :return: ``True`` if a REFTEK130 file.</span>
+
+<span class="sd">    Checks if overall length of file is consistent (i.e. multiple of 1024</span>
+<span class="sd">    bytes) and checks for valid packet type identifiers in the first 20</span>
+<span class="sd">    expected packet positions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">filesize</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="o">.</span><span class="n">st_size</span>
+    <span class="c1"># check if overall file size is a multiple of 1024</span>
+    <span class="k">if</span> <span class="n">filesize</span> <span class="o">&lt;</span> <span class="mi">1024</span> <span class="ow">or</span> <span class="n">filesize</span> <span class="o">%</span> <span class="mi">1024</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="c1"># check first 20 expected packets&#39; type header field</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+            <span class="n">packet_type</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ASCII&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">packet_type</span><span class="p">:</span>
+                <span class="c1"># reached end of file..</span>
+                <span class="k">break</span>
+            <span class="k">if</span> <span class="n">packet_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">PACKET_TYPES</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="n">fp</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">1022</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">SEEK_CUR</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="_read_reftek130"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.core._read_reftek130.html#obspy.io.reftek.core._read_reftek130">[docs]</a><span class="k">def</span> <span class="nf">_read_reftek130</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">network</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">component_codes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">headonly</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read a REFTEK130 file into an ObsPy Stream.</span>
+
+<span class="sd">    :type filename: str</span>
+<span class="sd">    :param filename: REFTEK130 file to be read.</span>
+<span class="sd">    :type network: str</span>
+<span class="sd">    :param network: Network code to fill in for all data (network code is not</span>
+<span class="sd">        stored in EH/ET/DT packets).</span>
+<span class="sd">    :type location: str</span>
+<span class="sd">    :param location: Location code to fill in for all data (network code is not</span>
+<span class="sd">        stored in EH/ET/DT packets).</span>
+<span class="sd">    :type component_codes: list</span>
+<span class="sd">    :param component_codes: Iterable of single-character component codes (e.g.</span>
+<span class="sd">        ``[&#39;Z&#39;, &#39;N&#39;, &#39;E&#39;]``) to be appended to two-character stream name parsed</span>
+<span class="sd">        from event header packet (e.g. ``&#39;HH&#39;``) for each of the channels in</span>
+<span class="sd">        the data (e.g. to make the channel codes in a three channel data file</span>
+<span class="sd">        to ``&#39;HHZ&#39;``, ``&#39;HHN&#39;``, ``&#39;HHE&#39;`` in the created stream object).</span>
+<span class="sd">    :type headonly: bool</span>
+<span class="sd">    :param headonly: Determines whether or not to unpack the data or just</span>
+<span class="sd">        read the headers.</span>
+<span class="sd">    :rtype: :class:`~obspy.core.stream.Stream`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Reftek 130 data format stores only the last two digits of the year.  We</span>
+    <span class="c1"># currently assume that 00-49 are years 2000-2049 and 50-99 are years</span>
+    <span class="c1"># 2050-2099. We deliberately raise an exception if the current year will</span>
+    <span class="c1"># become 2050 (just in case someone really still uses this code then.. ;-)</span>
+    <span class="c1"># At that point the year would probably have to be explicitly specified</span>
+    <span class="c1"># when reading data to be on the safe side.</span>
+    <span class="k">if</span> <span class="n">NOW</span><span class="o">.</span><span class="n">year</span> <span class="o">&gt;</span> <span class="mi">2050</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">rt130</span> <span class="o">=</span> <span class="n">Reftek130</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">st</span> <span class="o">=</span> <span class="n">rt130</span><span class="o">.</span><span class="n">to_stream</span><span class="p">(</span>
+            <span class="n">network</span><span class="o">=</span><span class="n">network</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span>
+            <span class="n">component_codes</span><span class="o">=</span><span class="n">component_codes</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="n">headonly</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">st</span>
+    <span class="k">except</span> <span class="n">Reftek130UnpackPacketError</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Unable to read file &#39;</span><span class="si">{}</span><span class="s2">&#39; as a Reftek130 file. Please contact &quot;</span>
+               <span class="s2">&quot;developers if you think this is a valid Reftek130 file.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">Reftek130Exception</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Reftek130"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.core.Reftek130.html#obspy.io.reftek.core.Reftek130">[docs]</a><span class="k">class</span> <span class="nc">Reftek130</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">_info_header</span> <span class="o">=</span> <span class="s2">&quot;Reftek130 (</span><span class="si">{:d}</span><span class="s2"> packets</span><span class="si">{}</span><span class="s2">)&quot;</span>
+    <span class="n">_info_compact_header</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;Packet Sequence  Byte Count  Data Fmt  Sampling Rate      Time&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;  | Packet Type   |  Event #  | Station | Channel #         |&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;  |   |  Unit ID  |    | Data Stream #  |   |  # of samples |&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;  |   |   |  Exper.#   |   |  |  |      |   |    |          |&quot;</span><span class="p">]</span>
+    <span class="n">_info_compact_footer</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;(detailed packet information with: &quot;</span>
+                            <span class="s2">&quot;&#39;print(Reftek130.__str__(compact=False))&#39;)&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Reftek130.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.core.Reftek130.__init__.html#obspy.io.reftek.core.Reftek130.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">PACKET_FINAL_DTYPE</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_filename</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="Reftek130.__str__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.core.Reftek130.__str__.html#obspy.io.reftek.core.Reftek130.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filename</span> <span class="ow">and</span> <span class="s1">&#39;, file: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_filename</span><span class="p">)</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_info_header</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">),</span> <span class="n">filename</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="n">compact</span><span class="p">:</span>
+            <span class="n">info</span> <span class="o">+=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info_compact_header</span><span class="p">)</span>
+            <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+                <span class="n">info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Packet</span><span class="o">.</span><span class="n">from_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="fm">__str__</span><span class="p">(</span><span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+            <span class="n">info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_info_compact_footer</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+                <span class="n">info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">Packet</span><span class="o">.</span><span class="n">from_data</span><span class="p">(</span><span class="n">data</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">info</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Reftek130.from_file"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.core.Reftek130.from_file.html#obspy.io.reftek.core.Reftek130.from_file">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_file</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">rt</span> <span class="o">=</span> <span class="n">Reftek130</span><span class="p">()</span>
+        <span class="n">rt</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">_initial_unpack_packets</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="n">rt</span><span class="o">.</span><span class="n">_filename</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="k">return</span> <span class="n">rt</span></div>
+
+<div class="viewcode-block" id="Reftek130.check_packet_sequence_and_sort"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.core.Reftek130.check_packet_sequence_and_sort.html#obspy.io.reftek.core.Reftek130.check_packet_sequence_and_sort">[docs]</a>    <span class="k">def</span> <span class="nf">check_packet_sequence_and_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if packet sequence is ordered. If not, shows a warning and sorts</span>
+<span class="sd">        packets by packet sequence. This should ensure that data (DT) packets</span>
+<span class="sd">        are properly enclosed by the appropriate event header/trailer (EH/ET)</span>
+<span class="sd">        packets.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;packet_sequence&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">diff</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Detected permuted packet sequence, sorting.&quot;</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="n">native_str</span><span class="p">(</span><span class="s2">&quot;packet_sequence&quot;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Reftek130.check_packet_sequence_contiguous"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.core.Reftek130.check_packet_sequence_contiguous.html#obspy.io.reftek.core.Reftek130.check_packet_sequence_contiguous">[docs]</a>    <span class="k">def</span> <span class="nf">check_packet_sequence_contiguous</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if packet sequence is contiguous, i.e. without missing packets</span>
+<span class="sd">        in between. Currently raises if that is the case because this case is</span>
+<span class="sd">        not covered by test data yet.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;packet_sequence&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">diff</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Detected a non-contiguous packet sequence!&quot;</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Reftek130.drop_not_implemented_packet_types"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.core.Reftek130.drop_not_implemented_packet_types.html#obspy.io.reftek.core.Reftek130.drop_not_implemented_packet_types">[docs]</a>    <span class="k">def</span> <span class="nf">drop_not_implemented_packet_types</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if there are packets of a type that is currently not implemented</span>
+<span class="sd">        and drop them showing a warning message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">is_implemented</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;packet_type&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">PACKET_TYPES_IMPLEMENTED</span><span class="p">])</span>
+        <span class="c1"># if all packets are of a type that is implemented, the nothing to do..</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">is_implemented</span><span class="p">):</span>
+            <span class="k">return</span>
+        <span class="c1"># otherwise reduce packet list to what is implemented and warn</span>
+        <span class="n">not_implemented</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">is_implemented</span><span class="p">)</span>
+        <span class="n">count_not_implemented</span> <span class="o">=</span> <span class="n">not_implemented</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">types_not_implemented</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;packet_type&#39;</span><span class="p">][</span><span class="n">not_implemented</span><span class="p">])</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Encountered some packets of types that are not &quot;</span>
+               <span class="s2">&quot;implemented yet (types: </span><span class="si">{}</span><span class="s2">). Dropped </span><span class="si">{:d}</span><span class="s2"> packets &quot;</span>
+               <span class="s2">&quot;overall.&quot;</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">types_not_implemented</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                         <span class="n">count_not_implemented</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">is_implemented</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Reftek130.to_stream"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.core.Reftek130.to_stream.html#obspy.io.reftek.core.Reftek130.to_stream">[docs]</a>    <span class="k">def</span> <span class="nf">to_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">network</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">component_codes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                  <span class="n">headonly</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :type headonly: bool</span>
+<span class="sd">        :param headonly: Determines whether or not to unpack the data or just</span>
+<span class="sd">            read the headers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No packet data in Reftek130 object (file: </span><span class="si">{}</span><span class="s2">)&quot;</span>
+            <span class="k">raise</span> <span class="n">Reftek130Exception</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_filename</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_packet_sequence_and_sort</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_packet_sequence_contiguous</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">drop_not_implemented_packet_types</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;No packet data left in Reftek130 object after dropping &quot;</span>
+                   <span class="s2">&quot;non-implemented packets (file: </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_filename</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">Reftek130Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">st</span> <span class="o">=</span> <span class="n">Stream</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">event_number</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;event_number&#39;</span><span class="p">]):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;event_number&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">event_number</span><span class="p">]</span>
+            <span class="c1"># we should have exactly one EH and one ET packet, truncated data</span>
+            <span class="c1"># sometimes misses the header or trailer packet.</span>
+            <span class="n">eh_packets</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;packet_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;EH&quot;</span><span class="p">]</span>
+            <span class="n">et_packets</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;packet_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;ET&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">eh_packets</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">et_packets</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Reftek data contains data packets without &quot;</span>
+                       <span class="s2">&quot;corresponding header or trailer packet.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">Reftek130Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">eh_packets</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">et_packets</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Reftek data contains data packets with multiple &quot;</span>
+                       <span class="s2">&quot;corresponding header or trailer packets.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">Reftek130Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">eh_packets</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;No event header (EH) packets in packet sequence. &quot;</span>
+                       <span class="s2">&quot;File might be truncated.&quot;</span><span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">et_packets</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;No event trailer (ET) packets in packet sequence. &quot;</span>
+                       <span class="s2">&quot;File might be truncated.&quot;</span><span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="c1"># use either the EH or ET packet, they have the same content (only</span>
+            <span class="c1"># trigger stop time is not in EH)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">eh_packets</span><span class="p">):</span>
+                <span class="n">eh</span> <span class="o">=</span> <span class="n">EHPacket</span><span class="p">(</span><span class="n">eh_packets</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">eh</span> <span class="o">=</span> <span class="n">EHPacket</span><span class="p">(</span><span class="n">et_packets</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="c1"># only &quot;C0&quot; encoding supported right now</span>
+            <span class="k">if</span> <span class="n">eh</span><span class="o">.</span><span class="n">data_format</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;C0&quot;</span><span class="p">:</span>
+                <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;C0&#39;</span>
+            <span class="k">elif</span> <span class="n">eh</span><span class="o">.</span><span class="n">data_format</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;C2&quot;</span><span class="p">:</span>
+                <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;C2&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Reftek data encoding &#39;</span><span class="si">{}</span><span class="s2">&#39; not implemented yet. Please &quot;</span>
+                       <span class="s2">&quot;open an issue on GitHub and provide a small (&lt; 50kb) &quot;</span>
+                       <span class="s2">&quot;test file.&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eh</span><span class="o">.</span><span class="n">data_format</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="n">network</span><span class="p">,</span>
+                <span class="s2">&quot;station&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">eh</span><span class="o">.</span><span class="n">station_name</span> <span class="o">+</span>
+                            <span class="n">eh</span><span class="o">.</span><span class="n">station_name_extension</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+                <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="n">location</span><span class="p">,</span> <span class="s2">&quot;sampling_rate&quot;</span><span class="p">:</span> <span class="n">eh</span><span class="o">.</span><span class="n">sampling_rate</span><span class="p">,</span>
+                <span class="s2">&quot;reftek130&quot;</span><span class="p">:</span> <span class="n">eh</span><span class="o">.</span><span class="n">_to_dict</span><span class="p">()}</span>
+            <span class="n">delta</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">eh</span><span class="o">.</span><span class="n">sampling_rate</span>
+            <span class="k">for</span> <span class="n">channel_number</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;channel_number&#39;</span><span class="p">]):</span>
+                <span class="n">inds</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;channel_number&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">channel_number</span>
+                <span class="c1"># channel number of EH/ET packets also equals zero (one of the</span>
+                <span class="c1"># three unused bytes in the extended header of EH/ET packets)</span>
+                <span class="n">inds</span> <span class="o">&amp;=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;packet_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;DT&quot;</span>
+                <span class="n">packets</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">inds</span><span class="p">]</span>
+
+                <span class="c1"># split into contiguous blocks, i.e. find gaps. packet sequence</span>
+                <span class="c1"># was sorted already..</span>
+                <span class="n">endtimes</span> <span class="o">=</span> <span class="p">(</span><span class="n">packets</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">+</span>
+                            <span class="n">packets</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;number_of_samples&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">delta</span><span class="p">)</span>
+                <span class="c1"># check if next starttime matches seamless to last chunk</span>
+                <span class="c1"># 1e-3 seconds == 1 millisecond is the smallest time difference</span>
+                <span class="c1"># reftek130 format can represent, so anything larger or equal</span>
+                <span class="c1"># means a gap/overlap.</span>
+                <span class="c1"># for now be conservative and check even more rigorous against</span>
+                <span class="c1"># 1e-4 to be on the safe side, but in the gapless data example</span>
+                <span class="c1"># the differences are always 0 or -2e-7 (for POSIX timestamps</span>
+                <span class="c1"># of order 1e9) which seems like a floating point accuracy</span>
+                <span class="c1"># issue for np.float64.</span>
+                <span class="n">gaps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">packets</span><span class="p">[</span><span class="mi">1</span><span class="p">:][</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">endtimes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-4</span>
+                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">gaps</span><span class="p">):</span>
+                    <span class="n">gap_split_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">gaps</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="n">contiguous</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">packets</span><span class="p">,</span> <span class="n">gap_split_indices</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">contiguous</span> <span class="o">=</span> <span class="p">[</span><span class="n">packets</span><span class="p">]</span>
+
+                <span class="k">for</span> <span class="n">packets_</span> <span class="ow">in</span> <span class="n">contiguous</span><span class="p">:</span>
+                    <span class="n">starttime</span> <span class="o">=</span> <span class="n">packets_</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+
+                    <span class="k">if</span> <span class="n">headonly</span><span class="p">:</span>
+                        <span class="n">sample_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+                        <span class="n">npts</span> <span class="o">=</span> <span class="n">packets_</span><span class="p">[</span><span class="s2">&quot;number_of_samples&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">sample_data</span> <span class="o">=</span> <span class="n">_unpack_C0_C2_data</span><span class="p">(</span><span class="n">packets_</span><span class="p">,</span> <span class="n">encoding</span><span class="p">)</span>
+                        <span class="n">npts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample_data</span><span class="p">)</span>
+
+                    <span class="n">tr</span> <span class="o">=</span> <span class="n">Trace</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">sample_data</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">header</span><span class="p">))</span>
+                    <span class="c1"># channel number is not included in the EH/ET packet</span>
+                    <span class="c1"># payload, so add it to stats as well..</span>
+                    <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">reftek130</span><span class="p">[</span><span class="s1">&#39;channel_number&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">channel_number</span>
+                    <span class="k">if</span> <span class="n">headonly</span><span class="p">:</span>
+                        <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">npts</span> <span class="o">=</span> <span class="n">npts</span>
+                    <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">starttime</span><span class="p">)</span>
+                    <span class="c1"># if component codes were explicitly provided, use them</span>
+                    <span class="c1"># together with the stream label</span>
+                    <span class="k">if</span> <span class="n">component_codes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">channel</span> <span class="o">=</span> <span class="p">(</span><span class="n">eh</span><span class="o">.</span><span class="n">stream_name</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span>
+                                            <span class="n">component_codes</span><span class="p">[</span><span class="n">channel_number</span><span class="p">])</span>
+                    <span class="c1"># otherwise check if channel code is set for the given</span>
+                    <span class="c1"># channel (seems to be not the case usually)</span>
+                    <span class="k">elif</span> <span class="n">eh</span><span class="o">.</span><span class="n">channel_code</span><span class="p">[</span><span class="n">channel_number</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">channel</span> <span class="o">=</span> <span class="n">eh</span><span class="o">.</span><span class="n">channel_code</span><span class="p">[</span><span class="n">channel_number</span><span class="p">]</span>
+                    <span class="c1"># otherwise fall back to using the stream label together</span>
+                    <span class="c1"># with the number of the channel in the file (starting with</span>
+                    <span class="c1"># 0, as Z-1-2 is common use for data streams not oriented</span>
+                    <span class="c1"># against North)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;No channel code specified in the data file &quot;</span>
+                               <span class="s2">&quot;and no component codes specified. Using &quot;</span>
+                               <span class="s2">&quot;stream label and number of channel in file as &quot;</span>
+                               <span class="s2">&quot;channel codes.&quot;</span><span class="p">)</span>
+                        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                        <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">channel</span> <span class="o">=</span> <span class="p">(</span>
+                            <span class="n">eh</span><span class="o">.</span><span class="n">stream_name</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">channel_number</span><span class="p">))</span>
+                    <span class="c1"># check if endtime of trace is consistent</span>
+                    <span class="n">t_last</span> <span class="o">=</span> <span class="n">packets_</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+                    <span class="n">npts_last</span> <span class="o">=</span> <span class="n">packets_</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;number_of_samples&#39;</span><span class="p">]</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">headonly</span><span class="p">:</span>
+                            <span class="k">assert</span> <span class="n">npts</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample_data</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">npts_last</span><span class="p">:</span>
+                            <span class="k">assert</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">endtime</span> <span class="o">==</span> <span class="n">UTCDateTime</span><span class="p">(</span>
+                                <span class="n">t_last</span> <span class="o">+</span> <span class="p">(</span><span class="n">npts_last</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">delta</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">npts</span><span class="p">:</span>
+                            <span class="k">assert</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">endtime</span> <span class="o">==</span> <span class="n">UTCDateTime</span><span class="p">(</span>
+                                <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span> <span class="o">+</span> <span class="p">(</span><span class="n">npts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">delta</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+                        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Reftek file has a trace with an inconsistent &quot;</span>
+                               <span class="s2">&quot;endtime or number of samples. Please open an &quot;</span>
+                               <span class="s2">&quot;issue on GitHub and provide your file for&quot;</span>
+                               <span class="s2">&quot;testing.&quot;</span><span class="p">)</span>
+                        <span class="k">raise</span> <span class="n">Reftek130Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                    <span class="n">st</span> <span class="o">+=</span> <span class="n">tr</span>
+
+        <span class="k">return</span> <span class="n">st</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

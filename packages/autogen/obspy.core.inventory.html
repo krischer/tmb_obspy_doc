@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.core.inventory &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../contents.html">ObsPy Documentation (1.0.3)</a></li> 
+    </ol>
+  
+  <div class="section" id="module-obspy.core.inventory">
+<span id="obspy-core-inventory"></span><h1>obspy.core.inventory<a class="headerlink" href="#module-obspy.core.inventory" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="obspy-core-inventory-classes-for-handling-station-metadata">
+<h2>obspy.core.inventory - Classes for handling station metadata<a class="headerlink" href="#obspy-core-inventory-classes-for-handling-station-metadata" title="Permalink to this headline">¶</a></h2>
+<p>This module provides a class hierarchy to consistently handle station metadata.
+This class hierarchy is closely modelled after the upcoming de-facto standard
+format <a class="reference external" href="https://www.fdsn.org/xml/station/">FDSN StationXML</a> which was
+developed as a human readable XML replacement for Dataless SEED.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">IRIS is maintaining a Java tool for converting dataless SEED into
+StationXML and vice versa at
+<a class="reference external" href="https://seiscode.iris.washington.edu/projects/stationxml-converter">https://seiscode.iris.washington.edu/projects/stationxml-converter</a></p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">copyright:</th><td class="field-body">The ObsPy Development Team (<a class="reference external" href="mailto:devs&#37;&#52;&#48;obspy&#46;org">devs<span>&#64;</span>obspy<span>&#46;</span>org</a>) &amp; Chad Trabant</td>
+</tr>
+<tr class="field-even field"><th class="field-name">license:</th><td class="field-body">GNU Lesser General Public License, Version 3
+(<a class="reference external" href="https://www.gnu.org/copyleft/lesser.html">https://www.gnu.org/copyleft/lesser.html</a>)</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="reading">
+<h3>Reading<a class="headerlink" href="#reading" title="Permalink to this headline">¶</a></h3>
+<p>StationXML files can be read using the
+<a class="reference internal" href="obspy.core.inventory.inventory.read_inventory.html#obspy.core.inventory.inventory.read_inventory" title="obspy.core.inventory.inventory.read_inventory"><code class="xref py py-func docutils literal"><span class="pre">read_inventory()</span></code></a> function that
+returns an <a class="reference internal" href="obspy.core.inventory.inventory.Inventory.html#obspy.core.inventory.inventory.Inventory" title="obspy.core.inventory.inventory.Inventory"><code class="xref py py-class docutils literal"><span class="pre">Inventory</span></code></a> object.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">read_inventory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inv</span> <span class="o">=</span> <span class="n">read_inventory</span><span class="p">(</span><span class="s2">&quot;/path/to/BW_RJOB.xml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inv</span>  
+<span class="go">&lt;obspy.core.inventory.inventory.Inventory object at 0x...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">inv</span><span class="p">)</span>  
+<span class="go">Inventory created at 2013-12-07T18:00:42.878000Z</span>
+<span class="go">    Created by: fdsn-stationxml-converter/1.0.0</span>
+<span class="go">            http://www.iris.edu/fdsnstationconverter</span>
+<span class="go">    Sending institution: Erdbebendienst Bayern</span>
+<span class="go">    Contains:</span>
+<span class="go">        Networks (1):</span>
+<span class="go">            BW</span>
+<span class="go">        Stations (1):</span>
+<span class="go">            BW.RJOB (Jochberg, Bavaria, BW-Net)</span>
+<span class="go">        Channels (3):</span>
+<span class="go">            BW.RJOB..EHE, BW.RJOB..EHN, BW.RJOB..EHZ</span>
+</pre></div>
+</div>
+<p>The file format in principle is autodetected. However, the autodetection uses
+the official StationXML XSD schema and unfortunately many real world files
+currently show minor deviations from the official StationXML definition causing
+the autodetection to fail. Thus, manually specifying the format is a good idea:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">inv</span> <span class="o">=</span> <span class="n">read_inventory</span><span class="p">(</span><span class="s2">&quot;/path/to/BW_RJOB.xml&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;STATIONXML&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="class-hierarchy">
+<h3>Class hierarchy<a class="headerlink" href="#class-hierarchy" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="obspy.core.inventory.inventory.Inventory.html#obspy.core.inventory.inventory.Inventory" title="obspy.core.inventory.inventory.Inventory"><code class="xref py py-class docutils literal"><span class="pre">Inventory</span></code></a> class has a hierarchical
+structure, starting with a list of <a class="reference internal" href="obspy.core.inventory.network.Network.html#obspy.core.inventory.network.Network" title="obspy.core.inventory.network.Network"><code class="xref py py-class docutils literal"><span class="pre">Networks</span></code></a>, each containing a list of
+<a class="reference internal" href="obspy.core.inventory.station.Station.html#obspy.core.inventory.station.Station" title="obspy.core.inventory.station.Station"><code class="xref py py-class docutils literal"><span class="pre">Stations</span></code></a> which again each
+contain a list of <a class="reference internal" href="obspy.core.inventory.channel.Channel.html#obspy.core.inventory.channel.Channel" title="obspy.core.inventory.channel.Channel"><code class="xref py py-class docutils literal"><span class="pre">Channels</span></code></a>.
+The  <a class="reference internal" href="obspy.core.inventory.response.Response.html#obspy.core.inventory.response.Response" title="obspy.core.inventory.response.Response"><code class="xref py py-class docutils literal"><span class="pre">Responses</span></code></a> are
+attached to the channels as an attribute.</p>
+<div class="figure">
+<img alt="../../_images/Inventory.png" class="img-responsive" src="../../_images/Inventory.png" />
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">net</span> <span class="o">=</span> <span class="n">inv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">net</span>  
+<span class="go">&lt;obspy.core.inventory.network.Network object at 0x...&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>  
+<span class="go">Network BW (BayernNetz)</span>
+<span class="go">    Station Count: None/None (Selected/Total)</span>
+<span class="go">    None -</span>
+<span class="go">    Access: None</span>
+<span class="go">    Contains:</span>
+<span class="go">        Stations (1):</span>
+<span class="go">            BW.RJOB (Jochberg, Bavaria, BW-Net)</span>
+<span class="go">        Channels (3):</span>
+<span class="go">            BW.RJOB..EHZ, BW.RJOB..EHN, BW.RJOB..EHE</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sta</span> <span class="o">=</span> <span class="n">net</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sta</span><span class="p">)</span>  
+<span class="go">Station RJOB (Jochberg, Bavaria, BW-Net)</span>
+<span class="go">    Station Code: RJOB</span>
+<span class="go">    Channel Count: None/None (Selected/Total)</span>
+<span class="go">    2007-12-17T00:00:00.000000Z -</span>
+<span class="go">    Access: None</span>
+<span class="go">    Latitude: 47.74, Longitude: 12.80, Elevation: 860.0 m</span>
+<span class="go">    Available Channels:</span>
+<span class="go">        RJOB..EHZ, RJOB..EHN, RJOB..EHE</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cha</span> <span class="o">=</span> <span class="n">sta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cha</span><span class="p">)</span>  
+<span class="go">Channel &#39;EHZ&#39;, Location &#39;&#39;</span>
+<span class="go">   Timerange: 2007-12-17T00:00:00.000000Z - --</span>
+<span class="go">   Latitude: 47.74, Longitude: 12.80, Elevation: 860.0 m, Local Depth: 0.0 m</span>
+<span class="go">   Azimuth: 0.00 degrees from north, clockwise</span>
+<span class="go">   Dip: -90.00 degrees down from horizontal</span>
+<span class="go">   Channel types: TRIGGERED, GEOPHYSICAL</span>
+<span class="go">   Sampling Rate: 200.00 Hz</span>
+<span class="go">   Sensor: Streckeisen STS-2/N seismometer</span>
+<span class="go">   Response information available</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cha</span><span class="o">.</span><span class="n">response</span><span class="p">)</span>  
+<span class="go">Channel Response</span>
+<span class="go">   From M/S (Velocity in Meters Per Second) to COUNTS (Digital Counts)</span>
+<span class="go">   Overall Sensitivity: 2.5168e+09 defined at 0.020 Hz</span>
+<span class="go">   4 stages:</span>
+<span class="go">      Stage 1: PolesZerosResponseStage from M/S to V, gain: 1500</span>
+<span class="go">      Stage 2: CoefficientsTypeResponseStage from V to COUNTS, gain: 1.67...</span>
+<span class="go">      Stage 3: FIRResponseStage from COUNTS to COUNTS, gain: 1</span>
+<span class="go">      Stage 4: FIRResponseStage from COUNTS to COUNTS, gain: 1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="preview-plots-of-station-map-and-instrument-response">
+<h3>Preview plots of station map and instrument response<a class="headerlink" href="#preview-plots-of-station-map-and-instrument-response" title="Permalink to this headline">¶</a></h3>
+<p>For station metadata, preview plot routines for geographic location of stations
+as well as bode plots for channel instrument response information are
+available. The routines for station map plots are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="obspy.core.inventory.inventory.Inventory.plot.html#obspy.core.inventory.inventory.Inventory.plot" title="obspy.core.inventory.inventory.Inventory.plot"><code class="xref py py-meth docutils literal"><span class="pre">Inventory.plot()</span></code></a></li>
+<li><a class="reference internal" href="obspy.core.inventory.network.Network.plot.html#obspy.core.inventory.network.Network.plot" title="obspy.core.inventory.network.Network.plot"><code class="xref py py-meth docutils literal"><span class="pre">Network.plot()</span></code></a></li>
+</ul>
+</div></blockquote>
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy</span> <span class="kn">import</span> <span class="n">read_inventory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inv</span> <span class="o">=</span> <span class="n">read_inventory</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inv</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>  
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../../packages/autogen/obspy-core-inventory-1.py">Source code</a>, <a class="reference external" href="../../packages/autogen/obspy-core-inventory-1.png">png</a>, <a class="reference external" href="../../packages/autogen/obspy-core-inventory-1.hires.png">hires.png</a>)</p>
+<div class="figure">
+<img alt="../../_images/obspy-core-inventory-1.png" class="img-responsive" src="../../_images/obspy-core-inventory-1.png" />
+</div>
+<p>The routines for bode plots of channel instrument response are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="obspy.core.inventory.inventory.Inventory.plot_response.html#obspy.core.inventory.inventory.Inventory.plot_response" title="obspy.core.inventory.inventory.Inventory.plot_response"><code class="xref py py-meth docutils literal"><span class="pre">Inventory.plot_response()</span></code></a></li>
+<li><a class="reference internal" href="obspy.core.inventory.network.Network.plot_response.html#obspy.core.inventory.network.Network.plot_response" title="obspy.core.inventory.network.Network.plot_response"><code class="xref py py-meth docutils literal"><span class="pre">Network.plot_response()</span></code></a></li>
+<li><a class="reference internal" href="obspy.core.inventory.station.Station.plot.html#obspy.core.inventory.station.Station.plot" title="obspy.core.inventory.station.Station.plot"><code class="xref py py-meth docutils literal"><span class="pre">Station.plot()</span></code></a></li>
+<li><a class="reference internal" href="obspy.core.inventory.channel.Channel.plot.html#obspy.core.inventory.channel.Channel.plot" title="obspy.core.inventory.channel.Channel.plot"><code class="xref py py-meth docutils literal"><span class="pre">Channel.plot()</span></code></a></li>
+<li><a class="reference internal" href="obspy.core.inventory.response.Response.plot.html#obspy.core.inventory.response.Response.plot" title="obspy.core.inventory.response.Response.plot"><code class="xref py py-meth docutils literal"><span class="pre">Response.plot()</span></code></a></li>
+</ul>
+</div></blockquote>
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy</span> <span class="kn">import</span> <span class="n">read_inventory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inv</span> <span class="o">=</span> <span class="n">read_inventory</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">resp</span> <span class="o">=</span> <span class="n">inv</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">response</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">resp</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;VEL&quot;</span><span class="p">)</span>  
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../../packages/autogen/obspy-core-inventory-2.py">Source code</a>, <a class="reference external" href="../../packages/autogen/obspy-core-inventory-2.png">png</a>, <a class="reference external" href="../../packages/autogen/obspy-core-inventory-2.hires.png">hires.png</a>)</p>
+<div class="figure">
+<img alt="../../_images/obspy-core-inventory-2.png" class="img-responsive" src="../../_images/obspy-core-inventory-2.png" />
+</div>
+<p>For more examples see the <a class="reference internal" href="../../gallery.html#gallery"><span class="std std-ref">Obspy Gallery</span></a>.</p>
+</div>
+<div class="section" id="dealing-with-the-response-information">
+<h3>Dealing with the Response information<a class="headerlink" href="#dealing-with-the-response-information" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="obspy.core.inventory.response.Response.get_evalresp_response.html#obspy.core.inventory.response.Response.get_evalresp_response" title="obspy.core.inventory.response.Response.get_evalresp_response"><code class="xref py py-meth docutils literal"><span class="pre">get_evalresp_response()</span></code></a>
+method will call some functions within evalresp to generate the response.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">response</span> <span class="o">=</span> <span class="n">cha</span><span class="o">.</span><span class="n">response</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="p">,</span> <span class="n">freqs</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">get_evalresp_response</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">16384</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;VEL&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>  
+<span class="go"> [  0.00000000e+00 +0.00000000e+00j  -1.36383361e+07 +1.42086194e+06j</span>
+<span class="go">   -5.36470300e+07 +1.13620679e+07j ...,   2.48907496e+09 -3.94151237e+08j</span>
+<span class="go">    2.48906963e+09 -3.94200472e+08j   2.48906430e+09 -3.94249707e+08j]</span>
+</pre></div>
+</div>
+<p>Some convenience methods to perform an instrument correction on
+<a class="reference internal" href="obspy.core.stream.Stream.html#obspy.core.stream.Stream" title="obspy.core.stream.Stream"><code class="xref py py-class docutils literal"><span class="pre">Stream</span></code></a> (and <a class="reference internal" href="obspy.core.trace.Trace.html#obspy.core.trace.Trace" title="obspy.core.trace.Trace"><code class="xref py py-class docutils literal"><span class="pre">Trace</span></code></a>)
+objects are available and most users will want to use those. The
+<a class="reference internal" href="obspy.core.stream.Stream.attach_response.html#obspy.core.stream.Stream.attach_response" title="obspy.core.stream.Stream.attach_response"><code class="xref py py-meth docutils literal"><span class="pre">attach_response()</span></code></a> method will attach matching
+responses to each trace if they are available within the inventory object. The
+<a class="reference internal" href="obspy.core.stream.Stream.remove_response.html#obspy.core.stream.Stream.remove_response" title="obspy.core.stream.Stream.remove_response"><code class="xref py py-meth docutils literal"><span class="pre">remove_response()</span></code></a> method deconvolves the
+instrument response in-place. As always see the corresponding docs pages for a
+full list of options and a more detailed explanation.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">read</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">read</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inv</span> <span class="o">=</span> <span class="n">read_inventory</span><span class="p">(</span><span class="s2">&quot;/path/to/BW_RJOB.xml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">attach_response</span><span class="p">(</span><span class="n">inv</span><span class="p">)</span>  
+<span class="go"> []</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">remove_response</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="s2">&quot;VEL&quot;</span><span class="p">,</span> <span class="n">water_level</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>  
+<span class="go">&lt;obspy.core.stream.Stream object at 0x...&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="writing">
+<h3>Writing<a class="headerlink" href="#writing" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="obspy.core.inventory.inventory.Inventory.html#obspy.core.inventory.inventory.Inventory" title="obspy.core.inventory.inventory.Inventory"><code class="xref py py-class docutils literal"><span class="pre">Inventory</span></code></a> objects can be exported to
+StationXML files, e.g. after making modifications.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">inv</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;my_inventory.xml&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;STATIONXML&#39;</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

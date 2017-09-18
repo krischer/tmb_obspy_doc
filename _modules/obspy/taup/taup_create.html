@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.taup.taup_create &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.taup.taup_create</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Class to create new models.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">pi</span>
+
+<span class="kn">from</span> <span class="nn">obspy.taup</span> <span class="k">import</span> <span class="n">_DEFAULT_VALUES</span>
+<span class="kn">from</span> <span class="nn">obspy.taup.slowness_model</span> <span class="k">import</span> <span class="n">SlownessModel</span>
+<span class="kn">from</span> <span class="nn">obspy.taup.tau_model</span> <span class="k">import</span> <span class="n">TauModel</span>
+<span class="kn">from</span> <span class="nn">obspy.taup.velocity_model</span> <span class="k">import</span> <span class="n">VelocityModel</span>
+
+<span class="c1"># Most generic way to get the data directory.</span>
+<span class="n">__DATA_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getfile</span><span class="p">(</span>
+    <span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()))),</span> <span class="s2">&quot;data&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="TauPCreate"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.taup_create.TauPCreate.html#obspy.taup.taup_create.TauPCreate">[docs]</a><span class="k">class</span> <span class="nc">TauPCreate</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The seismic travel time calculation method of [Buland1983]_.</span>
+
+<span class="sd">    The calculation method is described in [Buland1983]_. This creates the</span>
+<span class="sd">    SlownessModel and tau branches and saves them for later use.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="TauPCreate.__init__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.taup_create.TauPCreate.__init__.html#obspy.taup.taup_create.TauPCreate.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_filename</span><span class="p">,</span> <span class="n">output_filename</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">min_delta_p</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">max_delta_p</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">max_depth_interval</span><span class="o">=</span><span class="mf">115.0</span><span class="p">,</span>
+                 <span class="n">max_range_interval</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">max_interp_error</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+                 <span class="n">allow_inner_core_s</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_filename</span> <span class="o">=</span> <span class="n">input_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_filename</span> <span class="o">=</span> <span class="n">output_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_delta_p</span> <span class="o">=</span> <span class="n">min_delta_p</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_delta_p</span> <span class="o">=</span> <span class="n">max_delta_p</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_depth_interval</span> <span class="o">=</span> <span class="n">max_depth_interval</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_range_interval</span> <span class="o">=</span> <span class="n">max_range_interval</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_interp_error</span> <span class="o">=</span> <span class="n">max_interp_error</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">allow_inner_core_s</span> <span class="o">=</span> <span class="n">allow_inner_core_s</span></div>
+
+<div class="viewcode-block" id="TauPCreate.load_velocity_model"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.taup_create.TauPCreate.load_velocity_model.html#obspy.taup.taup_create.TauPCreate.load_velocity_model">[docs]</a>    <span class="k">def</span> <span class="nf">load_velocity_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Try to load a velocity model.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Read the velocity model file.</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_filename</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;filename =&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">v_mod</span> <span class="o">=</span> <span class="n">VelocityModel</span><span class="o">.</span><span class="n">read_velocity_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_mod</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;Velocity model file not found: &quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="c1"># If model was read:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done reading velocity model.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Radius of model &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_mod</span><span class="o">.</span><span class="n">model_name</span> <span class="o">+</span> <span class="s2">&quot; is &quot;</span> <span class="o">+</span>
+                  <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_mod</span><span class="o">.</span><span class="n">radius_of_planet</span><span class="p">))</span>
+        <span class="c1"># if self.debug:</span>
+        <span class="c1">#    print(&quot;velocity mode: &quot; + self.v_mod)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_mod</span></div>
+
+<div class="viewcode-block" id="TauPCreate.create_tau_model"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.taup_create.TauPCreate.create_tau_model.html#obspy.taup.taup_create.TauPCreate.create_tau_model">[docs]</a>    <span class="k">def</span> <span class="nf">create_tau_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v_mod</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create :class:`~.TauModel` from velocity model.</span>
+
+<span class="sd">        First, a slowness model is created from the velocity model, and then it</span>
+<span class="sd">        is passed to :class:`~.TauModel`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">v_mod</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;v_mod is None.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">v_mod</span><span class="o">.</span><span class="n">is_spherical</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Flat slowness model not yet implemented.&quot;</span><span class="p">)</span>
+        <span class="n">SlownessModel</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using parameters provided in TauP_config.ini (or defaults &quot;</span>
+                  <span class="s2">&quot;if not) to call SlownessModel...&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span> <span class="o">=</span> <span class="n">SlownessModel</span><span class="p">(</span>
+            <span class="n">v_mod</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_delta_p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_delta_p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_depth_interval</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">max_range_interval</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mf">180.0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_interp_error</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">allow_inner_core_s</span><span class="p">,</span>
+            <span class="n">_DEFAULT_VALUES</span><span class="p">[</span><span class="s2">&quot;slowness_tolerance&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Parameters are:&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;taup.create.min_delta_p = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">min_delta_p</span><span class="p">)</span> <span class="o">+</span>
+                  <span class="s2">&quot; sec / radian&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;taup.create.max_delta_p = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">max_delta_p</span><span class="p">)</span> <span class="o">+</span>
+                  <span class="s2">&quot; sec / radian&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;taup.create.max_depth_interval = &quot;</span> <span class="o">+</span>
+                  <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">max_depth_interval</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; kilometers&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;taup.create.max_range_interval = &quot;</span> <span class="o">+</span>
+                  <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">max_range_interval</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; degrees&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;taup.create.max_interp_error = &quot;</span> <span class="o">+</span>
+                  <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">max_interp_error</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; seconds&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;taup.create.allow_inner_core_s = &quot;</span> <span class="o">+</span>
+                  <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">allow_inner_core_s</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Slow model &quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">get_num_layers</span><span class="p">(</span><span class="kc">True</span><span class="p">))</span> <span class="o">+</span>
+                  <span class="s2">&quot; P layers,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">get_num_layers</span><span class="p">(</span><span class="kc">False</span><span class="p">))</span> <span class="o">+</span>
+                  <span class="s2">&quot; S layers&quot;</span><span class="p">)</span>
+        <span class="c1"># if self.debug:</span>
+        <span class="c1">#    print(self.s_mod)</span>
+        <span class="c1"># set the debug flags to value given here:</span>
+        <span class="n">TauModel</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span>
+        <span class="n">SlownessModel</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span>
+        <span class="c1"># Creates tau model from slownesses.</span>
+        <span class="k">return</span> <span class="n">TauModel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="p">,</span> <span class="n">radius_of_planet</span><span class="o">=</span><span class="n">v_mod</span><span class="o">.</span><span class="n">radius_of_planet</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TauPCreate.run"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.taup_create.TauPCreate.run.html#obspy.taup.taup_create.TauPCreate.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a tau model from a velocity model.</span>
+
+<span class="sd">        Called by :func:`build_taup_model` after :meth:`load_velocity_model`;</span>
+<span class="sd">        calls :meth:`create_tau_model` and writes the result to a ``.npy``</span>
+<span class="sd">        file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tau_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_tau_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v_mod</span><span class="p">)</span>
+            <span class="c1"># this reassigns model! Used to be TauModel() class,</span>
+            <span class="c1"># now it&#39;s an instance of it.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done calculating Tau branches.&quot;</span><span class="p">)</span>
+
+            <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_filename</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">dirname</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dirname</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tau_model</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_filename</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done Saving &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_filename</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tried to write!</span><span class="se">\n</span><span class="s2"> Caught IOError. Do you have write &quot;</span>
+                  <span class="s2">&quot;permission in this directory?&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;file not found or wrong key?&#39;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Method run is done, but not necessarily successful.&quot;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="get_builtin_model_files"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.taup_create.get_builtin_model_files.html#obspy.taup.taup_create.get_builtin_model_files">[docs]</a><span class="k">def</span> <span class="nf">get_builtin_model_files</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get a list of paths to builtin files that can be used for models.</span>
+
+<span class="sd">    These files reside in the ``&lt;package-root&gt;/obspy/taup/data`` directory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">__DATA_DIR</span><span class="p">,</span> <span class="s2">&quot;*.tvel&quot;</span><span class="p">))</span>
+    <span class="n">files</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">__DATA_DIR</span><span class="p">,</span> <span class="s2">&quot;*.nd&quot;</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">files</span></div>
+
+
+<div class="viewcode-block" id="build_taup_model"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.taup_create.build_taup_model.html#obspy.taup.taup_create.build_taup_model">[docs]</a><span class="k">def</span> <span class="nf">build_taup_model</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">output_folder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build an ObsPy model file from a &quot;tvel&quot; or &quot;nd&quot; file.</span>
+
+<span class="sd">    The file is loaded into a :class:`~obspy.taup.tau_model.TauModel`</span>
+<span class="sd">    instance and is then saved in ObsPy&#39;s own format, which can be loaded using</span>
+<span class="sd">    :meth:`~obspy.taup.tau_model.TauModel.from_file`. The output file will have</span>
+<span class="sd">    the same name as the input with ``&#39;.npz&#39;`` as file extension.</span>
+
+<span class="sd">    :type filename: str</span>
+<span class="sd">    :param filename: Absolute path of input file.</span>
+<span class="sd">    :type output_folder: str</span>
+<span class="sd">    :param output_folder: Directory in which the built</span>
+<span class="sd">        :class:`~obspy.taup.tau_model.TauModel` will be stored. Defaults to</span>
+<span class="sd">        directory of input file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">output_folder</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">output_folder</span> <span class="o">=</span> <span class="n">__DATA_DIR</span>
+
+    <span class="n">model_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">output_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_folder</span><span class="p">,</span> <span class="n">model_name</span> <span class="o">+</span> <span class="s2">&quot;.npz&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Building obspy.taup model for &#39;</span><span class="si">%s</span><span class="s2">&#39; ...&quot;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="n">mod_create</span> <span class="o">=</span> <span class="n">TauPCreate</span><span class="p">(</span><span class="n">input_filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+                            <span class="n">output_filename</span><span class="o">=</span><span class="n">output_filename</span><span class="p">)</span>
+    <span class="n">mod_create</span><span class="o">.</span><span class="n">load_velocity_model</span><span class="p">()</span>
+    <span class="n">mod_create</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="build_all_taup_models"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.taup_create.build_all_taup_models.html#obspy.taup.taup_create.build_all_taup_models">[docs]</a><span class="k">def</span> <span class="nf">build_all_taup_models</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build all :class:`~obspy.taup.tau_model.TauModel` models in data directory.</span>
+
+<span class="sd">    The data directory is defined to be ``&lt;package-root&gt;/obspy/taup/data``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">get_builtin_model_files</span><span class="p">():</span>
+        <span class="n">build_taup_model</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">model</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">build_all_taup_models</span><span class="p">()</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

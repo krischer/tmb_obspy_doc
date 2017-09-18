@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.core.stream.Stream &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../contents.html">ObsPy Documentation (1.0.3)</a></li> 
+    </ol>
+  
+  <div class="section" id="obspy-core-stream-stream">
+<h1>obspy.core.stream.Stream<a class="headerlink" href="#obspy-core-stream-stream" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="obspy.core.stream.Stream">
+<em class="property">class </em><code class="descname">Stream</code><span class="sig-paren">(</span><em>traces=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/obspy/core/stream.html#Stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#obspy.core.stream.Stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>List like object of multiple ObsPy Trace objects.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>traces</strong> (list of <a class="reference internal" href="obspy.core.trace.Trace.html#obspy.core.trace.Trace" title="obspy.core.trace.Trace"><code class="xref py py-class docutils literal"><span class="pre">Trace</span></code></a>, optional) – Initial list of ObsPy <a class="reference internal" href="obspy.core.trace.Trace.html#obspy.core.trace.Trace" title="obspy.core.trace.Trace"><code class="xref py py-class docutils literal"><span class="pre">Trace</span></code></a>
+objects.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Basic Usage</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">trace1</span> <span class="o">=</span> <span class="n">Trace</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace2</span> <span class="o">=</span> <span class="n">Trace</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stream</span> <span class="o">=</span> <span class="n">Stream</span><span class="p">(</span><span class="n">traces</span><span class="o">=</span><span class="p">[</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>  
+<span class="go">2 Trace(s) in Stream:</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p class="rubric">Supported Operations</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">stream</span> <span class="pre">=</span> <span class="pre">streamA</span> <span class="pre">+</span> <span class="pre">streamB</span></code></dt>
+<dd>Merges all traces within the two Stream objects <code class="docutils literal"><span class="pre">streamA</span></code> and
+<code class="docutils literal"><span class="pre">streamB</span></code> into the new Stream object <code class="docutils literal"><span class="pre">stream</span></code>.
+See also: <a class="reference internal" href="obspy.core.stream.Stream.__add__.html#obspy.core.stream.Stream.__add__" title="obspy.core.stream.Stream.__add__"><code class="xref py py-meth docutils literal"><span class="pre">Stream.__add__()</span></code></a>.</dd>
+<dt><code class="docutils literal"><span class="pre">stream</span> <span class="pre">+=</span> <span class="pre">streamA</span></code></dt>
+<dd>Extends the Stream object <code class="docutils literal"><span class="pre">stream</span></code> with all traces from <code class="docutils literal"><span class="pre">streamA</span></code>.
+See also: <a class="reference internal" href="obspy.core.stream.Stream.__iadd__.html#obspy.core.stream.Stream.__iadd__" title="obspy.core.stream.Stream.__iadd__"><code class="xref py py-meth docutils literal"><span class="pre">Stream.__iadd__()</span></code></a>.</dd>
+<dt><code class="docutils literal"><span class="pre">len(stream)</span></code></dt>
+<dd>Returns the number of Traces in the Stream object <code class="docutils literal"><span class="pre">stream</span></code>.
+See also: <a class="reference internal" href="obspy.core.stream.Stream.__len__.html#obspy.core.stream.Stream.__len__" title="obspy.core.stream.Stream.__len__"><code class="xref py py-meth docutils literal"><span class="pre">Stream.__len__()</span></code></a>.</dd>
+<dt><code class="docutils literal"><span class="pre">str(stream)</span></code></dt>
+<dd>Contains the number of traces in the Stream object and returns the
+value of each Trace’s __str__ method.
+See also: <a class="reference internal" href="obspy.core.stream.Stream.__str__.html#obspy.core.stream.Stream.__str__" title="obspy.core.stream.Stream.__str__"><code class="xref py py-meth docutils literal"><span class="pre">Stream.__str__()</span></code></a>.</dd>
+</dl>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Stream.__dict__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Stream.__doc__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Stream.__module__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Stream.__weakref__</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Public Methods</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.append.html#obspy.core.stream.Stream.append" title="obspy.core.stream.Stream.append"><code class="xref py py-obj docutils literal"><span class="pre">Stream.append</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.attach_response.html#obspy.core.stream.Stream.attach_response" title="obspy.core.stream.Stream.attach_response"><code class="xref py py-obj docutils literal"><span class="pre">Stream.attach_response</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.clear.html#obspy.core.stream.Stream.clear" title="obspy.core.stream.Stream.clear"><code class="xref py py-obj docutils literal"><span class="pre">Stream.clear</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.copy.html#obspy.core.stream.Stream.copy" title="obspy.core.stream.Stream.copy"><code class="xref py py-obj docutils literal"><span class="pre">Stream.copy</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.count.html#obspy.core.stream.Stream.count" title="obspy.core.stream.Stream.count"><code class="xref py py-obj docutils literal"><span class="pre">Stream.count</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.cutout.html#obspy.core.stream.Stream.cutout" title="obspy.core.stream.Stream.cutout"><code class="xref py py-obj docutils literal"><span class="pre">Stream.cutout</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.decimate.html#obspy.core.stream.Stream.decimate" title="obspy.core.stream.Stream.decimate"><code class="xref py py-obj docutils literal"><span class="pre">Stream.decimate</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.detrend.html#obspy.core.stream.Stream.detrend" title="obspy.core.stream.Stream.detrend"><code class="xref py py-obj docutils literal"><span class="pre">Stream.detrend</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.differentiate.html#obspy.core.stream.Stream.differentiate" title="obspy.core.stream.Stream.differentiate"><code class="xref py py-obj docutils literal"><span class="pre">Stream.differentiate</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.extend.html#obspy.core.stream.Stream.extend" title="obspy.core.stream.Stream.extend"><code class="xref py py-obj docutils literal"><span class="pre">Stream.extend</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.filter.html#obspy.core.stream.Stream.filter" title="obspy.core.stream.Stream.filter"><code class="xref py py-obj docutils literal"><span class="pre">Stream.filter</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.get_gaps.html#obspy.core.stream.Stream.get_gaps" title="obspy.core.stream.Stream.get_gaps"><code class="xref py py-obj docutils literal"><span class="pre">Stream.get_gaps</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.insert.html#obspy.core.stream.Stream.insert" title="obspy.core.stream.Stream.insert"><code class="xref py py-obj docutils literal"><span class="pre">Stream.insert</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.integrate.html#obspy.core.stream.Stream.integrate" title="obspy.core.stream.Stream.integrate"><code class="xref py py-obj docutils literal"><span class="pre">Stream.integrate</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.interpolate.html#obspy.core.stream.Stream.interpolate" title="obspy.core.stream.Stream.interpolate"><code class="xref py py-obj docutils literal"><span class="pre">Stream.interpolate</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.max.html#obspy.core.stream.Stream.max" title="obspy.core.stream.Stream.max"><code class="xref py py-obj docutils literal"><span class="pre">Stream.max</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.merge.html#obspy.core.stream.Stream.merge" title="obspy.core.stream.Stream.merge"><code class="xref py py-obj docutils literal"><span class="pre">Stream.merge</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Stream.next</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.normalize.html#obspy.core.stream.Stream.normalize" title="obspy.core.stream.Stream.normalize"><code class="xref py py-obj docutils literal"><span class="pre">Stream.normalize</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.plot.html#obspy.core.stream.Stream.plot" title="obspy.core.stream.Stream.plot"><code class="xref py py-obj docutils literal"><span class="pre">Stream.plot</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.pop.html#obspy.core.stream.Stream.pop" title="obspy.core.stream.Stream.pop"><code class="xref py py-obj docutils literal"><span class="pre">Stream.pop</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.print_gaps.html#obspy.core.stream.Stream.print_gaps" title="obspy.core.stream.Stream.print_gaps"><code class="xref py py-obj docutils literal"><span class="pre">Stream.print_gaps</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.remove.html#obspy.core.stream.Stream.remove" title="obspy.core.stream.Stream.remove"><code class="xref py py-obj docutils literal"><span class="pre">Stream.remove</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.remove_response.html#obspy.core.stream.Stream.remove_response" title="obspy.core.stream.Stream.remove_response"><code class="xref py py-obj docutils literal"><span class="pre">Stream.remove_response</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.remove_sensitivity.html#obspy.core.stream.Stream.remove_sensitivity" title="obspy.core.stream.Stream.remove_sensitivity"><code class="xref py py-obj docutils literal"><span class="pre">Stream.remove_sensitivity</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.resample.html#obspy.core.stream.Stream.resample" title="obspy.core.stream.Stream.resample"><code class="xref py py-obj docutils literal"><span class="pre">Stream.resample</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.reverse.html#obspy.core.stream.Stream.reverse" title="obspy.core.stream.Stream.reverse"><code class="xref py py-obj docutils literal"><span class="pre">Stream.reverse</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.rotate.html#obspy.core.stream.Stream.rotate" title="obspy.core.stream.Stream.rotate"><code class="xref py py-obj docutils literal"><span class="pre">Stream.rotate</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.select.html#obspy.core.stream.Stream.select" title="obspy.core.stream.Stream.select"><code class="xref py py-obj docutils literal"><span class="pre">Stream.select</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.simulate.html#obspy.core.stream.Stream.simulate" title="obspy.core.stream.Stream.simulate"><code class="xref py py-obj docutils literal"><span class="pre">Stream.simulate</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.slice.html#obspy.core.stream.Stream.slice" title="obspy.core.stream.Stream.slice"><code class="xref py py-obj docutils literal"><span class="pre">Stream.slice</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.slide.html#obspy.core.stream.Stream.slide" title="obspy.core.stream.Stream.slide"><code class="xref py py-obj docutils literal"><span class="pre">Stream.slide</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.sort.html#obspy.core.stream.Stream.sort" title="obspy.core.stream.Stream.sort"><code class="xref py py-obj docutils literal"><span class="pre">Stream.sort</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.spectrogram.html#obspy.core.stream.Stream.spectrogram" title="obspy.core.stream.Stream.spectrogram"><code class="xref py py-obj docutils literal"><span class="pre">Stream.spectrogram</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.split.html#obspy.core.stream.Stream.split" title="obspy.core.stream.Stream.split"><code class="xref py py-obj docutils literal"><span class="pre">Stream.split</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.std.html#obspy.core.stream.Stream.std" title="obspy.core.stream.Stream.std"><code class="xref py py-obj docutils literal"><span class="pre">Stream.std</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.taper.html#obspy.core.stream.Stream.taper" title="obspy.core.stream.Stream.taper"><code class="xref py py-obj docutils literal"><span class="pre">Stream.taper</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.trigger.html#obspy.core.stream.Stream.trigger" title="obspy.core.stream.Stream.trigger"><code class="xref py py-obj docutils literal"><span class="pre">Stream.trigger</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.trim.html#obspy.core.stream.Stream.trim" title="obspy.core.stream.Stream.trim"><code class="xref py py-obj docutils literal"><span class="pre">Stream.trim</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.verify.html#obspy.core.stream.Stream.verify" title="obspy.core.stream.Stream.verify"><code class="xref py py-obj docutils literal"><span class="pre">Stream.verify</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.write.html#obspy.core.stream.Stream.write" title="obspy.core.stream.Stream.write"><code class="xref py py-obj docutils literal"><span class="pre">Stream.write</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Private Methods</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Private methods are mainly for internal/developer use and their API might change without notice.</p>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream._cleanup.html#obspy.core.stream.Stream._cleanup" title="obspy.core.stream.Stream._cleanup"><code class="xref py py-obj docutils literal"><span class="pre">Stream._cleanup</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Stream._dummy_stream_from_string</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream._ltrim.html#obspy.core.stream.Stream._ltrim" title="obspy.core.stream.Stream._ltrim"><code class="xref py py-obj docutils literal"><span class="pre">Stream._ltrim</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream._merge_checks.html#obspy.core.stream.Stream._merge_checks" title="obspy.core.stream.Stream._merge_checks"><code class="xref py py-obj docutils literal"><span class="pre">Stream._merge_checks</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream._repr_pretty_.html#obspy.core.stream.Stream._repr_pretty_" title="obspy.core.stream.Stream._repr_pretty_"><code class="xref py py-obj docutils literal"><span class="pre">Stream._repr_pretty_</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream._rtrim.html#obspy.core.stream.Stream._rtrim" title="obspy.core.stream.Stream._rtrim"><code class="xref py py-obj docutils literal"><span class="pre">Stream._rtrim</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Special Methods</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.__add__.html#obspy.core.stream.Stream.__add__" title="obspy.core.stream.Stream.__add__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__add__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.__delitem__.html#obspy.core.stream.Stream.__delitem__" title="obspy.core.stream.Stream.__delitem__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__delitem__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.__eq__.html#obspy.core.stream.Stream.__eq__" title="obspy.core.stream.Stream.__eq__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__eq__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.__format__.html#obspy.core.stream.Stream.__format__" title="obspy.core.stream.Stream.__format__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__format__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.__ge__.html#obspy.core.stream.Stream.__ge__" title="obspy.core.stream.Stream.__ge__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__ge__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.__getitem__.html#obspy.core.stream.Stream.__getitem__" title="obspy.core.stream.Stream.__getitem__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__getitem__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.__getslice__.html#obspy.core.stream.Stream.__getslice__" title="obspy.core.stream.Stream.__getslice__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__getslice__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.__gt__.html#obspy.core.stream.Stream.__gt__" title="obspy.core.stream.Stream.__gt__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__gt__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.__iadd__.html#obspy.core.stream.Stream.__iadd__" title="obspy.core.stream.Stream.__iadd__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__iadd__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.__init__.html#obspy.core.stream.Stream.__init__" title="obspy.core.stream.Stream.__init__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__init__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.__iter__.html#obspy.core.stream.Stream.__iter__" title="obspy.core.stream.Stream.__iter__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__iter__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.__le__.html#obspy.core.stream.Stream.__le__" title="obspy.core.stream.Stream.__le__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__le__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.__len__.html#obspy.core.stream.Stream.__len__" title="obspy.core.stream.Stream.__len__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__len__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Stream.__long__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.__lt__.html#obspy.core.stream.Stream.__lt__" title="obspy.core.stream.Stream.__lt__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__lt__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.__mul__.html#obspy.core.stream.Stream.__mul__" title="obspy.core.stream.Stream.__mul__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__mul__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Stream.__native__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.__ne__.html#obspy.core.stream.Stream.__ne__" title="obspy.core.stream.Stream.__ne__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__ne__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.__new__.html#obspy.core.stream.Stream.__new__" title="obspy.core.stream.Stream.__new__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__new__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.__nonzero__.html#obspy.core.stream.Stream.__nonzero__" title="obspy.core.stream.Stream.__nonzero__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__nonzero__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.__reduce__.html#obspy.core.stream.Stream.__reduce__" title="obspy.core.stream.Stream.__reduce__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__reduce__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.__reduce_ex__.html#obspy.core.stream.Stream.__reduce_ex__" title="obspy.core.stream.Stream.__reduce_ex__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__reduce_ex__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.__setitem__.html#obspy.core.stream.Stream.__setitem__" title="obspy.core.stream.Stream.__setitem__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__setitem__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.__sizeof__.html#obspy.core.stream.Stream.__sizeof__" title="obspy.core.stream.Stream.__sizeof__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__sizeof__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.stream.Stream.__str__.html#obspy.core.stream.Stream.__str__" title="obspy.core.stream.Stream.__str__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__str__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.stream.Stream.__subclasshook__.html#obspy.core.stream.Stream.__subclasshook__" title="obspy.core.stream.Stream.__subclasshook__"><code class="xref py py-obj docutils literal"><span class="pre">Stream.__subclasshook__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Stream.__unicode__</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

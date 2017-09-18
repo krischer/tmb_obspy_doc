@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.signal.quality_control &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.signal.quality_control</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Quality control module for ObsPy.</span>
+
+<span class="sd">Currently requires MiniSEED files as that is the dominant data format in</span>
+<span class="sd">data centers. Please see the documentation of the</span>
+<span class="sd">:class:`~obspy.signal.quality_control.MSEEDMetadata` class for usage</span>
+<span class="sd">instructions.</span>
+
+<span class="sd">:authors:</span>
+<span class="sd">    Luca Trani (trani@knmi.nl)</span>
+<span class="sd">    Lion Krischer (krischer@geophysik.uni-muenchen.de)</span>
+<span class="sd">    Mathijs Koymans (koymans@knmi.nl)</span>
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (http://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">operator</span> <span class="k">import</span> <span class="n">attrgetter</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">uuid</span> <span class="k">import</span> <span class="n">uuid4</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">Stream</span><span class="p">,</span> <span class="n">UTCDateTime</span><span class="p">,</span> <span class="n">read</span><span class="p">,</span> <span class="n">__version__</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.base</span> <span class="k">import</span> <span class="n">get_dependency_version</span>
+<span class="kn">from</span> <span class="nn">obspy.io.mseed.util</span> <span class="k">import</span> <span class="n">get_flags</span>
+
+
+<span class="n">_PRODUCER</span> <span class="o">=</span> <span class="s2">&quot;ObsPy </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">__version__</span>
+
+
+<div class="viewcode-block" id="DataQualityEncoder"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.quality_control.DataQualityEncoder.html#obspy.signal.quality_control.DataQualityEncoder">[docs]</a><span class="k">class</span> <span class="nc">DataQualityEncoder</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Custom encoder capable of dealing with NumPy and ObsPy types.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="DataQualityEncoder.default"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.quality_control.DataQualityEncoder.default.html#obspy.signal.quality_control.DataQualityEncoder.default">[docs]</a>    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">UTCDateTime</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">DataQualityEncoder</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="MSEEDMetadata"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.quality_control.MSEEDMetadata.html#obspy.signal.quality_control.MSEEDMetadata">[docs]</a><span class="k">class</span> <span class="nc">MSEEDMetadata</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A container for MiniSEED specific metadata, including quality control</span>
+<span class="sd">    parameters.</span>
+
+<span class="sd">    Reads the MiniSEED files and extracts the data quality metrics. All</span>
+<span class="sd">    MiniSEED files must have a matching stream ID and quality.</span>
+
+<span class="sd">    :param files: One ore more MiniSEED files.</span>
+<span class="sd">    :type files: str or list of str</span>
+<span class="sd">    :type id: str, optional</span>
+<span class="sd">    :param id: A unique identifier of the to be created QC object. It is</span>
+<span class="sd">        not verified, that it actually is unique. The user has to take care of</span>
+<span class="sd">        that. If no id is given, uuid.uuid4() will be used to</span>
+<span class="sd">        create one which assures uniqueness within one Python run.</span>
+<span class="sd">        If no fixed id is provided, the ID will be built from prefix</span>
+<span class="sd">        and a random uuid hash.</span>
+<span class="sd">    :type prefix: str, optional</span>
+<span class="sd">    :param prefix: An optional identifier that will be put in front of any</span>
+<span class="sd">        automatically created id. The prefix will only have an effect</span>
+<span class="sd">        if `id` is not specified (for a fixed ID string).</span>
+<span class="sd">    :param starttime: Only use records whose end time is larger then this</span>
+<span class="sd">        given time. Also specifies the new official start time of the</span>
+<span class="sd">        metadata object.</span>
+<span class="sd">    :type starttime: :class:`obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :param endtime: Only use records whose start time is smaller then this</span>
+<span class="sd">        given time. Also specifies the new official end time of the</span>
+<span class="sd">        metadata object</span>
+<span class="sd">    :type endtime: :class:`obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :param add_c_segments: Calculate metrics for each continuous segment.</span>
+<span class="sd">    :type add_c_segments: bool</span>
+<span class="sd">    :param add_flags: Include MiniSEED header statistics in result.</span>
+<span class="sd">    :type add_flags: bool</span>
+<span class="sd">    :param waveform_type: The type of waveform data, e.g. ``&quot;seismic&quot;``,</span>
+<span class="sd">        ``&quot;infrasound&quot;``, ...</span>
+<span class="sd">    :type waveform_type: str</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    &gt;&gt;&gt; from obspy.signal.quality_control import</span>
+<span class="sd">    ...     MSEEDMetadata #doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; mseedqc = MSEEDMetadata([&#39;path/to/file&#39;,</span>
+<span class="sd">    ...                          &#39;path/to/file2&#39;]) # doctest: +SKIP</span>
+
+<span class="sd">    The class requires a list of files for calculating metrics.</span>
+<span class="sd">    Add optional parameters ``starttime=&quot;YYYY-MM-DDThh:mm:ss`` and</span>
+<span class="sd">    ``endtime=&quot;YYYY-MM-DDThh:mm:ss&quot;`` or ``obspy.core.utcdatetime.UTCDateTime``</span>
+<span class="sd">    to limit metric calculation to this window. Continuous segments are</span>
+<span class="sd">    returned when ``add_c_segments=True`` and MiniSEED header flags information</span>
+<span class="sd">    is returned when ``add_flags=True``.</span>
+
+<span class="sd">    The calculated metrics are then available in the ``.meta`` dictionary.</span>
+
+<span class="sd">    &gt;&gt;&gt; mseedqc.meta  # doctest: +SKIP</span>
+
+<span class="sd">    This is intended to be serialized as JSON. Retrieve the JSON string (to</span>
+<span class="sd">    for example store it in a database or save to a file) with:</span>
+
+<span class="sd">    &gt;&gt;&gt; mseedqc.get_json_meta() #doctest: +SKIP</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="MSEEDMetadata.__init__"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.quality_control.MSEEDMetadata.__init__.html#obspy.signal.quality_control.MSEEDMetadata.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;smi:local/qc&quot;</span><span class="p">,</span>
+                 <span class="n">starttime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">add_c_segments</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">add_flags</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">waveform_type</span><span class="o">=</span><span class="s2">&quot;seismic&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads the MiniSEED files and extracts the data quality metrics.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">Stream</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_files</span> <span class="o">=</span> <span class="n">files</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Allow anything UTCDateTime can parse.</span>
+        <span class="k">if</span> <span class="n">starttime</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">starttime</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">starttime</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">endtime</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">endtime</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">endtime</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">window_start</span> <span class="o">=</span> <span class="n">starttime</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window_end</span> <span class="o">=</span> <span class="n">endtime</span>
+
+        <span class="c1"># We are required to exclude samples at T1. Therefore, shift the</span>
+        <span class="c1"># time window to the left by 1μs and set nearest_sample to False.</span>
+        <span class="c1"># This will force ObsPy to fall back to the sample left of the endtime</span>
+        <span class="k">if</span> <span class="n">endtime</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">endtime_left</span> <span class="o">=</span> <span class="n">endtime</span> <span class="o">-</span> <span class="mf">1e-6</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">endtime_left</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Will raise if not a MiniSEED files.</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">starttime</span><span class="o">=</span><span class="n">starttime</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="n">endtime_left</span><span class="p">,</span>
+                      <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;mseed&quot;</span><span class="p">,</span> <span class="n">nearest_sample</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="c1"># Empty stream or maybe there is no data in the stream for the</span>
+            <span class="c1"># requested time span.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">st</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+            <span class="c1"># Only extend traces with data (npts &gt; 0)</span>
+            <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="n">st</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">npts</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">tr</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No data within the temporal constraints.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Do some sanity checks. The class only works with data from a</span>
+        <span class="c1"># single location so we have to make sure that the existing data on</span>
+        <span class="c1"># this object and the newly added all have the same identifier.</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">tr</span><span class="o">.</span><span class="n">id</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">mseed</span><span class="o">.</span><span class="n">dataquality</span><span class="p">)</span> <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span>
+               <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">ids</span><span class="p">))</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All traces must have the same SEED id and &quot;</span>
+                             <span class="s2">&quot;quality.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Get the last sample and add delta</span>
+        <span class="n">final_trace</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">attrgetter</span><span class="p">(</span><span class="s1">&#39;stats.endtime&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">stats</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">endtime</span> <span class="o">=</span> <span class="n">endtime</span> <span class="ow">or</span> <span class="n">final_trace</span><span class="o">.</span><span class="n">endtime</span> <span class="o">+</span> <span class="n">final_trace</span><span class="o">.</span><span class="n">delta</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+        <span class="c1"># Set the metric start and endtime specified by the user.</span>
+        <span class="c1"># If no start and endtime are given, we pick our own, and the window</span>
+        <span class="c1"># will start on the first sample and end on the last sample + Δt.</span>
+        <span class="c1"># This is conform to the definition of [T0, T1).</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">starttime</span> <span class="o">=</span> <span class="n">starttime</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">endtime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">starttime</span>
+
+        <span class="k">if</span> <span class="nb">id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">id</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid4</span><span class="p">())</span>
+
+        <span class="c1"># Fill with the meta information.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;wfmetadata_id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">,</span>
+            <span class="s2">&quot;producer&quot;</span><span class="p">:</span> <span class="n">_PRODUCER</span><span class="p">,</span>
+            <span class="s2">&quot;waveform_type&quot;</span><span class="p">:</span> <span class="n">waveform_type</span><span class="p">,</span>
+            <span class="s2">&quot;waveform_format&quot;</span><span class="p">:</span> <span class="s2">&quot;miniSEED&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0&quot;</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Get sample left of the user specified starttime</span>
+        <span class="c1"># This will allow us to determine start continuity in our window</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_gaps_and_overlaps</span><span class="p">()</span>
+
+        <span class="c1"># The calculation of all the metrics begins here</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_extract_mseed_stream_metadata</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_compute_sample_metrics</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">add_flags</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_extract_mseed_flags</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">add_c_segments</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_compute_continuous_seg_sample_metrics</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MSEEDMetadata._get_gaps_and_overlaps"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.quality_control.MSEEDMetadata._get_gaps_and_overlaps.html#obspy.signal.quality_control.MSEEDMetadata._get_gaps_and_overlaps">[docs]</a>    <span class="k">def</span> <span class="nf">_get_gaps_and_overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function to get all gaps and overlaps in the user</span>
+<span class="sd">        specified (or forced) window.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_data</span> <span class="o">=</span> <span class="n">Stream</span><span class="p">()</span>
+
+        <span class="n">body_gap</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">body_overlap</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Read all the files entirely and calculate gaps and overlaps</span>
+        <span class="c1"># for the entire segment. Later we will narrow it to our window if</span>
+        <span class="c1"># it has been specified</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_files</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">all_data</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;mseed&quot;</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+        <span class="c1"># Sort the data by so the start times are in order</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_data</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+        <span class="c1"># Coverage keeps track of the time used</span>
+        <span class="n">coverage</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">trace</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_data</span><span class="p">:</span>
+
+            <span class="c1"># Extend the endtime of a trace with delta</span>
+            <span class="n">trace_end</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">endtime</span> <span class="o">+</span> <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">delta</span>
+            <span class="n">trace_start</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span>
+
+            <span class="c1"># If a start boundary has been specified</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">trace_end</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_start</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># In case the start time of a trace comes before the window</span>
+                <span class="c1"># extend the length to the window start</span>
+                <span class="n">cut_trace_start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">trace_start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_start</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cut_trace_start</span> <span class="o">=</span> <span class="n">trace_start</span>
+
+            <span class="c1"># If a end boundary has been specified</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_end</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">trace_start</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_end</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># In case the end time of a trace comes after the window</span>
+                <span class="c1"># reduce the length to the window end</span>
+                <span class="n">cut_trace_end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">trace_end</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_end</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cut_trace_end</span> <span class="o">=</span> <span class="n">trace_end</span>
+
+            <span class="c1"># Calculate the trace time tolerance as 0.5 * delta</span>
+            <span class="n">time_tolerance_max</span> <span class="o">=</span> <span class="n">trace_end</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">delta</span>
+            <span class="n">time_tolerance_min</span> <span class="o">=</span> <span class="n">trace_end</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">delta</span>
+
+            <span class="c1"># Set the initial trace coverage and proceed to the next trace</span>
+            <span class="k">if</span> <span class="n">coverage</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">coverage</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;start&#39;</span><span class="p">:</span> <span class="n">trace_start</span><span class="p">,</span>
+                    <span class="s1">&#39;end&#39;</span><span class="p">:</span> <span class="n">trace_end</span><span class="p">,</span>
+                    <span class="s1">&#39;end_min&#39;</span><span class="p">:</span> <span class="n">time_tolerance_min</span><span class="p">,</span>
+                    <span class="s1">&#39;end_max&#39;</span><span class="p">:</span> <span class="n">time_tolerance_max</span>
+                <span class="p">}</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Check if the start time of a trace falls</span>
+            <span class="c1"># beyond covered end max (time tolerance)</span>
+            <span class="c1"># this must be interpreted as a gap</span>
+            <span class="k">if</span> <span class="n">trace_start</span> <span class="o">&gt;</span> <span class="n">coverage</span><span class="p">[</span><span class="s1">&#39;end_max&#39;</span><span class="p">]:</span>
+                <span class="n">body_gap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cut_trace_start</span> <span class="o">-</span> <span class="n">coverage</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">])</span>
+
+            <span class="c1"># Check overlap in coverage</span>
+            <span class="c1"># the overlap ends at the end of the trace</span>
+            <span class="c1"># or add the end of the coverage</span>
+            <span class="k">if</span> <span class="n">trace_start</span> <span class="o">&lt;=</span> <span class="n">coverage</span><span class="p">[</span><span class="s1">&#39;end_min&#39;</span><span class="p">]:</span>
+                <span class="n">min_end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">cut_trace_end</span><span class="p">,</span> <span class="n">coverage</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">])</span>
+                <span class="n">body_overlap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">min_end</span> <span class="o">-</span> <span class="n">cut_trace_start</span><span class="p">)</span>
+
+            <span class="c1"># Extend the coverage of the trace</span>
+            <span class="c1"># the start coverage remains unchanged</span>
+            <span class="k">if</span> <span class="n">trace_end</span> <span class="o">&gt;</span> <span class="n">coverage</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]:</span>
+                <span class="n">coverage</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">trace_end</span>
+                <span class="n">coverage</span><span class="p">[</span><span class="s1">&#39;end_min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_tolerance_min</span>
+                <span class="n">coverage</span><span class="p">[</span><span class="s1">&#39;end_max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_tolerance_max</span>
+
+        <span class="c1"># We have the coverage by the traces</span>
+        <span class="c1"># check if there is an end or start gap caused by the</span>
+        <span class="c1"># window forced by the user</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;start_gap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;end_gap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">coverage</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_start</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;start_gap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coverage</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_start</span>
+                <span class="n">body_gap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;start_gap&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_end</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">coverage</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_end</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;end_gap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_end</span> <span class="o">-</span> <span class="n">coverage</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span>
+                <span class="n">body_gap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;end_gap&#39;</span><span class="p">])</span>
+
+        <span class="c1"># Set the gap and overlap information</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;num_gaps&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">body_gap</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;sum_gaps&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">body_gap</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">body_gap</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;max_gap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">body_gap</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;max_gap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;num_overlaps&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">body_overlap</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;sum_overlaps&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">body_overlap</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">body_overlap</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;max_overlap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">body_overlap</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;max_overlap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">number_of_records</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Number of records across files before slicing.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">mseed</span><span class="o">.</span><span class="n">number_of_records</span> <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">number_of_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Number of samples across files.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">npts</span> <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MSEEDMetadata._extract_mseed_stream_stats"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.quality_control.MSEEDMetadata._extract_mseed_stream_stats.html#obspy.signal.quality_control.MSEEDMetadata._extract_mseed_stream_stats">[docs]</a>    <span class="k">def</span> <span class="nf">_extract_mseed_stream_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Small function to collects the mSEED stats</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">stats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;network&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">network</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">station</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">location</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">channel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;quality&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">mseed</span><span class="o">.</span><span class="n">dataquality</span></div>
+
+<div class="viewcode-block" id="MSEEDMetadata._extract_mseed_stream_metadata"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.quality_control.MSEEDMetadata._extract_mseed_stream_metadata.html#obspy.signal.quality_control.MSEEDMetadata._extract_mseed_stream_metadata">[docs]</a>    <span class="k">def</span> <span class="nf">_extract_mseed_stream_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Collect information from the MiniSEED headers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_extract_mseed_stream_stats</span><span class="p">()</span>
+
+        <span class="n">meta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span>
+
+        <span class="c1"># Save first and last sample of the trace</span>
+        <span class="c1"># Look for the maximum endtime and minimum starttime in case</span>
+        <span class="c1"># traces are not in order.</span>
+        <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;first_sample&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span> <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;last_sample&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">endtime</span> <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="c1"># Add some other parameters to the metadata object</span>
+        <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;seed_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span>
+        <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;files&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span>
+        <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;start_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">starttime</span>
+        <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;end_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">endtime</span>
+        <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;num_samples&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_samples</span>
+
+        <span class="c1"># The number records as given by Trace.stats is always</span>
+        <span class="c1"># the full number of records in a file, regardless of being</span>
+        <span class="c1"># sliced between a start &amp; endtime</span>
+        <span class="c1"># If a start/endtime is specified, we cannot be sure of</span>
+        <span class="c1"># the # records. We will add this parameter later</span>
+        <span class="c1"># if add_flags is set to true after looping all records</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_start</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;num_records&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_records</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;num_records&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># The following are lists and may contain multiple unique entries.</span>
+        <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;sample_rate&#39;</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sampling_rate</span> <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">])))</span>
+        <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;record_length&#39;</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">mseed</span><span class="o">.</span><span class="n">record_length</span>
+                             <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">])))</span>
+        <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;encoding&#39;</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">mseed</span><span class="o">.</span><span class="n">encoding</span> <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">])))</span></div>
+
+<div class="viewcode-block" id="MSEEDMetadata._extract_mseed_flags"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.quality_control.MSEEDMetadata._extract_mseed_flags.html#obspy.signal.quality_control.MSEEDMetadata._extract_mseed_flags">[docs]</a>    <span class="k">def</span> <span class="nf">_extract_mseed_flags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">flags</span> <span class="o">=</span> <span class="n">get_flags</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="n">starttime</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">starttime</span><span class="p">,</span>
+                          <span class="n">endtime</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">endtime</span><span class="p">)</span>
+
+        <span class="n">data_quality_flags_seconds</span> <span class="o">=</span> <span class="n">flags</span><span class="p">[</span><span class="s2">&quot;data_quality_flags_percentages&quot;</span><span class="p">]</span>
+        <span class="n">activity_flags_seconds</span> <span class="o">=</span> <span class="n">flags</span><span class="p">[</span><span class="s2">&quot;activity_flags_percentages&quot;</span><span class="p">]</span>
+        <span class="n">io_and_clock_flags_seconds</span> <span class="o">=</span> <span class="n">flags</span><span class="p">[</span><span class="s2">&quot;io_and_clock_flags_percentages&quot;</span><span class="p">]</span>
+        <span class="n">timing_correction</span> <span class="o">=</span> <span class="n">flags</span><span class="p">[</span><span class="s2">&quot;timing_correction&quot;</span><span class="p">]</span>
+
+        <span class="c1"># Only calculate the timing quality statistics if each files has the</span>
+        <span class="c1"># timing quality set. This should usually be the case. Otherwise we</span>
+        <span class="c1"># would created tinted statistics. There is still a chance that some</span>
+        <span class="c1"># records in a file have timing qualities set and others not but</span>
+        <span class="c1"># that should be small.</span>
+        <span class="k">if</span> <span class="n">flags</span><span class="p">[</span><span class="s2">&quot;timing_quality&quot;</span><span class="p">]:</span>
+            <span class="n">tq</span> <span class="o">=</span> <span class="n">flags</span><span class="p">[</span><span class="s2">&quot;timing_quality&quot;</span><span class="p">]</span>
+            <span class="n">timing_quality_mean</span> <span class="o">=</span> <span class="n">tq</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">]</span>
+            <span class="n">timing_quality_min</span> <span class="o">=</span> <span class="n">tq</span><span class="p">[</span><span class="s2">&quot;min&quot;</span><span class="p">]</span>
+            <span class="n">timing_quality_max</span> <span class="o">=</span> <span class="n">tq</span><span class="p">[</span><span class="s2">&quot;max&quot;</span><span class="p">]</span>
+            <span class="n">timing_quality_median</span> <span class="o">=</span> <span class="n">tq</span><span class="p">[</span><span class="s2">&quot;median&quot;</span><span class="p">]</span>
+            <span class="n">timing_quality_lower_quartile</span> <span class="o">=</span> <span class="n">tq</span><span class="p">[</span><span class="s2">&quot;lower_quartile&quot;</span><span class="p">]</span>
+            <span class="n">timing_quality_upper_quartile</span> <span class="o">=</span> <span class="n">tq</span><span class="p">[</span><span class="s2">&quot;upper_quartile&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">timing_quality_mean</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">timing_quality_min</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">timing_quality_max</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">timing_quality_median</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">timing_quality_lower_quartile</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">timing_quality_upper_quartile</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">meta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span>
+        <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;num_records&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">flags</span><span class="p">[</span><span class="s1">&#39;record_count&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Set MiniSEED header counts</span>
+        <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;miniseed_header_counts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;miniseed_header_counts&#39;</span><span class="p">]</span>
+        <span class="n">ref</span><span class="p">[</span><span class="s1">&#39;timing_correction&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">flags</span><span class="p">[</span><span class="s1">&#39;timing_correction_count&#39;</span><span class="p">]</span>
+        <span class="n">ref</span><span class="p">[</span><span class="s1">&#39;activity_flags&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">flags</span><span class="p">[</span><span class="s1">&#39;activity_flags_counts&#39;</span><span class="p">]</span>
+        <span class="n">ref</span><span class="p">[</span><span class="s1">&#39;io_and_clock_flags&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">flags</span><span class="p">[</span><span class="s1">&#39;io_and_clock_flags_counts&#39;</span><span class="p">]</span>
+        <span class="n">ref</span><span class="p">[</span><span class="s1">&#39;data_quality_flags&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">flags</span><span class="p">[</span><span class="s1">&#39;data_quality_flags_counts&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Set MiniSEED header percentages</span>
+        <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;miniseed_header_percentages&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;miniseed_header_percentages&#39;</span><span class="p">]</span>
+        <span class="n">ref</span><span class="p">[</span><span class="s1">&#39;timing_correction&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timing_correction</span>
+        <span class="n">ref</span><span class="p">[</span><span class="s1">&#39;timing_quality_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timing_quality_mean</span>
+        <span class="n">ref</span><span class="p">[</span><span class="s1">&#39;timing_quality_min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timing_quality_min</span>
+        <span class="n">ref</span><span class="p">[</span><span class="s1">&#39;timing_quality_max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timing_quality_max</span>
+        <span class="n">ref</span><span class="p">[</span><span class="s1">&#39;timing_quality_median&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timing_quality_median</span>
+        <span class="n">ref</span><span class="p">[</span><span class="s1">&#39;timing_quality_lower_quartile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timing_quality_lower_quartile</span>
+        <span class="n">ref</span><span class="p">[</span><span class="s1">&#39;timing_quality_upper_quartile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timing_quality_upper_quartile</span>
+
+        <span class="c1"># According to schema @ maybe refactor this to less verbose flag</span>
+        <span class="c1"># names. Sets MiniSEED header flag percentages</span>
+        <span class="n">ref</span><span class="p">[</span><span class="s1">&#39;activity_flags&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">activity_flags_seconds</span>
+        <span class="n">ref</span><span class="p">[</span><span class="s1">&#39;data_quality_flags&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_quality_flags_seconds</span>
+        <span class="n">ref</span><span class="p">[</span><span class="s1">&#39;io_and_clock_flags&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">io_and_clock_flags_seconds</span></div>
+
+<div class="viewcode-block" id="MSEEDMetadata._compute_sample_metrics"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.quality_control.MSEEDMetadata._compute_sample_metrics.html#obspy.signal.quality_control.MSEEDMetadata._compute_sample_metrics">[docs]</a>    <span class="k">def</span> <span class="nf">_compute_sample_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes metrics on samples contained in the specified time window</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Make sure there is no integer division by chance.</span>
+        <span class="n">npts</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">number_of_samples</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;sample_min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">tr</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;sample_max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="n">tr</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">])</span>
+
+        <span class="c1"># Manually implement these as they have to work across a list of</span>
+        <span class="c1"># arrays.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;sample_mean&#39;</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="nb">sum</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">/</span> <span class="n">npts</span>
+
+        <span class="n">full_samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">tr</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;sample_median&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">full_samples</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;sample_lower_quartile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">full_samples</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;sample_upper_quartile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">full_samples</span><span class="p">,</span> <span class="mi">75</span><span class="p">)</span>
+
+        <span class="c1"># Might overflow np.int64 so make Python obj. (.astype(object))</span>
+        <span class="c1"># allows conversion to long int when required (see tests)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;sample_rms&#39;</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">((</span><span class="n">tr</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+                        <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">/</span> <span class="n">npts</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;sample_stdev&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span>
+            <span class="p">((</span><span class="n">tr</span><span class="o">.</span><span class="n">data</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;sample_mean&quot;</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">/</span> <span class="n">npts</span><span class="p">)</span>
+
+        <span class="c1"># Percentage based availability as a function of total gap length</span>
+        <span class="c1"># over the full trace duration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;percent_availability&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;sum_gaps&#39;</span><span class="p">])</span> <span class="o">/</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">total_time</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MSEEDMetadata._compute_continuous_seg_sample_metrics"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.quality_control.MSEEDMetadata._compute_continuous_seg_sample_metrics.html#obspy.signal.quality_control.MSEEDMetadata._compute_continuous_seg_sample_metrics">[docs]</a>    <span class="k">def</span> <span class="nf">_compute_continuous_seg_sample_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes metrics on the samples within each continuous segment.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;start_gap&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">first_segment_start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_start</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">first_segment_start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span>
+
+        <span class="c1"># Collect data in arrays of continuous segments</span>
+        <span class="c1"># Manually set the first segment</span>
+        <span class="n">c_seg</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;start&#39;</span><span class="p">:</span> <span class="n">first_segment_start</span><span class="p">,</span>
+            <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+        <span class="p">}</span>
+
+        <span class="n">c_segs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)):</span>
+
+            <span class="n">trace_end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">endtime</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">delta</span>
+            <span class="n">time_tolerance</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">delta</span>
+
+            <span class="n">c_seg</span><span class="p">[</span><span class="s1">&#39;s_rate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sampling_rate</span>
+            <span class="n">c_seg</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">trace_end</span>
+
+            <span class="c1"># Final trace, make sure to append</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">c_segs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_seg</span><span class="p">)</span>
+                <span class="k">break</span>
+
+            <span class="n">trace_offset</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span> <span class="o">-</span> <span class="n">trace_end</span><span class="p">)</span>
+
+            <span class="c1"># Check if trace endtime is equal to (trace + 1) starttime</span>
+            <span class="c1"># and if the sampling_rates match, if so, extend the data with</span>
+            <span class="c1"># data from trace + 1 and extend the endtime</span>
+            <span class="c1"># Otherwise the segment stops being continuous and we append it</span>
+            <span class="c1"># and we create a new data segment</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">trace_offset</span> <span class="o">&lt;</span> <span class="n">time_tolerance</span> <span class="ow">and</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sampling_rate</span> <span class="o">==</span> <span class="n">c_seg</span><span class="p">[</span><span class="s1">&#39;s_rate&#39;</span><span class="p">]):</span>
+                <span class="n">c_seg</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">c_seg</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">],</span>
+                                                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+                <span class="n">c_seg</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">endtime</span> <span class="o">+</span> \
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">delta</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">c_segs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_seg</span><span class="p">)</span>
+                <span class="n">c_seg</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+                    <span class="s1">&#39;start&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span><span class="p">}</span>
+
+        <span class="c1"># Set array of continuous segments from this data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;c_segments&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_parse_c_stats</span><span class="p">(</span><span class="n">seg</span><span class="p">)</span> <span class="k">for</span> <span class="n">seg</span> <span class="ow">in</span> <span class="n">c_segs</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="MSEEDMetadata._parse_c_stats"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.quality_control.MSEEDMetadata._parse_c_stats.html#obspy.signal.quality_control.MSEEDMetadata._parse_c_stats">[docs]</a>    <span class="k">def</span> <span class="nf">_parse_c_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tr</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param tr: custom dictionary with start, end, data, and sampling_rate</span>
+<span class="sd">            of a continuous trace</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">seg</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Set continuous segments start &amp; end</span>
+        <span class="c1"># limit to specified window start/end if set</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">seg</span><span class="p">[</span><span class="s1">&#39;start_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window_start</span><span class="p">,</span> <span class="n">tr</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">seg</span><span class="p">[</span><span class="s1">&#39;start_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tr</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">window_end</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">seg</span><span class="p">[</span><span class="s1">&#39;end_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window_end</span><span class="p">,</span> <span class="n">tr</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">seg</span><span class="p">[</span><span class="s1">&#39;end_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tr</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span>
+
+        <span class="n">seg</span><span class="p">[</span><span class="s1">&#39;sample_rate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tr</span><span class="p">[</span><span class="s1">&#39;s_rate&#39;</span><span class="p">]</span>
+        <span class="n">seg</span><span class="p">[</span><span class="s1">&#39;sample_min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tr</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+        <span class="n">seg</span><span class="p">[</span><span class="s1">&#39;sample_max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tr</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">seg</span><span class="p">[</span><span class="s1">&#39;sample_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tr</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">seg</span><span class="p">[</span><span class="s1">&#39;sample_median&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+        <span class="n">seg</span><span class="p">[</span><span class="s1">&#39;sample_rms&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">tr</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span>
+                                    <span class="nb">len</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]))</span>
+        <span class="n">seg</span><span class="p">[</span><span class="s1">&#39;sample_lower_quartile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">],</span> <span class="mi">25</span><span class="p">)</span>
+        <span class="n">seg</span><span class="p">[</span><span class="s1">&#39;sample_upper_quartile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">],</span> <span class="mi">75</span><span class="p">)</span>
+        <span class="n">seg</span><span class="p">[</span><span class="s1">&#39;sample_stdev&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tr</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+        <span class="n">seg</span><span class="p">[</span><span class="s1">&#39;num_samples&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tr</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+        <span class="n">seg</span><span class="p">[</span><span class="s1">&#39;segment_length&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">seg</span><span class="p">[</span><span class="s1">&#39;end_time&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">seg</span><span class="p">[</span><span class="s1">&#39;start_time&#39;</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">seg</span></div>
+
+<div class="viewcode-block" id="MSEEDMetadata.get_json_meta"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.quality_control.MSEEDMetadata.get_json_meta.html#obspy.signal.quality_control.MSEEDMetadata.get_json_meta">[docs]</a>    <span class="k">def</span> <span class="nf">get_json_meta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Serialize the meta dictionary to JSON.</span>
+
+<span class="sd">        :param validate: Validate the JSON string against the schema before</span>
+<span class="sd">            returning.</span>
+<span class="sd">        :type validate: bool</span>
+
+<span class="sd">        :return: JSON containing the MSEED metadata</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">meta</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">meta</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">DataQualityEncoder</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">validate_qc_metrics</span><span class="p">(</span><span class="n">meta</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">meta</span></div>
+
+<div class="viewcode-block" id="MSEEDMetadata.validate_qc_metrics"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.quality_control.MSEEDMetadata.validate_qc_metrics.html#obspy.signal.quality_control.MSEEDMetadata.validate_qc_metrics">[docs]</a>    <span class="k">def</span> <span class="nf">validate_qc_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qc_metrics</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validate the passed metrics against the JSON schema.</span>
+
+<span class="sd">        :param qc_metrics: The quality metrics to be validated.</span>
+<span class="sd">        :type qc_metrics: dict, str, or file-like object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">jsonschema</span>
+
+        <span class="c1"># Judging from the changelog 1.0.0 appears to be the first version</span>
+        <span class="c1"># to have fully working support for references.</span>
+        <span class="n">_v</span> <span class="o">=</span> <span class="n">get_dependency_version</span><span class="p">(</span><span class="s2">&quot;jsonschema&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">_v</span> <span class="o">&lt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]:</span>  <span class="c1"># pragma: no cover</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Validating the QC metrics requires jsonschema &gt;= 1.0.0 &quot;</span>
+                   <span class="s2">&quot;You have </span><span class="si">%s</span><span class="s2">. Please update.&quot;</span> <span class="o">%</span>
+                   <span class="n">get_dependency_version</span><span class="p">(</span><span class="s2">&quot;jsonschema&quot;</span><span class="p">,</span> <span class="n">raw_string</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="n">schema_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span>
+                                   <span class="s2">&quot;wf_metadata_schema.json&quot;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">schema_path</span><span class="p">,</span> <span class="s2">&quot;rt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="n">schema</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fh</span><span class="p">)</span>
+
+        <span class="c1"># If passed as a dictionary, serialize and derialize to get the</span>
+        <span class="c1"># mapping from Python object to JSON type.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">qc_metrics</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Mapping</span><span class="p">):</span>
+            <span class="n">qc_metrics</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_json_meta</span><span class="p">(</span><span class="n">validate</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">qc_metrics</span><span class="p">,</span> <span class="s2">&quot;read&quot;</span><span class="p">):</span>
+            <span class="n">qc_metrics</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">qc_metrics</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">qc_metrics</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">qc_metrics</span><span class="p">)</span>
+
+        <span class="n">jsonschema</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">qc_metrics</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

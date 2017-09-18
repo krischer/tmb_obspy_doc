@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.core.event.magnitude &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.core.event.magnitude</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">obspy.core.event.magnitude - The Magnitude class definition</span>
+<span class="sd">===========================================================</span>
+<span class="sd">This module provides a class hierarchy to consistently handle event metadata.</span>
+<span class="sd">This class hierarchy is closely modelled after the de-facto standard format</span>
+<span class="sd">`QuakeML &lt;https://quake.ethz.ch/quakeml/&gt;`_.</span>
+
+<span class="sd">.. note::</span>
+
+<span class="sd">    For handling additional information not covered by the QuakeML standard and</span>
+<span class="sd">    how to output it to QuakeML see the :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (http://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">UTCDateTime</span>
+<span class="kn">from</span> <span class="nn">obspy.core.event.base</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">_event_type_class_factory</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">,</span> <span class="n">CreationInfo</span><span class="p">,</span>
+    <span class="n">WaveformStreamID</span><span class="p">,</span> <span class="n">TimeWindow</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">obspy.core.event.header</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">AmplitudeCategory</span><span class="p">,</span> <span class="n">AmplitudeUnit</span><span class="p">,</span> <span class="n">EvaluationMode</span><span class="p">,</span> <span class="n">EvaluationStatus</span><span class="p">,</span>
+    <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">)</span>
+
+
+<span class="n">__Magnitude</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__Magnitude&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;resource_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;mag&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;magnitude_type&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;origin_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;method_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;station_count&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;azimuthal_gap&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;evaluation_mode&quot;</span><span class="p">,</span> <span class="n">EvaluationMode</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;evaluation_status&quot;</span><span class="p">,</span> <span class="n">EvaluationStatus</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;creation_info&quot;</span><span class="p">,</span> <span class="n">CreationInfo</span><span class="p">)],</span>
+    <span class="n">class_contains</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">,</span> <span class="s2">&quot;station_magnitude_contributions&quot;</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="Magnitude"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.magnitude.Magnitude.html#obspy.core.event.magnitude.Magnitude">[docs]</a><span class="k">class</span> <span class="nc">Magnitude</span><span class="p">(</span><span class="n">__Magnitude</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Describes a magnitude which can, but does not need to be associated with an</span>
+<span class="sd">    origin.</span>
+
+<span class="sd">    Association with an origin is expressed with the optional attribute</span>
+<span class="sd">    originID. It is either a combination of different magnitude estimations, or</span>
+<span class="sd">    it represents the reported magnitude for the given event.</span>
+
+<span class="sd">    :type resource_id: :class:`~obspy.core.event.base.ResourceIdentifier`</span>
+<span class="sd">    :param resource_id: Resource identifier of Magnitude.</span>
+<span class="sd">    :type force_resource_id: bool, optional</span>
+<span class="sd">    :param force_resource_id: If set to False, the automatic initialization of</span>
+<span class="sd">        `resource_id` attribute in case it is not specified will be skipped.</span>
+<span class="sd">    :type mag: float</span>
+<span class="sd">    :param mag: Resulting magnitude value from combining values of type</span>
+<span class="sd">        :class:`~obspy.core.event.magnitude.StationMagnitude`.</span>
+<span class="sd">        If no estimations are available, this value can represent the</span>
+<span class="sd">        reported magnitude.</span>
+<span class="sd">    :type mag_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param mag_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type magnitude_type: str, optional</span>
+<span class="sd">    :param magnitude_type: Describes the type of magnitude. This is a free-text</span>
+<span class="sd">        field because it is impossible to cover all existing magnitude type</span>
+<span class="sd">        designations with an enumeration. Possible values are:</span>
+
+<span class="sd">        * unspecified magnitude (``&#39;M&#39;``),</span>
+<span class="sd">        * local magnitude (``&#39;ML&#39;``),</span>
+<span class="sd">        * body wave magnitude (``&#39;Mb&#39;``),</span>
+<span class="sd">        * surface wave magnitude (``&#39;MS&#39;``),</span>
+<span class="sd">        * moment magnitude (``&#39;Mw&#39;``),</span>
+<span class="sd">        * duration magnitude (``&#39;Md&#39;``)</span>
+<span class="sd">        * coda magnitude (``&#39;Mc&#39;``)</span>
+<span class="sd">        * ``&#39;MH&#39;``, ``&#39;Mwp&#39;``, ``&#39;M50&#39;``, ``&#39;M100&#39;``, etc.</span>
+
+<span class="sd">    :type origin_id: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param origin_id: Reference to an origin’s resource_id if the magnitude has</span>
+<span class="sd">        an associated Origin.</span>
+<span class="sd">    :type method_id: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param method_id: Identifies the method of magnitude estimation. Users</span>
+<span class="sd">        should avoid to give contradictory information in method_id and</span>
+<span class="sd">        magnitude_type.</span>
+<span class="sd">    :type station_count: int, optional</span>
+<span class="sd">    :param station_count: Number of used stations for this magnitude</span>
+<span class="sd">        computation.</span>
+<span class="sd">    :type azimuthal_gap: float, optional</span>
+<span class="sd">    :param azimuthal_gap: Azimuthal gap for this magnitude computation.</span>
+<span class="sd">        Unit: deg</span>
+<span class="sd">    :type evaluation_mode: str, optional</span>
+<span class="sd">    :param evaluation_mode: Evaluation mode of Magnitude.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.EvaluationMode` for allowed</span>
+<span class="sd">        values.</span>
+<span class="sd">    :type evaluation_status: str, optional</span>
+<span class="sd">    :param evaluation_status: Evaluation status of Magnitude.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.EvaluationStatus` for allowed</span>
+<span class="sd">        values.</span>
+<span class="sd">    :type comments: list of :class:`~obspy.core.event.base.Comment`, optional</span>
+<span class="sd">    :param comments: Additional comments.</span>
+<span class="sd">    :type station_magnitude_contributions: list of</span>
+<span class="sd">        :class:`~obspy.core.event.magnitude.StationMagnitudeContribution`.</span>
+<span class="sd">    :param station_magnitude_contributions: StationMagnitudeContribution</span>
+<span class="sd">        instances associated with the Magnitude.</span>
+<span class="sd">    :type creation_info: :class:`~obspy.core.event.base.CreationInfo`, optional</span>
+<span class="sd">    :param creation_info: Creation information used to describe author,</span>
+<span class="sd">        version, and creation time.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">__StationMagnitude</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__StationMagnitude&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;resource_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;origin_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;mag&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;station_magnitude_type&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;amplitude_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;method_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;waveform_id&quot;</span><span class="p">,</span> <span class="n">WaveformStreamID</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;creation_info&quot;</span><span class="p">,</span> <span class="n">CreationInfo</span><span class="p">)],</span>
+    <span class="n">class_contains</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="StationMagnitude"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.magnitude.StationMagnitude.html#obspy.core.event.magnitude.StationMagnitude">[docs]</a><span class="k">class</span> <span class="nc">StationMagnitude</span><span class="p">(</span><span class="n">__StationMagnitude</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class describes the magnitude derived from a single waveform stream.</span>
+
+<span class="sd">    :type resource_id: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param resource_id: Resource identifier of StationMagnitude.</span>
+<span class="sd">    :type force_resource_id: bool, optional</span>
+<span class="sd">    :param force_resource_id: If set to False, the automatic initialization of</span>
+<span class="sd">        `resource_id` attribute in case it is not specified will be skipped.</span>
+<span class="sd">    :type origin_id: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param origin_id: Reference to an origin’s ``resource_id`` if the</span>
+<span class="sd">        StationMagnitude has an associated :class:`~obspy.core.event.Origin`.</span>
+<span class="sd">    :type mag: float</span>
+<span class="sd">    :param mag: Estimated magnitude.</span>
+<span class="sd">    :type mag_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param mag_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type station_magnitude_type: str, optional</span>
+<span class="sd">    :param station_magnitude_type: See</span>
+<span class="sd">        :class:`~obspy.core.event.magnitude.Magnitude`</span>
+<span class="sd">    :type amplitude_id: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param amplitude_id: Identifies the data source of the StationMagnitude.</span>
+<span class="sd">        For magnitudes derived from amplitudes in waveforms (e.g., local</span>
+<span class="sd">        magnitude ML), amplitudeID points to publicID in class Amplitude.</span>
+<span class="sd">    :type method_id: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param method_id: See :class:`~obspy.core.event.magnitude.Magnitude`</span>
+<span class="sd">    :type waveform_id: :class:`~obspy.core.event.base.WaveformStreamID`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param waveform_id: Identifies the waveform stream. This element can be</span>
+<span class="sd">        helpful if no amplitude is referenced, or the amplitude is not</span>
+<span class="sd">        available in the context. Otherwise, it would duplicate the waveform_id</span>
+<span class="sd">        provided there and can be omitted.</span>
+<span class="sd">    :type comments: list of :class:`~obspy.core.event.base.Comment`, optional</span>
+<span class="sd">    :param comments: Additional comments.</span>
+<span class="sd">    :type creation_info: :class:`~obspy.core.event.base.CreationInfo`, optional</span>
+<span class="sd">    :param creation_info: Creation information used to describe author,</span>
+<span class="sd">        version, and creation time.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">__StationMagnitudeContribution</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__StationMagnitudeContribution&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;station_magnitude_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;residual&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)])</span>
+
+
+<div class="viewcode-block" id="StationMagnitudeContribution"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.magnitude.StationMagnitudeContribution.html#obspy.core.event.magnitude.StationMagnitudeContribution">[docs]</a><span class="k">class</span> <span class="nc">StationMagnitudeContribution</span><span class="p">(</span><span class="n">__StationMagnitudeContribution</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class describes the weighting of magnitude values from several</span>
+<span class="sd">    StationMagnitude objects for computing a network magnitude estimation.</span>
+
+<span class="sd">    :type station_magnitude_id:</span>
+<span class="sd">        :class:`~obspy.core.event.base.ResourceIdentifier`, optional</span>
+<span class="sd">    :param station_magnitude_id: Refers to the resource_id of a</span>
+<span class="sd">        StationMagnitude object.</span>
+<span class="sd">    :type residual: float, optional</span>
+<span class="sd">    :param residual: Residual of magnitude computation.</span>
+<span class="sd">    :type weight: float, optional</span>
+<span class="sd">    :param weight: Weight of the magnitude value from class StationMagnitude</span>
+<span class="sd">        for computing the magnitude value in class Magnitude. Note that there</span>
+<span class="sd">        is no rule for the sum of the weights of all station magnitude</span>
+<span class="sd">        contributions to a specific network magnitude. In particular, the</span>
+<span class="sd">        weights are not required to sum up to unity.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">__Amplitude</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__Amplitude&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;resource_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;generic_amplitude&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="n">AmplitudeCategory</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;unit&quot;</span><span class="p">,</span> <span class="n">AmplitudeUnit</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;method_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;period&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;snr&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;time_window&quot;</span><span class="p">,</span> <span class="n">TimeWindow</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;pick_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;waveform_id&quot;</span><span class="p">,</span> <span class="n">WaveformStreamID</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;filter_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;scaling_time&quot;</span><span class="p">,</span> <span class="n">UTCDateTime</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;magnitude_hint&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;evaluation_mode&quot;</span><span class="p">,</span> <span class="n">EvaluationMode</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;evaluation_status&quot;</span><span class="p">,</span> <span class="n">EvaluationStatus</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;creation_info&quot;</span><span class="p">,</span> <span class="n">CreationInfo</span><span class="p">)],</span>
+    <span class="n">class_contains</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="Amplitude"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.magnitude.Amplitude.html#obspy.core.event.magnitude.Amplitude">[docs]</a><span class="k">class</span> <span class="nc">Amplitude</span><span class="p">(</span><span class="n">__Amplitude</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class represents a quantification of the waveform anomaly, usually a</span>
+<span class="sd">    single amplitude measurement or a measurement of the visible signal</span>
+<span class="sd">    duration for duration magnitudes.</span>
+
+<span class="sd">    :type resource_id: :class:`~obspy.core.event.base.ResourceIdentifier`</span>
+<span class="sd">    :param resource_id: Resource identifier of Amplitude.</span>
+<span class="sd">    :type force_resource_id: bool, optional</span>
+<span class="sd">    :param force_resource_id: If set to False, the automatic initialization of</span>
+<span class="sd">        `resource_id` attribute in case it is not specified will be skipped.</span>
+<span class="sd">    :type generic_amplitude: float</span>
+<span class="sd">    :param generic_amplitude: Measured amplitude value for the given</span>
+<span class="sd">        waveformID. Note that this attribute can describe different physical</span>
+<span class="sd">        quantities, depending on the type and category of the amplitude. These</span>
+<span class="sd">        can be, e.g., displacement, velocity, or a period. If the only</span>
+<span class="sd">        amplitude information is a period, it has to specified here, not in the</span>
+<span class="sd">        period attribute. The latter can be used if the amplitude measurement</span>
+<span class="sd">        contains information on, e.g., displacement and an additional period.</span>
+<span class="sd">        Since the physical quantity described by this attribute is not fixed,</span>
+<span class="sd">        the unit of measurement cannot be defined in advance. However, the</span>
+<span class="sd">        quantity has to be specified in SI base units. The enumeration given in</span>
+<span class="sd">        attribute unit provides the most likely units that could be needed</span>
+<span class="sd">        here. For clarity, using the optional unit attribute is highly</span>
+<span class="sd">        encouraged.</span>
+<span class="sd">    :type generic_amplitude_errors:</span>
+<span class="sd">        :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param generic_amplitude_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type type: str, optional</span>
+<span class="sd">    :param type: Describes the type of amplitude using the nomenclature from</span>
+<span class="sd">        Storchak et al. (2003). Possible values are:</span>
+
+<span class="sd">        * unspecified amplitude reading (``&#39;A&#39;``),</span>
+<span class="sd">        * amplitude reading for local magnitude (``&#39;AML&#39;``),</span>
+<span class="sd">        * amplitude reading for body wave magnitude (``&#39;AMB&#39;``),</span>
+<span class="sd">        * amplitude reading for surface wave magnitude (``&#39;AMS&#39;``), and</span>
+<span class="sd">        * time of visible end of record for duration magnitude (``&#39;END&#39;``).</span>
+
+<span class="sd">    :type category: str, optional</span>
+<span class="sd">    :param category:  Amplitude category.  This attribute describes the way the</span>
+<span class="sd">        waveform trace is evaluated to derive an amplitude value. This can be</span>
+<span class="sd">        just reading a single value for a given point in time (point), taking a</span>
+<span class="sd">        mean value over a time interval (mean), integrating the trace over a</span>
+<span class="sd">        time interval (integral), specifying just a time interval (duration),</span>
+<span class="sd">        or evaluating a period (period).</span>
+<span class="sd">        See :class:`~obspy.core.event.header.AmplitudeCategory` for allowed</span>
+<span class="sd">        values.</span>
+<span class="sd">    :type unit: str, optional</span>
+<span class="sd">    :param unit: Amplitude unit. This attribute provides the most likely</span>
+<span class="sd">        measurement units for the physical quantity described in the</span>
+<span class="sd">        genericAmplitude attribute. Possible values are specified as</span>
+<span class="sd">        combinations of SI base units.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.AmplitudeUnit` for allowed</span>
+<span class="sd">        values.</span>
+<span class="sd">    :type method_id: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param method_id: Describes the method of amplitude determination.</span>
+<span class="sd">    :type period: float, optional</span>
+<span class="sd">    :param period: Dominant period in the timeWindow in case of amplitude</span>
+<span class="sd">        measurements. Not used for duration magnitude.  Unit: s</span>
+<span class="sd">    :type snr: float, optional</span>
+<span class="sd">    :param snr: Signal-to-noise ratio of the spectrogram at the location the</span>
+<span class="sd">        amplitude was measured.</span>
+<span class="sd">    :type time_window: :class:`~obspy.core.event.base.TimeWindow`, optional</span>
+<span class="sd">    :param time_window: Description of the time window used for amplitude</span>
+<span class="sd">        measurement. Recommended for duration magnitudes.</span>
+<span class="sd">    :type pick_id: :class:`~obspy.core.event.base.ResourceIdentifier`, optional</span>
+<span class="sd">    :param pick_id: Refers to the ``resource_id`` of an associated</span>
+<span class="sd">        :class:`~obspy.core.event.origin.Pick` object.</span>
+<span class="sd">    :type waveform_id: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param waveform_id: Identifies the waveform stream on which the amplitude</span>
+<span class="sd">        was measured.</span>
+<span class="sd">    :type filter_id: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param filter_id: Identifies the filter or filter setup used for filtering</span>
+<span class="sd">        the waveform stream referenced by ``waveform_id``.</span>
+<span class="sd">    :type scaling_time: :class:`~obspy.core.utcdatetime.UTCDateTime`, optional</span>
+<span class="sd">    :param scaling_time: Scaling time for amplitude measurement.</span>
+<span class="sd">    :type scaling_time_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param scaling_time_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type magnitude_hint: str, optional</span>
+<span class="sd">    :param magnitude_hint: Type of magnitude the amplitude measurement is used</span>
+<span class="sd">        for.  This is a free-text field because it is impossible to cover all</span>
+<span class="sd">        existing magnitude type designations with an enumeration. Possible</span>
+<span class="sd">        values are:</span>
+
+<span class="sd">        * unspecified magnitude (``&#39;M&#39;``),</span>
+<span class="sd">        * local magnitude (``&#39;ML&#39;``),</span>
+<span class="sd">        * body wave magnitude (``&#39;Mb&#39;``),</span>
+<span class="sd">        * surface wave magnitude (``&#39;MS&#39;``),</span>
+<span class="sd">        * moment magnitude (``&#39;Mw&#39;``),</span>
+<span class="sd">        * duration magnitude (``&#39;Md&#39;``)</span>
+<span class="sd">        * coda magnitude (``&#39;Mc&#39;``)</span>
+<span class="sd">        * ``&#39;MH&#39;``, ``&#39;Mwp&#39;``, ``&#39;M50&#39;``, ``&#39;M100&#39;``, etc.</span>
+
+<span class="sd">    :type evaluation_mode: str, optional</span>
+<span class="sd">    :param evaluation_mode: Evaluation mode of Amplitude.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.EvaluationMode` for allowed</span>
+<span class="sd">        values.</span>
+<span class="sd">    :type evaluation_status: str, optional</span>
+<span class="sd">    :param evaluation_status: Evaluation status of Amplitude.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.EvaluationStatus` for allowed</span>
+<span class="sd">        values.</span>
+<span class="sd">    :type comments: list of :class:`~obspy.core.event.base.Comment`, optional</span>
+<span class="sd">    :param comments: Additional comments.</span>
+<span class="sd">    :type creation_info: :class:`~obspy.core.event.base.CreationInfo`, optional</span>
+<span class="sd">    :param creation_info: CreationInfo for the Amplitude object.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

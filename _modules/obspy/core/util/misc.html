@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.core.util.misc &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.core.util.misc</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Various additional utilities for ObsPy.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">platform</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="k">import</span> <span class="n">contextmanager</span>
+<span class="kn">from</span> <span class="nn">subprocess</span> <span class="k">import</span> <span class="n">STDOUT</span><span class="p">,</span> <span class="n">CalledProcessError</span><span class="p">,</span> <span class="n">check_output</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="c1"># The following dictionary maps the first character of the channel_id to the</span>
+<span class="c1"># lowest sampling rate this so called Band Code should be used for according</span>
+<span class="c1"># to: SEED MANUAL p.124</span>
+<span class="c1"># We use this e.g. in seishub.client.getWaveform to request two samples more on</span>
+<span class="c1"># both start and end to cut to the samples that really are nearest to requested</span>
+<span class="c1"># start/end time afterwards.</span>
+
+<span class="n">BAND_CODE</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;F&#39;</span><span class="p">:</span> <span class="mf">1000.0</span><span class="p">,</span>
+             <span class="s1">&#39;G&#39;</span><span class="p">:</span> <span class="mf">1000.0</span><span class="p">,</span>
+             <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="mf">250.0</span><span class="p">,</span>
+             <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mf">250.0</span><span class="p">,</span>
+             <span class="s1">&#39;E&#39;</span><span class="p">:</span> <span class="mf">80.0</span><span class="p">,</span>
+             <span class="s1">&#39;S&#39;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>
+             <span class="s1">&#39;H&#39;</span><span class="p">:</span> <span class="mf">80.0</span><span class="p">,</span>
+             <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>
+             <span class="s1">&#39;M&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+             <span class="s1">&#39;L&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+             <span class="s1">&#39;V&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+             <span class="s1">&#39;U&#39;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+             <span class="s1">&#39;R&#39;</span><span class="p">:</span> <span class="mf">0.0001</span><span class="p">,</span>
+             <span class="s1">&#39;P&#39;</span><span class="p">:</span> <span class="mf">0.000001</span><span class="p">,</span>
+             <span class="s1">&#39;T&#39;</span><span class="p">:</span> <span class="mf">0.0000001</span><span class="p">,</span>
+             <span class="s1">&#39;Q&#39;</span><span class="p">:</span> <span class="mf">0.00000001</span><span class="p">}</span>
+
+
+<div class="viewcode-block" id="guess_delta"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.misc.guess_delta.html#obspy.core.util.misc.guess_delta">[docs]</a><span class="k">def</span> <span class="nf">guess_delta</span><span class="p">(</span><span class="n">channel</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Estimate time delta in seconds between each sample from given channel name.</span>
+
+<span class="sd">    :type channel: str</span>
+<span class="sd">    :param channel: Channel name, e.g. ``&#39;BHZ&#39;`` or ``&#39;H&#39;``</span>
+<span class="sd">    :rtype: float</span>
+<span class="sd">    :return: Returns ``0`` if band code is not given or unknown.</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    &gt;&gt;&gt; print(guess_delta(&#39;BHZ&#39;))</span>
+<span class="sd">    0.1</span>
+
+<span class="sd">    &gt;&gt;&gt; print(guess_delta(&#39;H&#39;))</span>
+<span class="sd">    0.0125</span>
+
+<span class="sd">    &gt;&gt;&gt; print(guess_delta(&#39;XZY&#39;))  # doctest: +SKIP</span>
+<span class="sd">    0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">BAND_CODE</span><span class="p">[</span><span class="n">channel</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No or unknown channel id provided. Specifying a channel id &quot;</span> <span class="o">+</span> \
+              <span class="s2">&quot;could lead to better selection of first/last samples of &quot;</span> <span class="o">+</span> \
+              <span class="s2">&quot;fetched traces.&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="score_at_percentile"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.misc.score_at_percentile.html#obspy.core.util.misc.score_at_percentile">[docs]</a><span class="k">def</span> <span class="nf">score_at_percentile</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">per</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="p">(),</span> <span class="n">issorted</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the score at the given per percentile of the sequence a.</span>
+
+<span class="sd">    For example, the score at ``per=50`` is the median.</span>
+
+<span class="sd">    If the desired quantile lies between two data points, we interpolate</span>
+<span class="sd">    between them.</span>
+
+<span class="sd">    If the parameter ``limit`` is provided, it should be a tuple (lower,</span>
+<span class="sd">    upper) of two values.  Values of ``a`` outside this (closed) interval</span>
+<span class="sd">    will be ignored.</span>
+
+<span class="sd">    .. rubric:: Examples</span>
+
+<span class="sd">    &gt;&gt;&gt; a = [1, 2, 3, 4]</span>
+<span class="sd">    &gt;&gt;&gt; score_at_percentile(a, 25)</span>
+<span class="sd">    1.75</span>
+<span class="sd">    &gt;&gt;&gt; score_at_percentile(a, 50)</span>
+<span class="sd">    2.5</span>
+<span class="sd">    &gt;&gt;&gt; score_at_percentile(a, 75)</span>
+<span class="sd">    3.25</span>
+
+<span class="sd">    &gt;&gt;&gt; a = [6, 47, 49, 15, 42, 41, 7, 255, 39, 43, 40, 36, 500]</span>
+<span class="sd">    &gt;&gt;&gt; score_at_percentile(a, 25, limit=(0, 100))</span>
+<span class="sd">    25.5</span>
+<span class="sd">    &gt;&gt;&gt; score_at_percentile(a, 50, limit=(0, 100))</span>
+<span class="sd">    40</span>
+<span class="sd">    &gt;&gt;&gt; score_at_percentile(a, 75, limit=(0, 100))</span>
+<span class="sd">    42.5</span>
+
+<span class="sd">    This function is taken from :func:`scipy.stats.score_at_percentile`.</span>
+
+<span class="sd">    Copyright (c) Gary Strangman</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">limit</span><span class="p">:</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span> <span class="k">if</span> <span class="n">limit</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="n">limit</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+
+    <span class="k">if</span> <span class="n">issorted</span><span class="p">:</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_interpolate</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">fraction</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">fraction</span>
+
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">per</span> <span class="o">/</span> <span class="mf">100.</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">idx</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">values</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">idx</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_interpolate</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">idx</span><span class="p">)],</span> <span class="n">values</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">idx</span> <span class="o">%</span> <span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="flat_not_masked_contiguous"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.misc.flat_not_masked_contiguous.html#obspy.core.util.misc.flat_not_masked_contiguous">[docs]</a><span class="k">def</span> <span class="nf">flat_not_masked_contiguous</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find contiguous unmasked data in a masked array along the given axis.</span>
+
+<span class="sd">    This function is taken from</span>
+<span class="sd">    :func:`numpy.ma.flatnotmasked_contiguous`.</span>
+
+<span class="sd">    Copyright (c) Pierre Gerard-Marchant</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">extras</span><span class="o">.</span><span class="n">flatnotmasked_contiguous</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">getmask</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">m</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">nomask</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">ravel</span><span class="p">()):</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">n</span><span class="p">))</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="n">n</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="complexify_string"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.misc.complexify_string.html#obspy.core.util.misc.complexify_string">[docs]</a><span class="k">def</span> <span class="nf">complexify_string</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts a string in the form &quot;(real, imag)&quot; into a complex type.</span>
+
+<span class="sd">    :type line: str</span>
+<span class="sd">    :param line: String in the form ``&quot;(real, imag)&quot;``.</span>
+<span class="sd">    :rtype: complex</span>
+<span class="sd">    :return: Complex number.</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    &gt;&gt;&gt; complexify_string(&quot;(1,2)&quot;)</span>
+<span class="sd">    (1+2j)</span>
+
+<span class="sd">    &gt;&gt;&gt; complexify_string(&quot; ( 1 , 2 ) &quot;)</span>
+<span class="sd">    (1+2j)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">complex</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span></div>
+
+
+<div class="viewcode-block" id="to_int_or_zero"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.misc.to_int_or_zero.html#obspy.core.util.misc.to_int_or_zero">[docs]</a><span class="k">def</span> <span class="nf">to_int_or_zero</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts given value to an integer or returns 0 if it fails.</span>
+
+<span class="sd">    :param value: Arbitrary data type.</span>
+<span class="sd">    :rtype: int</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    &gt;&gt;&gt; to_int_or_zero(&quot;12&quot;)</span>
+<span class="sd">    12</span>
+
+<span class="sd">    &gt;&gt;&gt; to_int_or_zero(&quot;x&quot;)</span>
+<span class="sd">    0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+
+<span class="c1"># import numpy loadtxt and check if ndmin parameter is available</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">loadtxt</span>
+    <span class="n">loadtxt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]),</span> <span class="n">ndmin</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+    <span class="c1"># otherwise redefine loadtxt</span>
+    <span class="k">def</span> <span class="nf">loadtxt</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Replacement for older numpy.loadtxt versions not supporting ndmin</span>
+<span class="sd">        parameter.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s1">&#39;ndmin&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># ok we got a ndmin param</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;ndmin&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># for now we support only one dimensional arrays</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Upgrade your NumPy version!&#39;</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;ndmin&#39;</span><span class="p">]</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dtype&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="c1"># lets get the data</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c1"># raises in older versions if no data could be read</span>
+            <span class="k">if</span> <span class="s1">&#39;reached before encountering data&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+                <span class="c1"># return empty array</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="c1"># otherwise just raise</span>
+            <span class="k">raise</span>
+        <span class="c1"># ensures that an array is returned</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="get_untracked_files_from_git"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.misc.get_untracked_files_from_git.html#obspy.core.util.misc.get_untracked_files_from_git">[docs]</a><span class="k">def</span> <span class="nf">get_untracked_files_from_git</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Tries to return a list of files (absolute paths) that are untracked by git</span>
+<span class="sd">    in the repository.</span>
+
+<span class="sd">    Returns `None` if the system call to git fails.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dir_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getfile</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">())))</span>
+    <span class="n">dir_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">dir_</span><span class="p">)))</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Check that the git root directory is actually the ObsPy directory.</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">check_output</span><span class="p">([</span><span class="s1">&#39;git&#39;</span><span class="p">,</span> <span class="s1">&#39;rev-parse&#39;</span><span class="p">,</span> <span class="s1">&#39;--show-toplevel&#39;</span><span class="p">],</span>
+                         <span class="n">cwd</span><span class="o">=</span><span class="n">dir_</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">STDOUT</span><span class="p">)</span>
+        <span class="n">git_root_dir</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">git_root_dir</span><span class="p">:</span>
+            <span class="n">git_root_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">git_root_dir</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">git_root_dir</span> <span class="o">!=</span> <span class="n">dir_</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Git root directory (</span><span class="si">%s</span><span class="s1">) does not match expected &#39;</span>
+                             <span class="s1">&#39;path (</span><span class="si">%s</span><span class="s1">).&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">git_root_dir</span><span class="p">,</span> <span class="n">dir_</span><span class="p">))</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">check_output</span><span class="p">([</span><span class="s1">&#39;git&#39;</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="s1">&#39;-u&#39;</span><span class="p">,</span> <span class="s1">&#39;--porcelain&#39;</span><span class="p">],</span>
+                         <span class="n">cwd</span><span class="o">=</span><span class="n">dir_</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">STDOUT</span><span class="p">)</span>
+        <span class="n">stdout</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
+                 <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">stdout</span>
+                 <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;??&quot;</span><span class="p">)]</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="n">CalledProcessError</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">files</span></div>
+
+
+<div class="viewcode-block" id="CatchOutput"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.misc.CatchOutput.html#obspy.core.util.misc.CatchOutput">[docs]</a><span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">CatchOutput</span><span class="p">():</span>  <span class="c1"># noqa -&gt; this name is IMHO okay for a context manager.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A context manager that catches stdout/stderr/exit() for its scope.</span>
+
+<span class="sd">    Always use with &quot;with&quot; statement. Does nothing otherwise.</span>
+
+<span class="sd">    Based on: https://bugs.python.org/msg184312</span>
+
+<span class="sd">    &gt;&gt;&gt; with CatchOutput() as out:  # doctest: +SKIP</span>
+<span class="sd">    ...    os.system(&#39;echo &quot;mystdout&quot;&#39;)</span>
+<span class="sd">    ...    os.system(&#39;echo &quot;mystderr&quot; &gt;&amp;2&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; print(out.stdout)  # doctest: +SKIP</span>
+<span class="sd">    mystdout</span>
+<span class="sd">    &gt;&gt;&gt; print(out.stderr)  # doctest: +SKIP</span>
+<span class="sd">    mystderr</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Dummy class to transport the output.</span>
+    <span class="k">class</span> <span class="nc">Output</span><span class="p">():</span>
+        <span class="k">pass</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Output</span><span class="p">()</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">stderr</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="n">stdout_fd</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">fileno</span><span class="p">()</span>
+    <span class="n">stderr_fd</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">fileno</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryFile</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;obspy-&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmp_stdout</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryFile</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;obspy-&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmp_stderr</span><span class="p">:</span>
+            <span class="n">stdout_copy</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">dup</span><span class="p">(</span><span class="n">stdout_fd</span><span class="p">)</span>
+            <span class="n">stderr_copy</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">dup</span><span class="p">(</span><span class="n">stderr_fd</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">tmp_stdout</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span> <span class="n">stdout_fd</span><span class="p">)</span>
+
+                <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">tmp_stderr</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span> <span class="n">stderr_fd</span><span class="p">)</span>
+
+                <span class="n">raised</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">yield</span> <span class="n">out</span>
+
+            <span class="k">except</span> <span class="ne">SystemExit</span><span class="p">:</span>
+                <span class="n">raised</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">stdout_copy</span><span class="p">,</span> <span class="n">stdout_fd</span><span class="p">)</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">stdout_copy</span><span class="p">)</span>
+                <span class="n">tmp_stdout</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">out</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">tmp_stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+                <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">stderr_copy</span><span class="p">,</span> <span class="n">stderr_fd</span><span class="p">)</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">stderr_copy</span><span class="p">)</span>
+                <span class="n">tmp_stderr</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">out</span><span class="o">.</span><span class="n">stderr</span> <span class="o">=</span> <span class="n">tmp_stderr</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+                <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+                    <span class="n">out</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="n">out</span><span class="o">.</span><span class="n">stderr</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">raised</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TemporaryWorkingDirectory"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.misc.TemporaryWorkingDirectory.html#obspy.core.util.misc.TemporaryWorkingDirectory">[docs]</a><span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">TemporaryWorkingDirectory</span><span class="p">():</span>  <span class="c1"># noqa --&gt; this name is IMHO ok for a CM</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A context manager that changes to a temporary working directory.</span>
+
+<span class="sd">    Always use with &quot;with&quot; statement. Does nothing useful otherwise.</span>
+
+<span class="sd">    &gt;&gt;&gt; with TemporaryWorkingDirectory():  # doctest: +SKIP</span>
+<span class="sd">    ...    os.system(&#39;echo &quot;$PWD&quot;&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tempdir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;obspy-&#39;</span><span class="p">)</span>
+    <span class="n">old_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">tempdir</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">old_dir</span><span class="p">)</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">tempdir</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="factorize_int"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.misc.factorize_int.html#obspy.core.util.misc.factorize_int">[docs]</a><span class="k">def</span> <span class="nf">factorize_int</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate prime factorization of integer.</span>
+
+<span class="sd">    Could be done faster but faster algorithm have much more lines of code and</span>
+<span class="sd">    this is fast enough for our purposes.</span>
+
+<span class="sd">    https://stackoverflow.com/q/14550794</span>
+
+<span class="sd">    &gt;&gt;&gt; factorize_int(1800004)</span>
+<span class="sd">    [2, 2, 450001]</span>
+<span class="sd">    &gt;&gt;&gt; factorize_int(1800003)</span>
+<span class="sd">    [3, 19, 23, 1373]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">factors</span><span class="p">,</span> <span class="n">limit</span><span class="p">,</span> <span class="n">check</span><span class="p">,</span> <span class="n">num</span> <span class="o">=</span> <span class="p">[],</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span>
+    <span class="k">for</span> <span class="n">check</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">limit</span><span class="p">):</span>
+        <span class="k">while</span> <span class="n">num</span> <span class="o">%</span> <span class="n">check</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">factors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">check</span><span class="p">)</span>
+            <span class="n">num</span> <span class="o">/=</span> <span class="n">check</span>
+    <span class="k">if</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">factors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">factors</span></div>
+
+
+<div class="viewcode-block" id="get_window_times"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.misc.get_window_times.html#obspy.core.util.misc.get_window_times">[docs]</a><span class="k">def</span> <span class="nf">get_window_times</span><span class="p">(</span><span class="n">starttime</span><span class="p">,</span> <span class="n">endtime</span><span class="p">,</span> <span class="n">window_length</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span>
+                     <span class="n">include_partial_windows</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function calculating a list of times making up equal length windows from</span>
+<span class="sd">    within a given time interval.</span>
+
+<span class="sd">    :param starttime: The start time of the whole time interval.</span>
+<span class="sd">    :type starttime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :param endtime: The end time of the whole time interval.</span>
+<span class="sd">    :type endtime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :param window_length: The length of each window in seconds.</span>
+<span class="sd">    :type window_length: float</span>
+<span class="sd">    :param step: The step between the start times of two successive</span>
+<span class="sd">        windows in seconds. Can be negative if an offset is given.</span>
+<span class="sd">    :type step: float</span>
+<span class="sd">    :param offset: The offset of the first window in seconds relative to</span>
+<span class="sd">        the start time of the whole interval.</span>
+<span class="sd">    :type offset: float</span>
+<span class="sd">    :param include_partial_windows: Determines if windows that are</span>
+<span class="sd">        shorter then 99.9 % of the desired length are returned.</span>
+<span class="sd">    :type include_partial_windows: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">step</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">endtime</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">-</span> <span class="mf">0.001</span> <span class="o">*</span> <span class="n">step</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># This minus is correct here due to the way the actual window times</span>
+        <span class="c1"># are calculate later on.</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">starttime</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">-</span> <span class="mf">0.001</span> <span class="o">*</span> <span class="nb">abs</span><span class="p">(</span><span class="n">step</span><span class="p">)</span>
+    <span class="c1"># Left sides of each window.</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">starttime</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">+</span> <span class="n">offset</span><span class="p">,</span>
+                        <span class="n">stop</span><span class="o">=</span><span class="n">end</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">step</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># Generate all possible windows.</span>
+        <span class="n">windows</span> <span class="o">=</span> <span class="p">[(</span><span class="n">_i</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">_i</span> <span class="o">+</span> <span class="n">window_length</span><span class="p">,</span> <span class="n">endtime</span><span class="o">.</span><span class="n">timestamp</span><span class="p">))</span>
+                   <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Generate all possible windows.</span>
+        <span class="n">windows</span> <span class="o">=</span> <span class="p">[(</span><span class="nb">max</span><span class="p">(</span><span class="n">_i</span> <span class="o">-</span> <span class="n">window_length</span><span class="p">,</span> <span class="n">starttime</span><span class="o">.</span><span class="n">timestamp</span><span class="p">),</span> <span class="n">_i</span><span class="p">)</span>
+                   <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
+
+    <span class="c1"># Potentially remove partial windows not fulfilling the window length</span>
+    <span class="c1"># criterion.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">include_partial_windows</span><span class="p">:</span>
+        <span class="n">windows</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">windows</span>
+                   <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">_i</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mf">0.999</span> <span class="o">*</span> <span class="n">window_length</span><span class="p">]</span>
+
+    <span class="n">t</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">starttime</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">t</span><span class="p">(</span><span class="n">_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">t</span><span class="p">(</span><span class="n">_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">windows</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="MatplotlibBackend"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.misc.MatplotlibBackend.html#obspy.core.util.misc.MatplotlibBackend">[docs]</a><span class="k">class</span> <span class="nc">MatplotlibBackend</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A helper class for switching the matplotlib backend.</span>
+
+<span class="sd">    Can be used as a context manager to temporarily switch the backend or by</span>
+<span class="sd">    using the :meth:`~MatplotlibBackend.switch_backend` staticmethod.</span>
+
+<span class="sd">    The context manager has no effect when setting ``backend=None``.</span>
+
+<span class="sd">    :type backend: str</span>
+<span class="sd">    :param backend: Name of matplotlib backend to switch to.</span>
+<span class="sd">    :type sloppy: bool</span>
+<span class="sd">    :param sloppy: If ``True``, uses :func:`matplotlib.pyplot.switch_backend`</span>
+<span class="sd">        and no warning will be shown if the backend was not switched</span>
+<span class="sd">        successfully. If ``False``, additionally tries to use</span>
+<span class="sd">        :func:`matplotlib.use` first and also shows a warning if the backend</span>
+<span class="sd">        was not switched successfully.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="MatplotlibBackend.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.misc.MatplotlibBackend.__init__.html#obspy.core.util.misc.MatplotlibBackend.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backend</span><span class="p">,</span> <span class="n">sloppy</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">temporary_backend</span> <span class="o">=</span> <span class="n">backend</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sloppy</span> <span class="o">=</span> <span class="n">sloppy</span>
+        <span class="kn">import</span> <span class="nn">matplotlib</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">previous_backend</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">get_backend</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MatplotlibBackend.__enter__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.misc.MatplotlibBackend.__enter__.html#obspy.core.util.misc.MatplotlibBackend.__enter__">[docs]</a>    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">temporary_backend</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">switch_backend</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">temporary_backend</span><span class="p">,</span> <span class="n">sloppy</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sloppy</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MatplotlibBackend.__exit__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.misc.MatplotlibBackend.__exit__.html#obspy.core.util.misc.MatplotlibBackend.__exit__">[docs]</a>    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>  <span class="c1"># @UnusedVariable</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">temporary_backend</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">switch_backend</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">previous_backend</span><span class="p">,</span> <span class="n">sloppy</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sloppy</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MatplotlibBackend.switch_backend"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.misc.MatplotlibBackend.switch_backend.html#obspy.core.util.misc.MatplotlibBackend.switch_backend">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">switch_backend</span><span class="p">(</span><span class="n">backend</span><span class="p">,</span> <span class="n">sloppy</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Switch matplotlib backend.</span>
+
+<span class="sd">        :type backend: str</span>
+<span class="sd">        :param backend: Name of matplotlib backend to switch to.</span>
+<span class="sd">        :type sloppy: bool</span>
+<span class="sd">        :param sloppy: If ``True``, only uses</span>
+<span class="sd">            :func:`matplotlib.pyplot.switch_backend` and no warning will be</span>
+<span class="sd">            shown if the backend was not switched successfully. If ``False``,</span>
+<span class="sd">            additionally tries to use :func:`matplotlib.use` first and also</span>
+<span class="sd">            shows a warning if the backend was not switched successfully.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">matplotlib</span>
+        <span class="c1"># sloppy. only do a `plt.switch_backend(..)`</span>
+        <span class="k">if</span> <span class="n">sloppy</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">switch_backend</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># check if `matplotlib.use(..)` is emitting a warning</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">)</span>
+                    <span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span>
+            <span class="c1"># if that&#39;s the case, follow up with `plt.switch_backend(..)`</span>
+            <span class="k">except</span> <span class="ne">UserWarning</span><span class="p">:</span>
+                <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">switch_backend</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span>
+            <span class="c1"># finally check if the switch was successful,</span>
+            <span class="c1"># show a warning if not</span>
+            <span class="k">if</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">get_backend</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">!=</span> <span class="n">backend</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Unable to change matplotlib backend to &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">backend</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="limit_numpy_fft_cache"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.misc.limit_numpy_fft_cache.html#obspy.core.util.misc.limit_numpy_fft_cache">[docs]</a><span class="k">def</span> <span class="nf">limit_numpy_fft_cache</span><span class="p">(</span><span class="n">max_size_in_mb_per_cache</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    NumPy&#39;s FFT implementation utilizes caches to speedup subsequent FFTs of</span>
+<span class="sd">    the same size. This accumulates memory when run for various length FFTs</span>
+<span class="sd">    as can readily happen in seismology.</span>
+
+<span class="sd">    This utility function clears both, full and real-only caches if their</span>
+<span class="sd">    size is above the given threshold.</span>
+
+<span class="sd">    The default 100 MB is fairly generous but we still want to profit from</span>
+<span class="sd">    the cache where applicable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">cache</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;_fft_cache&quot;</span><span class="p">,</span> <span class="s2">&quot;_real_fft_cache&quot;</span><span class="p">]:</span>
+        <span class="c1"># Guard against different numpy versions just to be safe.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftpack</span><span class="p">,</span> <span class="n">cache</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="n">cache</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftpack</span><span class="p">,</span> <span class="n">cache</span><span class="p">)</span>
+        <span class="c1"># Check type directly and don&#39;t use isinstance() as future numpy</span>
+        <span class="c1"># versions might use some subclass or what not.</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">cache</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="c1"># Its a dictionary with list&#39;s of arrays as the values. Wrap in</span>
+        <span class="c1"># try/except to guard against future numpy changes.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">total_size</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">_j</span><span class="o">.</span><span class="n">nbytes</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">cache</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">_j</span> <span class="ow">in</span> <span class="n">_i</span><span class="p">])</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">total_size</span> <span class="o">&gt;</span> <span class="n">max_size_in_mb_per_cache</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">:</span>
+            <span class="n">cache</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

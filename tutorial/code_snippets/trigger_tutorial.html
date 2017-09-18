@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>12. Trigger/Picker Tutorial &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="12.2.1. obspy.signal.trigger.recursive_sta_lta" href="../../packages/autogen/obspy.signal.trigger.recursive_sta_lta.html" />
+    <link rel="prev" title="11. Plotting Spectrograms" href="plotting_spectrograms.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../py-modindex.html" title="Python Module Index"
+         >modules</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../packages/autogen/obspy.signal.trigger.recursive_sta_lta.html" title="12.2.1. obspy.signal.trigger.recursive_sta_lta"
+         accesskey="N">next</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="plotting_spectrograms.html" title="11. Plotting Spectrograms"
+         accesskey="P">previous</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../index.html" accesskey="U">ObsPy Tutorial</a></li> 
+    </ol>
+  
+  <div class="section" id="trigger-picker-tutorial">
+<h1>12. Trigger/Picker Tutorial<a class="headerlink" href="#trigger-picker-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>This is a small tutorial that started as a practical for the UNESCO short
+course on triggering. Test data used in this tutorial can be downloaded here:
+<a class="reference external" href="https://examples.obspy.org/trigger_data.zip">trigger_data.zip</a>.</p>
+<p>The triggers are implemented as described in <a class="reference internal" href="../../citations.html#withers1998" id="id1">[Withers1998]</a>. Information on
+finding the right trigger parameters for STA/LTA type triggers can be found in
+<a class="reference internal" href="../../citations.html#trnkoczy2012" id="id2">[Trnkoczy2012]</a>.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Please note the convenience method of ObsPy’s
+<a class="reference internal" href="../../packages/autogen/obspy.core.stream.Stream.trigger.html#obspy.core.stream.Stream.trigger" title="obspy.core.stream.Stream.trigger"><code class="xref py py-meth docutils literal"><span class="pre">Stream.trigger</span></code></a> and
+<a class="reference internal" href="../../packages/autogen/obspy.core.trace.Trace.trigger.html#obspy.core.trace.Trace.trigger" title="obspy.core.trace.Trace.trigger"><code class="xref py py-meth docutils literal"><span class="pre">Trace.trigger</span></code></a>
+objects for triggering.</p>
+</div>
+<div class="section" id="reading-waveform-data">
+<h2>12.1. Reading Waveform Data<a class="headerlink" href="#reading-waveform-data" title="Permalink to this headline">¶</a></h2>
+<p>The data files are read into an ObsPy <a class="reference internal" href="../../packages/autogen/obspy.core.trace.Trace.html#obspy.core.trace.Trace" title="obspy.core.trace.Trace"><code class="xref py py-class docutils literal"><span class="pre">Trace</span></code></a> object
+using the <a class="reference internal" href="../../packages/autogen/obspy.core.stream.read.html#obspy.core.stream.read" title="obspy.core.stream.read"><code class="xref py py-func docutils literal"><span class="pre">read()</span></code></a> function.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.core</span> <span class="k">import</span> <span class="n">read</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;https://examples.obspy.org/ev0_6.a01.gse2&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="s2">&quot;Z&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">st</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The data format is automatically detected. Important in this tutorial are the
+<a class="reference internal" href="../../packages/autogen/obspy.core.trace.Trace.html#obspy.core.trace.Trace" title="obspy.core.trace.Trace"><code class="xref py py-class docutils literal"><span class="pre">Trace</span></code></a> attributes:</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">tr.data</span></code></dt>
+<dd>contains the data as <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.13)"><code class="xref py py-class docutils literal"><span class="pre">numpy.ndarray</span></code></a></dd>
+<dt><code class="docutils literal"><span class="pre">tr.stats</span></code></dt>
+<dd>contains a dict-like class of header entries</dd>
+<dt><code class="docutils literal"><span class="pre">tr.stats.sampling_rate</span></code></dt>
+<dd>the sampling rate</dd>
+<dt><code class="docutils literal"><span class="pre">tr.stats.npts</span></code></dt>
+<dd>sample count of data</dd>
+</dl>
+<p>As an example, the header of the data file is printed and the data are plotted
+like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="p">)</span>
+<span class="go">         network:</span>
+<span class="go">         station: EV0_6</span>
+<span class="go">        location:</span>
+<span class="go">         channel: EHZ</span>
+<span class="go">       starttime: 1970-01-01T01:00:00.000000Z</span>
+<span class="go">         endtime: 1970-01-01T01:00:59.995000Z</span>
+<span class="go">   sampling_rate: 200.0</span>
+<span class="go">           delta: 0.005</span>
+<span class="go">            npts: 12000</span>
+<span class="go">           calib: 1.0</span>
+<span class="go">         _format: GSE2</span>
+<span class="go">            gse2: AttribDict({&#39;instype&#39;: &#39;      &#39;, &#39;datatype&#39;: &#39;CM6&#39;, &#39;hang&#39;: 0.0, &#39;auxid&#39;: &#39;    &#39;, &#39;vang&#39;: -1.0, &#39;calper&#39;: 1.0})</span>
+</pre></div>
+</div>
+<p>Using the <a class="reference internal" href="../../packages/autogen/obspy.core.trace.Trace.plot.html#obspy.core.trace.Trace.plot" title="obspy.core.trace.Trace.plot"><code class="xref py py-meth docutils literal"><span class="pre">plot()</span></code></a> method of the
+<a class="reference internal" href="../../packages/autogen/obspy.core.trace.Trace.html#obspy.core.trace.Trace" title="obspy.core.trace.Trace"><code class="xref py py-class docutils literal"><span class="pre">Trace</span></code></a> objects will show the plot.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;relative&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial.py">Source code</a>, <a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial.png">png</a>, <a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial.hires.png">hires.png</a>)</p>
+<div class="figure">
+<img alt="../../_images/trigger_tutorial.png" class="img-responsive" src="../../_images/trigger_tutorial.png" />
+</div>
+</div>
+<div class="section" id="available-methods">
+<h2>12.2. Available Methods<a class="headerlink" href="#available-methods" title="Permalink to this headline">¶</a></h2>
+<p>After loading the data, we are able to pass the waveform data to the following
+trigger routines defined in <a class="reference internal" href="../../packages/autogen/obspy.signal.trigger.html#module-obspy.signal.trigger" title="obspy.signal.trigger"><code class="xref py py-mod docutils literal"><span class="pre">obspy.signal.trigger</span></code></a>:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="../../packages/autogen/obspy.signal.trigger.recursive_sta_lta.html#obspy.signal.trigger.recursive_sta_lta" title="obspy.signal.trigger.recursive_sta_lta"><code class="xref py py-obj docutils literal"><span class="pre">recursive_sta_lta</span></code></a>(a,&nbsp;nsta,&nbsp;nlta)</td>
+<td>Recursive STA/LTA.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../../packages/autogen/obspy.signal.trigger.carl_sta_trig.html#obspy.signal.trigger.carl_sta_trig" title="obspy.signal.trigger.carl_sta_trig"><code class="xref py py-obj docutils literal"><span class="pre">carl_sta_trig</span></code></a>(a,&nbsp;nsta,&nbsp;nlta,&nbsp;ratio,&nbsp;quiet)</td>
+<td>Computes the carlSTAtrig characteristic function.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../../packages/autogen/obspy.signal.trigger.classic_sta_lta.html#obspy.signal.trigger.classic_sta_lta" title="obspy.signal.trigger.classic_sta_lta"><code class="xref py py-obj docutils literal"><span class="pre">classic_sta_lta</span></code></a>(a,&nbsp;nsta,&nbsp;nlta)</td>
+<td>Computes the standard STA/LTA from a given input array a. The length of</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../../packages/autogen/obspy.signal.trigger.delayed_sta_lta.html#obspy.signal.trigger.delayed_sta_lta" title="obspy.signal.trigger.delayed_sta_lta"><code class="xref py py-obj docutils literal"><span class="pre">delayed_sta_lta</span></code></a>(a,&nbsp;nsta,&nbsp;nlta)</td>
+<td>Delayed STA/LTA.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../../packages/autogen/obspy.signal.trigger.z_detect.html#obspy.signal.trigger.z_detect" title="obspy.signal.trigger.z_detect"><code class="xref py py-obj docutils literal"><span class="pre">z_detect</span></code></a>(a,&nbsp;nsta)</td>
+<td>Z-detector.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../../packages/autogen/obspy.signal.trigger.pk_baer.html#obspy.signal.trigger.pk_baer" title="obspy.signal.trigger.pk_baer"><code class="xref py py-obj docutils literal"><span class="pre">pk_baer</span></code></a>(reltrc,&nbsp;samp_int,&nbsp;tdownmax,&nbsp;…)</td>
+<td>Wrapper for P-picker routine by M. Baer, Schweizer Erdbebendienst.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../../packages/autogen/obspy.signal.trigger.ar_pick.html#obspy.signal.trigger.ar_pick" title="obspy.signal.trigger.ar_pick"><code class="xref py py-obj docutils literal"><span class="pre">ar_pick</span></code></a>(a,&nbsp;b,&nbsp;c,&nbsp;samp_rate,&nbsp;f1,&nbsp;f2,&nbsp;lta_p,&nbsp;…)</td>
+<td>Pick P and S arrivals with an AR-AIC + STA/LTA algorithm.</td>
+</tr>
+</tbody>
+</table>
+<p>Help for each function is available HTML formatted or in the usual Python manner:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.signal.trigger</span> <span class="k">import</span> <span class="n">classic_sta_lta</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">help</span><span class="p">(</span><span class="n">classic_sta_lta</span><span class="p">)</span>  
+<span class="go">Help on function classic_sta_lta in module obspy.signal.trigger...</span>
+</pre></div>
+</div>
+<p>The triggering itself mainly consists of the following two steps:</p>
+<ul class="simple">
+<li>Calculating the characteristic function</li>
+<li>Setting picks based on values of the characteristic function</li>
+</ul>
+</div>
+<div class="section" id="trigger-examples">
+<h2>12.3. Trigger Examples<a class="headerlink" href="#trigger-examples" title="Permalink to this headline">¶</a></h2>
+<p>For all the examples, the commands to read in the data and to load the modules
+are the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.core</span> <span class="k">import</span> <span class="n">read</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.signal.trigger</span> <span class="k">import</span> <span class="n">plot_trigger</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;https://examples.obspy.org/ev0_6.a01.gse2&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sampling_rate</span>
+</pre></div>
+</div>
+<div class="section" id="classic-sta-lta">
+<h3>12.3.1. Classic Sta Lta<a class="headerlink" href="#classic-sta-lta" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.signal.trigger</span> <span class="k">import</span> <span class="n">classic_sta_lta</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cft</span> <span class="o">=</span> <span class="n">classic_sta_lta</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">df</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">df</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_trigger</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">cft</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial_classic_sta_lta.py">Source code</a>, <a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial_classic_sta_lta.png">png</a>, <a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial_classic_sta_lta.hires.png">hires.png</a>)</p>
+<div class="figure">
+<img alt="../../_images/trigger_tutorial_classic_sta_lta1.png" class="img-responsive" src="../../_images/trigger_tutorial_classic_sta_lta1.png" />
+</div>
+</div>
+<div class="section" id="z-detect">
+<h3>12.3.2. Z-Detect<a class="headerlink" href="#z-detect" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.signal.trigger</span> <span class="k">import</span> <span class="n">z_detect</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cft</span> <span class="o">=</span> <span class="n">z_detect</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">df</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_trigger</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">cft</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial_z_detect.py">Source code</a>, <a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial_z_detect.png">png</a>, <a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial_z_detect.hires.png">hires.png</a>)</p>
+<div class="figure">
+<img alt="../../_images/trigger_tutorial_z_detect1.png" class="img-responsive" src="../../_images/trigger_tutorial_z_detect1.png" />
+</div>
+</div>
+<div class="section" id="recursive-sta-lta">
+<h3>12.3.3. Recursive Sta Lta<a class="headerlink" href="#recursive-sta-lta" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.signal.trigger</span> <span class="k">import</span> <span class="n">recursive_sta_lta</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cft</span> <span class="o">=</span> <span class="n">recursive_sta_lta</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">df</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">df</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_trigger</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">cft</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial_recursive_sta_lta.py">Source code</a>, <a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial_recursive_sta_lta.png">png</a>, <a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial_recursive_sta_lta.hires.png">hires.png</a>)</p>
+<div class="figure">
+<img alt="../../_images/trigger_tutorial_recursive_sta_lta1.png" class="img-responsive" src="../../_images/trigger_tutorial_recursive_sta_lta1.png" />
+</div>
+</div>
+<div class="section" id="carl-sta-trig">
+<h3>12.3.4. Carl-Sta-Trig<a class="headerlink" href="#carl-sta-trig" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.signal.trigger</span> <span class="k">import</span> <span class="n">carl_sta_trig</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cft</span> <span class="o">=</span> <span class="n">carl_sta_trig</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">df</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">df</span><span class="p">),</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_trigger</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">cft</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">20.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial_carl_sta_trig.py">Source code</a>, <a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial_carl_sta_trig.png">png</a>, <a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial_carl_sta_trig.hires.png">hires.png</a>)</p>
+<div class="figure">
+<img alt="../../_images/trigger_tutorial_carl_sta_trig.png" class="img-responsive" src="../../_images/trigger_tutorial_carl_sta_trig.png" />
+</div>
+</div>
+<div class="section" id="delayed-sta-lta">
+<h3>12.3.5. Delayed Sta Lta<a class="headerlink" href="#delayed-sta-lta" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.signal.trigger</span> <span class="k">import</span> <span class="n">delayed_sta_lta</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cft</span> <span class="o">=</span> <span class="n">delayed_sta_lta</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">df</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">df</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_trigger</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">cft</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial_delayed_sta_lta.py">Source code</a>, <a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial_delayed_sta_lta.png">png</a>, <a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial_delayed_sta_lta.hires.png">hires.png</a>)</p>
+<div class="figure">
+<img alt="../../_images/trigger_tutorial_delayed_sta_lta.png" class="img-responsive" src="../../_images/trigger_tutorial_delayed_sta_lta.png" />
+</div>
+</div>
+</div>
+<div class="section" id="network-coincidence-trigger-example">
+<span id="trigger-tutorial-coincidence"></span><h2>12.4. Network Coincidence Trigger Example<a class="headerlink" href="#network-coincidence-trigger-example" title="Permalink to this headline">¶</a></h2>
+<p>In this example we perform a coincidence trigger on a local scale network of 4
+stations.  For the single station triggers a recursive STA/LTA is used. The
+waveform data span about four minutes and include four local events. Two are
+easily recognizable (Ml 1-2), the other two can only be detected with well
+adjusted trigger settings (Ml &lt;= 0).</p>
+<p>First we assemble a Stream object with all waveform data, the data used in the
+example is available from our web server:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.core</span> <span class="k">import</span> <span class="n">Stream</span><span class="p">,</span> <span class="n">read</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">Stream</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;BW.UH1..SHZ.D.2010.147.cut.slist.gz&quot;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="s2">&quot;BW.UH2..SHZ.D.2010.147.cut.slist.gz&quot;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="s2">&quot;BW.UH3..SHZ.D.2010.147.cut.slist.gz&quot;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="s2">&quot;BW.UH4..SHZ.D.2010.147.cut.slist.gz&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">st</span> <span class="o">+=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;https://examples.obspy.org/&quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After applying a bandpass filter we run the coincidence triggering on all data.
+In the example a recursive STA/LTA is used. The trigger parameters are set to
+0.5 and 10 second time windows, respectively. The on-threshold is set to 3.5,
+the off-threshold to 1. In this example every station gets a weight of 1 and
+the coincidence sum threshold is set to 3. For more complex network setups the
+weighting for every station/channel can be customized. We want to keep
+our original data so we work with a copy of the original stream:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;bandpass&#39;</span><span class="p">,</span> <span class="n">freqmin</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">freqmax</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>  <span class="c1"># optional prefiltering</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.signal.trigger</span> <span class="k">import</span> <span class="n">coincidence_trigger</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st2</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trig</span> <span class="o">=</span> <span class="n">coincidence_trigger</span><span class="p">(</span><span class="s2">&quot;recstalta&quot;</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">st2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">sta</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">lta</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Using pretty print the results display like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">trig</span><span class="p">)</span>
+<span class="go">[{&#39;coincidence_sum&#39;: 4.0,</span>
+<span class="go">  &#39;duration&#39;: 4.5299999713897705,</span>
+<span class="go">  &#39;stations&#39;: [&#39;UH3&#39;, &#39;UH2&#39;, &#39;UH1&#39;, &#39;UH4&#39;],</span>
+<span class="go">  &#39;time&#39;: UTCDateTime(2010, 5, 27, 16, 24, 33, 190000),</span>
+<span class="go">  &#39;trace_ids&#39;: [&#39;BW.UH3..SHZ&#39;, &#39;BW.UH2..SHZ&#39;, &#39;BW.UH1..SHZ&#39;,</span>
+<span class="go">                &#39;BW.UH4..SHZ&#39;]},</span>
+<span class="go"> {&#39;coincidence_sum&#39;: 3.0,</span>
+<span class="go">  &#39;duration&#39;: 3.440000057220459,</span>
+<span class="go">  &#39;stations&#39;: [&#39;UH2&#39;, &#39;UH3&#39;, &#39;UH1&#39;],</span>
+<span class="go">  &#39;time&#39;: UTCDateTime(2010, 5, 27, 16, 27, 1, 260000),</span>
+<span class="go">  &#39;trace_ids&#39;: [&#39;BW.UH2..SHZ&#39;, &#39;BW.UH3..SHZ&#39;, &#39;BW.UH1..SHZ&#39;]},</span>
+<span class="go"> {&#39;coincidence_sum&#39;: 4.0,</span>
+<span class="go">  &#39;duration&#39;: 4.7899999618530273,</span>
+<span class="go">  &#39;stations&#39;: [&#39;UH3&#39;, &#39;UH2&#39;, &#39;UH1&#39;, &#39;UH4&#39;],</span>
+<span class="go">  &#39;time&#39;: UTCDateTime(2010, 5, 27, 16, 27, 30, 490000),</span>
+<span class="go">  &#39;trace_ids&#39;: [&#39;BW.UH3..SHZ&#39;, &#39;BW.UH2..SHZ&#39;, &#39;BW.UH1..SHZ&#39;,</span>
+<span class="go">                &#39;BW.UH4..SHZ&#39;]}]</span>
+</pre></div>
+</div>
+<p>With these settings the coincidence trigger reports three events. For each
+(possible) event the start time and duration is provided. Furthermore, a list
+of station names and trace IDs is provided, ordered by the time the stations
+have triggered, which can give a first rough idea of the possible event
+location. We can request additional information by specifying <code class="docutils literal"><span class="pre">details=True</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">st2</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trig</span> <span class="o">=</span> <span class="n">coincidence_trigger</span><span class="p">(</span><span class="s2">&quot;recstalta&quot;</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">st2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">sta</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">lta</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="gp">... </span>                          <span class="n">details</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For clarity, we only display information on the first item in the results here:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">trig</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">{&#39;cft_peak_wmean&#39;: 19.561900329259956,</span>
+<span class="go"> &#39;cft_peaks&#39;: [19.535644192544272,</span>
+<span class="go">               19.872432918501264,</span>
+<span class="go">               19.622171410201297,</span>
+<span class="go">               19.217352795792998],</span>
+<span class="go"> &#39;cft_std_wmean&#39;: 5.4565629691954713,</span>
+<span class="go"> &#39;cft_stds&#39;: [5.292458320417178,</span>
+<span class="go">              5.6565387957966404,</span>
+<span class="go">              5.7582248973698507,</span>
+<span class="go">              5.1190298631982163],</span>
+<span class="go"> &#39;coincidence_sum&#39;: 4.0,</span>
+<span class="go"> &#39;duration&#39;: 4.5299999713897705,</span>
+<span class="go"> &#39;stations&#39;: [&#39;UH3&#39;, &#39;UH2&#39;, &#39;UH1&#39;, &#39;UH4&#39;],</span>
+<span class="go"> &#39;time&#39;: UTCDateTime(2010, 5, 27, 16, 24, 33, 190000),</span>
+<span class="go"> &#39;trace_ids&#39;: [&#39;BW.UH3..SHZ&#39;, &#39;BW.UH2..SHZ&#39;, &#39;BW.UH1..SHZ&#39;, &#39;BW.UH4..SHZ&#39;]}</span>
+</pre></div>
+</div>
+<p>Here, some additional information on the peak values and standard deviations of
+the characteristic functions of the single station triggers is provided. Also,
+for both a weighted mean is calculated. These values can help to distinguish
+certain from questionable network triggers.</p>
+<p>For more information on all possible options see the documentation page for
+<a class="reference internal" href="../../packages/autogen/obspy.signal.trigger.coincidence_trigger.html#obspy.signal.trigger.coincidence_trigger" title="obspy.signal.trigger.coincidence_trigger"><code class="xref py py-func docutils literal"><span class="pre">coincidence_trigger()</span></code></a>.</p>
+</div>
+<div class="section" id="advanced-network-coincidence-trigger-example-with-similarity-detection">
+<h2>12.5. Advanced Network Coincidence Trigger Example with Similarity Detection<a class="headerlink" href="#advanced-network-coincidence-trigger-example-with-similarity-detection" title="Permalink to this headline">¶</a></h2>
+<p>This example is an extension of the common network coincidence trigger.
+Waveforms with already known event(s) can be provided to check waveform
+similarity of single-station triggers. If the corresponding similarity
+threshold is exceeded the event trigger is included in the result list even if
+the coincidence sum does not exceed the specified minimum coincidence sum.
+Using this approach, events can be detected that have good recordings on one
+station with very similar waveforms but for some reason are not detected on
+enough other stations (e.g. temporary station outages or local high noise
+levels etc.).
+An arbitrary number of template waveforms can be provided for any station.
+Computation time might get significantly higher due to the necessary cross
+correlations.
+In the example we use two three-component event templates on top of a common
+network trigger on vertical components only.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.core</span> <span class="k">import</span> <span class="n">Stream</span><span class="p">,</span> <span class="n">read</span><span class="p">,</span> <span class="n">UTCDateTime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">Stream</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;BW.UH1..SHZ.D.2010.147.cut.slist.gz&quot;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="s2">&quot;BW.UH2..SHZ.D.2010.147.cut.slist.gz&quot;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="s2">&quot;BW.UH3..SHZ.D.2010.147.cut.slist.gz&quot;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="s2">&quot;BW.UH3..SHN.D.2010.147.cut.slist.gz&quot;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="s2">&quot;BW.UH3..SHE.D.2010.147.cut.slist.gz&quot;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="s2">&quot;BW.UH4..SHZ.D.2010.147.cut.slist.gz&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">st</span> <span class="o">+=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;https://examples.obspy.org/&quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;bandpass&#39;</span><span class="p">,</span> <span class="n">freqmin</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">freqmax</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>  <span class="c1"># optional prefiltering</span>
+</pre></div>
+</div>
+<p>Here we set up a dictionary with template events for one single station. The
+specified times are exact P wave onsets, the event duration (including S wave)
+is about 2.5 seconds.
+On station UH3 we use two template events with three-component data, on station
+UH1 we use one template event with only vertical component data.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">times</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;2010-05-27T16:24:33.095000&quot;</span><span class="p">,</span> <span class="s2">&quot;2010-05-27T16:27:30.370000&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">event_templates</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;UH3&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">times</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">t</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">st_</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">station</span><span class="o">=</span><span class="s2">&quot;UH3&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">t</span> <span class="o">+</span> <span class="mf">2.5</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">event_templates</span><span class="p">[</span><span class="s2">&quot;UH3&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">st_</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="s2">&quot;2010-05-27T16:27:30.574999&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st_</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">station</span><span class="o">=</span><span class="s2">&quot;UH1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">t</span> <span class="o">+</span> <span class="mf">2.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">event_templates</span><span class="p">[</span><span class="s2">&quot;UH1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">st_</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The triggering step, including providing of similarity threshold and event
+template waveforms. Note that the coincidence sum is set to 4 and we manually
+specify to only use vertical components with equal station coincidence values
+of 1.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.signal.trigger</span> <span class="k">import</span> <span class="n">coincidence_trigger</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st2</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace_ids</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;BW.UH1..SHZ&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>             <span class="s2">&quot;BW.UH2..SHZ&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>             <span class="s2">&quot;BW.UH3..SHZ&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>             <span class="s2">&quot;BW.UH4..SHZ&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">similarity_thresholds</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;UH1&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span> <span class="s2">&quot;UH3&quot;</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trig</span> <span class="o">=</span> <span class="n">coincidence_trigger</span><span class="p">(</span><span class="s2">&quot;classicstalta&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">st2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">sta</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+<span class="gp">... </span>                          <span class="n">lta</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">trace_ids</span><span class="o">=</span><span class="n">trace_ids</span><span class="p">,</span>
+<span class="gp">... </span>                          <span class="n">event_templates</span><span class="o">=</span><span class="n">event_templates</span><span class="p">,</span>
+<span class="gp">... </span>                          <span class="n">similarity_threshold</span><span class="o">=</span><span class="n">similarity_thresholds</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The results now include two event triggers, that do not reach the specified
+minimum coincidence threshold but that have a similarity value that exceeds
+the specified similarity threshold when compared to at least one of the
+provided event template waveforms. Note the values of 1.0 when checking the
+event triggers where we extracted the event templates for this example.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">trig</span><span class="p">)</span>
+<span class="go">[{&#39;coincidence_sum&#39;: 4.0,</span>
+<span class="go">  &#39;duration&#39;: 4.1100001335144043,</span>
+<span class="go">  &#39;similarity&#39;: {&#39;UH1&#39;: 0.9414944738498271, &#39;UH3&#39;: 1.0},</span>
+<span class="go">  &#39;stations&#39;: [&#39;UH3&#39;, &#39;UH2&#39;, &#39;UH1&#39;, &#39;UH4&#39;],</span>
+<span class="go">  &#39;time&#39;: UTCDateTime(2010, 5, 27, 16, 24, 33, 210000),</span>
+<span class="go">  &#39;trace_ids&#39;: [&#39;BW.UH3..SHZ&#39;, &#39;BW.UH2..SHZ&#39;, &#39;BW.UH1..SHZ&#39;, &#39;BW.UH4..SHZ&#39;]},</span>
+<span class="go"> {&#39;coincidence_sum&#39;: 3.0,</span>
+<span class="go">  &#39;duration&#39;: 1.9900000095367432,</span>
+<span class="go">  &#39;similarity&#39;: {&#39;UH1&#39;: 0.65228204570577764, &#39;UH3&#39;: 0.72679293429214198},</span>
+<span class="go">  &#39;stations&#39;: [&#39;UH3&#39;, &#39;UH1&#39;, &#39;UH2&#39;],</span>
+<span class="go">  &#39;time&#39;: UTCDateTime(2010, 5, 27, 16, 25, 26, 710000),</span>
+<span class="go">  &#39;trace_ids&#39;: [&#39;BW.UH3..SHZ&#39;, &#39;BW.UH1..SHZ&#39;, &#39;BW.UH2..SHZ&#39;]},</span>
+<span class="go"> {&#39;coincidence_sum&#39;: 3.0,</span>
+<span class="go">  &#39;duration&#39;: 1.9200000762939453,</span>
+<span class="go">  &#39;similarity&#39;: {&#39;UH1&#39;: 0.89404458774338103, &#39;UH3&#39;: 0.74581409371425222},</span>
+<span class="go">  &#39;stations&#39;: [&#39;UH2&#39;, &#39;UH1&#39;, &#39;UH3&#39;],</span>
+<span class="go">  &#39;time&#39;: UTCDateTime(2010, 5, 27, 16, 27, 2, 260000),</span>
+<span class="go">  &#39;trace_ids&#39;: [&#39;BW.UH2..SHZ&#39;, &#39;BW.UH1..SHZ&#39;, &#39;BW.UH3..SHZ&#39;]},</span>
+<span class="go"> {&#39;coincidence_sum&#39;: 4.0,</span>
+<span class="go">  &#39;duration&#39;: 4.0299999713897705,</span>
+<span class="go">  &#39;similarity&#39;: {&#39;UH1&#39;: 1.0, &#39;UH3&#39;: 1.0},</span>
+<span class="go">  &#39;stations&#39;: [&#39;UH3&#39;, &#39;UH2&#39;, &#39;UH1&#39;, &#39;UH4&#39;],</span>
+<span class="go">  &#39;time&#39;: UTCDateTime(2010, 5, 27, 16, 27, 30, 510000),</span>
+<span class="go">  &#39;trace_ids&#39;: [&#39;BW.UH3..SHZ&#39;, &#39;BW.UH2..SHZ&#39;, &#39;BW.UH1..SHZ&#39;, &#39;BW.UH4..SHZ&#39;]}]</span>
+</pre></div>
+</div>
+<p>For more information on all possible options see the documentation page for
+<a class="reference internal" href="../../packages/autogen/obspy.signal.trigger.coincidence_trigger.html#obspy.signal.trigger.coincidence_trigger" title="obspy.signal.trigger.coincidence_trigger"><code class="xref py py-func docutils literal"><span class="pre">coincidence_trigger()</span></code></a>.</p>
+</div>
+<div class="section" id="picker-examples">
+<h2>12.6. Picker Examples<a class="headerlink" href="#picker-examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="baer-picker">
+<h3>12.6.1. Baer Picker<a class="headerlink" href="#baer-picker" title="Permalink to this headline">¶</a></h3>
+<p>For <a class="reference internal" href="../../packages/autogen/obspy.signal.trigger.pk_baer.html#obspy.signal.trigger.pk_baer" title="obspy.signal.trigger.pk_baer"><code class="xref py py-func docutils literal"><span class="pre">pk_baer()</span></code></a>, input is in seconds, output is in
+samples.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.core</span> <span class="k">import</span> <span class="n">read</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.signal.trigger</span> <span class="k">import</span> <span class="n">pk_baer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;https://examples.obspy.org/ev0_6.a01.gse2&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sampling_rate</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p_pick</span><span class="p">,</span> <span class="n">phase_info</span> <span class="o">=</span> <span class="n">pk_baer</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span>
+<span class="gp">... </span>                            <span class="mi">20</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">p_pick</span><span class="p">)</span>
+<span class="go">6894</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">phase_info</span><span class="p">)</span>
+<span class="go">EPU3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">p_pick</span> <span class="o">/</span> <span class="n">df</span><span class="p">)</span>
+<span class="go">34.47</span>
+</pre></div>
+</div>
+<p>This yields the output 34.47 EPU3, which means that a P pick was
+set at 34.47s with Phase information EPU3.</p>
+</div>
+<div class="section" id="ar-picker">
+<h3>12.6.2. AR Picker<a class="headerlink" href="#ar-picker" title="Permalink to this headline">¶</a></h3>
+<p>For <a class="reference internal" href="../../packages/autogen/obspy.signal.trigger.ar_pick.html#obspy.signal.trigger.ar_pick" title="obspy.signal.trigger.ar_pick"><code class="xref py py-func docutils literal"><span class="pre">ar_pick()</span></code></a>, input and output are in seconds.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.core</span> <span class="k">import</span> <span class="n">read</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.signal.trigger</span> <span class="k">import</span> <span class="n">ar_pick</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr1</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s1">&#39;https://examples.obspy.org/loc_RJOB20050801145719850.z.gse2&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr2</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s1">&#39;https://examples.obspy.org/loc_RJOB20050801145719850.n.gse2&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr3</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s1">&#39;https://examples.obspy.org/loc_RJOB20050801145719850.e.gse2&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">tr1</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sampling_rate</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p_pick</span><span class="p">,</span> <span class="n">s_pick</span> <span class="o">=</span> <span class="n">ar_pick</span><span class="p">(</span><span class="n">tr1</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">tr2</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">tr3</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span>
+<span class="gp">... </span>                         <span class="mf">1.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">p_pick</span><span class="p">)</span>
+<span class="go">30.6350002289</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">s_pick</span><span class="p">)</span>
+<span class="go">31.2800006866</span>
+</pre></div>
+</div>
+<p>This gives the output 30.6350002289 and 31.2800006866, meaning that a P pick at
+30.64s and an S pick at 31.28s were identified.</p>
+</div>
+</div>
+<div class="section" id="advanced-example">
+<h2>12.7. Advanced Example<a class="headerlink" href="#advanced-example" title="Permalink to this headline">¶</a></h2>
+<p>A more complicated example, where the data are retrieved via ArcLink and
+results are plotted step by step, is shown here:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="kn">import</span> <span class="nn">obspy</span>
+<span class="kn">from</span> <span class="nn">obspy.clients.arclink</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="kn">from</span> <span class="nn">obspy.signal.trigger</span> <span class="kn">import</span> <span class="n">recursive_sta_lta</span><span class="p">,</span> <span class="n">trigger_onset</span>
+
+
+<span class="c1"># Retrieve waveforms via ArcLink</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;erde.geophysik.uni-muenchen.de&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">18001</span><span class="p">,</span>
+                <span class="n">user</span><span class="o">=</span><span class="s2">&quot;test@obspy.de&quot;</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">obspy</span><span class="o">.</span><span class="n">UTCDateTime</span><span class="p">(</span><span class="s2">&quot;2009-08-24 00:19:45&quot;</span><span class="p">)</span>
+<span class="n">st</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_waveforms</span><span class="p">(</span><span class="s1">&#39;BW&#39;</span><span class="p">,</span> <span class="s1">&#39;RTSH&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;EHZ&#39;</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="c1"># For convenience</span>
+<span class="n">tr</span> <span class="o">=</span> <span class="n">st</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># only one trace in mseed volume</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sampling_rate</span>
+
+<span class="c1"># Characteristic function and trigger onsets</span>
+<span class="n">cft</span> <span class="o">=</span> <span class="n">recursive_sta_lta</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="mf">2.5</span> <span class="o">*</span> <span class="n">df</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="mf">10.</span> <span class="o">*</span> <span class="n">df</span><span class="p">))</span>
+<span class="n">on_of</span> <span class="o">=</span> <span class="n">trigger_onset</span><span class="p">(</span><span class="n">cft</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Plotting the results</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">on_of</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">on_of</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cft</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">([</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cft</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial_advanced.py">Source code</a>, <a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial_advanced.png">png</a>, <a class="reference external" href="../../tutorial/code_snippets/trigger_tutorial_advanced.hires.png">hires.png</a>)</p>
+<div class="figure">
+<img alt="../../_images/trigger_tutorial_advanced.png" class="img-responsive" src="../../_images/trigger_tutorial_advanced.png" />
+</div>
+</div>
+</div>
+
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

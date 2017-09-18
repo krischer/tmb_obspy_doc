@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.clients.syngine.client &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.clients.syngine.client</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">ObsPy client for the IRIS Syngine service.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+<span class="kn">from</span> <span class="nn">future.utils</span> <span class="k">import</span> <span class="n">native_str</span>
+
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">obspy</span>
+<span class="kn">from</span> <span class="nn">obspy.core</span> <span class="k">import</span> <span class="n">AttribDict</span>
+
+<span class="kn">from</span> <span class="nn">..base</span> <span class="k">import</span> <span class="n">WaveformClient</span><span class="p">,</span> <span class="n">HTTPClient</span><span class="p">,</span> <span class="n">DEFAULT_USER_AGENT</span><span class="p">,</span> \
+    <span class="n">ClientHTTPException</span>
+
+
+<div class="viewcode-block" id="get_json"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.syngine.client.get_json.html#obspy.clients.syngine.client.get_json">[docs]</a><span class="k">def</span> <span class="nf">get_json</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="s2">&quot;json&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span>
+        <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+    <span class="n">c</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">c</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_text"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.syngine.client.get_text.html#obspy.clients.syngine.client.get_text">[docs]</a><span class="k">def</span> <span class="nf">get_text</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span>
+
+    <span class="n">c</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">c</span></div>
+
+
+<div class="viewcode-block" id="Client"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.syngine.client.Client.html#obspy.clients.syngine.client.Client">[docs]</a><span class="k">class</span> <span class="nc">Client</span><span class="p">(</span><span class="n">WaveformClient</span><span class="p">,</span> <span class="n">HTTPClient</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Client for the IRIS Syngine service.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Client.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.syngine.client.Client.__init__.html#obspy.clients.syngine.client.Client.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;http://service.iris.edu/irisws/syngine/1&quot;</span><span class="p">,</span>
+                 <span class="n">user_agent</span><span class="o">=</span><span class="n">DEFAULT_USER_AGENT</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes a Syngine Client.</span>
+
+<span class="sd">        :param base_url: The base URL of the service.</span>
+<span class="sd">        :type base_url: str</span>
+<span class="sd">        :param user_agent: The user agent sent along the HTTP request.</span>
+<span class="sd">        :type user_agent: str</span>
+<span class="sd">        :param debug: Debug on/off.</span>
+<span class="sd">        :type debug: bool</span>
+<span class="sd">        :param timeout: The socket timeout.</span>
+<span class="sd">        :type timeout: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">HTTPClient</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+                            <span class="n">user_agent</span><span class="o">=</span><span class="n">user_agent</span><span class="p">)</span>
+
+        <span class="c1"># Make sure the base_url does not end with a slash.</span>
+        <span class="n">base_url</span> <span class="o">=</span> <span class="n">base_url</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span> <span class="o">=</span> <span class="n">base_url</span></div>
+
+<div class="viewcode-block" id="Client._get_url"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.syngine.client.Client._get_url.html#obspy.clients.syngine.client.Client._get_url">[docs]</a>    <span class="k">def</span> <span class="nf">_get_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span><span class="p">,</span> <span class="n">path</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Client._handle_requests_http_error"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.syngine.client.Client._handle_requests_http_error.html#obspy.clients.syngine.client.Client._handle_requests_http_error">[docs]</a>    <span class="k">def</span> <span class="nf">_handle_requests_http_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;HTTP code </span><span class="si">%i</span><span class="s2"> when downloading &#39;</span><span class="si">%s</span><span class="s2">&#39;:</span><span class="se">\n\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">get_text</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
+        <span class="k">raise</span> <span class="n">ClientHTTPException</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Client.get_model_info"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.syngine.client.Client.get_model_info.html#obspy.clients.syngine.client.Client.get_model_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_model_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get some information about a particular model.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy.clients.syngine import Client</span>
+<span class="sd">        &gt;&gt;&gt; c = Client()</span>
+<span class="sd">        &gt;&gt;&gt; db_info = c.get_model_info(model_name=&quot;ak135f_5s&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; print(db_info.period)</span>
+<span class="sd">        5.125</span>
+
+<span class="sd">        :param model_name: The name of the model. Case insensitive.</span>
+<span class="sd">        :type model_name: str</span>
+<span class="sd">        :returns: A dictionary with more information about any model.</span>
+<span class="sd">        :rtype: :class:`obspy.core.util.attribdict.AttribDict`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model_name</span> <span class="o">=</span> <span class="n">model_name</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_download</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_url</span><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">),</span>
+                           <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">model_name</span><span class="p">})</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="n">AttribDict</span><span class="p">(</span><span class="n">get_json</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
+        <span class="c1"># Convert slip and sliprate into numpy arrays for easier handling.</span>
+        <span class="n">info</span><span class="o">.</span><span class="n">slip</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">slip</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="n">info</span><span class="o">.</span><span class="n">sliprate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">sliprate</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">info</span></div>
+
+<div class="viewcode-block" id="Client.get_available_models"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.syngine.client.Client.get_available_models.html#obspy.clients.syngine.client.Client.get_available_models">[docs]</a>    <span class="k">def</span> <span class="nf">get_available_models</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get information about all available velocity models.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">get_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_download</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_url</span><span class="p">(</span><span class="s2">&quot;models&quot;</span><span class="p">)))</span></div>
+
+<div class="viewcode-block" id="Client.get_service_version"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.syngine.client.Client.get_service_version.html#obspy.clients.syngine.client.Client.get_service_version">[docs]</a>    <span class="k">def</span> <span class="nf">get_service_version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the service version of the remote Syngine server.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_download</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_url</span><span class="p">(</span><span class="s2">&quot;version&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">get_text</span><span class="p">(</span><span class="n">r</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client._convert_parameters"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.syngine.client.Client._convert_parameters.html#obspy.clients.syngine.client.Client._convert_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">_convert_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">model</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Model must be given.&quot;</span><span class="p">)</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">model</span><span class="p">}</span>
+
+        <span class="c1"># Error handling is mostly delegated to the actual Syngine service.</span>
+        <span class="c1"># Here we just check that the types are compatible.</span>
+        <span class="n">str_arguments</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;network&quot;</span><span class="p">,</span> <span class="s2">&quot;station&quot;</span><span class="p">,</span> <span class="s2">&quot;networkcode&quot;</span><span class="p">,</span> <span class="s2">&quot;stationcode&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;locationcode&quot;</span><span class="p">,</span> <span class="s2">&quot;eventid&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;components&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;units&quot;</span><span class="p">,</span> <span class="s2">&quot;format&quot;</span><span class="p">]</span>
+        <span class="n">float_arguments</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;receiverlatitude&quot;</span><span class="p">,</span> <span class="s2">&quot;receiverlongitude&quot;</span><span class="p">,</span>
+                           <span class="s2">&quot;sourcelatitude&quot;</span><span class="p">,</span> <span class="s2">&quot;sourcelongitude&quot;</span><span class="p">,</span>
+                           <span class="s2">&quot;sourcedepthinmeters&quot;</span><span class="p">,</span> <span class="s2">&quot;scale&quot;</span><span class="p">,</span> <span class="s2">&quot;dt&quot;</span><span class="p">]</span>
+        <span class="n">int_arguments</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;kernelwidth&quot;</span><span class="p">]</span>
+        <span class="n">time_arguments</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;origintime&quot;</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">keys</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">((</span><span class="n">str_arguments</span><span class="p">,</span> <span class="n">native_str</span><span class="p">),</span>
+                        <span class="p">(</span><span class="n">float_arguments</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                        <span class="p">(</span><span class="n">int_arguments</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+                        <span class="p">(</span><span class="n">time_arguments</span><span class="p">,</span> <span class="n">obspy</span><span class="o">.</span><span class="n">UTCDateTime</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">t</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="c1"># String arguments are stripped and empty strings are not</span>
+                <span class="c1"># allowed.</span>
+                <span class="k">if</span> <span class="n">t</span> <span class="ow">is</span> <span class="n">native_str</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;String argument &#39;</span><span class="si">%s</span><span class="s2">&#39; must not be &quot;</span>
+                                         <span class="s2">&quot;an empty string.&quot;</span> <span class="o">%</span> <span class="n">key</span><span class="p">)</span>
+                <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="c1"># These can be absolute times, relative times or phase relative times.</span>
+        <span class="n">temporal_bounds</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;starttime&quot;</span><span class="p">,</span> <span class="s2">&quot;endtime&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">temporal_bounds</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="c1"># If a number, convert to a float.</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="c1"># If a string like object, attempt to parse it to a datetime</span>
+            <span class="c1"># object, otherwise assume it`s a phase-relative time and let the</span>
+            <span class="c1"># Syngine service deal with the error handling.</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">native_str</span><span class="p">)):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">obspy</span><span class="o">.</span><span class="n">UTCDateTime</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">pass</span>
+            <span class="c1"># Last but not least just try to pass it to the datetime</span>
+            <span class="c1"># constructor without catching the error.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">obspy</span><span class="o">.</span><span class="n">UTCDateTime</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">native_str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="c1"># These all have to be lists of floats. Otherwise it fails.</span>
+        <span class="n">source_mecs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sourcemomenttensor&quot;</span><span class="p">,</span>
+                       <span class="s2">&quot;sourcedoublecouple&quot;</span><span class="p">,</span>
+                       <span class="s2">&quot;sourceforce&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">source_mecs</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%g</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">float</span><span class="p">(</span><span class="n">_i</span><span class="p">)</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">value</span><span class="p">])</span>
+            <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="k">return</span> <span class="n">params</span></div>
+
+    <span class="k">def</span> <span class="nf">__read_to_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">)</span> <span class="k">as</span> <span class="n">buf</span><span class="p">:</span>
+            <span class="c1"># First try to read the file in a normal way, otherwise assume</span>
+            <span class="c1"># it&#39;s a saczip file.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">st</span> <span class="o">=</span> <span class="n">obspy</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">st</span> <span class="o">=</span> <span class="n">obspy</span><span class="o">.</span><span class="n">Stream</span><span class="p">()</span>
+                <span class="c1"># Seek as some bytes might have been already read.</span>
+                <span class="n">buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">zip_obj</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">zip_obj</span><span class="o">.</span><span class="n">namelist</span><span class="p">():</span>
+                    <span class="c1"># Skip the log file.</span>
+                    <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;syngine.log&quot;</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">zip_obj</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">name</span><span class="p">))</span> <span class="k">as</span> <span class="n">buf_2</span><span class="p">:</span>
+                        <span class="n">st</span> <span class="o">+=</span> <span class="n">obspy</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">buf_2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">st</span>
+
+<div class="viewcode-block" id="Client.get_waveforms"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.syngine.client.Client.get_waveforms.html#obspy.clients.syngine.client.Client.get_waveforms">[docs]</a>    <span class="k">def</span> <span class="nf">get_waveforms</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">network</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">station</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">receiverlatitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">receiverlongitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">networkcode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stationcode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">locationcode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">eventid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sourcelatitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sourcelongitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">sourcedepthinmeters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sourcemomenttensor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">sourcedoublecouple</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sourceforce</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">origintime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">starttime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">components</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kernelwidth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;miniseed&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Request waveforms using the Syngine service.</span>
+
+<span class="sd">        This method is strongly tied to the actual implementation on the</span>
+<span class="sd">        server side. The default values and all the exception handling are</span>
+<span class="sd">        deferred to the service. Please see `the Syngine documentation</span>
+<span class="sd">        &lt;https://ds.iris.edu/ds/products/syngine/&gt;`_ for more details and the</span>
+<span class="sd">        default values of all parameters.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy.clients.syngine import Client</span>
+<span class="sd">        &gt;&gt;&gt; client = Client()</span>
+<span class="sd">        &gt;&gt;&gt; st = client.get_waveforms(model=&quot;ak135f_5s&quot;, network=&quot;IU&quot;,</span>
+<span class="sd">        ...                           station=&quot;ANMO&quot;,</span>
+<span class="sd">        ...                           eventid=&quot;GCMT:C201002270634A&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; print(st)  # doctest: +ELLIPSIS</span>
+<span class="sd">        3 Trace(s) in Stream:</span>
+<span class="sd">        IU.ANMO.SE.MXZ | 2010-02-27T06:35:14... - ... | 4.0 Hz, 15520 samples</span>
+<span class="sd">        IU.ANMO.SE.MXN | 2010-02-27T06:35:14... - ... | 4.0 Hz, 15520 samples</span>
+<span class="sd">        IU.ANMO.SE.MXE | 2010-02-27T06:35:14... - ... | 4.0 Hz, 15520 samples</span>
+
+<span class="sd">        :param model: Specify the model.</span>
+<span class="sd">        :type model: str</span>
+<span class="sd">        :param network: Specify a network code combined with ``station`` to</span>
+<span class="sd">            identify receiver coordinates of an operating station.</span>
+<span class="sd">        :type network: str</span>
+<span class="sd">        :param station: Specify a station code combined with ``network`` to</span>
+<span class="sd">            identify receiver coordinates of an operating station.</span>
+<span class="sd">        :type station: str</span>
+<span class="sd">        :param receiverlatitude: Specify the receiver latitude in degrees.</span>
+<span class="sd">        :type receiverlatitude: float</span>
+<span class="sd">        :param receiverlongitude: Specify the receiver longitude in degrees.</span>
+<span class="sd">        :type receiverlongitude: float</span>
+<span class="sd">        :param networkcode: Specify the network code for the synthetics.</span>
+<span class="sd">            Optional when using ``receiverlatitude`` and ``receiverlongitude``.</span>
+<span class="sd">        :type networkcode: str</span>
+<span class="sd">        :param stationcode: Specify the station code for the synthetics.</span>
+<span class="sd">            Optional when using ``receiverlatitude`` and ``receiverlongitude``.</span>
+<span class="sd">        :type stationcode: str</span>
+<span class="sd">        :param locationcode: Specify the location code for the synthetics.</span>
+<span class="sd">            Optional in any usage.</span>
+<span class="sd">        :type locationcode: str</span>
+<span class="sd">        :param eventid: Specify an event identifier in the form</span>
+<span class="sd">            [catalog]:[eventid]. The centroid time and location and moment</span>
+<span class="sd">            tensor of the solution will be used as the source.</span>
+<span class="sd">        :type eventid: str</span>
+<span class="sd">        :param sourcelatitude: Specify the source latitude.</span>
+<span class="sd">        :type sourcelatitude: float</span>
+<span class="sd">        :param sourcelongitude: Specify the source longitude.</span>
+<span class="sd">        :type sourcelongitude: float</span>
+<span class="sd">        :param sourcedepthinmeters: Specify the source depth in meters.</span>
+<span class="sd">        :type sourcedepthinmeters: float</span>
+<span class="sd">        :param sourcemomenttensor: Specify a source in moment tensor</span>
+<span class="sd">            components as a list: ``Mrr``, ``Mtt``, ``Mpp``, ``Mrt``, ``Mrp``,</span>
+<span class="sd">            ``Mtp`` with values in Newton meters (*Nm*).</span>
+<span class="sd">        :type sourcemomenttensor: list of floats</span>
+<span class="sd">        :param sourcedoublecouple: Specify a source as a double couple. The</span>
+<span class="sd">            list of values are ``strike``, ``dip``, ``rake`` [, ``M0`` ],</span>
+<span class="sd">            where strike, dip and rake are in degrees and M0 is the scalar</span>
+<span class="sd">            seismic moment in Newton meters (Nm). If not specified, a value</span>
+<span class="sd">            of *1e19* will be used as the scalar moment.</span>
+<span class="sd">        :type sourcedoublecouple: list of floats</span>
+<span class="sd">        :param sourceforce: Specify a force source as a list of ``Fr``, ``Ft``,</span>
+<span class="sd">            ``Fp`` in units of Newtons (N).</span>
+<span class="sd">        :type sourceforce: list of floats</span>
+<span class="sd">        :param origintime: Specify the source origin time. This must be</span>
+<span class="sd">            specified as an absolute date and time.</span>
+<span class="sd">        :type origintime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param starttime: Specifies the desired start time for the synthetic</span>
+<span class="sd">            trace(s). This may be specified as either:</span>
+
+<span class="sd">            * an absolute date and time</span>
+<span class="sd">            * a phase-relative offset</span>
+<span class="sd">            * an offset from origin time in seconds</span>
+
+<span class="sd">            If the value is recognized as a date and time, it is interpreted</span>
+<span class="sd">            as an absolute time. If the value is in the form</span>
+<span class="sd">            ``phase[+-]offset`` it is interpreted as a phase-relative time,</span>
+<span class="sd">            for example ``P-10`` (meaning P wave arrival time minus 10</span>
+<span class="sd">            seconds). If the value is a numerical value it is interpreted as an</span>
+<span class="sd">            offset, in seconds, from the ``origintime``.</span>
+<span class="sd">        :type starttime: :class:`~obspy.core.utcdatetime.UTCDateTime`, str, or</span>
+<span class="sd">            float</span>
+<span class="sd">        :param endtime: Specifies the desired end time for the synthetic</span>
+<span class="sd">            trace(s). This may be specified as either:</span>
+
+<span class="sd">            * an absolute date and time</span>
+<span class="sd">            * a phase-relative offset</span>
+<span class="sd">            * an offset from start time in seconds</span>
+
+<span class="sd">            If the value is recognized as a date and time, it is interpreted</span>
+<span class="sd">            as an absolute time. If the value is in the form</span>
+<span class="sd">            ``phase[+-]offset`` it is interpreted as a phase-relative time,</span>
+<span class="sd">            for example ``P+10`` (meaning P wave arrival time plus 10</span>
+<span class="sd">            seconds). If the value is a numerical value it is interpreted as an</span>
+<span class="sd">            offset, in seconds, from the ``starttime``.</span>
+<span class="sd">        :type endtime: :class:`~obspy.core.utcdatetime.UTCDateTime`, str,</span>
+<span class="sd">            or float</span>
+<span class="sd">        :param label: Specify a label to be included in file names and HTTP</span>
+<span class="sd">            file name suggestions.</span>
+<span class="sd">        :type label: str</span>
+<span class="sd">        :param components: Specify the orientation of the synthetic</span>
+<span class="sd">            seismograms as a list of any combination of ``Z`` (vertical),</span>
+<span class="sd">            ``N`` (north), ``E`` (east), ``R`` (radial), ``T`` (transverse)</span>
+<span class="sd">        :type components: str or list of strings.</span>
+<span class="sd">        :param units: Specify either ``displacement``, ``velocity`` or</span>
+<span class="sd">            ``acceleration`` for the synthetics. The length unit is meters.</span>
+<span class="sd">        :type units: str</span>
+<span class="sd">        :param scale: Specify an amplitude scaling factor. The default</span>
+<span class="sd">            amplitude length unit is meters.</span>
+<span class="sd">        :type scale: float</span>
+<span class="sd">        :param dt: Specify the sampling interval in seconds. Only upsampling</span>
+<span class="sd">            is allowed so this value must be larger than the intrinsic interval</span>
+<span class="sd">            of the model database.</span>
+<span class="sd">        :type dt: float</span>
+<span class="sd">        :param kernelwidth: Specify the width of the sinc kernel used for</span>
+<span class="sd">            resampling to requested sample interval (``dt``), relative to the</span>
+<span class="sd">            original sampling rate.</span>
+<span class="sd">        :type kernelwidth: int</span>
+<span class="sd">        :param format: Specify output file to be either miniSEED or a ZIP</span>
+<span class="sd">            archive of SAC files, either ``miniseed`` or ``saczip``.</span>
+<span class="sd">        :type format: str</span>
+<span class="sd">        :param filename: Will download directly to the specified file. If</span>
+<span class="sd">            given, this method will return nothing.</span>
+<span class="sd">        :type filename: str or file-like object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">arguments</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="n">network</span><span class="p">,</span>
+            <span class="s2">&quot;station&quot;</span><span class="p">:</span> <span class="n">station</span><span class="p">,</span>
+            <span class="s2">&quot;receiverlatitude&quot;</span><span class="p">:</span> <span class="n">receiverlatitude</span><span class="p">,</span>
+            <span class="s2">&quot;receiverlongitude&quot;</span><span class="p">:</span> <span class="n">receiverlongitude</span><span class="p">,</span>
+            <span class="s2">&quot;networkcode&quot;</span><span class="p">:</span> <span class="n">networkcode</span><span class="p">,</span>
+            <span class="s2">&quot;stationcode&quot;</span><span class="p">:</span> <span class="n">stationcode</span><span class="p">,</span>
+            <span class="s2">&quot;locationcode&quot;</span><span class="p">:</span> <span class="n">locationcode</span><span class="p">,</span>
+            <span class="s2">&quot;eventid&quot;</span><span class="p">:</span> <span class="n">eventid</span><span class="p">,</span>
+            <span class="s2">&quot;sourcelatitude&quot;</span><span class="p">:</span> <span class="n">sourcelatitude</span><span class="p">,</span>
+            <span class="s2">&quot;sourcelongitude&quot;</span><span class="p">:</span> <span class="n">sourcelongitude</span><span class="p">,</span>
+            <span class="s2">&quot;sourcedepthinmeters&quot;</span><span class="p">:</span> <span class="n">sourcedepthinmeters</span><span class="p">,</span>
+            <span class="s2">&quot;sourcemomenttensor&quot;</span><span class="p">:</span> <span class="n">sourcemomenttensor</span><span class="p">,</span>
+            <span class="s2">&quot;sourcedoublecouple&quot;</span><span class="p">:</span> <span class="n">sourcedoublecouple</span><span class="p">,</span>
+            <span class="s2">&quot;sourceforce&quot;</span><span class="p">:</span> <span class="n">sourceforce</span><span class="p">,</span>
+            <span class="s2">&quot;origintime&quot;</span><span class="p">:</span> <span class="n">origintime</span><span class="p">,</span>
+            <span class="s2">&quot;starttime&quot;</span><span class="p">:</span> <span class="n">starttime</span><span class="p">,</span>
+            <span class="s2">&quot;endtime&quot;</span><span class="p">:</span> <span class="n">endtime</span><span class="p">,</span>
+            <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span>
+            <span class="s2">&quot;components&quot;</span><span class="p">:</span> <span class="n">components</span><span class="p">,</span>
+            <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="n">units</span><span class="p">,</span>
+            <span class="s2">&quot;scale&quot;</span><span class="p">:</span> <span class="n">scale</span><span class="p">,</span>
+            <span class="s2">&quot;dt&quot;</span><span class="p">:</span> <span class="n">dt</span><span class="p">,</span>
+            <span class="s2">&quot;kernelwidth&quot;</span><span class="p">:</span> <span class="n">kernelwidth</span><span class="p">,</span>
+            <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="nb">format</span><span class="p">,</span>
+            <span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="n">filename</span><span class="p">}</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_parameters</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="o">**</span><span class="n">arguments</span><span class="p">)</span>
+
+        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_download</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_url</span><span class="p">(</span><span class="s2">&quot;query&quot;</span><span class="p">),</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+                           <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+
+        <span class="c1"># A given filename will write directly to a file.</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__read_to_stream</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.get_waveforms_bulk"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.syngine.client.Client.get_waveforms_bulk.html#obspy.clients.syngine.client.Client.get_waveforms_bulk">[docs]</a>    <span class="k">def</span> <span class="nf">get_waveforms_bulk</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">bulk</span><span class="p">,</span>
+            <span class="n">eventid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sourcelatitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sourcelongitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">sourcedepthinmeters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sourcemomenttensor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">sourcedoublecouple</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sourceforce</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">origintime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">starttime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">components</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kernelwidth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;miniseed&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Request waveforms for multiple receivers simultaneously.</span>
+
+<span class="sd">        This method is strongly tied to the actual implementation on the</span>
+<span class="sd">        server side. The default values and all the exception handling are</span>
+<span class="sd">        deferred to the service. Please see the `Syngine documentation</span>
+<span class="sd">        &lt;https://ds.iris.edu/ds/products/syngine/&gt;`_ for more details and the</span>
+<span class="sd">        default values of all parameters.</span>
+
+<span class="sd">        This method uses the POST functionalities of the Syngine service.</span>
+
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        The `bulk` parameter is a list of either other lists/tuples or</span>
+<span class="sd">        dictionaries. Each item specifies one receiver. Items can be</span>
+<span class="sd">        specified in a number of different ways:</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy.clients.syngine import Client</span>
+<span class="sd">        &gt;&gt;&gt; c = Client()</span>
+<span class="sd">        &gt;&gt;&gt; bulk = [</span>
+<span class="sd">        ...     {&quot;network&quot;: &quot;IU&quot;, &quot;station&quot;: &quot;ANMO&quot;},  # net/sta codes</span>
+<span class="sd">        ...     {&quot;latitude&quot;: 47.0, &quot;longitude&quot;: 12.1}, # coordinates</span>
+<span class="sd">        ...     {&quot;latitude&quot;: 47.0, &quot;longitude&quot;: 12.1,</span>
+<span class="sd">        ...      &quot;networkcode&quot;: &quot;AA&quot;, &quot;stationcode&quot;: &quot;BB&quot;,</span>
+<span class="sd">        ...      &quot;locationcode&quot;: &quot;CC&quot;},   # optional net/sta/loc</span>
+<span class="sd">        ...     [&quot;IU&quot;, &quot;ANTO&quot;],           # net/sta as list</span>
+<span class="sd">        ...     [33.2, -123.5]            # lat/lon as list/tuple</span>
+<span class="sd">        ... ]</span>
+
+<span class="sd">        Just pass that on to the bulk waveform method and retrieve the data.</span>
+
+<span class="sd">        &gt;&gt;&gt; st = c.get_waveforms_bulk(</span>
+<span class="sd">        ...     model=&quot;ak135f_5s&quot;, bulk=bulk, sourcelatitude=12.3,</span>
+<span class="sd">        ...     sourcelongitude=75.3, sourcedepthinmeters=54321,</span>
+<span class="sd">        ...     sourcemomenttensor=[1E19, 1E19, 1E19, 0, 0, 0],</span>
+<span class="sd">        ...     components=&quot;Z&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; print(st.sort())  # doctest: +ELLIPSIS</span>
+<span class="sd">        5 Trace(s) in Stream:</span>
+<span class="sd">        AA.BB.CC.MXZ    | 1900-01-01T00:00:00... - ... | 4.0 Hz, 15520 samples</span>
+<span class="sd">        IU.ANMO.SE.MXZ  | 1900-01-01T00:00:00... - ... | 4.0 Hz, 15520 samples</span>
+<span class="sd">        IU.ANTO.SE.MXZ  | 1900-01-01T00:00:00... - ... | 4.0 Hz, 15520 samples</span>
+<span class="sd">        XX.S0001.SE.MXZ | 1900-01-01T00:00:00... - ... | 4.0 Hz, 15520 samples</span>
+<span class="sd">        XX.S0002.SE.MXZ | 1900-01-01T00:00:00... - ... | 4.0 Hz, 15520 samples</span>
+
+<span class="sd">        :param model: Specify the model.</span>
+<span class="sd">        :type model: str</span>
+<span class="sd">        :param bulk: Specify the receivers to download in bulk.</span>
+<span class="sd">        :type bulk: list of lists, tuples, or dictionaries</span>
+<span class="sd">        :param eventid: Specify an event identifier in the form</span>
+<span class="sd">            [catalog]:[eventid]. The centroid time and location and moment</span>
+<span class="sd">            tensor of the solution will be used as the source.</span>
+<span class="sd">        :type eventid: str</span>
+<span class="sd">        :param sourcelatitude: Specify the source latitude.</span>
+<span class="sd">        :type sourcelatitude: float</span>
+<span class="sd">        :param sourcelongitude: Specify the source longitude.</span>
+<span class="sd">        :type sourcelongitude: float</span>
+<span class="sd">        :param sourcedepthinmeters: Specify the source depth in meters.</span>
+<span class="sd">        :type sourcedepthinmeters: float</span>
+<span class="sd">        :param sourcemomenttensor: Specify a source in moment tensor</span>
+<span class="sd">            components as a list: ``Mrr``, ``Mtt``, ``Mpp``, ``Mrt``, ``Mrp``,</span>
+<span class="sd">            ``Mtp`` with values in Newton meters (*Nm*).</span>
+<span class="sd">        :type sourcemomenttensor: list of floats</span>
+<span class="sd">        :param sourcedoublecouple: Specify a source as a double couple. The</span>
+<span class="sd">            list of values are ``strike``, ``dip``, ``rake`` [, ``M0`` ],</span>
+<span class="sd">            where strike, dip and rake are in degrees and M0 is the scalar</span>
+<span class="sd">            seismic moment in Newton meters (Nm). If not specified, a value</span>
+<span class="sd">            of *1e19* will be used as the scalar moment.</span>
+<span class="sd">        :type sourcedoublecouple: list of floats</span>
+<span class="sd">        :param sourceforce: Specify a force source as a list of ``Fr``, ``Ft``,</span>
+<span class="sd">            ``Fp`` in units of Newtons (N).</span>
+<span class="sd">        :type sourceforce: list of floats</span>
+<span class="sd">        :param origintime: Specify the source origin time. This must be</span>
+<span class="sd">            specified as an absolute date and time.</span>
+<span class="sd">        :type origintime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param starttime: Specifies the desired start time for the synthetic</span>
+<span class="sd">            trace(s). This may be specified as either:</span>
+
+<span class="sd">            * an absolute date and time</span>
+<span class="sd">            * a phase-relative offset</span>
+<span class="sd">            * an offset from origin time in seconds</span>
+
+<span class="sd">            If the value is recognized as a date and time, it is interpreted</span>
+<span class="sd">            as an absolute time. If the value is in the form</span>
+<span class="sd">            ``phase[+-]offset`` it is interpreted as a phase-relative time,</span>
+<span class="sd">            for example ``P-10`` (meaning P wave arrival time minus 10</span>
+<span class="sd">            seconds). If the value is a numerical value it is interpreted as an</span>
+<span class="sd">            offset, in seconds, from the ``origintime``.</span>
+<span class="sd">        :type starttime: :class:`~obspy.core.utcdatetime.UTCDateTime`, str,</span>
+<span class="sd">            or float</span>
+<span class="sd">        :param endtime: Specifies the desired end time for the synthetic</span>
+<span class="sd">            trace(s). This may be specified as either:</span>
+
+<span class="sd">            * an absolute date and time</span>
+<span class="sd">            * a phase-relative offset</span>
+<span class="sd">            * an offset from start time in seconds</span>
+
+<span class="sd">            If the value is recognized as a date and time, it is interpreted</span>
+<span class="sd">            as an absolute time. If the value is in the form</span>
+<span class="sd">            ``phase[+-]offset`` it is interpreted as a phase-relative time,</span>
+<span class="sd">            for example ``P+10`` (meaning P wave arrival time plus 10</span>
+<span class="sd">            seconds). If the value is a numerical value it is interpreted as an</span>
+<span class="sd">            offset, in seconds, from the ``starttime``.</span>
+<span class="sd">        :type endtime: :class:`~obspy.core.utcdatetime.UTCDateTime`, str,</span>
+<span class="sd">            or float</span>
+<span class="sd">        :param label: Specify a label to be included in file names and HTTP</span>
+<span class="sd">            file name suggestions.</span>
+<span class="sd">        :type label: str</span>
+<span class="sd">        :param components: Specify the orientation of the synthetic</span>
+<span class="sd">            seismograms as a list of any combination of ``Z`` (vertical),</span>
+<span class="sd">            ``N`` (north), ``E`` (east), ``R`` (radial), ``T`` (transverse)</span>
+<span class="sd">        :type components: str or list of strings.</span>
+<span class="sd">        :param units: Specify either ``displacement``, ``velocity`` or</span>
+<span class="sd">            ``acceleration`` for the synthetics. The length unit is meters.</span>
+<span class="sd">        :type units: str</span>
+<span class="sd">        :param scale: Specify an amplitude scaling factor. The default</span>
+<span class="sd">            amplitude length unit is meters.</span>
+<span class="sd">        :type scale: float</span>
+<span class="sd">        :param dt: Specify the sampling interval in seconds. Only upsampling</span>
+<span class="sd">            is allowed so this value must be larger than the intrinsic interval</span>
+<span class="sd">            of the model database.</span>
+<span class="sd">        :type dt: float</span>
+<span class="sd">        :param kernelwidth: Specify the width of the sinc kernel used for</span>
+<span class="sd">            resampling to requested sample interval (``dt``), relative to the</span>
+<span class="sd">            original sampling rate.</span>
+<span class="sd">        :type kernelwidth: int</span>
+<span class="sd">        :param format: Specify output file to be either miniSEED or a ZIP</span>
+<span class="sd">            archive of SAC files, either ``miniseed`` or ``saczip``.</span>
+<span class="sd">        :type format: str</span>
+<span class="sd">        :param filename: Will download directly to the specified file. If</span>
+<span class="sd">            given, this method will return nothing.</span>
+<span class="sd">        :type filename: str or file-like object</span>
+<span class="sd">        :param data: If specified this will be sent directly sent to the</span>
+<span class="sd">            Syngine service as a POST payload. All other parameters except the</span>
+<span class="sd">            ``filename`` parameter will be silently ignored. Likely not that</span>
+<span class="sd">            useful for most people.</span>
+<span class="sd">        :type data: dictionary, bytes, or file-like object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Send data straight via POST if given.</span>
+        <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_download</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_url</span><span class="p">(</span><span class="s2">&quot;query&quot;</span><span class="p">),</span>
+                               <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__read_to_stream</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bulk</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Some bulk download information must be given.&quot;</span><span class="p">)</span>
+
+        <span class="n">arguments</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;eventid&quot;</span><span class="p">:</span> <span class="n">eventid</span><span class="p">,</span>
+            <span class="s2">&quot;sourcelatitude&quot;</span><span class="p">:</span> <span class="n">sourcelatitude</span><span class="p">,</span>
+            <span class="s2">&quot;sourcelongitude&quot;</span><span class="p">:</span> <span class="n">sourcelongitude</span><span class="p">,</span>
+            <span class="s2">&quot;sourcedepthinmeters&quot;</span><span class="p">:</span> <span class="n">sourcedepthinmeters</span><span class="p">,</span>
+            <span class="s2">&quot;sourcemomenttensor&quot;</span><span class="p">:</span> <span class="n">sourcemomenttensor</span><span class="p">,</span>
+            <span class="s2">&quot;sourcedoublecouple&quot;</span><span class="p">:</span> <span class="n">sourcedoublecouple</span><span class="p">,</span>
+            <span class="s2">&quot;sourceforce&quot;</span><span class="p">:</span> <span class="n">sourceforce</span><span class="p">,</span>
+            <span class="s2">&quot;origintime&quot;</span><span class="p">:</span> <span class="n">origintime</span><span class="p">,</span>
+            <span class="s2">&quot;starttime&quot;</span><span class="p">:</span> <span class="n">starttime</span><span class="p">,</span>
+            <span class="s2">&quot;endtime&quot;</span><span class="p">:</span> <span class="n">endtime</span><span class="p">,</span>
+            <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span>
+            <span class="s2">&quot;components&quot;</span><span class="p">:</span> <span class="n">components</span><span class="p">,</span>
+            <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="n">units</span><span class="p">,</span>
+            <span class="s2">&quot;scale&quot;</span><span class="p">:</span> <span class="n">scale</span><span class="p">,</span>
+            <span class="s2">&quot;dt&quot;</span><span class="p">:</span> <span class="n">dt</span><span class="p">,</span>
+            <span class="s2">&quot;kernelwidth&quot;</span><span class="p">:</span> <span class="n">kernelwidth</span><span class="p">,</span>
+            <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="nb">format</span><span class="p">,</span>
+            <span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="n">filename</span><span class="p">}</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_parameters</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="o">**</span><span class="n">arguments</span><span class="p">)</span>
+
+        <span class="c1"># Assemble the bulk file.</span>
+        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">buf</span><span class="p">:</span>
+            <span class="c1"># Write the header.</span>
+            <span class="n">buf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;model=</span><span class="si">{model}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+            <span class="k">del</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                <span class="n">buf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{key}</span><span class="s2">=</span><span class="si">{value}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+                                                   <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+
+            <span class="n">_map</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;networkcode&quot;</span><span class="p">:</span> <span class="s2">&quot;NETCODE&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;stationcode&quot;</span><span class="p">:</span> <span class="s2">&quot;STACODE&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;locationcode&quot;</span><span class="p">:</span> <span class="s2">&quot;LOCCODE&quot;</span><span class="p">}</span>
+
+            <span class="c1"># Write the bulk content.</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bulk</span><span class="p">:</span>
+                <span class="c1"># Dictionary like items.</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Mapping</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="s2">&quot;latitude&quot;</span> <span class="ow">in</span> <span class="n">item</span> <span class="ow">or</span> <span class="s2">&quot;longitude&quot;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="s2">&quot;latitude&quot;</span> <span class="ow">in</span> <span class="n">item</span> <span class="ow">and</span> <span class="s2">&quot;longitude&quot;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">):</span>
+                            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                                <span class="s2">&quot;Item &#39;</span><span class="si">%s</span><span class="s2">&#39; in bulk must contain both &quot;</span>
+                                <span class="s2">&quot;latitude and longitude if either is given.&quot;</span> <span class="o">%</span>
+                                <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+                        <span class="n">bulk_item</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{latitude}</span><span class="s2"> </span><span class="si">{longitude}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">item</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;networkcode&quot;</span><span class="p">,</span> <span class="s2">&quot;stationcode&quot;</span><span class="p">,</span>
+                                   <span class="s2">&quot;locationcode&quot;</span><span class="p">):</span>
+                            <span class="k">if</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+                                <span class="n">bulk_item</span> <span class="o">+=</span> <span class="s2">&quot; </span><span class="si">%s</span><span class="s2">=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">_map</span><span class="p">[</span><span class="n">_i</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="n">_i</span><span class="p">])</span>
+                    <span class="k">elif</span> <span class="s2">&quot;station&quot;</span> <span class="ow">in</span> <span class="n">item</span> <span class="ow">and</span> <span class="s2">&quot;network&quot;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+                        <span class="n">bulk_item</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{network}</span><span class="s2"> </span><span class="si">{station}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="o">**</span><span class="n">item</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Item &#39;</span><span class="si">%s</span><span class="s2">&#39; in bulk is malformed.&quot;</span> <span class="o">%</span>
+                                         <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+                <span class="c1"># Iterable items.</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Container</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Item &#39;</span><span class="si">%s</span><span class="s2">&#39; in bulk must have two &quot;</span>
+                                         <span class="s2">&quot;entries.&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+                    <span class="n">bulk_item</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Item &#39;</span><span class="si">%s</span><span class="s2">&#39; in bulk cannot be parsed.&quot;</span> <span class="o">%</span>
+                                     <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+
+                <span class="n">buf</span><span class="o">.</span><span class="n">write</span><span class="p">((</span><span class="n">bulk_item</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+
+            <span class="n">buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+            <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_download</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_url</span><span class="p">(</span><span class="s2">&quot;query&quot;</span><span class="p">),</span>
+                               <span class="n">data</span><span class="o">=</span><span class="n">buf</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+
+            <span class="c1"># A given filename will write directly to a file.</span>
+            <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+                <span class="k">return</span>
+
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__read_to_stream</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">)</span></div></div>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

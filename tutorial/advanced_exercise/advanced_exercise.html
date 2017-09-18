@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Advanced Exercise &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Advanced Exercise Solution 1" href="advanced_exercise_solution_1.html" />
+    <link rel="prev" title="32. Connecting to a SeedLink Server" href="../code_snippets/easyseedlink.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../py-modindex.html" title="Python Module Index"
+         >modules</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="advanced_exercise_solution_1.html" title="Advanced Exercise Solution 1"
+         accesskey="N">next</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../code_snippets/easyseedlink.html" title="32. Connecting to a SeedLink Server"
+         accesskey="P">previous</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../index.html" accesskey="U">ObsPy Tutorial</a></li> 
+    </ol>
+  
+  <div class="section" id="advanced-exercise">
+<span id="id1"></span><h1>Advanced Exercise<a class="headerlink" href="#advanced-exercise" title="Permalink to this headline">¶</a></h1>
+<p>This practical intends to demonstrate how ObsPy can be used to develop
+workflows for data processing and analysis that have a short, easy to read and
+extensible source code. The overall task is to automatically estimate local
+magnitudes of earthquakes using data of the SED network. We will start with
+simple programs with manually specified, hard-coded values and build on them
+step by step to make the program more flexible and dynamic.  Some details in
+the magnitude estimation should be done a little bit different technically but
+we rather want to focus on the general workflow here.</p>
+<a class="reference internal image-reference" href="../../_images/event.jpg"><img alt="event map" class="align-center" src="../../_images/event.jpg" style="width: 417.0px; height: 285.0px;" /></a>
+<a class="reference external image-reference" href="http://www.seismo.ethz.ch/monitor/net_maps/index_EN"><img alt="network map" class="align-center" src="../../_images/network_map.jpg" style="width: 50%;" /></a>
+<div class="section" id="request-earthquake-information-from-emsc-neries-nera">
+<h2>1. Request Earthquake Information from EMSC/NERIES/NERA<a class="headerlink" href="#request-earthquake-information-from-emsc-neries-nera" title="Permalink to this headline">¶</a></h2>
+<p>Fetch a list of events from EMSC for the region of Valais/SW-Switzerland on 3rd
+April of 2012. Use the Client provided in <a class="reference internal" href="../../packages/obspy.clients.fdsn.html#module-obspy.clients.fdsn" title="obspy.clients.fdsn"><code class="xref py py-mod docutils literal"><span class="pre">obspy.clients.fdsn</span></code></a>. Note down the
+catalog origin times, epicenters and magnitudes.</p>
+</div>
+<div class="section" id="estimate-local-magnitude">
+<h2>2. Estimate Local Magnitude<a class="headerlink" href="#estimate-local-magnitude" title="Permalink to this headline">¶</a></h2>
+<ol class="loweralpha simple">
+<li>Use the file <a class="reference external" href="https://github.com/obspy/examples/blob/master/LKBD_WA_CUT.MSEED?raw=true">LKBD_WA_CUT.MSEED</a>
+to read MiniSEED waveform data of the larger earthquake. These data have
+already been simulated to (demeaned) displacement on a Wood-Anderson
+seismometer (in meter) and trimmed to the right time span. Compute the
+absolute maximum for both North and East component and use the larger value
+as the zero-to-peak amplitude estimate.  Estimate the local magnitude
+<span class="math">\(M_\text{lh}\)</span> used at the <a class="reference external" href="http://www.seismo.ethz.ch/index_EN">Swiss Seismological Service (SED)</a> using a epicentral distance of
+<span class="math">\(d_\text{epi}=20\)</span> (km), <span class="math">\(a=0.018\)</span> and <span class="math">\(b=2.17\)</span> with the
+following formula (mathematical functions are available in Python’s
+<a class="reference external" href="https://docs.python.org/2.7/library/math.html#module-math" title="(in Python v2.7)"><code class="docutils literal"><span class="pre">math</span></code></a> module):</li>
+</ol>
+<div class="math">
+\[M_\text{lh} = \log_{10}\left(amp \cdot 1000\mathrm{\frac{mm}{m}}\right) +
+a \cdot d_\text{epi} + b\]</div>
+<ol class="loweralpha simple" start="2">
+<li>Calculate the epicentral distance from the station coordinates (46.387°N,
+7.627°E) and catalog epicenter fetched above (46.218°N, 7.706°E). Some useful
+routines for such tasks are included in <code class="xref py py-mod docutils literal"><span class="pre">obspy.core.util.geodetics</span></code>.</li>
+</ol>
+</div>
+<div class="section" id="seismometer-correction-simulation">
+<h2>3. Seismometer Correction/Simulation<a class="headerlink" href="#seismometer-correction-simulation" title="Permalink to this headline">¶</a></h2>
+<ol class="loweralpha">
+<li><p class="first">Modify the existing code and use the file <a class="reference external" href="https://github.com/obspy/examples/blob/master/LKBD.MSEED?raw=true">LKBD.MSEED</a> to
+read the original MiniSEED waveform data in counts. Set up two dictionaries
+containing the response information of both the original instrument (a
+LE3D-5s) and the Wood-Anderson seismometer in poles-and-zeros formulation.
+Please note that for historic reasons the naming of keys differs from the
+usual naming.  Each PAZ dictionary needs to contain <em>sensitivity</em> (overall
+sensitivity of seismometer/digitizer combination), <em>gain</em> (A0 /
+normalization factor), <em>poles</em> and <em>zeros</em>. Check that the value of
+<em>water_level</em> is not too high, to avoid overamplified low frequency noise at
+short-period stations. After the instrument simulation, trim the waveform to
+a shorter time window around the origin time (<em>2012-04-03T02:45:03</em>) and
+calculate <span class="math">\(M_\text{lh}\)</span> like before.  Use the following values for the
+PAZ dictionaries:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="35%" />
+<col width="40%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">–</th>
+<th class="head">LE3D-5s</th>
+<th class="head">Wood-Anderson</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>poles</td>
+<td>-0.885+0.887j
+-0.885-0.887j
+-0.427+0j</td>
+<td>-6.2832-4.7124j
+-6.2832+4.7124j</td>
+</tr>
+<tr class="row-odd"><td>zeros</td>
+<td>0j, 0j, 0j</td>
+<td>0j</td>
+</tr>
+<tr class="row-even"><td>gain</td>
+<td>1.009</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>sensitivity</td>
+<td>167364000.0</td>
+<td>2800</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p class="first">Instead of the hard-coded values, read the response information from a locally
+stored <em>dataless SEED</em> <a class="reference external" href="https://github.com/obspy/examples/blob/master/LKBD.dataless?raw=true">LKBD.dataless</a>.
+Use the Parser of module <code class="xref py py-mod docutils literal"><span class="pre">obspy.xseed</span></code> to extract the poles-and-zeros
+information of the used channel.</p>
+</li>
+<li><p class="first">We can also request the response information from <a class="reference external" href="http://www.webdc.eu">WebDC</a> using the ArcLink protocol. Use the Client provided in
+<code class="xref py py-mod docutils literal"><span class="pre">obspy.arclink</span></code> module (specify e.g. <em>user=”sed-workshop&#64;obspy.org”</em>).</p>
+</li>
+</ol>
+</div>
+<div class="section" id="fetch-waveform-data-from-webdc">
+<h2>4. Fetch Waveform Data from WebDC<a class="headerlink" href="#fetch-waveform-data-from-webdc" title="Permalink to this headline">¶</a></h2>
+<ol class="loweralpha simple">
+<li>Modify the existing code and fetch waveform data around the origin time given
+above for station <em>LKBD</em> (network <em>CH</em>) via ArcLink from WebDC using
+<em>obspy.arclink</em>. Use a wildcarded <em>channel=”EH*”</em> to fetch all three
+components. Use keyword argument <em>metadata=True</em> to fetch response information
+and station coordinates along with the waveform. The PAZ and coordinate
+information will get attached to the <a class="reference internal" href="../../packages/autogen/obspy.core.trace.Stats.html#obspy.core.trace.Stats" title="obspy.core.trace.Stats"><code class="xref py py-class docutils literal"><span class="pre">Stats</span></code></a> object of
+all traces in the returned Stream object during the waveform request
+automatically. During instrument simulation use keyword argument
+<em>paz_remove=’self’</em> to use every trace’s attached PAZ information fetched from
+<a class="reference external" href="http://www.webdc.eu">WebDC</a>. Calculate <span class="math">\(M_\text{lh}\)</span> like before.</li>
+<li>Use a list of station names (e.g. <em>LKBD</em>, <em>SIMPL</em>, <em>DIX</em>) and perform the
+magnitude estimation in a loop for each station. Use a wildcarded
+<em>channel=”[EH]H*”</em> to fetch the respective streams for both short-period and
+broadband stations. Compile a list of all station magnitudes and compute the
+network magnitude as its median (available in <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/index.html#module-numpy" title="(in NumPy v1.13)"><code class="docutils literal"><span class="pre">numpy</span></code></a> module).</li>
+<li>Extend the network magnitude estimate by using all available stations in
+network <em>CH</em>. Get a list of stations using the ArcLink client and loop over
+this list. Use a wildcarded <em>channel=”[EH]H[ZNE]”</em>, check if there are three
+traces in the returned stream and skip to next station otherwise (some stations
+have inconsistent component codes). Put a <em>try/except</em> around the waveform
+request and skip to the next station and avoid interruption of the routine in
+case no data can be retrieved and an Exception gets raised. Also add an
+<em>if/else</em> and use <span class="math">\(a=0.0038\)</span> and <span class="math">\(b=3.02\)</span> in station magnitude
+calculation for epicentral distances of more than 60 kilometers.</li>
+</ol>
+</div>
+<div class="section" id="construct-fully-automatic-event-detection-magnitude-estimation">
+<h2>5. Construct Fully Automatic Event Detection, Magnitude Estimation<a class="headerlink" href="#construct-fully-automatic-event-detection-magnitude-estimation" title="Permalink to this headline">¶</a></h2>
+<p>In this additional advanced exercise we can enhance the
+routine to be independent of a-priori known origin times by using a coincidence
+network trigger for event detection.</p>
+<ul class="simple">
+<li>fetch a few hours of Z component data for 6 stations in Valais /
+SW-Switzerland</li>
+<li>run a coincidence trigger like shown in the <a class="reference internal" href="../code_snippets/trigger_tutorial.html#trigger-tutorial-coincidence"><span class="std std-ref">Trigger
+Tutorial</span></a></li>
+<li>loop over detected network triggers, store the coordinates of the closest
+station as the epicenter</li>
+<li>loop over triggers, use the trigger time to select the time window and use
+the network magnitude estimation code like before</li>
+</ul>
+</div>
+<div class="section" id="solutions">
+<h2>Solutions<a class="headerlink" href="#solutions" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="advanced_exercise_solution_1.html">Advanced Exercise Solution 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_exercise_solution_2a.html">Advanced Exercise Solution 2a</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_exercise_solution_2b.html">Advanced Exercise Solution 2b</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_exercise_solution_3a.html">Advanced Exercise Solution 3a</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_exercise_solution_3b.html">Advanced Exercise Solution 3b</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_exercise_solution_3c.html">Advanced Exercise Solution 3c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_exercise_solution_4a.html">Advanced Exercise Solution 4a</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_exercise_solution_4b.html">Advanced Exercise Solution 4b</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_exercise_solution_4c.html">Advanced Exercise Solution 4c</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_exercise_solution_5.html">Advanced Exercise Solution 5</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.io.nlloc.core &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.io.nlloc.core</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">NonLinLoc file format support for ObsPy</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA @UnusedWildImport</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">sqrt</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">Catalog</span><span class="p">,</span> <span class="n">UTCDateTime</span><span class="p">,</span> <span class="n">__version__</span>
+<span class="kn">from</span> <span class="nn">obspy.core.event</span> <span class="k">import</span> <span class="p">(</span><span class="n">Arrival</span><span class="p">,</span> <span class="n">Comment</span><span class="p">,</span> <span class="n">CreationInfo</span><span class="p">,</span> <span class="n">Event</span><span class="p">,</span> <span class="n">Origin</span><span class="p">,</span>
+                              <span class="n">OriginQuality</span><span class="p">,</span> <span class="n">OriginUncertainty</span><span class="p">,</span> <span class="n">Pick</span><span class="p">,</span>
+                              <span class="n">WaveformStreamID</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">obspy.geodetics</span> <span class="k">import</span> <span class="n">kilometer2degrees</span>
+
+
+<span class="n">ONSETS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;i&quot;</span><span class="p">:</span> <span class="s2">&quot;impulsive&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">:</span> <span class="s2">&quot;emergent&quot;</span><span class="p">}</span>
+<span class="n">ONSETS_REVERSE</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;impulsive&quot;</span><span class="p">:</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;emergent&quot;</span><span class="p">:</span> <span class="s2">&quot;e&quot;</span><span class="p">}</span>
+<span class="n">POLARITIES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="s2">&quot;positive&quot;</span><span class="p">,</span> <span class="s2">&quot;u&quot;</span><span class="p">:</span> <span class="s2">&quot;positive&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">:</span> <span class="s2">&quot;negative&quot;</span><span class="p">}</span>
+<span class="n">POLARITIES_REVERSE</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;positive&quot;</span><span class="p">:</span> <span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;negative&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span><span class="p">}</span>
+
+
+<div class="viewcode-block" id="is_nlloc_hyp"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.nlloc.core.is_nlloc_hyp.html#obspy.io.nlloc.core.is_nlloc_hyp">[docs]</a><span class="k">def</span> <span class="nf">is_nlloc_hyp</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks that a file is actually a NonLinLoc Hypocenter-Phase file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">temp</span> <span class="o">!=</span> <span class="sa">b</span><span class="s1">&#39;NLLOC &#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="read_nlloc_hyp"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.nlloc.core.read_nlloc_hyp.html#obspy.io.nlloc.core.read_nlloc_hyp">[docs]</a><span class="k">def</span> <span class="nf">read_nlloc_hyp</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">coordinate_converter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads a NonLinLoc Hypocenter-Phase file to a</span>
+<span class="sd">    :class:`~obspy.core.event.Catalog` object.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        Coordinate conversion from coordinate frame of NonLinLoc model files /</span>
+<span class="sd">        location run to WGS84 has to be specified explicitly by the user if</span>
+<span class="sd">        necessary.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        An example can be found on the :mod:`~obspy.io.nlloc` submodule front</span>
+<span class="sd">        page in the documentation pages.</span>
+
+<span class="sd">    :param filename: File or file-like object in text mode.</span>
+<span class="sd">    :type coordinate_converter: func</span>
+<span class="sd">    :param coordinate_converter: Function to convert (x, y, z)</span>
+<span class="sd">        coordinates of NonLinLoc output to geographical coordinates and depth</span>
+<span class="sd">        in meters (longitude, latitude, depth in kilometers).</span>
+<span class="sd">        If left ``None``, the geographical coordinates in the &quot;GEOGRAPHIC&quot; line</span>
+<span class="sd">        of NonLinLoc output are used.</span>
+<span class="sd">        The function should accept three arguments x, y, z (each of type</span>
+<span class="sd">        :class:`numpy.ndarray`) and return a tuple of three</span>
+<span class="sd">        :class:`numpy.ndarray` (lon, lat, depth in kilometers).</span>
+<span class="sd">    :type picks: list of :class:`~obspy.core.event.Pick`</span>
+<span class="sd">    :param picks: Original picks used to generate the NonLinLoc location.</span>
+<span class="sd">        If provided, the output event will include the original picks and the</span>
+<span class="sd">        arrivals in the output origin will link to them correctly (with their</span>
+<span class="sd">        ``pick_id`` attribute). If not provided, the output event will include</span>
+<span class="sd">        (the rather basic) pick information that can be reconstructed from the</span>
+<span class="sd">        NonLinLoc hypocenter-phase file.</span>
+<span class="sd">    :rtype: :class:`~obspy.core.event.Catalog`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;read&quot;</span><span class="p">):</span>
+        <span class="c1"># Check if it exists, otherwise assume its a string.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;decode&quot;</span><span class="p">):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">)</span>
+
+    <span class="c1"># split lines and remove empty ones</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+
+    <span class="c1"># remember picks originally used in location, if provided</span>
+    <span class="n">original_picks</span> <span class="o">=</span> <span class="n">picks</span>
+    <span class="k">if</span> <span class="n">original_picks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">original_picks</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">cat</span> <span class="o">=</span> <span class="n">Catalog</span><span class="p">()</span>
+    <span class="n">lines_start</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+                   <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;NLLOC &quot;</span><span class="p">)]</span>
+    <span class="n">lines_end</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+                 <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;END_NLLOC&quot;</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines_start</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines_end</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;NLLOC HYP file &#39;</span><span class="si">{}</span><span class="s2">&#39; seems corrupt, number of &#39;NLLOC&#39; lines &quot;</span>
+               <span class="s2">&quot;does not match number of &#39;END_NLLOC&#39; lines&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">start_end_indices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">lines_start</span><span class="p">,</span> <span class="n">lines_end</span><span class="p">):</span>
+        <span class="n">start_end_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+        <span class="n">start_end_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">start_end_indices</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;NLLOC HYP file &#39;</span><span class="si">{}</span><span class="s2">&#39; seems corrupt, inconsistent &quot;</span>
+               <span class="s2">&quot;positioning of &#39;NLLOC&#39; and &#39;END_NLLOC&#39; lines &quot;</span>
+               <span class="s2">&quot;detected.&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">lines_start</span><span class="p">,</span> <span class="n">lines_end</span><span class="p">):</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="n">_read_single_hypocenter</span><span class="p">(</span>
+            <span class="n">lines</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">coordinate_converter</span><span class="o">=</span><span class="n">coordinate_converter</span><span class="p">,</span>
+            <span class="n">original_picks</span><span class="o">=</span><span class="n">original_picks</span><span class="p">)</span>
+        <span class="n">cat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+    <span class="n">cat</span><span class="o">.</span><span class="n">creation_info</span><span class="o">.</span><span class="n">creation_time</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">()</span>
+    <span class="n">cat</span><span class="o">.</span><span class="n">creation_info</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;ObsPy </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">__version__</span>
+    <span class="k">return</span> <span class="n">cat</span></div>
+
+
+<div class="viewcode-block" id="_read_single_hypocenter"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.nlloc.core._read_single_hypocenter.html#obspy.io.nlloc.core._read_single_hypocenter">[docs]</a><span class="k">def</span> <span class="nf">_read_single_hypocenter</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">coordinate_converter</span><span class="p">,</span> <span class="n">original_picks</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given a list of lines (starting with a &#39;NLLOC&#39; line and ending with a</span>
+<span class="sd">    &#39;END_NLLOC&#39; line), parse them into an Event.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># some paranoid checks..</span>
+        <span class="k">assert</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;NLLOC &quot;</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">lines</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;END_NLLOC&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;NLLOC &quot;</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;END_NLLOC&quot;</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;This should not have happened, please report this as a bug at &quot;</span>
+               <span class="s2">&quot;https://github.com/obspy/obspy/issues.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="n">indices_phases</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;PHASE &quot;</span><span class="p">):</span>
+            <span class="n">indices_phases</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;END_PHASE&quot;</span><span class="p">):</span>
+            <span class="n">indices_phases</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+
+    <span class="c1"># extract PHASES lines (if any)</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">indices_phases</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">indices_phases</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;NLLOC HYP file seems corrupt, &#39;PHASE&#39; block is corrupt.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span> <span class="o">=</span> <span class="n">indices_phases</span>
+        <span class="n">lines</span><span class="p">,</span> <span class="n">phases_lines</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[:</span><span class="n">i1</span><span class="p">]</span> <span class="o">+</span> <span class="n">lines</span><span class="p">[</span><span class="n">i2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:],</span> <span class="n">lines</span><span class="p">[</span><span class="n">i1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span><span class="n">i2</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">phases_lines</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">lines</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="s2">&quot;SIGNATURE&quot;</span><span class="p">]</span>
+
+    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">signature</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">time</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">creation_time</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">()</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="n">time</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">%b%Y%Hh%Mm%S&quot;</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">coordinate_converter</span><span class="p">:</span>
+        <span class="c1"># maximum likelihood origin location in km info line</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="s2">&quot;HYPOCENTER&quot;</span><span class="p">]</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">coordinate_converter</span><span class="p">(</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="mi">7</span><span class="p">:</span><span class="mi">2</span><span class="p">]))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># maximum likelihood origin location lon lat info line</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="s2">&quot;GEOGRAPHIC&quot;</span><span class="p">]</span>
+        <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">8</span><span class="p">:</span><span class="mi">13</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+
+    <span class="c1"># maximum likelihood origin time info line</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="s2">&quot;GEOGRAPHIC&quot;</span><span class="p">]</span>
+
+    <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span>
+    <span class="n">seconds</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">6</span><span class="p">])</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">seconds</span><span class="p">)</span>
+
+    <span class="c1"># distribution statistics line</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="s2">&quot;STATISTICS&quot;</span><span class="p">]</span>
+    <span class="n">covariance_xx</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">7</span><span class="p">])</span>
+    <span class="n">covariance_yy</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">13</span><span class="p">])</span>
+    <span class="n">covariance_zz</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">17</span><span class="p">])</span>
+    <span class="n">stats_info_string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
+        <span class="s2">&quot;Note: Depth/Latitude/Longitude errors are calculated from covariance &quot;</span>
+        <span class="s2">&quot;matrix as 1D marginal (Lon/Lat errors as great circle degrees) &quot;</span>
+        <span class="s2">&quot;while OriginUncertainty min/max horizontal errors are calculated &quot;</span>
+        <span class="s2">&quot;from 2D error ellipsoid and are therefore seemingly higher compared &quot;</span>
+        <span class="s2">&quot;to 1D errors. Error estimates can be reconstructed from the &quot;</span>
+        <span class="s2">&quot;following original NonLinLoc error statistics line:</span><span class="se">\n</span><span class="s2">STATISTICS &quot;</span> <span class="o">+</span>
+        <span class="n">lines</span><span class="p">[</span><span class="s2">&quot;STATISTICS&quot;</span><span class="p">])</span>
+
+    <span class="c1"># goto location quality info line</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="s2">&quot;QML_OriginQuality&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+    <span class="p">(</span><span class="n">assoc_phase_count</span><span class="p">,</span> <span class="n">used_phase_count</span><span class="p">,</span> <span class="n">assoc_station_count</span><span class="p">,</span>
+     <span class="n">used_station_count</span><span class="p">,</span> <span class="n">depth_phase_count</span><span class="p">)</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">stderr</span><span class="p">,</span> <span class="n">az_gap</span><span class="p">,</span> <span class="n">sec_az_gap</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="mi">11</span><span class="p">:</span><span class="mi">17</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">gt_level</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span>
+    <span class="n">min_dist</span><span class="p">,</span> <span class="n">max_dist</span><span class="p">,</span> <span class="n">med_dist</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="mi">19</span><span class="p">:</span><span class="mi">25</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+
+    <span class="c1"># goto location quality info line</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="s2">&quot;QML_OriginUncertainty&quot;</span><span class="p">]</span>
+
+    <span class="n">hor_unc</span><span class="p">,</span> <span class="n">min_hor_unc</span><span class="p">,</span> <span class="n">max_hor_unc</span><span class="p">,</span> <span class="n">hor_unc_azim</span> <span class="o">=</span> \
+        <span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:</span><span class="mi">9</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+
+    <span class="c1"># assign origin info</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">Origin</span><span class="p">()</span>
+    <span class="n">event</span><span class="o">.</span><span class="n">origins</span> <span class="o">=</span> <span class="p">[</span><span class="n">o</span><span class="p">]</span>
+    <span class="n">o</span><span class="o">.</span><span class="n">origin_uncertainty</span> <span class="o">=</span> <span class="n">OriginUncertainty</span><span class="p">()</span>
+    <span class="n">o</span><span class="o">.</span><span class="n">quality</span> <span class="o">=</span> <span class="n">OriginQuality</span><span class="p">()</span>
+    <span class="n">ou</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">origin_uncertainty</span>
+    <span class="n">oq</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">quality</span>
+    <span class="n">o</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Comment</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">stats_info_string</span><span class="p">))</span>
+
+    <span class="n">event</span><span class="o">.</span><span class="n">creation_info</span> <span class="o">=</span> <span class="n">CreationInfo</span><span class="p">(</span><span class="n">creation_time</span><span class="o">=</span><span class="n">creation_time</span><span class="p">,</span>
+                                       <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">)</span>
+    <span class="n">event</span><span class="o">.</span><span class="n">creation_info</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">version</span>
+    <span class="n">o</span><span class="o">.</span><span class="n">creation_info</span> <span class="o">=</span> <span class="n">CreationInfo</span><span class="p">(</span><span class="n">creation_time</span><span class="o">=</span><span class="n">creation_time</span><span class="p">,</span>
+                                   <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">)</span>
+
+    <span class="c1"># negative values can appear on diagonal of covariance matrix due to a</span>
+    <span class="c1"># precision problem in NLLoc implementation when location coordinates are</span>
+    <span class="c1"># large compared to the covariances.</span>
+    <span class="n">o</span><span class="o">.</span><span class="n">longitude</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">o</span><span class="o">.</span><span class="n">longitude_errors</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">kilometer2degrees</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">covariance_xx</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">covariance_xx</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Negative value in XX value of covariance matrix, not &quot;</span>
+                   <span class="s2">&quot;setting longitude error (epicentral uncertainties will &quot;</span>
+                   <span class="s2">&quot;still be set in origin uncertainty).&quot;</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span>
+    <span class="n">o</span><span class="o">.</span><span class="n">latitude</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">o</span><span class="o">.</span><span class="n">latitude_errors</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">kilometer2degrees</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">covariance_yy</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">covariance_yy</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Negative value in YY value of covariance matrix, not &quot;</span>
+                   <span class="s2">&quot;setting longitude error (epicentral uncertainties will &quot;</span>
+                   <span class="s2">&quot;still be set in origin uncertainty).&quot;</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span>
+    <span class="n">o</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="n">z</span> <span class="o">*</span> <span class="mf">1e3</span>  <span class="c1"># meters!</span>
+    <span class="n">o</span><span class="o">.</span><span class="n">depth_errors</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">covariance_zz</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e3</span>  <span class="c1"># meters!</span>
+    <span class="n">o</span><span class="o">.</span><span class="n">depth_errors</span><span class="o">.</span><span class="n">confidence_level</span> <span class="o">=</span> <span class="mi">68</span>
+    <span class="n">o</span><span class="o">.</span><span class="n">depth_type</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;from location&quot;</span><span class="p">)</span>
+    <span class="n">o</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">time</span>
+
+    <span class="n">ou</span><span class="o">.</span><span class="n">horizontal_uncertainty</span> <span class="o">=</span> <span class="n">hor_unc</span>
+    <span class="n">ou</span><span class="o">.</span><span class="n">min_horizontal_uncertainty</span> <span class="o">=</span> <span class="n">min_hor_unc</span>
+    <span class="n">ou</span><span class="o">.</span><span class="n">max_horizontal_uncertainty</span> <span class="o">=</span> <span class="n">max_hor_unc</span>
+    <span class="c1"># values of -1 seem to be used for unset values, set to None</span>
+    <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;horizontal_uncertainty&quot;</span><span class="p">,</span> <span class="s2">&quot;min_horizontal_uncertainty&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;max_horizontal_uncertainty&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ou</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">ou</span><span class="p">[</span><span class="n">field</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ou</span><span class="p">[</span><span class="n">field</span><span class="p">]</span> <span class="o">*=</span> <span class="mf">1e3</span>  <span class="c1"># meters!</span>
+    <span class="n">ou</span><span class="o">.</span><span class="n">azimuth_max_horizontal_uncertainty</span> <span class="o">=</span> <span class="n">hor_unc_azim</span>
+    <span class="n">ou</span><span class="o">.</span><span class="n">preferred_description</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;uncertainty ellipse&quot;</span><span class="p">)</span>
+    <span class="n">ou</span><span class="o">.</span><span class="n">confidence_level</span> <span class="o">=</span> <span class="mi">68</span>  <span class="c1"># NonLinLoc in general uses 1-sigma (68%) level</span>
+
+    <span class="n">oq</span><span class="o">.</span><span class="n">standard_error</span> <span class="o">=</span> <span class="n">stderr</span>
+    <span class="n">oq</span><span class="o">.</span><span class="n">azimuthal_gap</span> <span class="o">=</span> <span class="n">az_gap</span>
+    <span class="n">oq</span><span class="o">.</span><span class="n">secondary_azimuthal_gap</span> <span class="o">=</span> <span class="n">sec_az_gap</span>
+    <span class="n">oq</span><span class="o">.</span><span class="n">used_phase_count</span> <span class="o">=</span> <span class="n">used_phase_count</span>
+    <span class="n">oq</span><span class="o">.</span><span class="n">used_station_count</span> <span class="o">=</span> <span class="n">used_station_count</span>
+    <span class="n">oq</span><span class="o">.</span><span class="n">associated_phase_count</span> <span class="o">=</span> <span class="n">assoc_phase_count</span>
+    <span class="n">oq</span><span class="o">.</span><span class="n">associated_station_count</span> <span class="o">=</span> <span class="n">assoc_station_count</span>
+    <span class="n">oq</span><span class="o">.</span><span class="n">depth_phase_count</span> <span class="o">=</span> <span class="n">depth_phase_count</span>
+    <span class="n">oq</span><span class="o">.</span><span class="n">ground_truth_level</span> <span class="o">=</span> <span class="n">gt_level</span>
+    <span class="n">oq</span><span class="o">.</span><span class="n">minimum_distance</span> <span class="o">=</span> <span class="n">kilometer2degrees</span><span class="p">(</span><span class="n">min_dist</span><span class="p">)</span>
+    <span class="n">oq</span><span class="o">.</span><span class="n">maximum_distance</span> <span class="o">=</span> <span class="n">kilometer2degrees</span><span class="p">(</span><span class="n">max_dist</span><span class="p">)</span>
+    <span class="n">oq</span><span class="o">.</span><span class="n">median_distance</span> <span class="o">=</span> <span class="n">kilometer2degrees</span><span class="p">(</span><span class="n">med_dist</span><span class="p">)</span>
+
+    <span class="c1"># go through all phase info lines</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">phases_lines</span><span class="p">:</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">arrival</span> <span class="o">=</span> <span class="n">Arrival</span><span class="p">()</span>
+        <span class="n">o</span><span class="o">.</span><span class="n">arrivals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arrival</span><span class="p">)</span>
+        <span class="n">station</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">phase</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+        <span class="n">arrival</span><span class="o">.</span><span class="n">phase</span> <span class="o">=</span> <span class="n">phase</span>
+        <span class="n">arrival</span><span class="o">.</span><span class="n">distance</span> <span class="o">=</span> <span class="n">kilometer2degrees</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">21</span><span class="p">]))</span>
+        <span class="n">arrival</span><span class="o">.</span><span class="n">azimuth</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">23</span><span class="p">])</span>
+        <span class="n">arrival</span><span class="o">.</span><span class="n">takeoff_angle</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">24</span><span class="p">])</span>
+        <span class="n">arrival</span><span class="o">.</span><span class="n">time_residual</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">16</span><span class="p">])</span>
+        <span class="n">arrival</span><span class="o">.</span><span class="n">time_weight</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">17</span><span class="p">])</span>
+        <span class="n">pick</span> <span class="o">=</span> <span class="n">Pick</span><span class="p">()</span>
+        <span class="c1"># network codes are not used by NonLinLoc, so they can not be known</span>
+        <span class="c1"># when reading the .hyp file.. to conform with QuakeML standard set an</span>
+        <span class="c1"># empty network code</span>
+        <span class="n">wid</span> <span class="o">=</span> <span class="n">WaveformStreamID</span><span class="p">(</span><span class="n">network_code</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">station_code</span><span class="o">=</span><span class="n">station</span><span class="p">)</span>
+        <span class="n">date</span><span class="p">,</span> <span class="n">hourmin</span><span class="p">,</span> <span class="n">sec</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">9</span><span class="p">])</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">()</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="n">hourmin</span><span class="p">,</span> <span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">%H%M&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">sec</span><span class="p">)</span>
+        <span class="n">pick</span><span class="o">.</span><span class="n">waveform_id</span> <span class="o">=</span> <span class="n">wid</span>
+        <span class="n">pick</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">t</span>
+        <span class="n">pick</span><span class="o">.</span><span class="n">time_errors</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+        <span class="n">pick</span><span class="o">.</span><span class="n">phase_hint</span> <span class="o">=</span> <span class="n">phase</span>
+        <span class="n">pick</span><span class="o">.</span><span class="n">onset</span> <span class="o">=</span> <span class="n">ONSETS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">pick</span><span class="o">.</span><span class="n">polarity</span> <span class="o">=</span> <span class="n">POLARITIES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="c1"># try to determine original pick for each arrival</span>
+        <span class="k">for</span> <span class="n">pick_</span> <span class="ow">in</span> <span class="n">original_picks</span><span class="p">:</span>
+            <span class="n">wid</span> <span class="o">=</span> <span class="n">pick_</span><span class="o">.</span><span class="n">waveform_id</span>
+            <span class="k">if</span> <span class="n">station</span> <span class="o">==</span> <span class="n">wid</span><span class="o">.</span><span class="n">station_code</span> <span class="ow">and</span> <span class="n">phase</span> <span class="o">==</span> <span class="n">pick_</span><span class="o">.</span><span class="n">phase_hint</span><span class="p">:</span>
+                <span class="n">pick</span> <span class="o">=</span> <span class="n">pick_</span>
+                <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># warn if original picks were specified and we could not associate</span>
+            <span class="c1"># the arrival correctly</span>
+            <span class="k">if</span> <span class="n">original_picks</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Could not determine corresponding original pick for &quot;</span>
+                       <span class="s2">&quot;arrival. &quot;</span>
+                       <span class="s2">&quot;Falling back to pick information in NonLinLoc &quot;</span>
+                       <span class="s2">&quot;hypocenter-phase file.&quot;</span><span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">picks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pick</span><span class="p">)</span>
+        <span class="n">arrival</span><span class="o">.</span><span class="n">pick_id</span> <span class="o">=</span> <span class="n">pick</span><span class="o">.</span><span class="n">resource_id</span>
+
+    <span class="k">return</span> <span class="n">event</span></div>
+
+
+<div class="viewcode-block" id="write_nlloc_obs"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.nlloc.core.write_nlloc_obs.html#obspy.io.nlloc.core.write_nlloc_obs">[docs]</a><span class="k">def</span> <span class="nf">write_nlloc_obs</span><span class="p">(</span><span class="n">catalog</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write a NonLinLoc Phase file (NLLOC_OBS) from a</span>
+<span class="sd">    :class:`~obspy.core.event.Catalog` object.</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        This function should NOT be called directly, it registers via the</span>
+<span class="sd">        the :meth:`~obspy.core.event.Catalog.write` method of an</span>
+<span class="sd">        ObsPy :class:`~obspy.core.event.Catalog` object, call this instead.</span>
+
+<span class="sd">    :type catalog: :class:`~obspy.core.stream.Catalog`</span>
+<span class="sd">    :param catalog: The ObsPy Catalog object to write.</span>
+<span class="sd">    :type filename: str or file</span>
+<span class="sd">    :param filename: Filename to write or open file-like object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Open filehandler or use an existing file like object.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;write&quot;</span><span class="p">):</span>
+        <span class="n">file_opened</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">fh</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">file_opened</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">fh</span> <span class="o">=</span> <span class="n">filename</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">catalog</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Writing NonLinLoc Phase file is only supported for Catalogs &quot;</span>
+               <span class="s2">&quot;with a single Event in it (use a for loop over the catalog &quot;</span>
+               <span class="s2">&quot;and provide an output file name for each event).&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="n">fmt</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> </span><span class="si">%7.4f</span><span class="s1"> GAU </span><span class="si">%9.2e</span><span class="s1"> </span><span class="si">%9.2e</span><span class="s1"> </span><span class="si">%9.2e</span><span class="s1"> </span><span class="si">%9.2e</span><span class="s1">&#39;</span>
+    <span class="k">for</span> <span class="n">pick</span> <span class="ow">in</span> <span class="n">catalog</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">picks</span><span class="p">:</span>
+        <span class="n">wid</span> <span class="o">=</span> <span class="n">pick</span><span class="o">.</span><span class="n">waveform_id</span>
+        <span class="n">station</span> <span class="o">=</span> <span class="n">wid</span><span class="o">.</span><span class="n">station_code</span> <span class="ow">or</span> <span class="s2">&quot;?&quot;</span>
+        <span class="n">component</span> <span class="o">=</span> <span class="n">wid</span><span class="o">.</span><span class="n">channel_code</span> <span class="ow">and</span> <span class="n">wid</span><span class="o">.</span><span class="n">channel_code</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">or</span> <span class="s2">&quot;?&quot;</span>
+        <span class="k">if</span> <span class="n">component</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s2">&quot;ZNEH&quot;</span><span class="p">:</span>
+            <span class="n">component</span> <span class="o">=</span> <span class="s2">&quot;?&quot;</span>
+        <span class="n">onset</span> <span class="o">=</span> <span class="n">ONSETS_REVERSE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pick</span><span class="o">.</span><span class="n">onset</span><span class="p">,</span> <span class="s2">&quot;?&quot;</span><span class="p">)</span>
+        <span class="n">phase_type</span> <span class="o">=</span> <span class="n">pick</span><span class="o">.</span><span class="n">phase_hint</span> <span class="ow">or</span> <span class="s2">&quot;?&quot;</span>
+        <span class="n">polarity</span> <span class="o">=</span> <span class="n">POLARITIES_REVERSE</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pick</span><span class="o">.</span><span class="n">polarity</span><span class="p">,</span> <span class="s2">&quot;?&quot;</span><span class="p">)</span>
+        <span class="n">date</span> <span class="o">=</span> <span class="n">pick</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">hourminute</span> <span class="o">=</span> <span class="n">pick</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%H%M&quot;</span><span class="p">)</span>
+        <span class="n">seconds</span> <span class="o">=</span> <span class="n">pick</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">second</span> <span class="o">+</span> <span class="n">pick</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">*</span> <span class="mf">1e-6</span>
+        <span class="n">time_error</span> <span class="o">=</span> <span class="n">pick</span><span class="o">.</span><span class="n">time_errors</span><span class="o">.</span><span class="n">uncertainty</span> <span class="ow">or</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">time_error</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">time_error</span> <span class="o">=</span> <span class="p">(</span><span class="n">pick</span><span class="o">.</span><span class="n">time_errors</span><span class="o">.</span><span class="n">upper_uncertainty</span> <span class="o">+</span>
+                              <span class="n">pick</span><span class="o">.</span><span class="n">time_errors</span><span class="o">.</span><span class="n">lower_uncertainty</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="n">info_</span> <span class="o">=</span> <span class="n">fmt</span> <span class="o">%</span> <span class="p">(</span><span class="n">station</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span> <span class="s2">&quot;?&quot;</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">component</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+                       <span class="n">onset</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">phase_type</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span> <span class="n">polarity</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+                       <span class="n">date</span><span class="p">,</span> <span class="n">hourminute</span><span class="p">,</span> <span class="n">seconds</span><span class="p">,</span> <span class="n">time_error</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">info_</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">info</span><span class="p">:</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No pick information, writing empty NLLOC OBS file.&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+
+    <span class="c1"># Close if a file has been opened by this function.</span>
+    <span class="k">if</span> <span class="n">file_opened</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">fh</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

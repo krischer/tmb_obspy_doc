@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.core.event.base &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.core.event.base</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">obspy.core.event.base - Classes for handling event metadata</span>
+<span class="sd">===========================================================</span>
+<span class="sd">This module provides a class hierarchy to consistently handle event metadata.</span>
+<span class="sd">This class hierarchy is closely modelled after the de-facto standard format</span>
+<span class="sd">`QuakeML &lt;https://quake.ethz.ch/quakeml/&gt;`_.</span>
+
+<span class="sd">.. figure:: /_images/Event.png</span>
+
+<span class="sd">.. note::</span>
+
+<span class="sd">    For handling additional information not covered by the QuakeML standard and</span>
+<span class="sd">    how to output it to QuakeML see the :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+<span class="kn">from</span> <span class="nn">future.utils</span> <span class="k">import</span> <span class="n">native_str</span>
+
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">weakref</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">uuid</span> <span class="k">import</span> <span class="n">uuid4</span>
+
+<span class="kn">from</span> <span class="nn">obspy.core.event.header</span> <span class="k">import</span> <span class="n">DataUsedWaveType</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span>
+<span class="kn">from</span> <span class="nn">obspy.core.utcdatetime</span> <span class="k">import</span> <span class="n">UTCDateTime</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util</span> <span class="k">import</span> <span class="n">AttribDict</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.decorator</span> <span class="k">import</span> <span class="n">deprecated</span>
+
+
+<div class="viewcode-block" id="QuantityError"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.QuantityError.html#obspy.core.event.base.QuantityError">[docs]</a><span class="k">class</span> <span class="nc">QuantityError</span><span class="p">(</span><span class="n">AttribDict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Uncertainty information for a physical quantity.</span>
+
+<span class="sd">    :type uncertainty: float</span>
+<span class="sd">    :param uncertainty: Uncertainty as the absolute value of symmetric</span>
+<span class="sd">        deviation from the main value.</span>
+<span class="sd">    :type lower_uncertainty: float</span>
+<span class="sd">    :param lower_uncertainty: Uncertainty as the absolute value of deviation</span>
+<span class="sd">        from the main value towards smaller values.</span>
+<span class="sd">    :type upper_uncertainty: float</span>
+<span class="sd">    :param upper_uncertainty: Uncertainty as the absolute value of deviation</span>
+<span class="sd">        from the main value towards larger values.</span>
+<span class="sd">    :type confidence_level: float</span>
+<span class="sd">    :param confidence_level: Confidence level of the uncertainty, given in</span>
+<span class="sd">        percent (0-100).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;uncertainty&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;lower_uncertainty&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s2">&quot;upper_uncertainty&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;confidence_level&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+    <span class="n">warn_on_non_default_key</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="QuantityError.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.QuantityError.__init__.html#obspy.core.event.base.QuantityError.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uncertainty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lower_uncertainty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">upper_uncertainty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">confidence_level</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">QuantityError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">uncertainty</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lower_uncertainty</span> <span class="o">=</span> <span class="n">lower_uncertainty</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">upper_uncertainty</span> <span class="o">=</span> <span class="n">upper_uncertainty</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">confidence_level</span> <span class="o">=</span> <span class="n">confidence_level</span></div>
+
+<div class="viewcode-block" id="QuantityError.__bool__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.QuantityError.__bool__.html#obspy.core.event.base.QuantityError.__bool__">[docs]</a>    <span class="k">def</span> <span class="nf">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Boolean testing for QuantityError.</span>
+
+<span class="sd">        QuantityError evaluates ``True`` if any of the default fields is not</span>
+<span class="sd">        ``None``.</span>
+
+<span class="sd">        &gt;&gt;&gt; err = QuantityError()</span>
+<span class="sd">        &gt;&gt;&gt; bool(err)</span>
+<span class="sd">        False</span>
+<span class="sd">        &gt;&gt;&gt; err.custom_field = &quot;spam&quot;</span>
+<span class="sd">        &gt;&gt;&gt; bool(err)</span>
+<span class="sd">        False</span>
+<span class="sd">        &gt;&gt;&gt; err.uncertainty = 0.05</span>
+<span class="sd">        &gt;&gt;&gt; bool(err)</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; del err.custom_field</span>
+<span class="sd">        &gt;&gt;&gt; bool(err)</span>
+<span class="sd">        True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">any</span><span class="p">([</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">defaults</span><span class="p">])</span></div>
+
+    <span class="c1"># Python 2 compatibility</span>
+    <span class="n">__nonzero__</span> <span class="o">=</span> <span class="fm">__bool__</span></div>
+
+
+<div class="viewcode-block" id="_bool"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base._bool.html#obspy.core.event.base._bool">[docs]</a><span class="k">def</span> <span class="nf">_bool</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A custom bool() implementation that returns</span>
+<span class="sd">    True for any value (including zero) of int and float,</span>
+<span class="sd">    and for (empty) strings.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">native_str</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_event_type_class_factory"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base._event_type_class_factory.html#obspy.core.event.base._event_type_class_factory">[docs]</a><span class="k">def</span> <span class="nf">_event_type_class_factory</span><span class="p">(</span><span class="n">class_name</span><span class="p">,</span> <span class="n">class_attributes</span><span class="o">=</span><span class="p">[],</span>
+                              <span class="n">class_contains</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class factory to unify the creation of all the types needed for the event</span>
+<span class="sd">    handling in ObsPy.</span>
+
+<span class="sd">    The types oftentimes share attributes and setting them manually every time</span>
+<span class="sd">    is cumbersome, error-prone and hard to do consistently. The classes created</span>
+<span class="sd">    with this method will inherit from :class:`~obspy.core.util.AttribDict`.</span>
+
+<span class="sd">    Usage to create a new class type:</span>
+
+<span class="sd">    The created class will assure that any given (key, type) attribute pairs</span>
+<span class="sd">    will always be of the given type and will attempt to convert any given</span>
+<span class="sd">    value to the correct type and raise an error otherwise. This happens to</span>
+<span class="sd">    values given during initialization as well as values set when the object</span>
+<span class="sd">    has already been created. A useful type is Enum if you want to restrict</span>
+<span class="sd">    the acceptable values.</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy.core.util import Enum</span>
+<span class="sd">        &gt;&gt;&gt; MyEnum = Enum([&quot;a&quot;, &quot;b&quot;, &quot;c&quot;])</span>
+<span class="sd">        &gt;&gt;&gt; class_attributes = [ \</span>
+<span class="sd">                (&quot;resource_id&quot;, ResourceIdentifier), \</span>
+<span class="sd">                (&quot;creation_info&quot;, CreationInfo), \</span>
+<span class="sd">                (&quot;some_letters&quot;, MyEnum), \</span>
+<span class="sd">                (&quot;some_error_quantity&quot;, float, ATTRIBUTE_HAS_ERRORS), \</span>
+<span class="sd">                (&quot;description&quot;, str)]</span>
+
+<span class="sd">    Furthermore the class can contain lists of other objects. There is not much</span>
+<span class="sd">    to it so far. Giving the name of the created class is mandatory.</span>
+
+<span class="sd">        &gt;&gt;&gt; class_contains = [&quot;comments&quot;]</span>
+<span class="sd">        &gt;&gt;&gt; TestEventClass = _event_type_class_factory(&quot;TestEventClass&quot;, \</span>
+<span class="sd">                class_attributes=class_attributes, \</span>
+<span class="sd">                class_contains=class_contains)</span>
+<span class="sd">        &gt;&gt;&gt; assert(TestEventClass.__name__ == &quot;TestEventClass&quot;)</span>
+
+<span class="sd">    Now the new class type can be used.</span>
+
+<span class="sd">        &gt;&gt;&gt; test_event = TestEventClass(resource_id=&quot;event/123456&quot;, \</span>
+<span class="sd">                creation_info={&quot;author&quot;: &quot;obspy.org&quot;, &quot;version&quot;: &quot;0.1&quot;})</span>
+
+<span class="sd">    All given arguments will be converted to the right type upon setting them.</span>
+
+<span class="sd">        &gt;&gt;&gt; test_event.resource_id</span>
+<span class="sd">        ResourceIdentifier(id=&quot;event/123456&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; print(test_event.creation_info)</span>
+<span class="sd">        CreationInfo(author=&#39;obspy.org&#39;, version=&#39;0.1&#39;)</span>
+
+<span class="sd">    All others will be set to None.</span>
+
+<span class="sd">        &gt;&gt;&gt; assert(test_event.description is None)</span>
+<span class="sd">        &gt;&gt;&gt; assert(test_event.some_letters is None)</span>
+
+<span class="sd">    If the resource_id attribute of the created class type is set, the object</span>
+<span class="sd">    the ResourceIdentifier refers to will be the class instance.</span>
+
+<span class="sd">        &gt;&gt;&gt; assert(id(test_event) == \</span>
+<span class="sd">            id(test_event.resource_id.get_referred_object()))</span>
+
+<span class="sd">    They can be set later and will be converted to the appropriate type if</span>
+<span class="sd">    possible.</span>
+
+<span class="sd">        &gt;&gt;&gt; test_event.description = 1</span>
+<span class="sd">        &gt;&gt;&gt; assert(test_event.description == &quot;1&quot;)</span>
+
+<span class="sd">    Trying to set with an inappropriate value will raise an error.</span>
+
+<span class="sd">        &gt;&gt;&gt; test_event.some_letters = &quot;d&quot; # doctest:+ELLIPSIS</span>
+<span class="sd">        Traceback (most recent call last):</span>
+<span class="sd">            ...</span>
+<span class="sd">        ValueError: Setting attribute &quot;some_letters&quot; failed. ...</span>
+
+<span class="sd">    If you pass ``ATTRIBUTE_HAS_ERRORS`` as the third tuple item for the</span>
+<span class="sd">    class_attributes, a error (type</span>
+<span class="sd">    :class:`~obspy.core.event.base.QuantityError`) will be be created that will</span>
+<span class="sd">    be named like the attribute with &quot;_errors&quot; appended.</span>
+
+<span class="sd">        &gt;&gt;&gt; assert(hasattr(test_event, &quot;some_error_quantity_errors&quot;))</span>
+<span class="sd">        &gt;&gt;&gt; test_event.some_error_quantity_errors  # doctest: +ELLIPSIS</span>
+<span class="sd">        QuantityError(...)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">class</span> <span class="nc">AbstractEventType</span><span class="p">(</span><span class="n">AttribDict</span><span class="p">):</span>
+        <span class="c1"># Keep the class attributes in a class level list for a manual property</span>
+        <span class="c1"># implementation that works when inheriting from AttribDict.</span>
+        <span class="n">_properties</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">class_attributes</span><span class="p">:</span>
+            <span class="n">_properties</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">:</span>
+                <span class="n">_properties</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;_errors&quot;</span><span class="p">,</span> <span class="n">QuantityError</span><span class="p">))</span>
+        <span class="n">_property_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">_properties</span><span class="p">]</span>
+        <span class="n">_property_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">_properties</span><span class="p">:</span>
+            <span class="n">_property_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">_containers</span> <span class="o">=</span> <span class="n">class_contains</span>
+        <span class="n">warn_on_non_default_key</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">class_contains</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">_property_keys</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+        <span class="n">do_not_warn_on</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;extra&quot;</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="c1"># Make sure the args work as expected. Therefore any specified</span>
+            <span class="c1"># arg will overwrite a potential kwarg, e.g. arg at position 0 will</span>
+            <span class="c1"># overwrite kwargs class_attributes[0].</span>
+            <span class="k">for</span> <span class="n">_i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+                <span class="c1"># Use the class_attributes list here because it is not yet</span>
+                <span class="c1"># polluted be the error quantities.</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="n">class_attributes</span><span class="p">[</span><span class="n">_i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">item</span>
+            <span class="c1"># Set all property values to None or the kwarg value.</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="c1"># special handling for resource id</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;resource_id&quot;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;force_resource_id&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="n">value</span> <span class="o">=</span> <span class="n">ResourceIdentifier</span><span class="p">()</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="c1"># Containers currently are simple lists.</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_containers</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">[])))</span>
+            <span class="c1"># All errors are QuantityError. If they are not set yet, set them</span>
+            <span class="c1"># now.</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;_errors&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">QuantityError</span><span class="p">())</span>
+
+        <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">AbstractEventType</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">force_resource_id</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force_one_line</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Fairly extensive in an attempt to cover several use cases. It is</span>
+<span class="sd">            always possible to change it in the child class.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="c1"># Get the attribute and containers that are to be printed. Only not</span>
+            <span class="c1"># None attributes and non-error attributes are printed. The errors</span>
+            <span class="c1"># will appear behind the actual value.</span>
+            <span class="c1"># We use custom _bool() for testing getattr() since we want to</span>
+            <span class="c1"># print int and float values that are equal to zero and empty</span>
+            <span class="c1"># strings.</span>
+            <span class="n">attributes</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_keys</span> <span class="k">if</span> <span class="ow">not</span>
+                          <span class="n">_i</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;_errors&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">_bool</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_i</span><span class="p">))]</span>
+            <span class="n">containers</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_containers</span> <span class="k">if</span>
+                          <span class="n">_bool</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_i</span><span class="p">))]</span>
+
+            <span class="c1"># Get the longest attribute/container name to print all of them</span>
+            <span class="c1"># nicely aligned.</span>
+            <span class="n">max_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">_i</span><span class="p">)</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">attributes</span><span class="p">])</span>
+                             <span class="k">if</span> <span class="n">attributes</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+                             <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">_i</span><span class="p">)</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">containers</span><span class="p">])</span>
+                             <span class="k">if</span> <span class="n">containers</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+            <span class="n">ret_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+
+            <span class="c1"># Case 1: Empty object.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">attributes</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">containers</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">ret_str</span> <span class="o">+</span> <span class="s2">&quot;()&quot;</span>
+
+            <span class="k">def</span> <span class="nf">get_value_repr</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">native_str</span><span class="p">)):</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">native_str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="n">repr_str</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
+                <span class="c1"># Print any associated errors.</span>
+                <span class="n">error_key</span> <span class="o">=</span> <span class="n">key</span> <span class="o">+</span> <span class="s2">&quot;_errors&quot;</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">error_key</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                    <span class="n">err_items</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_key</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+                    <span class="n">repr_str</span> <span class="o">+=</span> <span class="s2">&quot; [</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                        <span class="nb">sorted</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">err_items</span>
+                                <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]))</span>
+                <span class="k">return</span> <span class="n">repr_str</span>
+
+            <span class="c1"># Case 2: Short representation for small objects. Will just print a</span>
+            <span class="c1"># single line.</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">attributes</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">containers</span> <span class="ow">or</span>\
+               <span class="n">force_one_line</span><span class="p">:</span>
+                <span class="n">att_strs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">_i</span><span class="p">,</span> <span class="n">get_value_repr</span><span class="p">(</span><span class="n">_i</span><span class="p">))</span>
+                            <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">attributes</span> <span class="k">if</span> <span class="n">_bool</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_i</span><span class="p">))]</span>
+                <span class="n">ret_str</span> <span class="o">+=</span> <span class="s2">&quot;(</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">att_strs</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">ret_str</span>
+
+            <span class="c1"># Case 3: Verbose string representation for large object.</span>
+            <span class="k">if</span> <span class="n">attributes</span><span class="p">:</span>
+                <span class="n">format_str</span> <span class="o">=</span> <span class="s2">&quot;%&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">max_length</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;s: </span><span class="si">%s</span><span class="s2">&quot;</span>
+                <span class="n">att_strs</span> <span class="o">=</span> <span class="p">[</span><span class="n">format_str</span> <span class="o">%</span> <span class="p">(</span><span class="n">_i</span><span class="p">,</span> <span class="n">get_value_repr</span><span class="p">(</span><span class="n">_i</span><span class="p">))</span>
+                            <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">attributes</span> <span class="k">if</span> <span class="n">_bool</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_i</span><span class="p">))]</span>
+                <span class="n">ret_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">att_strs</span><span class="p">)</span>
+
+            <span class="c1"># For the containers just print the number of elements in each.</span>
+            <span class="k">if</span> <span class="n">containers</span><span class="p">:</span>
+                <span class="c1"># Print delimiter only if there are attributes.</span>
+                <span class="k">if</span> <span class="n">attributes</span><span class="p">:</span>
+                    <span class="n">ret_str</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;---------&#39;</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="n">max_length</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span>
+                <span class="n">element_str</span> <span class="o">=</span> <span class="s2">&quot;%&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">max_length</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;s: </span><span class="si">%i</span><span class="s2"> Elements&quot;</span>
+                <span class="n">ret_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span> <span class="o">+</span> \
+                    <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">element_str</span> <span class="o">%</span> <span class="p">(</span><span class="n">_i</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_i</span><span class="p">)))</span>
+                         <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">containers</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">ret_str</span>
+
+        <span class="k">def</span> <span class="nf">_repr_pretty_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cycle</span><span class="p">):</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+        <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">(</span><span class="n">force_one_line</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># called for bool on PY2</span>
+        <span class="k">def</span> <span class="nf">__nonzero__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__bool__</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="c1"># We use custom _bool() for testing getattr() since we want</span>
+            <span class="c1"># zero valued int and float and empty string attributes to be True.</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="n">_bool</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_i</span><span class="p">))</span>
+                    <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_keys</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_containers</span><span class="p">]):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Two instances are considered equal if all attributes and all lists</span>
+<span class="sd">            are identical.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="c1"># Looping should be quicker on average than a list comprehension</span>
+            <span class="c1"># because only the first non-equal attribute will already return.</span>
+            <span class="k">for</span> <span class="n">attrib</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_keys</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">attrib</span><span class="p">)</span> <span class="ow">or</span> \
+                   <span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attrib</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">attrib</span><span class="p">)):</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">container</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_containers</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">container</span><span class="p">)</span> <span class="ow">or</span> \
+                   <span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">container</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">container</span><span class="p">)):</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">def</span> <span class="nf">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+            <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Custom property implementation that works if the class is</span>
+<span class="sd">            inheriting from AttribDict.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="c1"># Pass to the parent method if not a custom property.</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">AttribDict</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="n">attrib_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+            <span class="c1"># If the value is None or already the correct type just set it.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">attrib_type</span><span class="p">):</span>
+                <span class="c1"># If it is a dict, and the attrib_type is no dict, than all</span>
+                <span class="c1"># values will be assumed to be keyword arguments.</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="n">new_value</span> <span class="o">=</span> <span class="n">attrib_type</span><span class="p">(</span><span class="o">**</span><span class="n">value</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">new_value</span> <span class="o">=</span> <span class="n">attrib_type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">new_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Setting attribute &quot;</span><span class="si">%s</span><span class="s1">&quot; failed. &#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                    <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;Value &quot;</span><span class="si">%s</span><span class="s1">&quot; could not be converted to type &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> \
+                        <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">attrib_type</span><span class="p">))</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">new_value</span>
+            <span class="n">AttribDict</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="c1"># If &quot;name&quot; is resource_id and value is not None, set the referred</span>
+            <span class="c1"># object of the ResourceIdentifier to self.</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;resource_id&quot;</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">resource_id</span><span class="o">.</span><span class="n">set_referred_object</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">AbstractEventTypeWithResourceID</span><span class="p">(</span><span class="n">AbstractEventType</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force_resource_id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;force_resource_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">force_resource_id</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">AbstractEventTypeWithResourceID</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span>
+                                                                  <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s2">&quot;resource_id&quot;</span> <span class="ow">in</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">class_attributes</span><span class="p">]:</span>
+        <span class="n">base_class</span> <span class="o">=</span> <span class="n">AbstractEventTypeWithResourceID</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">base_class</span> <span class="o">=</span> <span class="n">AbstractEventType</span>
+
+    <span class="c1"># Set the class type name.</span>
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">base_class</span><span class="p">,</span> <span class="s2">&quot;__name__&quot;</span><span class="p">,</span> <span class="n">native_str</span><span class="p">(</span><span class="n">class_name</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">base_class</span></div>
+
+
+<div class="viewcode-block" id="ResourceIdentifier"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.ResourceIdentifier.html#obspy.core.event.base.ResourceIdentifier">[docs]</a><span class="k">class</span> <span class="nc">ResourceIdentifier</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Unique identifier of any resource so it can be referred to.</span>
+
+<span class="sd">    In QuakeML many elements and types can have a unique id that other elements</span>
+<span class="sd">    use to refer to it. This is called a ResourceIdentifier and it is used for</span>
+<span class="sd">    the same purpose in the obspy.core.event classes.</span>
+
+<span class="sd">    In QuakeML it has to be of the following regex form::</span>
+
+<span class="sd">        (smi|quakeml):[\w\d][\w\d\-\.\*\(\)_~&#39;]{2,}/[\w\d\-\.\*\(\)_~&#39;]</span>
+<span class="sd">        [\w\d\-\.\*\(\)\+\?_~&#39;=,;#/&amp;amp;]*</span>
+
+<span class="sd">    e.g.</span>
+
+<span class="sd">    * ``smi:sub.website.org/event/12345678``</span>
+<span class="sd">    * ``quakeml:google.org/pick/unique_pick_id``</span>
+
+<span class="sd">    smi stands for &quot;seismological meta-information&quot;.</span>
+
+<span class="sd">    In this class it can be any hashable object, e.g. most immutable objects</span>
+<span class="sd">    like numbers and strings.</span>
+
+<span class="sd">    :type id: str, optional</span>
+<span class="sd">    :param id: A unique identifier of the element it refers to. It is</span>
+<span class="sd">        not verified, that it actually is unique. The user has to take care of</span>
+<span class="sd">        that. If no resource_id is given, uuid.uuid4() will be used to</span>
+<span class="sd">        create one which assures uniqueness within one Python run.</span>
+<span class="sd">        If no fixed id is provided, the ID will be built from prefix</span>
+<span class="sd">        and a random uuid hash. The random hash part can be regenerated by the</span>
+<span class="sd">        referred object automatically if it gets changed.</span>
+<span class="sd">    :type prefix: str, optional</span>
+<span class="sd">    :param prefix: An optional identifier that will be put in front of any</span>
+<span class="sd">        automatically created resource id. The prefix will only have an effect</span>
+<span class="sd">        if `id` is not specified (for a fixed ID string). Makes automatically</span>
+<span class="sd">        generated resource ids more reasonable. By default &quot;smi:local&quot; is used</span>
+<span class="sd">        which ensures a QuakeML conform resource identifier.</span>
+<span class="sd">    :type referred_object: Python object, optional</span>
+<span class="sd">    :param referred_object: The object this instance refers to. All instances</span>
+<span class="sd">        created with the same resource_id will be able to access the object as</span>
+<span class="sd">        long as at least one instance actual has a reference to it.</span>
+
+<span class="sd">    .. rubric:: General Usage</span>
+
+<span class="sd">    &gt;&gt;&gt; ResourceIdentifier(&#39;2012-04-11--385392&#39;)</span>
+<span class="sd">    ResourceIdentifier(id=&quot;2012-04-11--385392&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; # If &#39;id&#39; is not specified it will be generated automatically.</span>
+<span class="sd">    &gt;&gt;&gt; ResourceIdentifier()  # doctest: +ELLIPSIS</span>
+<span class="sd">    ResourceIdentifier(id=&quot;smi:local/...&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; # Supplying a prefix will simply prefix the automatically generated ID</span>
+<span class="sd">    &gt;&gt;&gt; ResourceIdentifier(prefix=&#39;event&#39;)  # doctest: +ELLIPSIS</span>
+<span class="sd">    ResourceIdentifier(id=&quot;event/...&quot;)</span>
+
+<span class="sd">    ResourceIdentifiers can, and oftentimes should, carry a reference to the</span>
+<span class="sd">    object they refer to. This is a weak reference which means that if the</span>
+<span class="sd">    object get deleted or runs out of scope, e.g. gets garbage collected, the</span>
+<span class="sd">    reference will cease to exist.</span>
+
+<span class="sd">    &gt;&gt;&gt; from obspy.core.event import Event</span>
+<span class="sd">    &gt;&gt;&gt; event = Event()</span>
+<span class="sd">    &gt;&gt;&gt; import sys</span>
+<span class="sd">    &gt;&gt;&gt; ref_count = sys.getrefcount(event)</span>
+<span class="sd">    &gt;&gt;&gt; res_id = ResourceIdentifier(referred_object=event)</span>
+<span class="sd">    &gt;&gt;&gt; # The reference does not changed the reference count of the object.</span>
+<span class="sd">    &gt;&gt;&gt; print(ref_count == sys.getrefcount(event))</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; # It actually is the same object.</span>
+<span class="sd">    &gt;&gt;&gt; print(event is res_id.get_referred_object())</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; # Deleting it, or letting the garbage collector handle the object will</span>
+<span class="sd">    &gt;&gt;&gt; # invalidate the reference.</span>
+<span class="sd">    &gt;&gt;&gt; del event</span>
+<span class="sd">    &gt;&gt;&gt; print(res_id.get_referred_object())</span>
+<span class="sd">    None</span>
+
+<span class="sd">    The most powerful ability (and reason why one would want to use a resource</span>
+<span class="sd">    identifier class in the first place) is that once a ResourceIdentifier with</span>
+<span class="sd">    an attached referred object has been created, any other ResourceIdentifier</span>
+<span class="sd">    instances with the same ID can retrieve that object. This works</span>
+<span class="sd">    across all ResourceIdentifiers that have been instantiated within one</span>
+<span class="sd">    Python run.</span>
+<span class="sd">    This enables, e.g. the resource references between the different QuakeML</span>
+<span class="sd">    elements to work in a rather natural way.</span>
+
+<span class="sd">    &gt;&gt;&gt; event_object = Event()</span>
+<span class="sd">    &gt;&gt;&gt; obj_id = id(event_object)</span>
+<span class="sd">    &gt;&gt;&gt; res_id = &quot;obspy.org/event/test&quot;</span>
+<span class="sd">    &gt;&gt;&gt; ref_a = ResourceIdentifier(res_id)</span>
+<span class="sd">    &gt;&gt;&gt; # The object is refers to cannot be found yet. Because no instance that</span>
+<span class="sd">    &gt;&gt;&gt; # an attached object has been created so far.</span>
+<span class="sd">    &gt;&gt;&gt; print(ref_a.get_referred_object())</span>
+<span class="sd">    None</span>
+<span class="sd">    &gt;&gt;&gt; # This instance has an attached object.</span>
+<span class="sd">    &gt;&gt;&gt; ref_b = ResourceIdentifier(res_id, referred_object=event_object)</span>
+<span class="sd">    &gt;&gt;&gt; ref_c = ResourceIdentifier(res_id)</span>
+<span class="sd">    &gt;&gt;&gt; # All ResourceIdentifiers will refer to the same object.</span>
+<span class="sd">    &gt;&gt;&gt; assert(id(ref_a.get_referred_object()) == obj_id)</span>
+<span class="sd">    &gt;&gt;&gt; assert(id(ref_b.get_referred_object()) == obj_id)</span>
+<span class="sd">    &gt;&gt;&gt; assert(id(ref_c.get_referred_object()) == obj_id)</span>
+
+<span class="sd">    The id can be converted to a valid QuakeML ResourceIdentifier by calling</span>
+<span class="sd">    the convert_id_to_quakeml_uri() method. The resulting id will be of the</span>
+<span class="sd">    form::</span>
+
+<span class="sd">        smi:authority_id/prefix/id</span>
+
+<span class="sd">    &gt;&gt;&gt; res_id = ResourceIdentifier(prefix=&#39;origin&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; res_id.convert_id_to_quakeml_uri(authority_id=&quot;obspy.org&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; res_id # doctest:+ELLIPSIS</span>
+<span class="sd">    ResourceIdentifier(id=&quot;smi:obspy.org/origin/...&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; res_id = ResourceIdentifier(id=&#39;foo&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; res_id.convert_id_to_quakeml_uri()</span>
+<span class="sd">    &gt;&gt;&gt; res_id</span>
+<span class="sd">    ResourceIdentifier(id=&quot;smi:local/foo&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; # A good way to create a QuakeML compatibly ResourceIdentifier from</span>
+<span class="sd">    &gt;&gt;&gt; # scratch is</span>
+<span class="sd">    &gt;&gt;&gt; res_id = ResourceIdentifier(prefix=&#39;pick&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; res_id.convert_id_to_quakeml_uri(authority_id=&#39;obspy.org&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; res_id  # doctest:+ELLIPSIS</span>
+<span class="sd">    ResourceIdentifier(id=&quot;smi:obspy.org/pick/...&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; # If the given ID is already a valid QuakeML</span>
+<span class="sd">    &gt;&gt;&gt; # ResourceIdentifier, nothing will happen.</span>
+<span class="sd">    &gt;&gt;&gt; res_id = ResourceIdentifier(&#39;smi:test.org/subdir/id&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; res_id</span>
+<span class="sd">    ResourceIdentifier(id=&quot;smi:test.org/subdir/id&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; res_id.convert_id_to_quakeml_uri()</span>
+<span class="sd">    &gt;&gt;&gt; res_id</span>
+<span class="sd">    ResourceIdentifier(id=&quot;smi:test.org/subdir/id&quot;)</span>
+
+<span class="sd">    ResourceIdentifiers are considered identical if the IDs are</span>
+<span class="sd">    the same.</span>
+
+<span class="sd">    &gt;&gt;&gt; # Create two different resource identifiers.</span>
+<span class="sd">    &gt;&gt;&gt; res_id_1 = ResourceIdentifier()</span>
+<span class="sd">    &gt;&gt;&gt; res_id_2 = ResourceIdentifier()</span>
+<span class="sd">    &gt;&gt;&gt; assert(res_id_1 != res_id_2)</span>
+<span class="sd">    &gt;&gt;&gt; # Equalize the IDs. NEVER do this. This just an example.</span>
+<span class="sd">    &gt;&gt;&gt; res_id_2.id = res_id_1.id = &quot;smi:local/abcde&quot;</span>
+<span class="sd">    &gt;&gt;&gt; assert(res_id_1 == res_id_2)</span>
+
+<span class="sd">    ResourceIdentifier instances can be used as dictionary keys.</span>
+
+<span class="sd">    &gt;&gt;&gt; dictionary = {}</span>
+<span class="sd">    &gt;&gt;&gt; res_id = ResourceIdentifier(id=&quot;foo&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; dictionary[res_id] = &quot;bar1&quot;</span>
+<span class="sd">    &gt;&gt;&gt; # The same ID can still be used as a key.</span>
+<span class="sd">    &gt;&gt;&gt; dictionary[&quot;foo&quot;] = &quot;bar2&quot;</span>
+<span class="sd">    &gt;&gt;&gt; items = sorted(dictionary.items(), key=lambda kv: kv[1])</span>
+<span class="sd">    &gt;&gt;&gt; for k, v in items:  # doctest: +ELLIPSIS</span>
+<span class="sd">    ...     print(repr(k), v)</span>
+<span class="sd">    ResourceIdentifier(id=&quot;foo&quot;) bar1</span>
+<span class="sd">    ...&#39;foo&#39; bar2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Class (not instance) attribute that keeps track of all resource</span>
+    <span class="c1"># identifier throughout one Python run. Will only store weak references and</span>
+    <span class="c1"># therefore does not interfere with the garbage collection.</span>
+    <span class="c1"># DO NOT CHANGE THIS FROM OUTSIDE THE CLASS.</span>
+    <span class="n">__resource_id_weak_dict</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">WeakValueDictionary</span><span class="p">()</span>
+    <span class="c1"># Use an additional dictionary to track all resource ids.</span>
+    <span class="n">__resource_id_tracker</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ResourceIdentifier.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.ResourceIdentifier.__init__.html#obspy.core.event.base.ResourceIdentifier.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;smi:local&quot;</span><span class="p">,</span>
+                 <span class="n">referred_object</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Create a resource id if None is given and possibly use a prefix.</span>
+        <span class="k">if</span> <span class="nb">id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fixed</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span> <span class="o">=</span> <span class="n">prefix</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_uuid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid4</span><span class="p">())</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">id</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fixed</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
+        <span class="c1"># Append the referred object in case one is given to the class level</span>
+        <span class="c1"># reference dictionary.</span>
+        <span class="k">if</span> <span class="n">referred_object</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_referred_object</span><span class="p">(</span><span class="n">referred_object</span><span class="p">)</span>
+
+        <span class="c1"># Increment the counter for the current resource id.</span>
+        <span class="n">ResourceIdentifier</span><span class="o">.</span><span class="n">__resource_id_tracker</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="ResourceIdentifier.__del__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.ResourceIdentifier.__del__.html#obspy.core.event.base.ResourceIdentifier.__del__">[docs]</a>    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ResourceIdentifier</span><span class="o">.</span><span class="n">__resource_id_tracker</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="c1"># Decrement the resource id counter.</span>
+        <span class="n">ResourceIdentifier</span><span class="o">.</span><span class="n">__resource_id_tracker</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="c1"># If below or equal to zero, delete it and also delete it from the weak</span>
+        <span class="c1"># value dictionary.</span>
+        <span class="k">if</span> <span class="n">ResourceIdentifier</span><span class="o">.</span><span class="n">__resource_id_tracker</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">ResourceIdentifier</span><span class="o">.</span><span class="n">__resource_id_tracker</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">ResourceIdentifier</span><span class="o">.</span><span class="n">__resource_id_weak_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;Method &#39;getReferredObject&#39; was renamed to &quot;</span>
+                <span class="s2">&quot;&#39;get_referred_object&#39;. Use that instead.&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span>
+    <span class="k">def</span> <span class="nf">getReferredObject</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_referred_object</span><span class="p">()</span>
+
+<div class="viewcode-block" id="ResourceIdentifier.get_referred_object"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.ResourceIdentifier.get_referred_object.html#obspy.core.event.base.ResourceIdentifier.get_referred_object">[docs]</a>    <span class="k">def</span> <span class="nf">get_referred_object</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the object associated with the resource identifier.</span>
+
+<span class="sd">        This works as long as at least one ResourceIdentifier with the same</span>
+<span class="sd">        ID as this instance has an associate object.</span>
+
+<span class="sd">        Will return None if no object could be found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ResourceIdentifier</span><span class="o">.</span><span class="n">__resource_id_weak_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;Method &#39;setReferredObject&#39; was renamed to &quot;</span>
+                <span class="s2">&quot;&#39;set_referred_object&#39;. Use that instead.&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span>
+    <span class="k">def</span> <span class="nf">setReferredObject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">referred_object</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_referred_object</span><span class="p">(</span><span class="n">referred_object</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ResourceIdentifier.set_referred_object"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.ResourceIdentifier.set_referred_object.html#obspy.core.event.base.ResourceIdentifier.set_referred_object">[docs]</a>    <span class="k">def</span> <span class="nf">set_referred_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">referred_object</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the object the ResourceIdentifier refers to.</span>
+
+<span class="sd">        If it already a weak reference it will be used, otherwise one will be</span>
+<span class="sd">        created. If the object is None, None will be set.</span>
+
+<span class="sd">        Will also append self again to the global class level reference list so</span>
+<span class="sd">        everything stays consistent.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If it does not yet exists simply set it.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ResourceIdentifier</span><span class="o">.</span><span class="n">__resource_id_weak_dict</span><span class="p">:</span>
+            <span class="n">ResourceIdentifier</span><span class="o">.</span><span class="n">__resource_id_weak_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="n">referred_object</span>
+            <span class="k">return</span>
+        <span class="c1"># Otherwise check if the existing element the same as the new one. If</span>
+        <span class="c1"># it is do nothing, otherwise raise a warning and set the new object as</span>
+        <span class="c1"># the referred object.</span>
+        <span class="k">if</span> <span class="n">ResourceIdentifier</span><span class="o">.</span><span class="n">__resource_id_weak_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">==</span> \
+                <span class="n">referred_object</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;The resource identifier &#39;</span><span class="si">%s</span><span class="s2">&#39; already exists and points to &quot;</span> <span class="o">+</span> \
+              <span class="s2">&quot;another object: &#39;</span><span class="si">%s</span><span class="s2">&#39;.&quot;</span> <span class="o">+</span>\
+              <span class="s2">&quot;It will now point to the object referred to by the new &quot;</span> <span class="o">+</span> \
+              <span class="s2">&quot;resource identifier.&quot;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="nb">repr</span><span class="p">(</span><span class="n">ResourceIdentifier</span><span class="o">.</span><span class="n">__resource_id_weak_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">]))</span>
+        <span class="c1"># Always raise the warning!</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn_explicit</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">,</span> <span class="vm">__file__</span><span class="p">,</span>
+                               <span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()</span><span class="o">.</span><span class="n">f_back</span><span class="o">.</span><span class="n">f_lineno</span><span class="p">)</span>
+        <span class="n">ResourceIdentifier</span><span class="o">.</span><span class="n">__resource_id_weak_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="n">referred_object</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;Method &#39;convertIDToQuakeMLURI&#39; was renamed to &quot;</span>
+                <span class="s2">&quot;&#39;convert_id_to_quakeml_uri&#39;. Use that instead.&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span>
+    <span class="k">def</span> <span class="nf">convertIDToQuakeMLURI</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">authority_id</span><span class="o">=</span><span class="s2">&quot;local&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_id_to_quakeml_uri</span><span class="p">(</span><span class="n">authority_id</span><span class="o">=</span><span class="n">authority_id</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ResourceIdentifier.convert_id_to_quakeml_uri"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.ResourceIdentifier.convert_id_to_quakeml_uri.html#obspy.core.event.base.ResourceIdentifier.convert_id_to_quakeml_uri">[docs]</a>    <span class="k">def</span> <span class="nf">convert_id_to_quakeml_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">authority_id</span><span class="o">=</span><span class="s2">&quot;local&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts the current ID to a valid QuakeML URI.</span>
+
+<span class="sd">        Only an invalid QuakeML ResourceIdentifier string it will be converted</span>
+<span class="sd">        to a valid one.  Otherwise nothing will happen but after calling this</span>
+<span class="sd">        method the user can be sure that the ID is a valid QuakeML URI.</span>
+
+<span class="sd">        The resulting ID will be of the form</span>
+<span class="sd">            smi:authority_id/prefix/resource_id</span>
+
+<span class="sd">        :type authority_id: str, optional</span>
+<span class="sd">        :param authority_id: The base url of the resulting string. Defaults to</span>
+<span class="sd">            ``&quot;local&quot;``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_quakeml_uri</span><span class="p">(</span><span class="n">authority_id</span><span class="o">=</span><span class="n">authority_id</span><span class="p">)</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;Method &#39;getQuakeMLURI&#39; was renamed to &quot;</span>
+                <span class="s2">&quot;&#39;get_quakeml_uri&#39;. Use that instead.&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span>
+    <span class="k">def</span> <span class="nf">getQuakeMLURI</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">authority_id</span><span class="o">=</span><span class="s2">&quot;local&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_quakeml_uri</span><span class="p">(</span><span class="n">authority_id</span><span class="o">=</span><span class="n">authority_id</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ResourceIdentifier.get_quakeml_uri"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.ResourceIdentifier.get_quakeml_uri.html#obspy.core.event.base.ResourceIdentifier.get_quakeml_uri">[docs]</a>    <span class="k">def</span> <span class="nf">get_quakeml_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">authority_id</span><span class="o">=</span><span class="s2">&quot;local&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the ID as a valid QuakeML URI if possible. Does not</span>
+<span class="sd">        change the ID itself.</span>
+
+<span class="sd">        &gt;&gt;&gt; res_id = ResourceIdentifier(&quot;some_id&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; print(res_id.get_quakeml_uri())</span>
+<span class="sd">        smi:local/some_id</span>
+<span class="sd">        &gt;&gt;&gt; # Did not change the actual resource id.</span>
+<span class="sd">        &gt;&gt;&gt; print(res_id.id)</span>
+<span class="sd">        some_id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="nb">id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid4</span><span class="p">())</span>
+
+        <span class="n">regex</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;^(smi|quakeml):[\w\d][\w\d\-\.\*\(\)_~&#39;]{2,}/[\w\d\-\.&quot;</span> <span class="o">+</span> \
+                <span class="sa">r</span><span class="s2">&quot;\*\(\)_~&#39;][\w\d\-\.\*\(\)\+\?_~&#39;=,;#/&amp;amp;]*$&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">id</span>
+        <span class="nb">id</span> <span class="o">=</span> <span class="s1">&#39;smi:</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">authority_id</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
+        <span class="c1"># Check once again just to be sure no weird symbols are stored in the</span>
+        <span class="c1"># ID.</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Failed to create a valid QuakeML ResourceIdentifier.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">id</span></div>
+
+<div class="viewcode-block" id="ResourceIdentifier.copy"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.ResourceIdentifier.copy.html#obspy.core.event.base.ResourceIdentifier.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a copy of the ResourceIdentifier.</span>
+
+<span class="sd">        &gt;&gt;&gt; res_id = ResourceIdentifier()</span>
+<span class="sd">        &gt;&gt;&gt; res_id_2 = res_id.copy()</span>
+<span class="sd">        &gt;&gt;&gt; print(res_id is res_id_2)</span>
+<span class="sd">        False</span>
+<span class="sd">        &gt;&gt;&gt; print(res_id == res_id_2)</span>
+<span class="sd">        True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Unique identifier of the current instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fixed</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">id</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
+                <span class="nb">id</span> <span class="o">+=</span> <span class="s2">&quot;/&quot;</span>
+            <span class="nb">id</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span>
+            <span class="k">return</span> <span class="nb">id</span>
+
+    <span class="nd">@id</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;The resource id cannot be deleted.&quot;</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="nd">@id</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fixed</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># XXX: no idea why I had to add bytes for PY2 here</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">)):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;attribute id needs to be a string.&quot;</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">prefix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span>
+
+    <span class="nd">@prefix</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">prefix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="nd">@prefix</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">prefix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">native_str</span><span class="p">)):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;prefix id needs to be a string.&quot;</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">uuid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_uuid</span>
+
+    <span class="nd">@uuid</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">uuid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deleting is uuid hash is forbidden and will not work.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;The uuid cannot be deleted.&quot;</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="nd">@uuid</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">uuid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>  <span class="c1"># @UnusedVariable</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setting is uuid hash is forbidden and will not work.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;The uuid cannot be set manually.&quot;</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">resource_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+
+    <span class="nd">@resource_id</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">resource_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+
+    <span class="nd">@resource_id</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">resource_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">value</span>
+
+<div class="viewcode-block" id="ResourceIdentifier.__str__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.ResourceIdentifier.__str__.html#obspy.core.event.base.ResourceIdentifier.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span></div>
+
+<div class="viewcode-block" id="ResourceIdentifier._repr_pretty_"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.ResourceIdentifier._repr_pretty_.html#obspy.core.event.base.ResourceIdentifier._repr_pretty_">[docs]</a>    <span class="k">def</span> <span class="nf">_repr_pretty_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cycle</span><span class="p">):</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="ResourceIdentifier.__repr__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.ResourceIdentifier.__repr__.html#obspy.core.event.base.ResourceIdentifier.__repr__">[docs]</a>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;ResourceIdentifier(id=&quot;</span><span class="si">%s</span><span class="s1">&quot;)&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span></div>
+
+<div class="viewcode-block" id="ResourceIdentifier.__eq__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.ResourceIdentifier.__eq__.html#obspy.core.event.base.ResourceIdentifier.__eq__">[docs]</a>    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">other</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="ResourceIdentifier.__ne__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.ResourceIdentifier.__ne__.html#obspy.core.event.base.ResourceIdentifier.__ne__">[docs]</a>    <span class="k">def</span> <span class="nf">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ResourceIdentifier.__hash__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.ResourceIdentifier.__hash__.html#obspy.core.event.base.ResourceIdentifier.__hash__">[docs]</a>    <span class="k">def</span> <span class="nf">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Uses the same hash as the resource id. This means that class instances</span>
+<span class="sd">        can be used in dictionaries and other hashed types.</span>
+
+<span class="sd">        Both the object and it&#39;s id can still be independently used as</span>
+<span class="sd">        dictionary keys.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># &quot;Salt&quot; the hash with a string so the hash of the object and a</span>
+        <span class="c1"># string identical to the id can both be used as individual</span>
+        <span class="c1"># dictionary keys.</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="s2">&quot;RESOURCE_ID&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="fm">__hash__</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ResourceIdentifier.regenerate_uuid"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.ResourceIdentifier.regenerate_uuid.html#obspy.core.event.base.ResourceIdentifier.regenerate_uuid">[docs]</a>    <span class="k">def</span> <span class="nf">regenerate_uuid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Regenerates the uuid part of the ID. Does nothing for resource</span>
+<span class="sd">        identifiers with a user-set, fixed id.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_uuid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid4</span><span class="p">())</span></div></div>
+
+
+<span class="n">__CreationInfo</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__CreationInfo&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;agency_id&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;agency_uri&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;author&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;author_uri&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;creation_time&quot;</span><span class="p">,</span> <span class="n">UTCDateTime</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)])</span>
+
+
+<div class="viewcode-block" id="CreationInfo"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.CreationInfo.html#obspy.core.event.base.CreationInfo">[docs]</a><span class="k">class</span> <span class="nc">CreationInfo</span><span class="p">(</span><span class="n">__CreationInfo</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    CreationInfo is used to describe creation metadata (author, version, and</span>
+<span class="sd">    creation time) of a resource.</span>
+
+<span class="sd">    :type agency_id: str, optional</span>
+<span class="sd">    :param agency_id: Designation of agency that published a resource.</span>
+<span class="sd">    :type agency_uri: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param agency_uri: Resource Identifier of the agency that published a</span>
+<span class="sd">        resource.</span>
+<span class="sd">    :type author: str, optional</span>
+<span class="sd">    :param author: Name describing the author of a resource.</span>
+<span class="sd">    :type author_uri: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param author_uri: Resource Identifier of the author of a resource.</span>
+<span class="sd">    :type creation_time: :class:`~obspy.core.utcdatetime.UTCDateTime`, optional</span>
+<span class="sd">    :param creation_time: Time of creation of a resource.</span>
+<span class="sd">    :type version: str, optional</span>
+<span class="sd">    :param version: Version string of a resource</span>
+
+<span class="sd">    &gt;&gt;&gt; info = CreationInfo(author=&quot;obspy.org&quot;, version=&quot;0.0.1&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; print(info)</span>
+<span class="sd">    CreationInfo(author=&#39;obspy.org&#39;, version=&#39;0.0.1&#39;)</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">__TimeWindow</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__TimeWindow&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;begin&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;reference&quot;</span><span class="p">,</span> <span class="n">UTCDateTime</span><span class="p">)])</span>
+
+
+<div class="viewcode-block" id="TimeWindow"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.TimeWindow.html#obspy.core.event.base.TimeWindow">[docs]</a><span class="k">class</span> <span class="nc">TimeWindow</span><span class="p">(</span><span class="n">__TimeWindow</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Describes a time window for amplitude measurements, given by a central</span>
+<span class="sd">    point in time, and points in time before and after this central point. Both</span>
+<span class="sd">    points before and after may coincide with the central point.</span>
+
+<span class="sd">    :type begin: float</span>
+<span class="sd">    :param begin: Absolute value of duration of time interval before reference</span>
+<span class="sd">        point in time window. The value may be zero, but not negative. Unit: s</span>
+<span class="sd">    :type end: float</span>
+<span class="sd">    :param end: Absolute value of duration of time interval after reference</span>
+<span class="sd">        point in time window. The value may be zero, but not negative.  Unit: s</span>
+<span class="sd">    :type reference: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :param reference: Reference point in time (&quot;central&quot; point).</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">__CompositeTime</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__CompositeTime&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;month&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;day&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;hour&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;minute&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;second&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">)])</span>
+
+
+<div class="viewcode-block" id="CompositeTime"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.CompositeTime.html#obspy.core.event.base.CompositeTime">[docs]</a><span class="k">class</span> <span class="nc">CompositeTime</span><span class="p">(</span><span class="n">__CompositeTime</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Focal times differ significantly in their precision. While focal times of</span>
+<span class="sd">    instrumentally located earthquakes are estimated precisely down to seconds,</span>
+<span class="sd">    historic events have only incomplete time descriptions. Sometimes, even</span>
+<span class="sd">    contradictory information about the rupture time exist. The CompositeTime</span>
+<span class="sd">    type allows for such complex descriptions. If the specification is given</span>
+<span class="sd">    with no greater accuracy than days (i.e., no time components are given),</span>
+<span class="sd">    the date refers to local time. However, if time components are given, they</span>
+<span class="sd">    have to refer to UTC.</span>
+
+<span class="sd">    :type year: int</span>
+<span class="sd">    :param year: Year or range of years of the event&#39;s focal time.</span>
+<span class="sd">    :type year_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param year_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type month: int</span>
+<span class="sd">    :param month: Month or range of months of the event’s focal time.</span>
+<span class="sd">    :type month_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param month_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type day: int</span>
+<span class="sd">    :param day: Day or range of days of the event’s focal time.</span>
+<span class="sd">    :type day_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param day_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type hour: int</span>
+<span class="sd">    :param hour: Hour or range of hours of the event’s focal time.</span>
+<span class="sd">    :type hour_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param hour_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type minute: int</span>
+<span class="sd">    :param minute: Minute or range of minutes of the event’s focal time.</span>
+<span class="sd">    :type minute_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param minute_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type second: float</span>
+<span class="sd">    :param second: Second and fraction of seconds or range of seconds with</span>
+<span class="sd">        fraction of the event’s focal time.</span>
+<span class="sd">    :type second_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param second_errors: AttribDict containing error quantities.</span>
+
+<span class="sd">    &gt;&gt;&gt; print(CompositeTime(2011, 1, 1))</span>
+<span class="sd">    CompositeTime(year=2011, month=1, day=1)</span>
+<span class="sd">    &gt;&gt;&gt; # Can also be instantiated with the uncertainties.</span>
+<span class="sd">    &gt;&gt;&gt; print(CompositeTime(year=2011, year_errors={&quot;uncertainty&quot;:1}))</span>
+<span class="sd">    CompositeTime(year=2011 [uncertainty=1])</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">__Comment</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__Comment&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;resource_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;creation_info&quot;</span><span class="p">,</span> <span class="n">CreationInfo</span><span class="p">)])</span>
+
+
+<div class="viewcode-block" id="Comment"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.Comment.html#obspy.core.event.base.Comment">[docs]</a><span class="k">class</span> <span class="nc">Comment</span><span class="p">(</span><span class="n">__Comment</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Comment holds information on comments to a resource as well as author and</span>
+<span class="sd">    creation time information.</span>
+
+<span class="sd">    :type text: str</span>
+<span class="sd">    :param text: Text of comment.</span>
+<span class="sd">    :type resource_id: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param resource_id: Resource identifier of comment.</span>
+<span class="sd">    :type force_resource_id: bool, optional</span>
+<span class="sd">    :param force_resource_id: If set to False, the automatic initialization of</span>
+<span class="sd">        `resource_id` attribute in case it is not specified will be skipped.</span>
+<span class="sd">    :type creation_info: :class:`~obspy.core.event.base.CreationInfo`, optional</span>
+<span class="sd">    :param creation_info: Creation info for the comment.</span>
+
+<span class="sd">    &gt;&gt;&gt; comment = Comment(text=&quot;Some comment&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; print(comment)  # doctest:+ELLIPSIS</span>
+<span class="sd">    Comment(text=&#39;Some comment&#39;, resource_id=ResourceIdentifier(...))</span>
+<span class="sd">    &gt;&gt;&gt; comment = Comment(text=&quot;Some comment&quot;, force_resource_id=False)</span>
+<span class="sd">    &gt;&gt;&gt; print(comment)</span>
+<span class="sd">    Comment(text=&#39;Some comment&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; comment.resource_id = &quot;comments/obspy-comment-123456&quot;</span>
+<span class="sd">    &gt;&gt;&gt; print(comment) # doctest:+ELLIPSIS</span>
+<span class="sd">    Comment(text=&#39;Some comment&#39;, resource_id=ResourceIdentifier(...))</span>
+<span class="sd">    &gt;&gt;&gt; comment.creation_info = {&quot;author&quot;: &quot;obspy.org&quot;}</span>
+<span class="sd">    &gt;&gt;&gt; print(comment.creation_info)</span>
+<span class="sd">    CreationInfo(author=&#39;obspy.org&#39;)</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">__WaveformStreamID</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__WaveformStreamID&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;network_code&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;station_code&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;channel_code&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;location_code&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;resource_uri&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">)])</span>
+
+
+<div class="viewcode-block" id="WaveformStreamID"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.WaveformStreamID.html#obspy.core.event.base.WaveformStreamID">[docs]</a><span class="k">class</span> <span class="nc">WaveformStreamID</span><span class="p">(</span><span class="n">__WaveformStreamID</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reference to a stream description in an inventory.</span>
+
+<span class="sd">    This is mostly equivalent to the combination of networkCode, stationCode,</span>
+<span class="sd">    locationCode, and channelCode. However, additional information, e. g.,</span>
+<span class="sd">    sampling rate, can be referenced by the resourceURI. It is recommended to</span>
+<span class="sd">    use resourceURI as a flexible, abstract, and unique stream ID that allows</span>
+<span class="sd">    to describe different processing levels, or resampled/filtered products of</span>
+<span class="sd">    the same initial stream, without violating the intrinsic meaning of the</span>
+<span class="sd">    legacy identifiers (network, station, channel, and location codes).</span>
+<span class="sd">    However, for operation in the context of legacy systems, the classical</span>
+<span class="sd">    identifier components are supported.</span>
+
+<span class="sd">    :type network_code: str</span>
+<span class="sd">    :param network_code: Network code.</span>
+<span class="sd">    :type station_code: str</span>
+<span class="sd">    :param station_code: Station code.</span>
+<span class="sd">    :type location_code: str, optional</span>
+<span class="sd">    :param location_code: Location code.</span>
+<span class="sd">    :type channel_code: str, optional</span>
+<span class="sd">    :param channel_code: Channel code.</span>
+<span class="sd">    :type resource_uri: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param resource_uri: Resource identifier for the waveform stream.</span>
+<span class="sd">    :type seed_string: str, optional</span>
+<span class="sd">    :param seed_string: Provides an alternative initialization way by passing a</span>
+<span class="sd">        SEED waveform string in the form network.station.location.channel, e.g.</span>
+<span class="sd">        BW.FUR..EHZ, which will be used to populate the WaveformStreamID&#39;s</span>
+<span class="sd">        attributes.</span>
+<span class="sd">        It will only be used if the network, station, location and channel</span>
+<span class="sd">        keyword argument are ALL None.</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    &gt;&gt;&gt; # Can be initialized with a SEED string or with individual components.</span>
+<span class="sd">    &gt;&gt;&gt; stream_id = WaveformStreamID(network_code=&quot;BW&quot;, station_code=&quot;FUR&quot;,</span>
+<span class="sd">    ...                              location_code=&quot;&quot;, channel_code=&quot;EHZ&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; print(stream_id) # doctest: +NORMALIZE_WHITESPACE +ELLIPSIS</span>
+<span class="sd">    WaveformStreamID</span>
+<span class="sd">          network_code: &#39;BW&#39;</span>
+<span class="sd">          station_code: &#39;FUR&#39;</span>
+<span class="sd">          channel_code: &#39;EHZ&#39;</span>
+<span class="sd">         location_code: &#39;&#39;</span>
+<span class="sd">    &gt;&gt;&gt; stream_id = WaveformStreamID(seed_string=&quot;BW.FUR..EHZ&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; print(stream_id) # doctest: +NORMALIZE_WHITESPACE +ELLIPSIS</span>
+<span class="sd">    WaveformStreamID</span>
+<span class="sd">          network_code: &#39;BW&#39;</span>
+<span class="sd">          station_code: &#39;FUR&#39;</span>
+<span class="sd">          channel_code: &#39;EHZ&#39;</span>
+<span class="sd">         location_code: &#39;&#39;</span>
+<span class="sd">    &gt;&gt;&gt; # Can also return the SEED string.</span>
+<span class="sd">    &gt;&gt;&gt; print(stream_id.get_seed_string())</span>
+<span class="sd">    BW.FUR..EHZ</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="WaveformStreamID.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.WaveformStreamID.__init__.html#obspy.core.event.base.WaveformStreamID.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">network_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">station_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">location_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channel_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resource_uri</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">seed_string</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Use the seed_string if it is given and everything else is not.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">seed_string</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">network_code</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> \
+           <span class="p">(</span><span class="n">station_code</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">location_code</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> \
+           <span class="p">(</span><span class="n">channel_code</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">network_code</span><span class="p">,</span> <span class="n">station_code</span><span class="p">,</span> <span class="n">location_code</span><span class="p">,</span> <span class="n">channel_code</span> <span class="o">=</span> \
+                    <span class="n">seed_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;In WaveformStreamID.__init__(): &quot;</span> <span class="o">+</span>
+                              <span class="s2">&quot;seed_string was given but could not be parsed&quot;</span><span class="p">)</span>
+                <span class="k">pass</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">([</span><span class="nb">bool</span><span class="p">(</span><span class="n">_i</span><span class="p">)</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="p">[</span><span class="n">network_code</span><span class="p">,</span> <span class="n">station_code</span><span class="p">,</span>
+                                            <span class="n">location_code</span><span class="p">,</span> <span class="n">channel_code</span><span class="p">]]):</span>
+                <span class="n">network_code</span><span class="p">,</span> <span class="n">station_code</span><span class="p">,</span> <span class="n">location_code</span><span class="p">,</span> <span class="n">channel_code</span> <span class="o">=</span> \
+                    <span class="mi">4</span> <span class="o">*</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">WaveformStreamID</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">network_code</span><span class="o">=</span><span class="n">network_code</span><span class="p">,</span>
+                                               <span class="n">station_code</span><span class="o">=</span><span class="n">station_code</span><span class="p">,</span>
+                                               <span class="n">location_code</span><span class="o">=</span><span class="n">location_code</span><span class="p">,</span>
+                                               <span class="n">channel_code</span><span class="o">=</span><span class="n">channel_code</span><span class="p">,</span>
+                                               <span class="n">resource_uri</span><span class="o">=</span><span class="n">resource_uri</span><span class="p">)</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;getSEEDString&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;get_seed_string&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">getSEEDString</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;getSEEDString&#39; has been renamed to</span>
+<span class="sd">        &#39;get_seed_string&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_seed_string</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="WaveformStreamID.get_seed_string"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.WaveformStreamID.get_seed_string.html#obspy.core.event.base.WaveformStreamID.get_seed_string">[docs]</a>    <span class="k">def</span> <span class="nf">get_seed_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">network_code</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">network_code</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">station_code</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">station_code</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">location_code</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">location_code</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">channel_code</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel_code</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></div></div>
+
+
+<span class="n">__ConfidenceEllipsoid</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__ConfidenceEllipsoid&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;semi_major_axis_length&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;semi_minor_axis_length&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;semi_intermediate_axis_length&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;major_axis_plunge&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;major_axis_azimuth&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;major_axis_rotation&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)])</span>
+
+
+<div class="viewcode-block" id="ConfidenceEllipsoid"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.ConfidenceEllipsoid.html#obspy.core.event.base.ConfidenceEllipsoid">[docs]</a><span class="k">class</span> <span class="nc">ConfidenceEllipsoid</span><span class="p">(</span><span class="n">__ConfidenceEllipsoid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class represents a description of the location uncertainty as a</span>
+<span class="sd">    confidence ellipsoid with arbitrary orientation in space. See the QuakeML</span>
+<span class="sd">    documentation for the full details</span>
+
+<span class="sd">    :param semi_major_axis_length: Largest uncertainty, corresponding to the</span>
+<span class="sd">        semi-major axis of the confidence ellipsoid. Unit: m</span>
+<span class="sd">    :param semi_minor_axis_length: Smallest uncertainty, corresponding to the</span>
+<span class="sd">        semi-minor axis of the confidence ellipsoid. Unit: m</span>
+<span class="sd">    :param semi_intermediate_axis_length: Uncertainty in direction orthogonal</span>
+<span class="sd">        to major and minor axes of the confidence ellipsoid. Unit: m</span>
+<span class="sd">    :param major_axis_plunge: Plunge angle of major axis of confidence</span>
+<span class="sd">        ellipsoid. Corresponds to Tait-Bryan angle φ. Unit: deg</span>
+<span class="sd">    :param major_axis_azimuth: Azimuth angle of major axis of confidence</span>
+<span class="sd">        ellipsoid. Corresponds to Tait-Bryan angle ψ. Unit: deg</span>
+<span class="sd">    :param major_axis_rotation: This angle describes a rotation about the</span>
+<span class="sd">        confidence ellipsoid’s major axis which is required to define the</span>
+<span class="sd">        direction of the ellipsoid’s minor axis. Corresponds to Tait-Bryan</span>
+<span class="sd">        angle θ.</span>
+<span class="sd">        Unit: deg</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">__DataUsed</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__DataUsed&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;wave_type&quot;</span><span class="p">,</span> <span class="n">DataUsedWaveType</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;station_count&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;component_count&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;shortest_period&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;longest_period&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)])</span>
+
+
+<div class="viewcode-block" id="DataUsed"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.base.DataUsed.html#obspy.core.event.base.DataUsed">[docs]</a><span class="k">class</span> <span class="nc">DataUsed</span><span class="p">(</span><span class="n">__DataUsed</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The DataUsed class describes the type of data that has been used for a</span>
+<span class="sd">    moment-tensor inversion.</span>
+
+<span class="sd">    :type wave_type: str</span>
+<span class="sd">    :param wave_type: Type of waveform data.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.DataUsedWaveType` for allowed</span>
+<span class="sd">        values.</span>
+<span class="sd">    :type station_count: int, optional</span>
+<span class="sd">    :param station_count: Number of stations that have contributed data of the</span>
+<span class="sd">        type given in wave_type.</span>
+<span class="sd">    :type component_count: int, optional</span>
+<span class="sd">    :param component_count: Number of data components of the type given in</span>
+<span class="sd">        wave_type.</span>
+<span class="sd">    :type shortest_period: float, optional</span>
+<span class="sd">    :param shortest_period: Shortest period present in data. Unit: s</span>
+<span class="sd">    :type longest_period: float, optional</span>
+<span class="sd">    :param longest_period: Longest period present in data. Unit: s</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

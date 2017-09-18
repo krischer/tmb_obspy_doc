@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.signal.cross_correlation &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.signal.cross_correlation</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># -------------------------------------------------------------------</span>
+<span class="c1"># Filename: cross_correlation.py</span>
+<span class="c1">#   Author: Moritz Beyreuther, Tobias Megies</span>
+<span class="c1">#    Email: megies@geophysik.uni-muenchen.de</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (C) 2008-2012 Moritz Beyreuther, Tobias Megies</span>
+<span class="c1"># ------------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Signal processing routines based on cross correlation techniques.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+<span class="kn">from</span> <span class="nn">future.utils</span> <span class="k">import</span> <span class="n">native_str</span>
+
+<span class="kn">import</span> <span class="nn">ctypes</span> <span class="k">as</span> <span class="nn">C</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">Stream</span><span class="p">,</span> <span class="n">Trace</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.deprecation_helpers</span> <span class="k">import</span> \
+    <span class="n">DynamicAttributeImportRerouteModule</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.misc</span> <span class="k">import</span> <span class="n">MatplotlibBackend</span>
+<span class="kn">from</span> <span class="nn">obspy.signal.headers</span> <span class="k">import</span> <span class="n">clibsignal</span>
+<span class="kn">from</span> <span class="nn">obspy.signal.invsim</span> <span class="k">import</span> <span class="n">cosine_taper</span>
+
+
+<div class="viewcode-block" id="xcorr"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.cross_correlation.xcorr.html#obspy.signal.cross_correlation.xcorr">[docs]</a><span class="k">def</span> <span class="nf">xcorr</span><span class="p">(</span><span class="n">tr1</span><span class="p">,</span> <span class="n">tr2</span><span class="p">,</span> <span class="n">shift_len</span><span class="p">,</span> <span class="n">full_xcorr</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cross correlation of tr1 and tr2 in the time domain using window_len.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">                                    Mid Sample</span>
+<span class="sd">                                        |</span>
+<span class="sd">        |AAAAAAAAAAAAAAA|AAAAAAAAAAAAAAA|AAAAAAAAAAAAAAA|AAAAAAAAAAAAAAA|</span>
+<span class="sd">        |BBBBBBBBBBBBBBB|BBBBBBBBBBBBBBB|BBBBBBBBBBBBBBB|BBBBBBBBBBBBBBB|</span>
+<span class="sd">        |&lt;-shift_len/2-&gt;|   &lt;- region of support -&gt;     |&lt;-shift_len/2-&gt;|</span>
+
+
+<span class="sd">    :type tr1: :class:`~numpy.ndarray`, :class:`~obspy.core.trace.Trace`</span>
+<span class="sd">    :param tr1: Trace 1</span>
+<span class="sd">    :type tr2: :class:`~numpy.ndarray`, :class:`~obspy.core.trace.Trace`</span>
+<span class="sd">    :param tr2: Trace 2 to correlate with trace 1</span>
+<span class="sd">    :type shift_len: int</span>
+<span class="sd">    :param shift_len: Total length of samples to shift for cross correlation.</span>
+<span class="sd">    :type full_xcorr: bool</span>
+<span class="sd">    :param full_xcorr: If ``True``, the complete xcorr function will be</span>
+<span class="sd">        returned as :class:`~numpy.ndarray`</span>
+<span class="sd">    :return: **index, value[, fct]** - Index of maximum xcorr value and the</span>
+<span class="sd">        value itself. The complete xcorr function is returned only if</span>
+<span class="sd">        ``full_xcorr=True``.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">       As shift_len gets higher the window supporting the cross correlation</span>
+<span class="sd">       actually gets smaller. So with shift_len=0 you get the correlation</span>
+<span class="sd">       coefficient of both traces as a whole without any shift applied. As the</span>
+<span class="sd">       xcorr function works in time domain and does not zero pad at all, with</span>
+<span class="sd">       higher shifts allowed the window of support gets smaller so that the</span>
+<span class="sd">       moving windows shifted against each other do not run out of the</span>
+<span class="sd">       timeseries bounds at high time shifts. Of course there are other</span>
+<span class="sd">       possibilities to do cross correlations e.g. in frequency domain.</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">       `ObsPy-users mailing list</span>
+<span class="sd">       &lt;http://lists.obspy.org/pipermail/obspy-users/2011-March/000056.html&gt;`_</span>
+<span class="sd">       and `issue #249 &lt;https://github.com/obspy/obspy/issues/249&gt;`_.</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    &gt;&gt;&gt; tr1 = np.random.randn(10000).astype(np.float32)</span>
+<span class="sd">    &gt;&gt;&gt; tr2 = tr1.copy()</span>
+<span class="sd">    &gt;&gt;&gt; a, b = xcorr(tr1, tr2, 1000)</span>
+<span class="sd">    &gt;&gt;&gt; a</span>
+<span class="sd">    0</span>
+<span class="sd">    &gt;&gt;&gt; round(b, 7)</span>
+<span class="sd">    1.0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># if we get Trace objects, use their data arrays</span>
+    <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="p">[</span><span class="n">tr1</span><span class="p">,</span> <span class="n">tr2</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tr</span><span class="p">,</span> <span class="n">Trace</span><span class="p">):</span>
+            <span class="n">tr</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">data</span>
+
+    <span class="c1"># check if shift_len parameter is in an acceptable range.</span>
+    <span class="c1"># if not the underlying c code tampers with shift_len and uses shift_len/2</span>
+    <span class="c1"># instead. we want to avoid this silent automagic and raise an error in the</span>
+    <span class="c1"># python layer right here.</span>
+    <span class="c1"># see ticket #249 and src/xcorr.c lines 43-57</span>
+    <span class="k">if</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tr1</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">tr2</span><span class="p">))</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">shift_len</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;shift_len too large. The underlying C code would silently &quot;</span> <span class="o">+</span> \
+              <span class="s2">&quot;use shift_len/2 which we want to avoid.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="c1"># be nice and adapt type if necessary</span>
+    <span class="n">tr1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">tr1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">tr2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">tr2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">corp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">shift_len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+
+    <span class="n">shift</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
+    <span class="n">coe_p</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_double</span><span class="p">()</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="n">clibsignal</span><span class="o">.</span><span class="n">X_corr</span><span class="p">(</span><span class="n">tr1</span><span class="p">,</span> <span class="n">tr2</span><span class="p">,</span> <span class="n">corp</span><span class="p">,</span> <span class="n">shift_len</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tr1</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">tr2</span><span class="p">),</span>
+                            <span class="n">C</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">shift</span><span class="p">),</span> <span class="n">C</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">coe_p</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">res</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">MemoryError</span>
+
+    <span class="k">if</span> <span class="n">full_xcorr</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">shift</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">coe_p</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">corp</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">shift</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">coe_p</span><span class="o">.</span><span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="xcorr_3c"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.cross_correlation.xcorr_3c.html#obspy.signal.cross_correlation.xcorr_3c">[docs]</a><span class="k">def</span> <span class="nf">xcorr_3c</span><span class="p">(</span><span class="n">st1</span><span class="p">,</span> <span class="n">st2</span><span class="p">,</span> <span class="n">shift_len</span><span class="p">,</span> <span class="n">components</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Z&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">],</span>
+             <span class="n">full_xcorr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">abs_max</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the cross correlation on each of the specified components</span>
+<span class="sd">    separately, stacks them together and estimates the maximum and shift of</span>
+<span class="sd">    maximum on the stack.</span>
+
+<span class="sd">    Basically the same as :func:`~obspy.signal.cross_correlation.xcorr` but</span>
+<span class="sd">    for (normally) three components, please also take a look at the</span>
+<span class="sd">    documentation of that function. Useful e.g. for estimation of waveform</span>
+<span class="sd">    similarity on a three component seismogram.</span>
+
+<span class="sd">    :type st1: :class:`~obspy.core.stream.Stream`</span>
+<span class="sd">    :param st1: Stream 1, containing one trace for Z, N, E component (other</span>
+<span class="sd">        component_id codes are ignored)</span>
+<span class="sd">    :type st2: :class:`~obspy.core.stream.Stream`</span>
+<span class="sd">    :param st2: Stream 2, containing one trace for Z, N, E component (other</span>
+<span class="sd">        component_id codes are ignored)</span>
+<span class="sd">    :type shift_len: int</span>
+<span class="sd">    :param shift_len: Total length of samples to shift for cross correlation.</span>
+<span class="sd">    :type components: list of str</span>
+<span class="sd">    :param components: List of components to use in cross-correlation, defaults</span>
+<span class="sd">        to ``[&#39;Z&#39;, &#39;N&#39;, &#39;E&#39;]``.</span>
+<span class="sd">    :type full_xcorr: bool</span>
+<span class="sd">    :param full_xcorr: If ``True``, the complete xcorr function will be</span>
+<span class="sd">        returned as :class:`~numpy.ndarray`.</span>
+<span class="sd">    :return: **index, value[, fct]** - index of maximum xcorr value and the</span>
+<span class="sd">        value itself. The complete xcorr function is returned only if</span>
+<span class="sd">        ``full_xcorr=True``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">streams</span> <span class="o">=</span> <span class="p">[</span><span class="n">st1</span><span class="p">,</span> <span class="n">st2</span><span class="p">]</span>
+    <span class="c1"># check if we can actually use the provided streams safely</span>
+    <span class="k">for</span> <span class="n">st</span> <span class="ow">in</span> <span class="n">streams</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">st</span><span class="p">,</span> <span class="n">Stream</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Expected Stream object but got </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">st</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">components</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">component</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Expected exactly one </span><span class="si">%s</span><span class="s2"> trace in stream&quot;</span> <span class="o">%</span> <span class="n">component</span> <span class="o">+</span> \
+                      <span class="s2">&quot; but got </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">component</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">ndat</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">streams</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">components</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">if</span> <span class="kc">False</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">component</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="n">ndat</span>
+                 <span class="k">for</span> <span class="n">st</span> <span class="ow">in</span> <span class="n">streams</span> <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">components</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All traces have to be the same length.&quot;</span><span class="p">)</span>
+    <span class="c1"># everything should be ok with the input data...</span>
+    <span class="n">corp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">shift_len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">components</span><span class="p">:</span>
+        <span class="n">xx</span> <span class="o">=</span> <span class="n">xcorr</span><span class="p">(</span><span class="n">streams</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">component</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+                   <span class="n">streams</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">component</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+                   <span class="n">shift_len</span><span class="p">,</span> <span class="n">full_xcorr</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">corp</span> <span class="o">+=</span> <span class="n">xx</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="n">corp</span> <span class="o">/=</span> <span class="nb">len</span><span class="p">(</span><span class="n">components</span><span class="p">)</span>
+
+    <span class="n">shift</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">xcorr_max</span><span class="p">(</span><span class="n">corp</span><span class="p">,</span> <span class="n">abs_max</span><span class="o">=</span><span class="n">abs_max</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">full_xcorr</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">shift</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">corp</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">shift</span><span class="p">,</span> <span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="xcorr_max"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.cross_correlation.xcorr_max.html#obspy.signal.cross_correlation.xcorr_max">[docs]</a><span class="k">def</span> <span class="nf">xcorr_max</span><span class="p">(</span><span class="n">fct</span><span class="p">,</span> <span class="n">abs_max</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return shift and value of maximum xcorr function</span>
+
+<span class="sd">    :type fct: :class:`~numpy.ndarray`</span>
+<span class="sd">    :param fct: xcorr function e.g. returned by xcorr</span>
+<span class="sd">    :type abs_max: bool</span>
+<span class="sd">    :param abs_max: determines if the absolute maximum should be used.</span>
+<span class="sd">    :return: **shift, value** - Shift and value of maximum xcorr.</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    &gt;&gt;&gt; fct = np.zeros(101)</span>
+<span class="sd">    &gt;&gt;&gt; fct[50] = -1.0</span>
+<span class="sd">    &gt;&gt;&gt; xcorr_max(fct)</span>
+<span class="sd">    (0.0, -1.0)</span>
+<span class="sd">    &gt;&gt;&gt; fct[50], fct[60] = 0.0, 1.0</span>
+<span class="sd">    &gt;&gt;&gt; xcorr_max(fct)</span>
+<span class="sd">    (10.0, 1.0)</span>
+<span class="sd">    &gt;&gt;&gt; fct[60], fct[40] = 0.0, -1.0</span>
+<span class="sd">    &gt;&gt;&gt; xcorr_max(fct)</span>
+<span class="sd">    (-10.0, -1.0)</span>
+<span class="sd">    &gt;&gt;&gt; fct[60], fct[40] = 0.5, -1.0</span>
+<span class="sd">    &gt;&gt;&gt; xcorr_max(fct, abs_max=True)</span>
+<span class="sd">    (-10.0, -1.0)</span>
+<span class="sd">    &gt;&gt;&gt; xcorr_max(fct, abs_max=False)</span>
+<span class="sd">    (10.0, 0.5)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">fct</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">abs_max</span><span class="p">:</span>
+        <span class="n">_min</span> <span class="o">=</span> <span class="n">fct</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">_min</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">_min</span>
+
+    <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fct</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">shift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">fct</span> <span class="o">==</span> <span class="n">value</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">mid</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">shift</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="xcorr_pick_correction"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.cross_correlation.xcorr_pick_correction.html#obspy.signal.cross_correlation.xcorr_pick_correction">[docs]</a><span class="k">def</span> <span class="nf">xcorr_pick_correction</span><span class="p">(</span><span class="n">pick1</span><span class="p">,</span> <span class="n">trace1</span><span class="p">,</span> <span class="n">pick2</span><span class="p">,</span> <span class="n">trace2</span><span class="p">,</span> <span class="n">t_before</span><span class="p">,</span> <span class="n">t_after</span><span class="p">,</span>
+                          <span class="n">cc_maxlag</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filter_options</span><span class="o">=</span><span class="p">{},</span>
+                          <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the correction for the differential pick time determined by cross</span>
+<span class="sd">    correlation of the waveforms in narrow windows around the pick times.</span>
+<span class="sd">    For details on the fitting procedure refer to [Deichmann1992]_.</span>
+
+<span class="sd">    The parameters depend on the epicentral distance and magnitude range. For</span>
+<span class="sd">    small local earthquakes (Ml ~0-2, distance ~3-10 km) with consistent manual</span>
+<span class="sd">    picks the following can be tried::</span>
+
+<span class="sd">        t_before=0.05, t_after=0.2, cc_maxlag=0.10,</span>
+<span class="sd">        filter=&quot;bandpass&quot;, filter_options={&#39;freqmin&#39;: 1, &#39;freqmax&#39;: 20}</span>
+
+<span class="sd">    The appropriate parameter sets can and should be determined/verified</span>
+<span class="sd">    visually using the option `plot=True` on a representative set of picks.</span>
+
+<span class="sd">    To get the corrected differential pick time calculate: ``((pick2 +</span>
+<span class="sd">    pick2_corr) - pick1)``. To get a corrected differential travel time using</span>
+<span class="sd">    origin times for both events calculate: ``((pick2 + pick2_corr - ot2) -</span>
+<span class="sd">    (pick1 - ot1))``</span>
+
+<span class="sd">    :type pick1: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :param pick1: Time of pick for `trace1`.</span>
+<span class="sd">    :type trace1: :class:`~obspy.core.trace.Trace`</span>
+<span class="sd">    :param trace1: Waveform data for `pick1`. Add some time at front/back.</span>
+<span class="sd">            The appropriate part of the trace is used automatically.</span>
+<span class="sd">    :type pick2: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :param pick2: Time of pick for `trace2`.</span>
+<span class="sd">    :type trace2: :class:`~obspy.core.trace.Trace`</span>
+<span class="sd">    :param trace2: Waveform data for `pick2`. Add some time at front/back.</span>
+<span class="sd">            The appropriate part of the trace is used automatically.</span>
+<span class="sd">    :type t_before: float</span>
+<span class="sd">    :param t_before: Time to start cross correlation window before pick times</span>
+<span class="sd">            in seconds.</span>
+<span class="sd">    :type t_after: float</span>
+<span class="sd">    :param t_after: Time to end cross correlation window after pick times in</span>
+<span class="sd">            seconds.</span>
+<span class="sd">    :type cc_maxlag: float</span>
+<span class="sd">    :param cc_maxlag: Maximum lag/shift time tested during cross correlation in</span>
+<span class="sd">        seconds.</span>
+<span class="sd">    :type filter: str</span>
+<span class="sd">    :param filter: `None` for no filtering or name of filter type</span>
+<span class="sd">            as passed on to :meth:`~obspy.core.Trace.trace.filter` if filter</span>
+<span class="sd">            should be used. To avoid artifacts in filtering provide</span>
+<span class="sd">            sufficiently long time series for `trace1` and `trace2`.</span>
+<span class="sd">    :type filter_options: dict</span>
+<span class="sd">    :param filter_options: Filter options that get passed on to</span>
+<span class="sd">            :meth:`~obspy.core.Trace.trace.filter` if filtering is used.</span>
+<span class="sd">    :type plot: bool</span>
+<span class="sd">    :param plot: If `True`, a plot window illustrating the alignment of the two</span>
+<span class="sd">        traces at best cross correlation will be shown. This can and should be</span>
+<span class="sd">        used to verify the used parameters before running automatedly on large</span>
+<span class="sd">        data sets.</span>
+<span class="sd">    :type filename: str</span>
+<span class="sd">    :param filename: If plot option is selected, specifying a filename here</span>
+<span class="sd">            (e.g. &#39;myplot.pdf&#39; or &#39;myplot.png&#39;) will output the plot to a file</span>
+<span class="sd">            instead of opening a plot window.</span>
+<span class="sd">    :rtype: (float, float)</span>
+<span class="sd">    :returns: Correction time `pick2_corr` for `pick2` pick time as a float and</span>
+<span class="sd">            corresponding correlation coefficient.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># perform some checks on the traces</span>
+    <span class="k">if</span> <span class="n">trace1</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sampling_rate</span> <span class="o">!=</span> <span class="n">trace2</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sampling_rate</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Sampling rates do not match: </span><span class="si">%s</span><span class="s2"> != </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> \
+            <span class="p">(</span><span class="n">trace1</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sampling_rate</span><span class="p">,</span> <span class="n">trace2</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sampling_rate</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">trace1</span><span class="o">.</span><span class="n">id</span> <span class="o">!=</span> <span class="n">trace2</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Trace ids do not match: </span><span class="si">%s</span><span class="s2"> != </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">trace1</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">trace2</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">samp_rate</span> <span class="o">=</span> <span class="n">trace1</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sampling_rate</span>
+    <span class="c1"># don&#39;t modify existing traces with filters</span>
+    <span class="k">if</span> <span class="nb">filter</span><span class="p">:</span>
+        <span class="n">trace1</span> <span class="o">=</span> <span class="n">trace1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">trace2</span> <span class="o">=</span> <span class="n">trace2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1"># check data, apply filter and take correct slice of traces</span>
+    <span class="n">slices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_i</span><span class="p">,</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">tr</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(((</span><span class="n">pick1</span><span class="p">,</span> <span class="n">trace1</span><span class="p">),</span> <span class="p">(</span><span class="n">pick2</span><span class="p">,</span> <span class="n">trace2</span><span class="p">))):</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">t</span> <span class="o">-</span> <span class="n">t_before</span> <span class="o">-</span> <span class="p">(</span><span class="n">cc_maxlag</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">t</span> <span class="o">+</span> <span class="n">t_after</span> <span class="o">+</span> <span class="p">(</span><span class="n">cc_maxlag</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>
+        <span class="n">duration</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span>
+        <span class="c1"># check if necessary time spans are present in data</span>
+        <span class="k">if</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span> <span class="o">&gt;</span> <span class="n">start</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Trace </span><span class="si">%s</span><span class="s2"> starts too late.&quot;</span> <span class="o">%</span> <span class="n">_i</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">endtime</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Trace </span><span class="si">%s</span><span class="s2"> ends too early.&quot;</span> <span class="o">%</span> <span class="n">_i</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">filter</span> <span class="ow">and</span> <span class="n">start</span> <span class="o">-</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span> <span class="o">&lt;</span> <span class="n">duration</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Artifacts from signal processing possible. Trace &quot;</span> <span class="o">+</span> \
+                  <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> should have more additional data at the start.&quot;</span> <span class="o">%</span> <span class="n">_i</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">filter</span> <span class="ow">and</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">endtime</span> <span class="o">-</span> <span class="n">end</span> <span class="o">&lt;</span> <span class="n">duration</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Artifacts from signal processing possible. Trace &quot;</span> <span class="o">+</span> \
+                  <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> should have more additional data at the end.&quot;</span> <span class="o">%</span> <span class="n">_i</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="c1"># apply signal processing and take correct slice of data</span>
+        <span class="k">if</span> <span class="nb">filter</span><span class="p">:</span>
+            <span class="n">tr</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+            <span class="n">tr</span><span class="o">.</span><span class="n">detrend</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;demean&#39;</span><span class="p">)</span>
+            <span class="n">tr</span><span class="o">.</span><span class="n">data</span> <span class="o">*=</span> <span class="n">cosine_taper</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tr</span><span class="p">),</span> <span class="mf">0.1</span><span class="p">)</span>
+            <span class="n">tr</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">filter</span><span class="p">,</span> <span class="o">**</span><span class="n">filter_options</span><span class="p">)</span>
+        <span class="n">slices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span>
+    <span class="c1"># cross correlate</span>
+    <span class="n">shift_len</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cc_maxlag</span> <span class="o">*</span> <span class="n">samp_rate</span><span class="p">)</span>
+    <span class="n">_cc_shift</span><span class="p">,</span> <span class="n">cc_max</span><span class="p">,</span> <span class="n">cc</span> <span class="o">=</span> <span class="n">xcorr</span><span class="p">(</span><span class="n">slices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">slices</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+                                  <span class="n">shift_len</span><span class="p">,</span> <span class="n">full_xcorr</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">cc_curvature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">cc</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span>
+    <span class="n">cc_convex</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">cc_curvature</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">cc</span><span class="p">)</span>
+    <span class="n">cc_concave</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">cc_curvature</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">cc</span><span class="p">)</span>
+    <span class="c1"># check results of cross correlation</span>
+    <span class="k">if</span> <span class="n">cc_max</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Absolute maximum is negative: </span><span class="si">%.3f</span><span class="s2">. &quot;</span> <span class="o">%</span> <span class="n">cc_max</span> <span class="o">+</span> \
+              <span class="s2">&quot;Using positive maximum: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">max</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">cc_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cc_max</span> <span class="o">&lt;</span> <span class="mf">0.8</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Maximum of cross correlation lower than 0.8: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">cc_max</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="c1"># make array with time shifts in seconds corresponding to cc function</span>
+    <span class="n">cc_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">cc_maxlag</span><span class="p">,</span> <span class="n">cc_maxlag</span><span class="p">,</span> <span class="n">shift_len</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># take the subportion of the cross correlation around the maximum that is</span>
+    <span class="c1"># convex and fit a parabola.</span>
+    <span class="c1"># use vertex as subsample resolution best cc fit.</span>
+    <span class="n">peak_index</span> <span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
+    <span class="n">first_sample</span> <span class="o">=</span> <span class="n">peak_index</span>
+    <span class="c1"># XXX this could be improved..</span>
+    <span class="k">while</span> <span class="n">first_sample</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">cc_curvature</span><span class="p">[</span><span class="n">first_sample</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">first_sample</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="n">last_sample</span> <span class="o">=</span> <span class="n">peak_index</span>
+    <span class="k">while</span> <span class="n">last_sample</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">cc_curvature</span><span class="p">[</span><span class="n">last_sample</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">last_sample</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">first_sample</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">last_sample</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Fitting at maximum lag. Maximum lag time should be increased.&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="c1"># work on subarrays</span>
+    <span class="n">num_samples</span> <span class="o">=</span> <span class="n">last_sample</span> <span class="o">-</span> <span class="n">first_sample</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">num_samples</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Less than 3 samples selected for fit to cross &quot;</span> <span class="o">+</span> \
+              <span class="s2">&quot;correlation: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">num_samples</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">num_samples</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Less than 5 samples selected for fit to cross &quot;</span> <span class="o">+</span> \
+              <span class="s2">&quot;correlation: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">num_samples</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="c1"># quadratic fit for small subwindow</span>
+    <span class="n">coeffs</span><span class="p">,</span> <span class="n">residual</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span>
+        <span class="n">cc_t</span><span class="p">[</span><span class="n">first_sample</span><span class="p">:</span><span class="n">last_sample</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="n">cc</span><span class="p">[</span><span class="n">first_sample</span><span class="p">:</span><span class="n">last_sample</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">deg</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">full</span><span class="o">=</span><span class="kc">True</span><span class="p">)[:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="c1"># check results of fit</span>
+    <span class="k">if</span> <span class="n">coeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Fitted parabola opens upwards!&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">residual</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Residual in quadratic fit to cross correlation maximum &quot;</span> <span class="o">+</span> \
+              <span class="s2">&quot;larger than 0.1: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">residual</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="c1"># X coordinate of vertex of parabola gives time shift to correct</span>
+    <span class="c1"># differential pick time. Y coordinate gives maximum correlation</span>
+    <span class="c1"># coefficient.</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="o">-</span><span class="n">coeffs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="n">coeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">coeff</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">coeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">coeffs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">coeffs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">coeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="c1"># this is the shift to apply on the time axis of `trace2` to align the</span>
+    <span class="c1"># traces. Actually we do not want to shift the trace to align it but we</span>
+    <span class="c1"># want to correct the time of `pick2` so that the traces align without</span>
+    <span class="c1"># shifting. This is the negative of the cross correlation shift.</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="o">-</span><span class="n">dt</span>
+    <span class="n">pick2_corr</span> <span class="o">=</span> <span class="n">dt</span>
+    <span class="c1"># plot the results if selected</span>
+    <span class="k">if</span> <span class="n">plot</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">MatplotlibBackend</span><span class="p">(</span><span class="n">filename</span> <span class="ow">and</span> <span class="s2">&quot;AGG&quot;</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sloppy</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+            <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+            <span class="n">tmp_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">slices</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="n">samp_rate</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">slices</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tmp_t</span><span class="p">,</span> <span class="n">slices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">slices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()),</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span>
+                     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Trace 1&quot;</span><span class="p">)</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tmp_t</span><span class="p">,</span> <span class="n">slices</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">slices</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()),</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span>
+                     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Trace 2&quot;</span><span class="p">)</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tmp_t</span> <span class="o">-</span> <span class="n">dt</span><span class="p">,</span> <span class="n">slices</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">slices</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()),</span>
+                     <span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Trace 2 (shifted)&quot;</span><span class="p">)</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">,</span> <span class="n">prop</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="s2">&quot;small&quot;</span><span class="p">})</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">slices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;time [s]&quot;</span><span class="p">)</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;norm. amplitude&quot;</span><span class="p">)</span>
+            <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
+            <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cc_t</span><span class="p">,</span> <span class="n">cc_convex</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
+                     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;xcorr (convex)&quot;</span><span class="p">)</span>
+            <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cc_t</span><span class="p">,</span> <span class="n">cc_concave</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.7&quot;</span><span class="p">,</span>
+                     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;xcorr (concave)&quot;</span><span class="p">)</span>
+            <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cc_t</span><span class="p">[</span><span class="n">first_sample</span><span class="p">:</span><span class="n">last_sample</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="n">cc</span><span class="p">[</span><span class="n">first_sample</span><span class="p">:</span><span class="n">last_sample</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;b.&quot;</span><span class="p">,</span>
+                     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;used for fitting&quot;</span><span class="p">)</span>
+            <span class="n">tmp_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">cc_t</span><span class="p">[</span><span class="n">first_sample</span><span class="p">],</span> <span class="n">cc_t</span><span class="p">[</span><span class="n">last_sample</span><span class="p">],</span>
+                                <span class="n">num_samples</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+            <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tmp_t</span><span class="p">,</span> <span class="n">scipy</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">coeffs</span><span class="p">,</span> <span class="n">tmp_t</span><span class="p">),</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;fit&quot;</span><span class="p">)</span>
+            <span class="n">ax2</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="o">-</span><span class="n">dt</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;vertex&quot;</span><span class="p">)</span>
+            <span class="n">ax2</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">coeff</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">)</span>
+            <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%.2f</span><span class="s2"> at </span><span class="si">%.3f</span><span class="s2"> seconds correction&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">coeff</span><span class="p">,</span> <span class="o">-</span><span class="n">dt</span><span class="p">))</span>
+            <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;correlation coefficient&quot;</span><span class="p">)</span>
+            <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">,</span> <span class="n">prop</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="s2">&quot;x-small&quot;</span><span class="p">})</span>
+            <span class="c1"># plt.legend(loc=&quot;lower left&quot;)</span>
+            <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+                <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">pick2_corr</span><span class="p">,</span> <span class="n">coeff</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="templates_max_similarity"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.cross_correlation.templates_max_similarity.html#obspy.signal.cross_correlation.templates_max_similarity">[docs]</a><span class="k">def</span> <span class="nf">templates_max_similarity</span><span class="p">(</span><span class="n">st</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">streams_templates</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compares all event templates in the streams_templates list of streams</span>
+<span class="sd">    against the given stream around the time of the suspected event. The stream</span>
+<span class="sd">    that is being checked has to include all trace ids that are included in</span>
+<span class="sd">    template events. One component streams can be checked as well as multiple</span>
+<span class="sd">    components simultaneously. In case of multiple components it is made sure,</span>
+<span class="sd">    that all three components are shifted together.  The traces in any stream</span>
+<span class="sd">    need to have a reasonable common starting time.  The stream to check should</span>
+<span class="sd">    have some additional data to left/right of suspected event, the event</span>
+<span class="sd">    template streams should be cut to the portion of the event that should be</span>
+<span class="sd">    compared. Also see :func:`obspy.signal.trigger.coincidence_trigger` and the</span>
+<span class="sd">    corresponding example in the</span>
+<span class="sd">    `Trigger/Picker Tutorial</span>
+<span class="sd">    &lt;https://tutorial.obspy.org/code_snippets/trigger_tutorial.html&gt;`_.</span>
+
+<span class="sd">    - computes cross correlation on each component (one stream serves as</span>
+<span class="sd">      template, one as a longer search stream)</span>
+<span class="sd">    - stack all three and determine best shift in stack</span>
+<span class="sd">    - normalization is a bit problematic so compute the correlation coefficient</span>
+<span class="sd">      afterwards for the best shift to make sure the result is between 0 and 1.</span>
+
+<span class="sd">    &gt;&gt;&gt; from obspy import read, UTCDateTime</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; np.random.seed(123)  # make test reproducible</span>
+<span class="sd">    &gt;&gt;&gt; st = read()</span>
+<span class="sd">    &gt;&gt;&gt; t = UTCDateTime(2009, 8, 24, 0, 20, 7, 700000)</span>
+<span class="sd">    &gt;&gt;&gt; templ = st.copy().slice(t, t+5)</span>
+<span class="sd">    &gt;&gt;&gt; for tr in templ:</span>
+<span class="sd">    ...     tr.data += np.random.random(len(tr)) * tr.data.max() * 0.5</span>
+<span class="sd">    &gt;&gt;&gt; print(templates_max_similarity(st, t, [templ]))</span>
+<span class="sd">    0.922536411468</span>
+
+<span class="sd">    :param time: Time around which is checked for a similarity. Cross</span>
+<span class="sd">        correlation shifts of around template event length are checked.</span>
+<span class="sd">    :type time: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :param st: One or multi-component Stream to check against event templates.</span>
+<span class="sd">        Should have additional data left/right of suspected event (around half</span>
+<span class="sd">        the length of template events).</span>
+<span class="sd">    :type st: :class:`~obspy.core.stream.Stream`</span>
+<span class="sd">    :param streams_templates: List of streams with template events to check for</span>
+<span class="sd">        waveform similarity. Each template has to include data for all</span>
+<span class="sd">        channels present in stream to check.</span>
+<span class="sd">    :type streams_templates: list of :class:`~obspy.core.stream.Stream`</span>
+<span class="sd">    :returns: Best correlation coefficient obtained by the comparison against</span>
+<span class="sd">        all template events (0 to 1).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">st_tmpl</span> <span class="ow">in</span> <span class="n">streams_templates</span><span class="p">:</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">tr</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="n">st_tmpl</span><span class="p">]</span>
+        <span class="n">duration</span> <span class="o">=</span> <span class="n">st_tmpl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">endtime</span> <span class="o">-</span> <span class="n">st_tmpl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span>
+        <span class="n">st_</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="n">time</span> <span class="o">-</span> <span class="p">(</span><span class="n">duration</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">),</span>
+                       <span class="n">time</span> <span class="o">+</span> <span class="p">(</span><span class="n">duration</span> <span class="o">*</span> <span class="mf">1.5</span><span class="p">))</span>
+        <span class="n">cc</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">id_</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">st_</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">id_</span><span class="p">):</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Skipping trace </span><span class="si">%s</span><span class="s2"> in template correlation &quot;</span> <span class="o">+</span> \
+                      <span class="s2">&quot;(not present in stream to check).&quot;</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">id_</span><span class="p">)</span>
+                <span class="n">ids</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">id_</span><span class="p">)</span>
+        <span class="c1"># determine best (combined) shift of multi-component data</span>
+        <span class="k">for</span> <span class="n">id_</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">:</span>
+            <span class="n">tr1</span> <span class="o">=</span> <span class="n">st_</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">id_</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">tr2</span> <span class="o">=</span> <span class="n">st_tmpl</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">id_</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tr1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">tr2</span><span class="p">):</span>
+                <span class="n">data_short</span> <span class="o">=</span> <span class="n">tr2</span><span class="o">.</span><span class="n">data</span>
+                <span class="n">data_long</span> <span class="o">=</span> <span class="n">tr1</span><span class="o">.</span><span class="n">data</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">data_short</span> <span class="o">=</span> <span class="n">tr1</span><span class="o">.</span><span class="n">data</span>
+                <span class="n">data_long</span> <span class="o">=</span> <span class="n">tr2</span><span class="o">.</span><span class="n">data</span>
+            <span class="n">data_short</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_short</span> <span class="o">-</span> <span class="n">data_short</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">data_short</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+            <span class="n">data_long</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_long</span> <span class="o">-</span> <span class="n">data_long</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">data_long</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">correlate</span><span class="p">(</span><span class="n">data_long</span><span class="p">,</span> <span class="n">data_short</span><span class="p">,</span> <span class="n">native_str</span><span class="p">(</span><span class="s2">&quot;valid&quot;</span><span class="p">))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">cc</span> <span class="o">+=</span> <span class="n">tmp</span>
+            <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                <span class="n">cc</span> <span class="o">=</span> <span class="n">tmp</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">cc</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="n">cc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Skipping template(s) for station </span><span class="si">%s</span><span class="s2"> due to problems in &quot;</span> <span class="o">+</span> \
+                  <span class="s2">&quot;three component correlation (gappy traces?)&quot;</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="n">st_tmpl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">station</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
+        <span class="n">ind2</span> <span class="o">=</span> <span class="n">ind</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_short</span><span class="p">)</span>
+        <span class="n">coef</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="c1"># determine correlation coefficient of best shift as the mean of all</span>
+        <span class="c1"># components</span>
+        <span class="k">for</span> <span class="n">id_</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">:</span>
+            <span class="n">tr1</span> <span class="o">=</span> <span class="n">st_</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">id_</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">tr2</span> <span class="o">=</span> <span class="n">st_tmpl</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">id_</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tr1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">tr2</span><span class="p">):</span>
+                <span class="n">data_short</span> <span class="o">=</span> <span class="n">tr2</span><span class="o">.</span><span class="n">data</span>
+                <span class="n">data_long</span> <span class="o">=</span> <span class="n">tr1</span><span class="o">.</span><span class="n">data</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">data_short</span> <span class="o">=</span> <span class="n">tr1</span><span class="o">.</span><span class="n">data</span>
+                <span class="n">data_long</span> <span class="o">=</span> <span class="n">tr2</span><span class="o">.</span><span class="n">data</span>
+            <span class="n">coef</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">data_short</span><span class="p">,</span> <span class="n">data_long</span><span class="p">[</span><span class="n">ind</span><span class="p">:</span><span class="n">ind2</span><span class="p">])[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">coef</span> <span class="o">/=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+        <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coef</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">values</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+
+<span class="c1"># Remove once 0.11 has been released.</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">DynamicAttributeImportRerouteModule</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="vm">__doc__</span><span class="p">,</span> <span class="n">locs</span><span class="o">=</span><span class="nb">locals</span><span class="p">(),</span>
+    <span class="n">original_module</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">],</span>
+    <span class="n">import_map</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">function_map</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;xcorrPickCorrection&quot;</span><span class="p">:</span>
+            <span class="s2">&quot;obspy.signal.cross_correlation.xcorr_pick_correction&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;xcorr_3C&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.cross_correlation.xcorr_3c&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;templatesMaxSimilarity&quot;</span><span class="p">:</span>
+            <span class="s2">&quot;obspy.signal.cross_correlation.templates_max_similarity&quot;</span>
+    <span class="p">})</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

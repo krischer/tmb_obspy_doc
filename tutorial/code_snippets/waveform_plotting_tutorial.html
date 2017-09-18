@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>4. Waveform Plotting Tutorial &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5. Retrieving Data from Data Centers" href="retrieving_data_from_datacenters.html" />
+    <link rel="prev" title="3. Reading Seismograms" href="reading_seismograms.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../py-modindex.html" title="Python Module Index"
+         >modules</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="retrieving_data_from_datacenters.html" title="5. Retrieving Data from Data Centers"
+         accesskey="N">next</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="reading_seismograms.html" title="3. Reading Seismograms"
+         accesskey="P">previous</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../index.html" accesskey="U">ObsPy Tutorial</a></li> 
+    </ol>
+  
+  <div class="section" id="waveform-plotting-tutorial">
+<h1>4. Waveform Plotting Tutorial<a class="headerlink" href="#waveform-plotting-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>Read the files as shown at the <a class="reference internal" href="reading_seismograms.html#reading-seismogramms"><span class="std std-ref">Reading Seismograms</span></a> page. We will use
+two different ObsPy <a class="reference internal" href="../../packages/autogen/obspy.core.stream.Stream.html#obspy.core.stream.Stream" title="obspy.core.stream.Stream"><code class="xref py py-class docutils literal"><span class="pre">Stream</span></code></a> objects throughout
+this tutorial. The first one, <code class="docutils literal"><span class="pre">singlechannel</span></code>, just contains one continuous
+<a class="reference internal" href="../../packages/autogen/obspy.core.trace.Trace.html#obspy.core.trace.Trace" title="obspy.core.trace.Trace"><code class="xref py py-class docutils literal"><span class="pre">Trace</span></code></a> and the other one, <code class="docutils literal"><span class="pre">threechannel</span></code>,
+contains three channels of a seismograph.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.core</span> <span class="k">import</span> <span class="n">read</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">singlechannel</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s1">&#39;https://examples.obspy.org/COP.BHZ.DK.2009.050&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">singlechannel</span><span class="p">)</span>
+<span class="go">1 Trace(s) in Stream:</span>
+<span class="go">DK.COP..BHZ | 2009-02-19T00:00:00.025100Z - 2009-02-19T23:59:59.975100Z | 20.0 Hz, 1728000 samples</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">threechannels</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s1">&#39;https://examples.obspy.org/COP.BHE.DK.2009.050&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">threechannels</span> <span class="o">+=</span> <span class="n">read</span><span class="p">(</span><span class="s1">&#39;https://examples.obspy.org/COP.BHN.DK.2009.050&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">threechannels</span> <span class="o">+=</span> <span class="n">read</span><span class="p">(</span><span class="s1">&#39;https://examples.obspy.org/COP.BHZ.DK.2009.050&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">threechannels</span><span class="p">)</span>
+<span class="go">3 Trace(s) in Stream:</span>
+<span class="go">DK.COP..BHE | 2009-02-19T00:00:00.035100Z - 2009-02-19T23:59:59.985100Z | 20.0 Hz, 1728000 samples</span>
+<span class="go">DK.COP..BHN | 2009-02-19T00:00:00.025100Z - 2009-02-19T23:59:59.975100Z | 20.0 Hz, 1728000 samples</span>
+<span class="go">DK.COP..BHZ | 2009-02-19T00:00:00.025100Z - 2009-02-19T23:59:59.975100Z | 20.0 Hz, 1728000 samples</span>
+</pre></div>
+</div>
+<div class="section" id="basic-plotting">
+<h2>4.1. Basic Plotting<a class="headerlink" href="#basic-plotting" title="Permalink to this headline">¶</a></h2>
+<p>Using the <a class="reference internal" href="../../packages/autogen/obspy.core.stream.Stream.plot.html#obspy.core.stream.Stream.plot" title="obspy.core.stream.Stream.plot"><code class="xref py py-meth docutils literal"><span class="pre">plot()</span></code></a> method of the
+<a class="reference internal" href="../../packages/autogen/obspy.core.stream.Stream.html#obspy.core.stream.Stream" title="obspy.core.stream.Stream"><code class="xref py py-class docutils literal"><span class="pre">Stream</span></code></a> objects will show the plot. The default
+size of the plots is 800x250 pixel. Use the <code class="docutils literal"><span class="pre">size</span></code> attribute to adjust it to
+your needs.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">singlechannel</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../../tutorial/code_snippets/waveform_plotting_tutorial_1.py">Source code</a>, <a class="reference external" href="../../tutorial/code_snippets/waveform_plotting_tutorial_1.png">png</a>, <a class="reference external" href="../../tutorial/code_snippets/waveform_plotting_tutorial_1.hires.png">hires.png</a>)</p>
+<div class="figure">
+<img alt="../../_images/waveform_plotting_tutorial_11.png" class="img-responsive" src="../../_images/waveform_plotting_tutorial_11.png" />
+</div>
+</div>
+<div class="section" id="customized-plots">
+<h2>4.2. Customized Plots<a class="headerlink" href="#customized-plots" title="Permalink to this headline">¶</a></h2>
+<p>This example shows the options to adjust the color of the graph, the number of
+ticks shown, their format and rotation and how to set the start and end time of
+the plot. Please see the documentation of method
+<a class="reference internal" href="../../packages/autogen/obspy.core.stream.Stream.plot.html#obspy.core.stream.Stream.plot" title="obspy.core.stream.Stream.plot"><code class="xref py py-meth docutils literal"><span class="pre">plot()</span></code></a> for more details on all parameters.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dt</span> <span class="o">=</span> <span class="n">singlechannel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">singlechannel</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">number_of_ticks</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+<span class="gp">... </span>                   <span class="n">tick_rotation</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">tick_format</span><span class="o">=</span><span class="s1">&#39;%I:%M %p&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                   <span class="n">starttime</span><span class="o">=</span><span class="n">dt</span> <span class="o">+</span> <span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="n">dt</span> <span class="o">+</span> <span class="mi">60</span><span class="o">*</span><span class="mi">60</span> <span class="o">+</span> <span class="mi">120</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../../tutorial/code_snippets/waveform_plotting_tutorial_2.py">Source code</a>, <a class="reference external" href="../../tutorial/code_snippets/waveform_plotting_tutorial_2.png">png</a>, <a class="reference external" href="../../tutorial/code_snippets/waveform_plotting_tutorial_2.hires.png">hires.png</a>)</p>
+<div class="figure">
+<img alt="../../_images/waveform_plotting_tutorial_21.png" class="img-responsive" src="../../_images/waveform_plotting_tutorial_21.png" />
+</div>
+</div>
+<div class="section" id="saving-plot-to-file">
+<h2>4.3. Saving Plot to File<a class="headerlink" href="#saving-plot-to-file" title="Permalink to this headline">¶</a></h2>
+<p>Plots may be saved into the file system by the <code class="docutils literal"><span class="pre">outfile</span></code> parameter. The
+format is determined automatically from the filename. Supported file formats
+depend on your matplotlib backend. Most backends support png, pdf, ps, eps and
+svg.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">singlechannel</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">outfile</span><span class="o">=</span><span class="s1">&#39;singlechannel.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="plotting-multiple-channels">
+<h2>4.4. Plotting multiple Channels<a class="headerlink" href="#plotting-multiple-channels" title="Permalink to this headline">¶</a></h2>
+<p>If the <a class="reference internal" href="../../packages/autogen/obspy.core.stream.Stream.html#obspy.core.stream.Stream" title="obspy.core.stream.Stream"><code class="xref py py-class docutils literal"><span class="pre">Stream</span></code></a> object contains more than one
+<a class="reference internal" href="../../packages/autogen/obspy.core.trace.Trace.html#obspy.core.trace.Trace" title="obspy.core.trace.Trace"><code class="xref py py-class docutils literal"><span class="pre">Trace</span></code></a>, each Trace will be plotted in a subplot.
+The start- and endtime of each trace will be the same and the range on the
+y-axis will also be identical on each trace. Each additional subplot will add
+250 pixel to the height of the resulting plot. The <code class="docutils literal"><span class="pre">size</span></code> attribute is used
+in the following example to change the overall size of the plot.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">threechannels</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../../tutorial/code_snippets/waveform_plotting_tutorial_3.py">Source code</a>, <a class="reference external" href="../../tutorial/code_snippets/waveform_plotting_tutorial_3.png">png</a>, <a class="reference external" href="../../tutorial/code_snippets/waveform_plotting_tutorial_3.hires.png">hires.png</a>)</p>
+<div class="figure">
+<img alt="../../_images/waveform_plotting_tutorial_31.png" class="img-responsive" src="../../_images/waveform_plotting_tutorial_31.png" />
+</div>
+</div>
+<div class="section" id="creating-a-one-day-plot">
+<h2>4.5. Creating a One-Day Plot<a class="headerlink" href="#creating-a-one-day-plot" title="Permalink to this headline">¶</a></h2>
+<p>A day plot of a <a class="reference internal" href="../../packages/autogen/obspy.core.trace.Trace.html#obspy.core.trace.Trace" title="obspy.core.trace.Trace"><code class="xref py py-class docutils literal"><span class="pre">Trace</span></code></a> object may be plotted by
+setting the <code class="docutils literal"><span class="pre">type</span></code> parameter to <code class="docutils literal"><span class="pre">'dayplot'</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">singlechannel</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;dayplot&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../../tutorial/code_snippets/waveform_plotting_tutorial_4.py">Source code</a>, <a class="reference external" href="../../tutorial/code_snippets/waveform_plotting_tutorial_4.png">png</a>, <a class="reference external" href="../../tutorial/code_snippets/waveform_plotting_tutorial_4.hires.png">hires.png</a>)</p>
+<div class="figure">
+<img alt="../../_images/waveform_plotting_tutorial_41.png" class="img-responsive" src="../../_images/waveform_plotting_tutorial_41.png" />
+</div>
+<p>Event information can be included in the plot as well (experimental feature, syntax might change):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">read</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;https://examples.obspy.org/GR.BFO..LHZ.2012.108&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">&quot;lowpass&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">corners</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;dayplot&quot;</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">right_vertical_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">vertical_scaling_range</span><span class="o">=</span><span class="mf">5e3</span><span class="p">,</span> <span class="n">one_tick_per_line</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">],</span> <span class="n">show_y_UTC_label</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;min_magnitude&#39;</span><span class="p">:</span> <span class="mf">6.5</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../../tutorial/code_snippets/waveform_plotting_tutorial_5.py">Source code</a>, <a class="reference external" href="../../tutorial/code_snippets/waveform_plotting_tutorial_5.png">png</a>, <a class="reference external" href="../../tutorial/code_snippets/waveform_plotting_tutorial_5.hires.png">hires.png</a>)</p>
+<div class="figure">
+<img alt="../../_images/waveform_plotting_tutorial_5.png" class="img-responsive" src="../../_images/waveform_plotting_tutorial_5.png" />
+</div>
+</div>
+<div class="section" id="plotting-a-record-section">
+<h2>4.6. Plotting a Record Section<a class="headerlink" href="#plotting-a-record-section" title="Permalink to this headline">¶</a></h2>
+<p>A record section can be plotted from a <a class="reference internal" href="../../packages/autogen/obspy.core.stream.Stream.html#obspy.core.stream.Stream" title="obspy.core.stream.Stream"><code class="xref py py-class docutils literal"><span class="pre">Stream</span></code></a> object
+by setting parameter <code class="docutils literal"><span class="pre">type</span></code> to <code class="docutils literal"><span class="pre">'section'</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stream</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;section&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To plot a record section the ObsPy header <code class="docutils literal"><span class="pre">trace.stats.distance</span></code> (Offset) must be
+defined in meters. Or a geographical location <code class="docutils literal"><span class="pre">trace.stats.coordinates.latitude</span></code> &amp;
+<code class="docutils literal"><span class="pre">trace.stats.coordinates.longitude</span></code> must be defined if the section is plotted in
+great circle distances (<code class="docutils literal"><span class="pre">dist_degree=True</span></code>) along with parameter <code class="docutils literal"><span class="pre">ev_coord</span></code>.
+For further information please see <a class="reference internal" href="../../packages/autogen/obspy.core.stream.Stream.plot.html#obspy.core.stream.Stream.plot" title="obspy.core.stream.Stream.plot"><code class="xref py py-meth docutils literal"><span class="pre">plot()</span></code></a></p>
+<p>(<a class="reference external" href="../../tutorial/code_snippets/waveform_plotting_tutorial_6.py">Source code</a>, <a class="reference external" href="../../tutorial/code_snippets/waveform_plotting_tutorial_6.png">png</a>, <a class="reference external" href="../../tutorial/code_snippets/waveform_plotting_tutorial_6.hires.png">hires.png</a>)</p>
+<div class="figure">
+<img alt="../../_images/waveform_plotting_tutorial_61.png" class="img-responsive" src="../../_images/waveform_plotting_tutorial_61.png" />
+</div>
+</div>
+<div class="section" id="plot-color-options">
+<h2>4.7. Plot &amp; Color Options<a class="headerlink" href="#plot-color-options" title="Permalink to this headline">¶</a></h2>
+<p>Various options are available to change the appearance of the waveform plot.
+Please see <a class="reference internal" href="../../packages/autogen/obspy.core.stream.Stream.plot.html#obspy.core.stream.Stream.plot" title="obspy.core.stream.Stream.plot"><code class="xref py py-meth docutils literal"><span class="pre">plot()</span></code></a> method for all possible
+options.</p>
+</div>
+</div>
+
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

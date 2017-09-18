@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.signal.invsim &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.signal.invsim</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># ------------------------------------------------------------------</span>
+<span class="c1"># Filename: invsim.py</span>
+<span class="c1">#  Purpose: Python Module for Instrument Correction (Seismology)</span>
+<span class="c1">#   Author: Moritz Beyreuther, Yannik Behr</span>
+<span class="c1">#    Email: moritz.beyreuther@geophysik.uni-muenchen.de</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (C) 2008-2012 Moritz Beyreuther, Yannik Behr</span>
+<span class="c1"># --------------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Python Module for Instrument Correction (Seismology).</span>
+<span class="sd">PAZ (Poles and zeros) information must be given in SEED convention, correction</span>
+<span class="sd">to m/s.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+<span class="kn">from</span> <span class="nn">future.utils</span> <span class="k">import</span> <span class="n">native_str</span>
+
+<span class="kn">import</span> <span class="nn">ctypes</span> <span class="k">as</span> <span class="nn">C</span>
+<span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">M</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.signal</span>
+
+<span class="kn">from</span> <span class="nn">obspy.core.util.base</span> <span class="k">import</span> <span class="n">NamedTemporaryFile</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.decorator</span> <span class="k">import</span> <span class="n">deprecated</span>
+<span class="kn">from</span> <span class="nn">obspy.signal</span> <span class="k">import</span> <span class="n">util</span>
+<span class="kn">from</span> <span class="nn">obspy.signal.detrend</span> <span class="k">import</span> <span class="n">simple</span> <span class="k">as</span> <span class="n">simple_detrend</span>
+<span class="kn">from</span> <span class="nn">obspy.signal.headers</span> <span class="k">import</span> <span class="n">clibevresp</span>
+<span class="kn">from</span> <span class="nn">obspy.signal.util</span> <span class="k">import</span> <span class="n">_npts2nfft</span>
+
+
+<span class="c1"># Sensitivity is 2080 according to:</span>
+<span class="c1"># P. Bormann: New Manual of Seismological Observatory Practice</span>
+<span class="c1"># IASPEI Chapter 3, page 24</span>
+<span class="c1"># (PITSA has 2800)</span>
+<span class="n">WOODANDERSON</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;poles&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">6.283</span> <span class="o">+</span> <span class="mf">4.7124</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.283</span> <span class="o">-</span> <span class="mf">4.7124</span><span class="n">j</span><span class="p">],</span>
+                <span class="s1">&#39;zeros&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span> <span class="o">+</span> <span class="mi">0</span><span class="n">j</span><span class="p">],</span> <span class="s1">&#39;gain&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;sensitivity&#39;</span><span class="p">:</span> <span class="mi">2080</span><span class="p">}</span>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;cosTaper&#39; has been renamed to &#39;cosine_taper&#39;. Use that instead.&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cosTaper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># noqa</span>
+    <span class="k">return</span> <span class="n">cosine_taper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="cosine_taper"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.invsim.cosine_taper.html#obspy.signal.invsim.cosine_taper">[docs]</a><span class="k">def</span> <span class="nf">cosine_taper</span><span class="p">(</span><span class="n">npts</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">freqs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flimit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">halfcosine</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">sactaper</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cosine Taper.</span>
+
+<span class="sd">    :type npts: int</span>
+<span class="sd">    :param npts: Number of points of cosine taper.</span>
+<span class="sd">    :type p: float</span>
+<span class="sd">    :param p: Decimal percentage of cosine taper (ranging from 0 to 1). Default</span>
+<span class="sd">        is 0.1 (10%) which tapers 5% from the beginning and 5% form the end.</span>
+<span class="sd">    :rtype: float NumPy :class:`~numpy.ndarray`</span>
+<span class="sd">    :return: Cosine taper array/vector of length npts.</span>
+<span class="sd">    :type freqs: NumPy :class:`~numpy.ndarray`</span>
+<span class="sd">    :param freqs: Frequencies as, for example, returned by fftfreq</span>
+<span class="sd">    :type flimit: list or tuple of floats</span>
+<span class="sd">    :param flimit: The list or tuple defines the four corner frequencies</span>
+<span class="sd">        (f1, f2, f3, f4) of the cosine taper which is one between f2 and f3 and</span>
+<span class="sd">        tapers to zero for f1 &lt; f &lt; f2 and f3 &lt; f &lt; f4.</span>
+<span class="sd">    :type halfcosine: bool</span>
+<span class="sd">    :param halfcosine: If True the taper is a half cosine function. If False it</span>
+<span class="sd">        is a quarter cosine function.</span>
+<span class="sd">    :type sactaper: bool</span>
+<span class="sd">    :param sactaper: If set to True the cosine taper already tapers at the</span>
+<span class="sd">        corner frequency (SAC behavior). By default, the taper has a value</span>
+<span class="sd">        of 1.0 at the corner frequencies.</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    &gt;&gt;&gt; tap = cosine_taper(100, 1.0)</span>
+<span class="sd">    &gt;&gt;&gt; tap2 = 0.5 * (1 + np.cos(np.linspace(np.pi, 2 * np.pi, 50)))</span>
+<span class="sd">    &gt;&gt;&gt; np.allclose(tap[0:50], tap2)</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; npts = 100</span>
+<span class="sd">    &gt;&gt;&gt; p = 0.1</span>
+<span class="sd">    &gt;&gt;&gt; tap3 = cosine_taper(npts, p)</span>
+<span class="sd">    &gt;&gt;&gt; (tap3[int(npts*p/2):int(npts*(1-p/2))]==np.ones(int(npts*(1-p)))).all()</span>
+<span class="sd">    True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Decimal taper percentage must be between 0 and 1.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="n">p</span> <span class="o">==</span> <span class="mf">1.0</span><span class="p">:</span>
+        <span class="n">frac</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">npts</span> <span class="o">*</span> <span class="n">p</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">frac</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">npts</span> <span class="o">*</span> <span class="n">p</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">freqs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">flimit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fl1</span><span class="p">,</span> <span class="n">fl2</span><span class="p">,</span> <span class="n">fl3</span><span class="p">,</span> <span class="n">fl4</span> <span class="o">=</span> <span class="n">flimit</span>
+        <span class="n">idx1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">freqs</span> <span class="o">-</span> <span class="n">fl1</span><span class="p">))</span>
+        <span class="n">idx2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">freqs</span> <span class="o">-</span> <span class="n">fl2</span><span class="p">))</span>
+        <span class="n">idx3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">freqs</span> <span class="o">-</span> <span class="n">fl3</span><span class="p">))</span>
+        <span class="n">idx4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">freqs</span> <span class="o">-</span> <span class="n">fl4</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">idx1</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">idx2</span> <span class="o">=</span> <span class="n">frac</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">idx3</span> <span class="o">=</span> <span class="n">npts</span> <span class="o">-</span> <span class="n">frac</span>
+        <span class="n">idx4</span> <span class="o">=</span> <span class="n">npts</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">sactaper</span><span class="p">:</span>
+        <span class="c1"># in SAC the second and third</span>
+        <span class="c1"># index are already tapered</span>
+        <span class="n">idx2</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">idx3</span> <span class="o">-=</span> <span class="mi">1</span>
+
+    <span class="c1"># Very small data lengths or small decimal taper percentages can result in</span>
+    <span class="c1"># idx1 == idx2 and idx3 == idx4. This breaks the following calculations.</span>
+    <span class="k">if</span> <span class="n">idx1</span> <span class="o">==</span> <span class="n">idx2</span><span class="p">:</span>
+        <span class="n">idx2</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">idx3</span> <span class="o">==</span> <span class="n">idx4</span><span class="p">:</span>
+        <span class="n">idx3</span> <span class="o">-=</span> <span class="mi">1</span>
+
+    <span class="c1"># the taper at idx1 and idx4 equals zero and</span>
+    <span class="c1"># at idx2 and idx3 equals one</span>
+    <span class="n">cos_win</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">npts</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">halfcosine</span><span class="p">:</span>
+        <span class="c1"># cos_win[idx1:idx2+1] =  0.5 * (1.0 + np.cos((np.pi * \</span>
+        <span class="c1">#    (idx2 - np.arange(idx1, idx2+1)) / (idx2 - idx1))))</span>
+        <span class="n">cos_win</span><span class="p">[</span><span class="n">idx1</span><span class="p">:</span><span class="n">idx2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span>
+            <span class="mf">1.0</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">idx1</span><span class="p">,</span> <span class="n">idx2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">idx1</span><span class="p">))</span> <span class="o">/</span>
+                          <span class="p">(</span><span class="n">idx2</span> <span class="o">-</span> <span class="n">idx1</span><span class="p">))))</span>
+        <span class="n">cos_win</span><span class="p">[</span><span class="n">idx2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span><span class="n">idx3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">cos_win</span><span class="p">[</span><span class="n">idx3</span><span class="p">:</span><span class="n">idx4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span>
+            <span class="mf">1.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">idx3</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">idx3</span><span class="p">,</span> <span class="n">idx4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">/</span>
+                          <span class="p">(</span><span class="n">idx4</span> <span class="o">-</span> <span class="n">idx3</span><span class="p">))))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cos_win</span><span class="p">[</span><span class="n">idx1</span><span class="p">:</span><span class="n">idx2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="o">-</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">idx2</span><span class="p">)</span> <span class="o">-</span>
+                           <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">idx1</span><span class="p">,</span> <span class="n">idx2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">idx2</span> <span class="o">-</span> <span class="n">idx1</span><span class="p">)))</span>
+        <span class="n">cos_win</span><span class="p">[</span><span class="n">idx2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span><span class="n">idx3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">cos_win</span><span class="p">[</span><span class="n">idx3</span><span class="p">:</span><span class="n">idx4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">idx3</span><span class="p">)</span> <span class="o">-</span>
+                           <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">idx3</span><span class="p">,</span> <span class="n">idx4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">idx4</span> <span class="o">-</span> <span class="n">idx3</span><span class="p">)))</span>
+
+    <span class="c1"># if indices are identical division by zero</span>
+    <span class="c1"># causes NaN values in cos_win</span>
+    <span class="k">if</span> <span class="n">idx1</span> <span class="o">==</span> <span class="n">idx2</span><span class="p">:</span>
+        <span class="n">cos_win</span><span class="p">[</span><span class="n">idx1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">if</span> <span class="n">idx3</span> <span class="o">==</span> <span class="n">idx4</span><span class="p">:</span>
+        <span class="n">cos_win</span><span class="p">[</span><span class="n">idx3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">return</span> <span class="n">cos_win</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;c_sac_taper&#39; has been renamed to &#39;cosine_sac_taper&#39;.&quot;</span>
+            <span class="s2">&quot;Use that instead.&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">c_sac_taper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cosine_sac_taper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="cosine_sac_taper"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.invsim.cosine_sac_taper.html#obspy.signal.invsim.cosine_sac_taper">[docs]</a><span class="k">def</span> <span class="nf">cosine_sac_taper</span><span class="p">(</span><span class="n">freqs</span><span class="p">,</span> <span class="n">flimit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a cosine flank frequency domain taper similar to the one SAC</span>
+<span class="sd">    applies before instrument response deconvolution. This acts as a bandpass</span>
+<span class="sd">    filter when applied to the data in frequency space.</span>
+
+<span class="sd">    :param freqs: frequency vector to use</span>
+<span class="sd">    :type freqs: :class:`numpy.ndarray`</span>
+<span class="sd">    :param flimit: sequence containing the 4 frequency limits</span>
+<span class="sd">    :type flimit: tuple of 4 floats</span>
+<span class="sd">    :returns: taper</span>
+<span class="sd">    :rtype: :class:`numpy.ndarray`</span>
+
+<span class="sd">    The `flimit` parameter is a tuple of four frequency values `(f1, f2,</span>
+<span class="sd">    f3, f4)`, the following plots illustrates the concept:</span>
+
+<span class="sd">    .. plot::</span>
+
+<span class="sd">        import matplotlib.pylab as plt</span>
+<span class="sd">        import numpy as np</span>
+<span class="sd">        from obspy.signal.invsim import cosine_sac_taper</span>
+
+<span class="sd">        plt.figure(figsize=(10, 3))</span>
+
+<span class="sd">        freqs = np.logspace(-2.01, 0, 2000)</span>
+
+<span class="sd">        plt.vlines([0.015, 0.03, 0.2, 0.4], -0.1, 1.3, color=&quot;#89160F&quot;)</span>
+<span class="sd">        plt.semilogx(freqs, cosine_sac_taper(freqs, (0.015, 0.03, 0.2, 0.4)),</span>
+<span class="sd">                     lw=2, color=&quot;#4C72B0&quot;)</span>
+
+<span class="sd">        props = {</span>
+<span class="sd">            &quot;bbox&quot;: dict(facecolor=&#39;white&#39;, edgecolor=&quot;0.5&quot;,</span>
+<span class="sd">                 boxstyle=&quot;square,pad=0.2&quot;),</span>
+<span class="sd">            &quot;va&quot;: &quot;top&quot;, &quot;ha&quot;: &quot;center&quot;, &quot;color&quot;: &quot;#89160F&quot;,</span>
+<span class="sd">            &quot;size&quot;: &quot;large&quot;}</span>
+<span class="sd">        plt.text(0.015, 1.25, &quot;f1&quot;, **props)</span>
+<span class="sd">        plt.text(0.03, 1.25, &quot;f2&quot;, **props)</span>
+<span class="sd">        plt.text(0.2, 1.25, &quot;f3&quot;, **props)</span>
+<span class="sd">        plt.text(0.4, 1.25, &quot;f4&quot;, **props)</span>
+
+<span class="sd">        plt.xlim(freqs[0], freqs[-1])</span>
+<span class="sd">        plt.ylim(-0.1, 1.3)</span>
+<span class="sd">        plt.ylabel(&quot;Taper Amplitude&quot;)</span>
+<span class="sd">        plt.xlabel(&quot;Frequency [Hz]&quot;)</span>
+<span class="sd">        plt.grid()</span>
+<span class="sd">        plt.tight_layout()</span>
+<span class="sd">        plt.show()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fl1</span><span class="p">,</span> <span class="n">fl2</span><span class="p">,</span> <span class="n">fl3</span><span class="p">,</span> <span class="n">fl4</span> <span class="o">=</span> <span class="n">flimit</span>
+    <span class="n">taper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">freqs</span><span class="p">)</span>
+
+    <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">fl1</span> <span class="o">&lt;=</span> <span class="n">freqs</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">freqs</span> <span class="o">&lt;=</span> <span class="n">fl2</span><span class="p">)</span>
+    <span class="n">taper</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">freqs</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">-</span> <span class="n">fl1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">fl2</span> <span class="o">-</span> <span class="n">fl1</span><span class="p">)))</span>
+
+    <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">fl2</span> <span class="o">&lt;</span> <span class="n">freqs</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">freqs</span> <span class="o">&lt;</span> <span class="n">fl3</span><span class="p">)</span>
+    <span class="n">taper</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">fl3</span> <span class="o">&lt;=</span> <span class="n">freqs</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">freqs</span> <span class="o">&lt;=</span> <span class="n">fl4</span><span class="p">)</span>
+    <span class="n">taper</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">freqs</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">-</span> <span class="n">fl3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">fl4</span> <span class="o">-</span> <span class="n">fl3</span><span class="p">)))</span>
+
+    <span class="k">return</span> <span class="n">taper</span></div>
+
+
+<div class="viewcode-block" id="evalresp"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.invsim.evalresp.html#obspy.signal.invsim.evalresp">[docs]</a><span class="k">def</span> <span class="nf">evalresp</span><span class="p">(</span><span class="n">t_samp</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">station</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span>
+             <span class="n">network</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">locid</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;VEL&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+             <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Use the evalresp library to extract instrument response</span>
+<span class="sd">    information from a SEED RESP-file.</span>
+
+<span class="sd">    :type t_samp: float</span>
+<span class="sd">    :param t_samp: Sampling interval in seconds</span>
+<span class="sd">    :type nfft: int</span>
+<span class="sd">    :param nfft: Number of FFT points of signal which needs correction</span>
+<span class="sd">    :type filename: str or file</span>
+<span class="sd">    :param filename: SEED RESP-filename or open file like object with RESP</span>
+<span class="sd">        information. Any object that provides a read() method will be</span>
+<span class="sd">        considered to be a file like object.</span>
+<span class="sd">    :type date: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :param date: Date of interest</span>
+<span class="sd">    :type station: str</span>
+<span class="sd">    :param station: Station id</span>
+<span class="sd">    :type channel: str</span>
+<span class="sd">    :param channel: Channel id</span>
+<span class="sd">    :type network: str</span>
+<span class="sd">    :param network: Network id</span>
+<span class="sd">    :type locid: str</span>
+<span class="sd">    :param locid: Location id</span>
+<span class="sd">    :type units: str</span>
+<span class="sd">    :param units: Units to return response in. Can be either DIS, VEL or ACC</span>
+<span class="sd">    :type debug: bool</span>
+<span class="sd">    :param debug: Verbose output to stdout. Disabled by default.</span>
+<span class="sd">    :rtype: :class:`numpy.ndarray` complex128</span>
+<span class="sd">    :return: Frequency response from SEED RESP-file of length nfft</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">native_str</span><span class="p">)):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;read&#39;</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="c1"># evalresp needs files with correct line separators depending on OS</span>
+    <span class="k">with</span> <span class="n">NamedTemporaryFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">tempfile</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">linesep</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()))</span>
+        <span class="n">fh</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="n">fy</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">t_samp</span> <span class="o">*</span> <span class="mf">2.0</span><span class="p">)</span>
+        <span class="c1"># start at zero to get zero for offset/ DC of fft</span>
+        <span class="n">freqs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">fy</span><span class="p">,</span> <span class="n">nfft</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">start_stage</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">stop_stage</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">stdio_flag</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">sta</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="n">station</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">))</span>
+        <span class="n">cha</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="n">channel</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">))</span>
+        <span class="n">net</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">))</span>
+        <span class="n">locid</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="n">locid</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">))</span>
+        <span class="n">unts</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="n">units</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+            <span class="n">vbs</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;-v&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">vbs</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">rtyp</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;CS&quot;</span><span class="p">)</span>
+        <span class="n">datime</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span>
+            <span class="n">date</span><span class="o">.</span><span class="n">format_seed</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">))</span>
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">))</span>
+        <span class="n">nfreqs</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="n">freqs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">clibevresp</span><span class="o">.</span><span class="n">evresp</span><span class="p">(</span><span class="n">sta</span><span class="p">,</span> <span class="n">cha</span><span class="p">,</span> <span class="n">net</span><span class="p">,</span> <span class="n">locid</span><span class="p">,</span> <span class="n">datime</span><span class="p">,</span> <span class="n">unts</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span>
+                                <span class="n">freqs</span><span class="p">,</span> <span class="n">nfreqs</span><span class="p">,</span> <span class="n">rtyp</span><span class="p">,</span> <span class="n">vbs</span><span class="p">,</span> <span class="n">start_stage</span><span class="p">,</span>
+                                <span class="n">stop_stage</span><span class="p">,</span> <span class="n">stdio_flag</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="c1"># optimizing performance, see</span>
+        <span class="c1"># https://wiki.python.org/moin/PythonSpeed/PerformanceTips</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">nfreqs</span><span class="p">,</span> <span class="n">rfreqs</span><span class="p">,</span> <span class="n">rvec</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">nfreqs</span><span class="p">,</span> <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">freqs</span><span class="p">,</span> <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rvec</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;evalresp failed to calculate a response.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">nfreqs</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">nfreqs</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nfreqs</span><span class="p">):</span>
+            <span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rvec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">real</span> <span class="o">+</span> <span class="n">rvec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">imag</span> <span class="o">*</span> <span class="mi">1</span><span class="n">j</span>
+            <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rfreqs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">clibevresp</span><span class="o">.</span><span class="n">free_response</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">nfreqs</span><span class="p">,</span> <span class="n">rfreqs</span><span class="p">,</span> <span class="n">rvec</span><span class="p">,</span> <span class="n">res</span>
+    <span class="k">if</span> <span class="n">freq</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">h</span><span class="p">,</span> <span class="n">f</span>
+    <span class="k">return</span> <span class="n">h</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;cornFreq2Paz&#39; has been renamed to &#39;corn_freq_2_paz&#39;.&quot;</span>
+            <span class="s2">&quot;Use that instead.&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span>
+<span class="k">def</span> <span class="nf">cornFreq2Paz</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">corn_freq_2_paz</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="corn_freq_2_paz"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.invsim.corn_freq_2_paz.html#obspy.signal.invsim.corn_freq_2_paz">[docs]</a><span class="k">def</span> <span class="nf">corn_freq_2_paz</span><span class="p">(</span><span class="n">fc</span><span class="p">,</span> <span class="n">damp</span><span class="o">=</span><span class="mf">0.707</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert corner frequency and damping to poles and zeros. 2 zeros at</span>
+<span class="sd">    position (0j, 0j) are given as output  (m/s).</span>
+
+<span class="sd">    :param fc: Corner frequency</span>
+<span class="sd">    :param damping: Corner frequency</span>
+<span class="sd">    :return: Dictionary containing poles, zeros and gain</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">poles</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="p">(</span><span class="n">damp</span> <span class="o">+</span> <span class="n">M</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">damp</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span><span class="n">j</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">fc</span><span class="p">,</span>
+             <span class="o">-</span><span class="p">(</span><span class="n">damp</span> <span class="o">-</span> <span class="n">M</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">damp</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span><span class="n">j</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">fc</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;poles&#39;</span><span class="p">:</span> <span class="n">poles</span><span class="p">,</span> <span class="s1">&#39;zeros&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="n">j</span><span class="p">],</span> <span class="s1">&#39;gain&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;sensitivity&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">}</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;pazToFreqResp&#39; has been renamed to &#39;paz_to_freq_resp&#39;.&quot;</span>
+            <span class="s2">&quot;Use that instead.&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span>
+<span class="k">def</span> <span class="nf">pazToFreqResp</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">paz_to_freq_resp</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="paz_to_freq_resp"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.invsim.paz_to_freq_resp.html#obspy.signal.invsim.paz_to_freq_resp">[docs]</a><span class="k">def</span> <span class="nf">paz_to_freq_resp</span><span class="p">(</span><span class="n">poles</span><span class="p">,</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">scale_fac</span><span class="p">,</span> <span class="n">t_samp</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert Poles and Zeros (PAZ) to frequency response. The output</span>
+<span class="sd">    contains the frequency zero which is the offset of the trace.</span>
+
+<span class="sd">    :type poles: list of complex</span>
+<span class="sd">    :param poles: The poles of the transfer function</span>
+<span class="sd">    :type zeros: list of complex</span>
+<span class="sd">    :param zeros: The zeros of the transfer function</span>
+<span class="sd">    :type scale_fac: float</span>
+<span class="sd">    :param scale_fac: Gain factor</span>
+<span class="sd">    :type t_samp: float</span>
+<span class="sd">    :param t_samp: Sampling interval in seconds</span>
+<span class="sd">    :type nfft: int</span>
+<span class="sd">    :param nfft: Number of FFT points of signal which needs correction</span>
+<span class="sd">    :rtype: :class:`numpy.ndarray` complex128</span>
+<span class="sd">    :return: Frequency response of PAZ of length nfft</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        In order to plot/calculate the phase you need to multiply the</span>
+<span class="sd">        complex part by -1. This results from the different definition of</span>
+<span class="sd">        the Fourier transform and the phase. The numpy.fft is defined as</span>
+<span class="sd">        A(jw) = \int_{-\inf}^{+\inf} a(t) e^{-jwt}; where as the analytic</span>
+<span class="sd">        signal is defined A(jw) = | A(jw) | e^{j\phi}. That is in order to</span>
+<span class="sd">        calculate the phase the complex conjugate of the signal needs to be</span>
+<span class="sd">        taken. E.g. phi = angle(f,conj(h),deg=True)</span>
+<span class="sd">        As the range of phi is from -pi to pi you could add 2*pi to the</span>
+<span class="sd">        negative values in order to get a plot from [0, 2pi]:</span>
+<span class="sd">        where(phi&lt;0,phi+2*pi,phi); plot(f,phi)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">nfft</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">ltisys</span><span class="o">.</span><span class="n">zpk2tf</span><span class="p">(</span><span class="n">zeros</span><span class="p">,</span> <span class="n">poles</span><span class="p">,</span> <span class="n">scale_fac</span><span class="p">)</span>
+    <span class="c1"># a has to be a list for the scipy.signal.freqs() call later but zpk2tf()</span>
+    <span class="c1"># strangely returns it as an integer.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">a</span> <span class="o">==</span> <span class="mf">1.0</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">]</span>
+    <span class="n">fy</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">t_samp</span> <span class="o">*</span> <span class="mf">2.0</span><span class="p">)</span>
+    <span class="c1"># start at zero to get zero for offset / DC of fft</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">fy</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">_w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">freqs</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">f</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">freq</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">h</span><span class="p">,</span> <span class="n">f</span>
+    <span class="k">return</span> <span class="n">h</span></div>
+
+
+<div class="viewcode-block" id="waterlevel"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.invsim.waterlevel.html#obspy.signal.invsim.waterlevel">[docs]</a><span class="k">def</span> <span class="nf">waterlevel</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">wlev</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the absolute spectral value corresponding</span>
+<span class="sd">    to dB wlev in spectrum spec.</span>
+
+<span class="sd">    :param spec: The spectrum</span>
+<span class="sd">    :param wlev: The water level</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mf">10.0</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="n">wlev</span> <span class="o">/</span> <span class="mf">20.0</span><span class="p">)</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;specInv&#39; has been renamed to &#39;invert_spectrum&#39;.&quot;</span>
+            <span class="s2">&quot;Use that instead.&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span>
+<span class="k">def</span> <span class="nf">specInv</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">invert_spectrum</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="invert_spectrum"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.invsim.invert_spectrum.html#obspy.signal.invsim.invert_spectrum">[docs]</a><span class="k">def</span> <span class="nf">invert_spectrum</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">wlev</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Invert Spectrum and shrink values under water-level of max spec</span>
+<span class="sd">    amplitude. The water-level is given in db scale.</span>
+
+<span class="sd">    :note: In place operations on spec, translated from PITSA spr_sinv.c</span>
+<span class="sd">    :param spec: Spectrum as returned by :func:`numpy.fft.rfft`</span>
+<span class="sd">    :param wlev: Water level to use</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Calculated water level in the scale of spec</span>
+    <span class="n">swamp</span> <span class="o">=</span> <span class="n">waterlevel</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">wlev</span><span class="p">)</span>
+
+    <span class="c1"># Find length in real fft frequency domain, spec is complex</span>
+    <span class="n">sqrt_len</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+    <span class="c1"># Set/scale length to swamp, but leave phase untouched</span>
+    <span class="c1"># 0 sqrt_len will transform in np.nans when dividing by it</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">sqrt_len</span> <span class="o">&lt;</span> <span class="n">swamp</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">sqrt_len</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">))</span>
+    <span class="n">spec</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">*=</span> <span class="n">swamp</span> <span class="o">/</span> <span class="n">sqrt_len</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">found</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="c1"># Now invert the spectrum for values where sqrt_len is greater than</span>
+    <span class="c1"># 0.0, see PITSA spr_sinv.c for details</span>
+    <span class="n">sqrt_len</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>  <span class="c1"># Find length of new scaled spec</span>
+    <span class="n">inn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">sqrt_len</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">spec</span><span class="p">[</span><span class="n">inn</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">spec</span><span class="p">[</span><span class="n">inn</span><span class="p">]</span>
+    <span class="c1"># For numerical stability, set all zero length to zero, do not invert</span>
+    <span class="n">spec</span><span class="p">[</span><span class="n">sqrt_len</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">found</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;seisSim&#39; has been renamed to &#39;simulate_seismometer&#39;.&quot;</span>
+            <span class="s2">&quot;Use that instead.&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span>
+<span class="k">def</span> <span class="nf">seisSim</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">simulate_seismometer</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="simulate_seismometer"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.invsim.simulate_seismometer.html#obspy.signal.invsim.simulate_seismometer">[docs]</a><span class="k">def</span> <span class="nf">simulate_seismometer</span><span class="p">(</span>
+        <span class="n">data</span><span class="p">,</span> <span class="n">samp_rate</span><span class="p">,</span> <span class="n">paz_remove</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">paz_simulate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">remove_sensitivity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">simulate_sensitivity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">water_level</span><span class="o">=</span><span class="mf">600.0</span><span class="p">,</span>
+        <span class="n">zero_mean</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">taper</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">taper_fraction</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">pre_filt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">seedresp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nfft_pow2</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pitsasim</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sacsim</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">shsim</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simulate/Correct seismometer.</span>
+
+<span class="sd">    :type data: NumPy :class:`~numpy.ndarray`</span>
+<span class="sd">    :param data: Seismogram, detrend before hand (e.g. zero mean)</span>
+<span class="sd">    :type samp_rate: float</span>
+<span class="sd">    :param samp_rate: Sample Rate of Seismogram</span>
+<span class="sd">    :type paz_remove: dict, None</span>
+<span class="sd">    :param paz_remove: Dictionary containing keys &#39;poles&#39;, &#39;zeros&#39;, &#39;gain&#39;</span>
+<span class="sd">        (A0 normalization factor). poles and zeros must be a list of complex</span>
+<span class="sd">        floating point numbers, gain must be of type float. Poles and Zeros are</span>
+<span class="sd">        assumed to correct to m/s, SEED convention. Use None for no inverse</span>
+<span class="sd">        filtering.</span>
+<span class="sd">    :type paz_simulate: dict, None</span>
+<span class="sd">    :param paz_simulate: Dictionary containing keys &#39;poles&#39;, &#39;zeros&#39;, &#39;gain&#39;.</span>
+<span class="sd">        Poles and zeros must be a list of complex floating point numbers, gain</span>
+<span class="sd">        must be of type float. Or None for no simulation.</span>
+<span class="sd">    :type remove_sensitivity: bool</span>
+<span class="sd">    :param remove_sensitivity: Determines if data is divided by</span>
+<span class="sd">        `paz_remove[&#39;sensitivity&#39;]` to correct for overall sensitivity of</span>
+<span class="sd">        recording instrument (seismometer/digitizer) during instrument</span>
+<span class="sd">        correction.</span>
+<span class="sd">    :type simulate_sensitivity: bool</span>
+<span class="sd">    :param simulate_sensitivity: Determines if data is multiplied with</span>
+<span class="sd">        `paz_simulate[&#39;sensitivity&#39;]` to simulate overall sensitivity of</span>
+<span class="sd">        new instrument (seismometer/digitizer) during instrument simulation.</span>
+<span class="sd">    :type water_level: float</span>
+<span class="sd">    :param water_level: Water_Level for spectrum to simulate</span>
+<span class="sd">    :type zero_mean: bool</span>
+<span class="sd">    :param zero_mean: If true the mean of the data is subtracted</span>
+<span class="sd">    :type taper: bool</span>
+<span class="sd">    :param taper: If true a cosine taper is applied.</span>
+<span class="sd">    :type taper_fraction: float</span>
+<span class="sd">    :param taper_fraction: Taper fraction of cosine taper to use</span>
+<span class="sd">    :type pre_filt: list or tuple of floats</span>
+<span class="sd">    :param pre_filt: Apply a bandpass filter to the data trace before</span>
+<span class="sd">        deconvolution. The list or tuple defines the four corner frequencies</span>
+<span class="sd">        (f1,f2,f3,f4) of a cosine taper which is one between f2 and f3 and</span>
+<span class="sd">        tapers to zero for f1 &lt; f &lt; f2 and f3 &lt; f &lt; f4.</span>
+<span class="sd">    :type seedresp: dict, None</span>
+<span class="sd">    :param seedresp: Dictionary contains keys &#39;filename&#39;, &#39;date&#39;, &#39;units&#39;.</span>
+<span class="sd">        &#39;filename&#39; is the path to a RESP-file generated from a dataless SEED</span>
+<span class="sd">        volume (or a file like object with RESP information);</span>
+<span class="sd">        &#39;date&#39; is a :class:`~obspy.core.utcdatetime.UTCDateTime` object for the</span>
+<span class="sd">        date that the response function should be extracted for (can be omitted</span>
+<span class="sd">        when calling simulate() on Trace/Stream. the Trace&#39;s starttime will</span>
+<span class="sd">        then be used);</span>
+<span class="sd">        &#39;units&#39; defines the units of the response function.</span>
+<span class="sd">        Can be either &#39;DIS&#39;, &#39;VEL&#39; or &#39;ACC&#39;.</span>
+<span class="sd">    :type nfft_pow2: bool</span>
+<span class="sd">    :param nfft_pow2: Number of frequency points to use for FFT. If True,</span>
+<span class="sd">        the exact power of two is taken (default in PITSA). If False the</span>
+<span class="sd">        data are not zero-padded to the next power of two which makes a</span>
+<span class="sd">        slower FFT but is then much faster for e.g. evalresp which scales</span>
+<span class="sd">        with the FFT points.</span>
+<span class="sd">    :type pitsasim: bool</span>
+<span class="sd">    :param pitsasim: Choose parameters to match</span>
+<span class="sd">        instrument correction as done by PITSA.</span>
+<span class="sd">    :type sacsim: bool</span>
+<span class="sd">    :param sacsim: Choose parameters to match</span>
+<span class="sd">        instrument correction as done by SAC.</span>
+<span class="sd">    :type shsim: bool</span>
+<span class="sd">    :param shsim: Choose parameters to match</span>
+<span class="sd">        instrument correction as done by Seismic Handler.</span>
+<span class="sd">    :return: The corrected data are returned as :class:`numpy.ndarray` float64</span>
+<span class="sd">        array. float64 is chosen to avoid numerical instabilities.</span>
+
+<span class="sd">    This function works in the frequency domain, where nfft is the next power</span>
+<span class="sd">    of len(data) to avoid wrap around effects during convolution. The inverse</span>
+<span class="sd">    of the frequency response of the seismometer (``paz_remove``) is</span>
+<span class="sd">    convolved with the spectrum of the data and with the frequency response</span>
+<span class="sd">    of the seismometer to simulate (``paz_simulate``). A 5% cosine taper is</span>
+<span class="sd">    taken before simulation. The data must be detrended (e.g.) zero mean</span>
+<span class="sd">    beforehand. If paz_simulate=None only the instrument correction is done.</span>
+<span class="sd">    In the latter case, a broadband filter can be applied to the data trace</span>
+<span class="sd">    using pre_filt. This restricts the signal to the valid frequency band and</span>
+<span class="sd">    thereby avoids artifacts due to amplification of frequencies outside of the</span>
+<span class="sd">    instrument&#39;s passband (for a detailed discussion see</span>
+<span class="sd">    *Of Poles and Zeros*, F. Scherbaum, Kluwer Academic Publishers).</span>
+
+<span class="sd">    .. versionchanged:: 0.5.1</span>
+<span class="sd">        The default for `remove_sensitivity` and `simulate_sensitivity` has</span>
+<span class="sd">        been changed to ``True``. Old deprecated keyword arguments `paz`,</span>
+<span class="sd">        `inst_sim`, `no_inverse_filtering` have been removed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Checking the types</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">paz_remove</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">paz_simulate</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">seedresp</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Neither inverse nor forward instrument simulation specified.&quot;</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="p">[</span><span class="n">paz_remove</span><span class="p">,</span> <span class="n">paz_simulate</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">d</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;poles&#39;</span><span class="p">,</span> <span class="s1">&#39;zeros&#39;</span><span class="p">,</span> <span class="s1">&#39;gain&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;Missing key: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">key</span><span class="p">)</span>
+    <span class="c1"># Translated from PITSA: spr_resg.c</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">samp_rate</span>
+    <span class="c1">#</span>
+    <span class="n">ndat</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">zero_mean</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">-=</span> <span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">taper</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">sacsim</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">*=</span> <span class="n">cosine_taper</span><span class="p">(</span><span class="n">ndat</span><span class="p">,</span> <span class="n">taper_fraction</span><span class="p">,</span>
+                                 <span class="n">sactaper</span><span class="o">=</span><span class="n">sacsim</span><span class="p">,</span> <span class="n">halfcosine</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">*=</span> <span class="n">cosine_taper</span><span class="p">(</span><span class="n">ndat</span><span class="p">,</span> <span class="n">taper_fraction</span><span class="p">)</span>
+    <span class="c1"># The number of points for the FFT has to be at least 2 * ndat (in</span>
+    <span class="c1"># order to prohibit wrap around effects during convolution) cf.</span>
+    <span class="c1"># Numerical Recipes p. 429 calculate next power of 2.</span>
+    <span class="k">if</span> <span class="n">nfft_pow2</span><span class="p">:</span>
+        <span class="n">nfft</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">next_pow_2</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ndat</span><span class="p">)</span>
+    <span class="c1"># evalresp scales directly with nfft, therefore taking the next power of</span>
+    <span class="c1"># two has a greater negative performance impact than the slow down of a</span>
+    <span class="c1"># not power of two in the FFT</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">nfft</span> <span class="o">=</span> <span class="n">_npts2nfft</span><span class="p">(</span><span class="n">ndat</span><span class="p">)</span>
+    <span class="c1"># Transform data in Fourier domain</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfft</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">nfft</span><span class="p">)</span>
+    <span class="c1"># Inverse filtering = Instrument correction</span>
+    <span class="k">if</span> <span class="n">paz_remove</span><span class="p">:</span>
+        <span class="n">freq_response</span><span class="p">,</span> <span class="n">freqs</span> <span class="o">=</span> <span class="n">paz_to_freq_resp</span><span class="p">(</span>
+            <span class="n">paz_remove</span><span class="p">[</span><span class="s1">&#39;poles&#39;</span><span class="p">],</span> <span class="n">paz_remove</span><span class="p">[</span><span class="s1">&#39;zeros&#39;</span><span class="p">],</span> <span class="n">paz_remove</span><span class="p">[</span><span class="s1">&#39;gain&#39;</span><span class="p">],</span>
+            <span class="n">delta</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">seedresp</span><span class="p">:</span>
+        <span class="n">freq_response</span><span class="p">,</span> <span class="n">freqs</span> <span class="o">=</span> <span class="n">evalresp</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">seedresp</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">],</span>
+                                        <span class="n">seedresp</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">],</span>
+                                        <span class="n">units</span><span class="o">=</span><span class="n">seedresp</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">],</span> <span class="n">freq</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                        <span class="n">network</span><span class="o">=</span><span class="n">seedresp</span><span class="p">[</span><span class="s1">&#39;network&#39;</span><span class="p">],</span>
+                                        <span class="n">station</span><span class="o">=</span><span class="n">seedresp</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">],</span>
+                                        <span class="n">locid</span><span class="o">=</span><span class="n">seedresp</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">],</span>
+                                        <span class="n">channel</span><span class="o">=</span><span class="n">seedresp</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">remove_sensitivity</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;remove_sensitivity is set to False, but since seedresp &quot;</span> <span class="o">+</span> \
+                  <span class="s2">&quot;is selected the overall sensitivity will be corrected &quot;</span> <span class="o">+</span> \
+                  <span class="s2">&quot; for anyway!&quot;</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">paz_remove</span> <span class="ow">or</span> <span class="n">seedresp</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">pre_filt</span><span class="p">:</span>
+            <span class="c1"># make cosine taper</span>
+            <span class="n">fl1</span><span class="p">,</span> <span class="n">fl2</span><span class="p">,</span> <span class="n">fl3</span><span class="p">,</span> <span class="n">fl4</span> <span class="o">=</span> <span class="n">pre_filt</span>
+            <span class="k">if</span> <span class="n">sacsim</span><span class="p">:</span>
+                <span class="n">cos_win</span> <span class="o">=</span> <span class="n">cosine_sac_taper</span><span class="p">(</span><span class="n">freqs</span><span class="p">,</span> <span class="n">flimit</span><span class="o">=</span><span class="p">(</span><span class="n">fl1</span><span class="p">,</span> <span class="n">fl2</span><span class="p">,</span> <span class="n">fl3</span><span class="p">,</span> <span class="n">fl4</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cos_win</span> <span class="o">=</span> <span class="n">cosine_taper</span><span class="p">(</span><span class="n">freqs</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">freqs</span><span class="o">=</span><span class="n">freqs</span><span class="p">,</span>
+                                       <span class="n">flimit</span><span class="o">=</span><span class="p">(</span><span class="n">fl1</span><span class="p">,</span> <span class="n">fl2</span><span class="p">,</span> <span class="n">fl3</span><span class="p">,</span> <span class="n">fl4</span><span class="p">))</span>
+            <span class="n">data</span> <span class="o">*=</span> <span class="n">cos_win</span>
+        <span class="n">invert_spectrum</span><span class="p">(</span><span class="n">freq_response</span><span class="p">,</span> <span class="n">water_level</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">*=</span> <span class="n">freq_response</span>
+        <span class="k">del</span> <span class="n">freq_response</span>
+    <span class="c1"># Forward filtering = Instrument simulation</span>
+    <span class="k">if</span> <span class="n">paz_simulate</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">*=</span> <span class="n">paz_to_freq_resp</span><span class="p">(</span><span class="n">paz_simulate</span><span class="p">[</span><span class="s1">&#39;poles&#39;</span><span class="p">],</span> <span class="n">paz_simulate</span><span class="p">[</span><span class="s1">&#39;zeros&#39;</span><span class="p">],</span>
+                                 <span class="n">paz_simulate</span><span class="p">[</span><span class="s1">&#39;gain&#39;</span><span class="p">],</span> <span class="n">delta</span><span class="p">,</span> <span class="n">nfft</span><span class="p">)</span>
+
+    <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="mf">0.0</span><span class="n">j</span>
+    <span class="c1"># transform data back into the time domain</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">irfft</span><span class="p">(</span><span class="n">data</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="n">ndat</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">pitsasim</span><span class="p">:</span>
+        <span class="c1"># linear detrend</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">simple_detrend</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">shsim</span><span class="p">:</span>
+        <span class="c1"># detrend using least squares</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">detrend</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">)</span>
+    <span class="c1"># correct for involved overall sensitivities</span>
+    <span class="k">if</span> <span class="n">paz_remove</span> <span class="ow">and</span> <span class="n">remove_sensitivity</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">seedresp</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">/=</span> <span class="n">paz_remove</span><span class="p">[</span><span class="s1">&#39;sensitivity&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">paz_simulate</span> <span class="ow">and</span> <span class="n">simulate_sensitivity</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">*=</span> <span class="n">paz_simulate</span><span class="p">[</span><span class="s1">&#39;sensitivity&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;paz2AmpValueOfFreqResp&#39; has been renamed to &quot;</span>
+            <span class="s2">&quot;&#39;paz_2_amplitude_value_of_freq_resp&#39;. Use that instead.&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span>
+<span class="k">def</span> <span class="nf">paz2AmpValueOfFreqResp</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">paz_2_amplitude_value_of_freq_resp</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="paz_2_amplitude_value_of_freq_resp"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.invsim.paz_2_amplitude_value_of_freq_resp.html#obspy.signal.invsim.paz_2_amplitude_value_of_freq_resp">[docs]</a><span class="k">def</span> <span class="nf">paz_2_amplitude_value_of_freq_resp</span><span class="p">(</span><span class="n">paz</span><span class="p">,</span> <span class="n">freq</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns Amplitude at one frequency for the given poles and zeros</span>
+
+<span class="sd">    :param paz: Given poles and zeros</span>
+<span class="sd">    :param freq: Given frequency</span>
+
+<span class="sd">    The amplitude of the freq is estimated according to &quot;Of Poles and</span>
+<span class="sd">    Zeros&quot;, Frank Scherbaum, p 43.</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    &gt;&gt;&gt; paz = {&#39;poles&#39;: [-4.44 + 4.44j, -4.44 - 4.44j],</span>
+<span class="sd">    ...        &#39;zeros&#39;: [0 + 0j, 0 + 0j],</span>
+<span class="sd">    ...        &#39;gain&#39;: 0.4}</span>
+<span class="sd">    &gt;&gt;&gt; amp = paz_2_amplitude_value_of_freq_resp(paz, 1)</span>
+<span class="sd">    &gt;&gt;&gt; print(round(amp, 7))</span>
+<span class="sd">    0.2830262</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">jw</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">freq</span><span class="p">)</span>  <span class="c1"># angular frequency</span>
+    <span class="n">fac</span> <span class="o">=</span> <span class="nb">complex</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">zero</span> <span class="ow">in</span> <span class="n">paz</span><span class="p">[</span><span class="s1">&#39;zeros&#39;</span><span class="p">]:</span>  <span class="c1"># numerator</span>
+        <span class="n">fac</span> <span class="o">*=</span> <span class="n">jw</span> <span class="o">-</span> <span class="n">zero</span>
+    <span class="k">for</span> <span class="n">pole</span> <span class="ow">in</span> <span class="n">paz</span><span class="p">[</span><span class="s1">&#39;poles&#39;</span><span class="p">]:</span>  <span class="c1"># denominator</span>
+        <span class="n">fac</span> <span class="o">/=</span> <span class="n">jw</span> <span class="o">-</span> <span class="n">pole</span>
+    <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">fac</span><span class="p">)</span> <span class="o">*</span> <span class="n">paz</span><span class="p">[</span><span class="s1">&#39;gain&#39;</span><span class="p">]</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;estimateMagnitude&#39; has been renamed to &quot;</span>
+            <span class="s2">&quot;&#39;estimate_magnitude&#39;. Use that instead.&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span>
+<span class="k">def</span> <span class="nf">estimateMagnitude</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">estimate_magnitude</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="estimate_magnitude"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.invsim.estimate_magnitude.html#obspy.signal.invsim.estimate_magnitude">[docs]</a><span class="k">def</span> <span class="nf">estimate_magnitude</span><span class="p">(</span><span class="n">paz</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span> <span class="n">timespan</span><span class="p">,</span> <span class="n">h_dist</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Estimates local magnitude from poles and zeros of given instrument, the</span>
+<span class="sd">    peak to peak amplitude and the time span from peak to peak.</span>
+<span class="sd">    Readings on two components can be used in magnitude estimation by providing</span>
+<span class="sd">    lists for ``paz``, ``amplitude`` and ``timespan``.</span>
+
+<span class="sd">    :param paz: PAZ of the instrument [m/s] or list of the same</span>
+<span class="sd">    :param amplitude: Peak to peak amplitude [counts] or list of the same</span>
+<span class="sd">    :param timespan: Timespan of peak to peak amplitude [s] or list of the same</span>
+<span class="sd">    :param h_dist: Hypocentral distance [km]</span>
+<span class="sd">    :returns: Estimated local magnitude Ml</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        Magnitude estimation according to Bakun &amp; Joyner, 1984, Eq. (3) page</span>
+<span class="sd">        1835. Bakun, W. H. and W. B. Joyner: The Ml scale in central</span>
+<span class="sd">        California, Bull. Seismol. Soc. Am., 74, 1827-1843, 1984</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    &gt;&gt;&gt; paz = {&#39;poles&#39;: [-4.444+4.444j, -4.444-4.444j, -1.083+0j],</span>
+<span class="sd">    ...        &#39;zeros&#39;: [0+0j, 0+0j, 0+0j],</span>
+<span class="sd">    ...        &#39;gain&#39;: 1.0, &#39;sensitivity&#39;: 671140000.0}</span>
+<span class="sd">    &gt;&gt;&gt; mag = estimate_magnitude(paz, 3.34e6, 0.065, 0.255)</span>
+<span class="sd">    &gt;&gt;&gt; print(round(mag, 6))</span>
+<span class="sd">    2.132873</span>
+<span class="sd">    &gt;&gt;&gt; mag = estimate_magnitude([paz, paz], [3.34e6, 5e6], [0.065, 0.1],</span>
+<span class="sd">    ...                          0.255)</span>
+<span class="sd">    &gt;&gt;&gt; print(round(mag, 6))</span>
+<span class="sd">    2.347618</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># convert input to lists</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">paz</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">paz</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="n">paz</span> <span class="o">=</span> <span class="p">[</span><span class="n">paz</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">amplitude</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">amplitude</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="n">amplitude</span> <span class="o">=</span> <span class="p">[</span><span class="n">amplitude</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timespan</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timespan</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="n">timespan</span> <span class="o">=</span> <span class="p">[</span><span class="n">timespan</span><span class="p">]</span>
+    <span class="c1"># convert every input amplitude to Wood Anderson and calculate the mean</span>
+    <span class="n">wa_ampl_mean</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">paz</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span> <span class="n">timespan</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">paz</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span> <span class="n">timespan</span><span class="p">):</span>
+        <span class="n">wa_ampl_mean</span> <span class="o">+=</span> <span class="n">estimate_wood_anderson_amplitude</span><span class="p">(</span><span class="n">paz</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span>
+                                                         <span class="n">timespan</span><span class="p">)</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">wa_ampl_mean</span> <span class="o">/=</span> <span class="n">count</span>
+    <span class="c1"># mean of input amplitudes (if more than one) should be used in final</span>
+    <span class="c1"># magnitude estimation (usually N and E components)</span>
+    <span class="n">magnitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">wa_ampl_mean</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">h_dist</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">)</span> <span class="o">+</span> \
+        <span class="mf">0.00301</span> <span class="o">*</span> <span class="p">(</span><span class="n">h_dist</span> <span class="o">-</span> <span class="mf">100.0</span><span class="p">)</span> <span class="o">+</span> <span class="mf">3.0</span>
+    <span class="k">return</span> <span class="n">magnitude</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;estimateWoodAndersonAmplitude&#39; has been renamed to &quot;</span>
+            <span class="s2">&quot;&#39;estimate_wood_anderson_amplitude&#39;. Use that instead.&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span>
+<span class="k">def</span> <span class="nf">estimateWoodAndersonAmplitude</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">estimate_wood_anderson_amplitude</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="estimate_wood_anderson_amplitude"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.invsim.estimate_wood_anderson_amplitude.html#obspy.signal.invsim.estimate_wood_anderson_amplitude">[docs]</a><span class="k">def</span> <span class="nf">estimate_wood_anderson_amplitude</span><span class="p">(</span><span class="n">paz</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span> <span class="n">timespan</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert amplitude in counts measured of instrument with given Poles and</span>
+<span class="sd">    Zeros information for use in :func:`estimate_magnitude`.</span>
+<span class="sd">    Amplitude should be measured as full peak to peak amplitude, timespan as</span>
+<span class="sd">    difference of the two readings.</span>
+
+<span class="sd">    :param paz: PAZ of the instrument [m/s] or list of the same</span>
+<span class="sd">    :param amplitude: Peak to peak amplitude [counts] or list of the same</span>
+<span class="sd">    :param timespan: Timespan of peak to peak amplitude [s] or list of the same</span>
+<span class="sd">    :returns: Simulated zero to peak displacement amplitude on Wood Anderson</span>
+<span class="sd">        seismometer [mm] for use in local magnitude estimation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># analog to pitsa/plt/RCS/plt_wave.c,v, lines 4881-4891</span>
+    <span class="n">freq</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">timespan</span><span class="p">)</span>
+    <span class="n">wa_ampl</span> <span class="o">=</span> <span class="n">amplitude</span> <span class="o">/</span> <span class="mf">2.0</span>  <span class="c1"># half peak to peak amplitude</span>
+    <span class="n">wa_ampl</span> <span class="o">/=</span> <span class="p">(</span><span class="n">paz_2_amplitude_value_of_freq_resp</span><span class="p">(</span><span class="n">paz</span><span class="p">,</span> <span class="n">freq</span><span class="p">)</span> <span class="o">*</span>
+                <span class="n">paz</span><span class="p">[</span><span class="s1">&#39;sensitivity&#39;</span><span class="p">])</span>
+    <span class="n">wa_ampl</span> <span class="o">*=</span> <span class="n">paz_2_amplitude_value_of_freq_resp</span><span class="p">(</span><span class="n">WOODANDERSON</span><span class="p">,</span> <span class="n">freq</span><span class="p">)</span> <span class="o">*</span> \
+        <span class="n">WOODANDERSON</span><span class="p">[</span><span class="s1">&#39;sensitivity&#39;</span><span class="p">]</span>
+    <span class="n">wa_ampl</span> <span class="o">*=</span> <span class="mi">1000</span>  <span class="c1"># convert to mm</span>
+    <span class="k">return</span> <span class="n">wa_ampl</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

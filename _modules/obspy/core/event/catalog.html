@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.core.event.catalog &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.core.event.catalog</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">obspy.core.event.catalog - The Catalog class definition</span>
+<span class="sd">=======================================================</span>
+<span class="sd">This module provides a class hierarchy to consistently handle event metadata.</span>
+<span class="sd">This class hierarchy is closely modelled after the de-facto standard format</span>
+<span class="sd">`QuakeML &lt;https://quake.ethz.ch/quakeml/&gt;`_.</span>
+
+<span class="sd">.. note::</span>
+
+<span class="sd">    For handling additional information not covered by the QuakeML standard and</span>
+<span class="sd">    how to output it to QuakeML see the :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (http://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+<span class="kn">from</span> <span class="nn">future.utils</span> <span class="k">import</span> <span class="n">native_str</span>
+
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="k">import</span> <span class="n">load_entry_point</span>
+
+<span class="kn">from</span> <span class="nn">obspy.core.utcdatetime</span> <span class="k">import</span> <span class="n">UTCDateTime</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util</span> <span class="k">import</span> <span class="n">NamedTemporaryFile</span><span class="p">,</span> <span class="n">_read_from_plugin</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.base</span> <span class="k">import</span> <span class="n">ENTRY_POINTS</span><span class="p">,</span> <span class="n">download_to_file</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.decorator</span> <span class="k">import</span> <span class="p">(</span><span class="n">map_example_filename</span><span class="p">,</span>
+                                       <span class="n">uncompress_file</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">obspy.imaging.cm</span> <span class="k">import</span> <span class="n">obspy_sequential</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="n">CreationInfo</span><span class="p">,</span> <span class="n">ResourceIdentifier</span>
+
+<span class="kn">from</span> <span class="nn">.event</span> <span class="k">import</span> <span class="n">Event</span>
+
+<span class="n">EVENT_ENTRY_POINTS</span> <span class="o">=</span> <span class="n">ENTRY_POINTS</span><span class="p">[</span><span class="s1">&#39;event&#39;</span><span class="p">]</span>
+<span class="n">EVENT_ENTRY_POINTS_WRITE</span> <span class="o">=</span> <span class="n">ENTRY_POINTS</span><span class="p">[</span><span class="s1">&#39;event_write&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Catalog"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.html#obspy.core.event.Catalog">[docs]</a><span class="k">class</span> <span class="nc">Catalog</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class serves as a container for Event objects.</span>
+
+<span class="sd">    :type events: list of :class:`~obspy.core.event.event.Event`, optional</span>
+<span class="sd">    :param events: List of events</span>
+<span class="sd">    :type resource_id: :class:`~obspy.core.event.base.ResourceIdentifier`</span>
+<span class="sd">    :param resource_id: Resource identifier of the catalog.</span>
+<span class="sd">    :type description: str, optional</span>
+<span class="sd">    :param description: Description string that can be assigned to the</span>
+<span class="sd">        earthquake catalog, or collection of events.</span>
+<span class="sd">    :type comments: list of :class:`~obspy.core.event.base.Comment`, optional</span>
+<span class="sd">    :param comments: Additional comments.</span>
+<span class="sd">    :type creation_info: :class:`~obspy.core.event.base.CreationInfo`, optional</span>
+<span class="sd">    :param creation_info: Creation information used to describe author,</span>
+<span class="sd">        version, and creation time.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Catalog.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.__init__.html#obspy.core.event.Catalog.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">events</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="n">events</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comments</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;comments&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_resource_id</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;resource_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_creation_info</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;creation_info&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Catalog._get_resource_id"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog._get_resource_id.html#obspy.core.event.Catalog._get_resource_id">[docs]</a>    <span class="k">def</span> <span class="nf">_get_resource_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;resource_id&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Catalog._set_resource_id"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog._set_resource_id.html#obspy.core.event.Catalog._set_resource_id">[docs]</a>    <span class="k">def</span> <span class="nf">_set_resource_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">ResourceIdentifier</span><span class="p">(</span><span class="o">**</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="n">ResourceIdentifier</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">ResourceIdentifier</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;resource_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
+
+    <span class="n">resource_id</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_resource_id</span><span class="p">,</span> <span class="n">_set_resource_id</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Catalog._get_creation_info"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog._get_creation_info.html#obspy.core.event.Catalog._get_creation_info">[docs]</a>    <span class="k">def</span> <span class="nf">_get_creation_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;creation_info&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Catalog._set_creation_info"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog._set_creation_info.html#obspy.core.event.Catalog._set_creation_info">[docs]</a>    <span class="k">def</span> <span class="nf">_set_creation_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">CreationInfo</span><span class="p">(</span><span class="o">**</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="n">CreationInfo</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">CreationInfo</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;creation_info&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
+
+    <span class="n">creation_info</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_creation_info</span><span class="p">,</span> <span class="n">_set_creation_info</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Catalog.__add__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.__add__.html#obspy.core.event.Catalog.__add__">[docs]</a>    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to add two catalogs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Event</span><span class="p">):</span>
+            <span class="n">other</span> <span class="o">=</span> <span class="n">Catalog</span><span class="p">([</span><span class="n">other</span><span class="p">])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Catalog</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span>
+        <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">events</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">events</span><span class="o">=</span><span class="n">events</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Catalog.__delitem__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.__delitem__.html#obspy.core.event.Catalog.__delitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Passes on the __delitem__ method to the underlying list of traces.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="fm">__delitem__</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Catalog.__eq__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.__eq__.html#obspy.core.event.Catalog.__eq__">[docs]</a>    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        __eq__ method of the Catalog object.</span>
+
+<span class="sd">        :type other: :class:`~obspy.core.event.Catalog`</span>
+<span class="sd">        :param other: Catalog object for comparison.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        :return: ``True`` if both Catalogs contain the same events.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy.core.event import read_events</span>
+<span class="sd">        &gt;&gt;&gt; cat = read_events()</span>
+<span class="sd">        &gt;&gt;&gt; cat2 = cat.copy()</span>
+<span class="sd">        &gt;&gt;&gt; cat is cat2</span>
+<span class="sd">        False</span>
+<span class="sd">        &gt;&gt;&gt; cat == cat2</span>
+<span class="sd">        True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Catalog</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">events</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Catalog.__ne__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.__ne__.html#obspy.core.event.Catalog.__ne__">[docs]</a>    <span class="k">def</span> <span class="nf">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Catalog.__getitem__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.__getitem__.html#obspy.core.event.Catalog.__getitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        __getitem__ method of the Catalog object.</span>
+
+<span class="sd">        :return: Event objects</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="s2">&quot;extra&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">events</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Catalog.__getslice__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.__getslice__.html#obspy.core.event.Catalog.__getslice__">[docs]</a>    <span class="k">def</span> <span class="nf">__getslice__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        __getslice__ method of the Catalog object.</span>
+
+<span class="sd">        :return: Catalog object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># see also http://docs.python.org/reference/datamodel.html</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">events</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span><span class="n">k</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Catalog.__iadd__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.__iadd__.html#obspy.core.event.Catalog.__iadd__">[docs]</a>    <span class="k">def</span> <span class="nf">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to add two catalog with self += other.</span>
+
+<span class="sd">        It will extend the current Catalog object with the events of the given</span>
+<span class="sd">        Catalog. Events will not be copied but references to the original</span>
+<span class="sd">        events will be appended.</span>
+
+<span class="sd">        :type other: :class:`~obspy.core.event.Catalog` or</span>
+<span class="sd">            :class:`~obspy.core.event.event.Event`</span>
+<span class="sd">        :param other: Catalog or Event object to add.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Event</span><span class="p">):</span>
+            <span class="n">other</span> <span class="o">=</span> <span class="n">Catalog</span><span class="p">(</span><span class="n">events</span><span class="o">=</span><span class="p">[</span><span class="n">other</span><span class="p">])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Catalog</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">events</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Catalog.__iter__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.__iter__.html#obspy.core.event.Catalog.__iter__">[docs]</a>    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a robust iterator for Events of current Catalog.</span>
+
+<span class="sd">        Doing this it is safe to remove events from catalogs inside of</span>
+<span class="sd">        for-loops using catalog&#39;s :meth:`~obspy.core.event.Catalog.remove`</span>
+<span class="sd">        method. Actually this creates a new iterator every time a event is</span>
+<span class="sd">        removed inside the for-loop.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">)</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Catalog.__len__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.__len__.html#obspy.core.event.Catalog.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the number of Events in the Catalog object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">)</span></div>
+
+    <span class="n">count</span> <span class="o">=</span> <span class="fm">__len__</span>
+
+<div class="viewcode-block" id="Catalog.__setitem__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.__setitem__.html#obspy.core.event.Catalog.__setitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        __setitem__ method of the Catalog object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">native_str</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">Catalog</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Catalog.__str__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.__str__.html#obspy.core.event.Catalog.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">print_all</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns short summary string of the current catalog.</span>
+
+<span class="sd">        It will contain the number of Events in the Catalog and the return</span>
+<span class="sd">        value of each Event&#39;s :meth:`~obspy.core.event.event.Event.__str__`</span>
+<span class="sd">        method.</span>
+
+<span class="sd">        :type print_all: bool, optional</span>
+<span class="sd">        :param print_all: If True, all events will be printed, otherwise a</span>
+<span class="sd">            maximum of ten event will be printed.</span>
+<span class="sd">            Defaults to False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; Event(s) in Catalog:</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">10</span> <span class="ow">or</span> <span class="n">print_all</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">ev</span><span class="o">.</span><span class="n">short_str</span><span class="p">()</span> <span class="k">for</span> <span class="n">ev</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">ev</span><span class="o">.</span><span class="n">short_str</span><span class="p">()</span> <span class="k">for</span> <span class="n">ev</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">[:</span><span class="mi">2</span><span class="p">]])</span>
+            <span class="n">out</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">...</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="n">out</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">ev</span><span class="o">.</span><span class="n">short_str</span><span class="p">()</span> <span class="k">for</span> <span class="n">ev</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]])</span>
+            <span class="n">out</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">To see all events call &quot;</span> <span class="o">+</span> \
+                   <span class="s2">&quot;&#39;print(CatalogObject.__str__(print_all=True))&#39;&quot;</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+<div class="viewcode-block" id="Catalog._repr_pretty_"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog._repr_pretty_.html#obspy.core.event.Catalog._repr_pretty_">[docs]</a>    <span class="k">def</span> <span class="nf">_repr_pretty_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cycle</span><span class="p">):</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">(</span><span class="n">print_all</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">verbose</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Catalog.append"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.append.html#obspy.core.event.Catalog.append">[docs]</a>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Appends a single Event object to the current Catalog object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">Event</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Append only supports a single Event object as an argument.&#39;</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Catalog.clear"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.clear.html#obspy.core.event.Catalog.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clears event list (convenient method).</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy.core.event import read_events</span>
+<span class="sd">        &gt;&gt;&gt; cat = read_events()</span>
+<span class="sd">        &gt;&gt;&gt; len(cat)</span>
+<span class="sd">        3</span>
+<span class="sd">        &gt;&gt;&gt; cat.clear()</span>
+<span class="sd">        &gt;&gt;&gt; cat.events</span>
+<span class="sd">        []</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="Catalog.filter"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.filter.html#obspy.core.event.Catalog.filter">[docs]</a>    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a new Catalog object only containing Events which match the</span>
+<span class="sd">        specified filter rules.</span>
+
+<span class="sd">        Valid filter keys are:</span>
+
+<span class="sd">        * magnitude;</span>
+<span class="sd">        * longitude;</span>
+<span class="sd">        * latitude;</span>
+<span class="sd">        * depth;</span>
+<span class="sd">        * time;</span>
+<span class="sd">        * standard_error;</span>
+<span class="sd">        * azimuthal_gap;</span>
+<span class="sd">        * used_station_count;</span>
+<span class="sd">        * used_phase_count.</span>
+
+<span class="sd">        Use ``inverse=True`` to return the Events that *do not* match the</span>
+<span class="sd">        specified filter rules.</span>
+
+<span class="sd">        :rtype: :class:`Catalog`</span>
+<span class="sd">        :return: Filtered catalog. A new Catalog object with filtered</span>
+<span class="sd">            Events as references to the original Events.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy.core.event import read_events</span>
+<span class="sd">        &gt;&gt;&gt; cat = read_events()</span>
+<span class="sd">        &gt;&gt;&gt; print(cat)</span>
+<span class="sd">        3 Event(s) in Catalog:</span>
+<span class="sd">        2012-04-04T14:21:42.300000Z | +41.818,  +79.689 | 4.4 mb | manual</span>
+<span class="sd">        2012-04-04T14:18:37.000000Z | +39.342,  +41.044 | 4.3 ML | manual</span>
+<span class="sd">        2012-04-04T14:08:46.000000Z | +38.017,  +37.736 | 3.0 ML | manual</span>
+<span class="sd">        &gt;&gt;&gt; cat2 = cat.filter(&quot;magnitude &gt;= 4.0&quot;, &quot;latitude &lt; 40.0&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; print(cat2)</span>
+<span class="sd">        1 Event(s) in Catalog:</span>
+<span class="sd">        2012-04-04T14:18:37.000000Z | +39.342,  +41.044 | 4.3 ML | manual</span>
+<span class="sd">        &gt;&gt;&gt; cat3 = cat.filter(&quot;time &gt; 2012-04-04T14:10&quot;,</span>
+<span class="sd">        ...                   &quot;time &lt; 2012-04-04T14:20&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; print(cat3)</span>
+<span class="sd">        1 Event(s) in Catalog:</span>
+<span class="sd">        2012-04-04T14:18:37.000000Z | +39.342,  +41.044 | 4.3 ML | manual</span>
+<span class="sd">        &gt;&gt;&gt; cat4 = cat.filter(&quot;time &gt; 2012-04-04T14:10&quot;,</span>
+<span class="sd">        ...                   &quot;time &lt; 2012-04-04T14:20&quot;,</span>
+<span class="sd">        ...                   inverse=True)</span>
+<span class="sd">        &gt;&gt;&gt; print(cat4)</span>
+<span class="sd">        2 Event(s) in Catalog:</span>
+<span class="sd">        2012-04-04T14:21:42.300000Z | +41.818,  +79.689 | 4.4 mb | manual</span>
+<span class="sd">        2012-04-04T14:08:46.000000Z | +38.017,  +37.736 | 3.0 ML | manual</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Helper functions. Only first argument might be None. Avoid</span>
+        <span class="c1"># unorderable types by checking first shortcut on positive is None</span>
+        <span class="c1"># also for the greater stuff (is confusing but correct)</span>
+        <span class="k">def</span> <span class="nf">_is_smaller</span><span class="p">(</span><span class="n">value_1</span><span class="p">,</span> <span class="n">value_2</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">value_1</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value_1</span> <span class="o">&lt;</span> <span class="n">value_2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">def</span> <span class="nf">_is_smaller_or_equal</span><span class="p">(</span><span class="n">value_1</span><span class="p">,</span> <span class="n">value_2</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">value_1</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value_1</span> <span class="o">&lt;=</span> <span class="n">value_2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">def</span> <span class="nf">_is_greater</span><span class="p">(</span><span class="n">value_1</span><span class="p">,</span> <span class="n">value_2</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">value_1</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value_1</span> <span class="o">&lt;=</span> <span class="n">value_2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">def</span> <span class="nf">_is_greater_or_equal</span><span class="p">(</span><span class="n">value_1</span><span class="p">,</span> <span class="n">value_2</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">value_1</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value_1</span> <span class="o">&lt;</span> <span class="n">value_2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="c1"># Map the function to the operators.</span>
+        <span class="n">operator_map</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;&lt;&quot;</span><span class="p">:</span> <span class="n">_is_smaller</span><span class="p">,</span>
+                        <span class="s2">&quot;&lt;=&quot;</span><span class="p">:</span> <span class="n">_is_smaller_or_equal</span><span class="p">,</span>
+                        <span class="s2">&quot;&gt;&quot;</span><span class="p">:</span> <span class="n">_is_greater</span><span class="p">,</span>
+                        <span class="s2">&quot;&gt;=&quot;</span><span class="p">:</span> <span class="n">_is_greater_or_equal</span><span class="p">}</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">inverse</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;inverse&quot;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">inverse</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">events</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">key</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> is not a valid filter rule.&quot;</span> <span class="o">%</span> <span class="n">arg</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;magnitude&quot;</span><span class="p">:</span>
+                <span class="n">temp_events</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mag</span> <span class="ow">and</span>
+                        <span class="n">operator_map</span><span class="p">[</span><span class="n">operator</span><span class="p">](</span>
+                            <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mag</span><span class="p">,</span>
+                            <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">))):</span>
+                        <span class="n">temp_events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+                <span class="n">events</span> <span class="o">=</span> <span class="n">temp_events</span>
+            <span class="k">elif</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;depth&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">):</span>
+                <span class="n">temp_events</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">origins</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">origins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span>
+                        <span class="n">operator_map</span><span class="p">[</span><span class="n">operator</span><span class="p">](</span>
+                            <span class="n">event</span><span class="o">.</span><span class="n">origins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">),</span>
+                            <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;time&#39;</span> <span class="k">else</span>
+                            <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">))):</span>
+                        <span class="n">temp_events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+                <span class="n">events</span> <span class="o">=</span> <span class="n">temp_events</span>
+            <span class="k">elif</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;standard_error&#39;</span><span class="p">,</span> <span class="s1">&#39;azimuthal_gap&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;used_station_count&#39;</span><span class="p">,</span> <span class="s1">&#39;used_phase_count&#39;</span><span class="p">):</span>
+                <span class="n">temp_events</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">origins</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">origins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">quality</span> <span class="ow">and</span>
+                        <span class="n">key</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">origins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">quality</span> <span class="ow">and</span>
+                        <span class="n">operator_map</span><span class="p">[</span><span class="n">operator</span><span class="p">](</span>
+                            <span class="n">event</span><span class="o">.</span><span class="n">origins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">quality</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">),</span>
+                            <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">))):</span>
+                        <span class="n">temp_events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+                <span class="n">events</span> <span class="o">=</span> <span class="n">temp_events</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> is not a valid filter key&quot;</span> <span class="o">%</span> <span class="n">key</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">inverse</span><span class="p">:</span>
+            <span class="n">events</span> <span class="o">=</span> <span class="p">[</span><span class="n">ev</span> <span class="k">for</span> <span class="n">ev</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="k">if</span> <span class="n">ev</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">events</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">Catalog</span><span class="p">(</span><span class="n">events</span><span class="o">=</span><span class="n">events</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Catalog.copy"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.copy.html#obspy.core.event.Catalog.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a deepcopy of the Catalog object.</span>
+
+<span class="sd">        :rtype: :class:`~obspy.core.stream.Catalog`</span>
+<span class="sd">        :return: Copy of current catalog.</span>
+
+<span class="sd">        .. rubric:: Examples</span>
+
+<span class="sd">        1. Create a Catalog and copy it</span>
+
+<span class="sd">            &gt;&gt;&gt; from obspy.core.event import read_events</span>
+<span class="sd">            &gt;&gt;&gt; cat = read_events()</span>
+<span class="sd">            &gt;&gt;&gt; cat2 = cat.copy()</span>
+
+<span class="sd">           The two objects are not the same:</span>
+
+<span class="sd">            &gt;&gt;&gt; cat is cat2</span>
+<span class="sd">            False</span>
+
+<span class="sd">           But they have equal data:</span>
+
+<span class="sd">            &gt;&gt;&gt; cat == cat2</span>
+<span class="sd">            True</span>
+
+<span class="sd">        2. The following example shows how to make an alias but not copy the</span>
+<span class="sd">           data. Any changes on ``st3`` would also change the contents of</span>
+<span class="sd">           ``st``.</span>
+
+<span class="sd">            &gt;&gt;&gt; cat3 = cat</span>
+<span class="sd">            &gt;&gt;&gt; cat is cat3</span>
+<span class="sd">            True</span>
+<span class="sd">            &gt;&gt;&gt; cat == cat3</span>
+<span class="sd">            True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Catalog.extend"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.extend.html#obspy.core.event.Catalog.extend">[docs]</a>    <span class="k">def</span> <span class="nf">extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_list</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extends the current Catalog object with a list of Event objects.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event_list</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">event_list</span><span class="p">:</span>
+                <span class="c1"># Make sure each item in the list is a event.</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_i</span><span class="p">,</span> <span class="n">Event</span><span class="p">):</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Extend only accepts a list of Event objects.&#39;</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">event_list</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event_list</span><span class="p">,</span> <span class="n">Catalog</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">event_list</span><span class="o">.</span><span class="n">events</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Extend only supports a list of Event objects as argument.&#39;</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Catalog.write"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.write.html#obspy.core.event.Catalog.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Saves catalog into a file.</span>
+
+<span class="sd">        :type filename: str</span>
+<span class="sd">        :param filename: The name of the file to write.</span>
+<span class="sd">        :type format: str</span>
+<span class="sd">        :param format: The file format to use (e.g. ``&quot;QUAKEML&quot;``). See the</span>
+<span class="sd">            `Supported Formats`_ section below for a list of supported formats.</span>
+<span class="sd">        :param kwargs: Additional keyword arguments passed to the underlying</span>
+<span class="sd">            plugin&#39;s writer method.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy.core.event import read_events</span>
+<span class="sd">        &gt;&gt;&gt; catalog = read_events() # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; catalog.write(&quot;example.xml&quot;, format=&quot;QUAKEML&quot;) # doctest: +SKIP</span>
+
+<span class="sd">        Writing single events into files with meaningful filenames can be done</span>
+<span class="sd">        e.g. using event.id</span>
+
+<span class="sd">        &gt;&gt;&gt; for ev in catalog:  # doctest: +SKIP</span>
+<span class="sd">        ...     filename = str(ev.resource_id) + &quot;.xml&quot;</span>
+<span class="sd">        ...     ev.write(filename, format=&quot;QUAKEML&quot;) # doctest: +SKIP</span>
+
+<span class="sd">        .. rubric:: _`Supported Formats`</span>
+
+<span class="sd">        Additional ObsPy modules extend the parameters of the</span>
+<span class="sd">        :meth:`~obspy.core.event.Catalog.write` method. The following</span>
+<span class="sd">        table summarizes all known formats currently available for ObsPy.</span>
+
+<span class="sd">        Please refer to the `Linked Function Call`_ of each module for any</span>
+<span class="sd">        extra options available.</span>
+
+<span class="sd">        %s</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">format</span> <span class="o">=</span> <span class="nb">format</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># get format specific entry point</span>
+            <span class="n">format_ep</span> <span class="o">=</span> <span class="n">EVENT_ENTRY_POINTS_WRITE</span><span class="p">[</span><span class="nb">format</span><span class="p">]</span>
+            <span class="c1"># search writeFormat method for given entry point</span>
+            <span class="n">write_format</span> <span class="o">=</span> <span class="n">load_entry_point</span><span class="p">(</span>
+                <span class="n">format_ep</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="s1">&#39;obspy.plugin.event.</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">format_ep</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
+                <span class="s1">&#39;writeFormat&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="ne">ImportError</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Format </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> is not supported. Supported types: </span><span class="si">%s</span><span class="s2">&quot;</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="nb">format</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">EVENT_ENTRY_POINTS</span><span class="p">)))</span>
+        <span class="n">write_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Catalog.plot"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.catalog.Catalog.plot.html#obspy.core.event.Catalog.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;global&#39;</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;l&#39;</span><span class="p">,</span>
+             <span class="n">continent_fill_color</span><span class="o">=</span><span class="s1">&#39;0.9&#39;</span><span class="p">,</span> <span class="n">water_fill_color</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
+             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;magnitude&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+             <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+             <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># @UnusedVariable</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates preview map of all events in current Catalog object.</span>
+
+<span class="sd">        :type projection: str, optional</span>
+<span class="sd">        :param projection: The map projection. Currently supported are:</span>
+
+<span class="sd">            * ``&quot;global&quot;`` (Will plot the whole world.)</span>
+<span class="sd">            * ``&quot;ortho&quot;`` (Will center around the mean lat/long.)</span>
+<span class="sd">            * ``&quot;local&quot;`` (Will plot around local events)</span>
+
+<span class="sd">            Defaults to &quot;global&quot;</span>
+<span class="sd">        :type resolution: str, optional</span>
+<span class="sd">        :param resolution: Resolution of the boundary database to use. Will be</span>
+<span class="sd">            based directly to the basemap module. Possible values are:</span>
+
+<span class="sd">            * ``&quot;c&quot;`` (crude)</span>
+<span class="sd">            * ``&quot;l&quot;`` (low)</span>
+<span class="sd">            * ``&quot;i&quot;`` (intermediate)</span>
+<span class="sd">            * ``&quot;h&quot;`` (high)</span>
+<span class="sd">            * ``&quot;f&quot;`` (full)</span>
+
+<span class="sd">            Defaults to ``&quot;l&quot;``</span>
+<span class="sd">        :type continent_fill_color: Valid matplotlib color, optional</span>
+<span class="sd">        :param continent_fill_color:  Color of the continents. Defaults to</span>
+<span class="sd">            ``&quot;0.9&quot;`` which is a light gray.</span>
+<span class="sd">        :type water_fill_color: Valid matplotlib color, optional</span>
+<span class="sd">        :param water_fill_color: Color of all water bodies.</span>
+<span class="sd">            Defaults to ``&quot;white&quot;``.</span>
+<span class="sd">        :type label: str, optional</span>
+<span class="sd">        :param label: Events will be labelled based on the chosen property.</span>
+<span class="sd">            Possible values are:</span>
+
+<span class="sd">            * ``&quot;magnitude&quot;``</span>
+<span class="sd">            * ``None``</span>
+
+<span class="sd">            Defaults to ``&quot;magnitude&quot;``</span>
+<span class="sd">        :type color: str, optional</span>
+<span class="sd">        :param color: The events will be color-coded based on the chosen</span>
+<span class="sd">            property. Possible values are:</span>
+
+<span class="sd">            * ``&quot;date&quot;``</span>
+<span class="sd">            * ``&quot;depth&quot;``</span>
+
+<span class="sd">            Defaults to ``&quot;depth&quot;``</span>
+<span class="sd">        :type colormap: str, any matplotlib colormap, optional</span>
+<span class="sd">        :param colormap: The colormap for color-coding the events.</span>
+<span class="sd">            The event with the smallest property will have the</span>
+<span class="sd">            color of one end of the colormap and the event with the biggest</span>
+<span class="sd">            property the color of the other end with all other events in</span>
+<span class="sd">            between.</span>
+<span class="sd">            Defaults to None which will use the default colormap for the date</span>
+<span class="sd">            encoding and a colormap going from green over yellow to red for the</span>
+<span class="sd">            depth encoding.</span>
+<span class="sd">        :type show: bool</span>
+<span class="sd">        :param show: Whether to show the figure after plotting or not. Can be</span>
+<span class="sd">            used to do further customization of the plot before</span>
+<span class="sd">            showing it. Has no effect if `outfile` is specified.</span>
+<span class="sd">        :type outfile: str</span>
+<span class="sd">        :param outfile: Output file path to directly save the resulting image</span>
+<span class="sd">            (e.g. ``&quot;/tmp/image.png&quot;``). Overrides the ``show`` option, image</span>
+<span class="sd">            will not be displayed interactively. The given path/filename is</span>
+<span class="sd">            also used to automatically determine the output format. Supported</span>
+<span class="sd">            file formats depend on your matplotlib backend.  Most backends</span>
+<span class="sd">            support png, pdf, ps, eps and svg. Defaults to ``None``.</span>
+<span class="sd">            The figure is closed after saving it to file.</span>
+<span class="sd">        :type method: str</span>
+<span class="sd">        :param method: Method to use for plotting. Possible values are:</span>
+
+<span class="sd">            * ``&#39;basemap&#39;`` to use the Basemap library</span>
+<span class="sd">            * ``&#39;cartopy&#39;`` to use the Cartopy library</span>
+<span class="sd">            * ``None`` to pick the best available library</span>
+
+<span class="sd">            Defaults to ``None``.</span>
+<span class="sd">        :type fig: :class:`matplotlib.figure.Figure` (or</span>
+<span class="sd">            :class:`matplotlib.axes.Axes`)</span>
+<span class="sd">        :param fig: Figure instance to reuse, returned from a previous</span>
+<span class="sd">            inventory/catalog plot call with `method=basemap`.</span>
+<span class="sd">            If a previous basemap plot is reused, any kwargs regarding the</span>
+<span class="sd">            basemap plot setup will be ignored (i.e.  `projection`,</span>
+<span class="sd">            `resolution`, `continent_fill_color`, `water_fill_color`). Note</span>
+<span class="sd">            that multiple plots using colorbars likely are problematic, but</span>
+<span class="sd">            e.g. one station plot (without colorbar) and one event plot (with</span>
+<span class="sd">            colorbar) together should work well.</span>
+<span class="sd">            If an :class:`~matplotlib.axes.Axes` is supplied, the given axes is</span>
+<span class="sd">            used to plot into and no colorbar will be produced.</span>
+<span class="sd">        :type title: str</span>
+<span class="sd">        :param title: Title above plot. If left ``None``, an automatic title</span>
+<span class="sd">            will be generated. Set to ``&quot;&quot;`` for no title.</span>
+<span class="sd">        :returns: Figure instance with the plot.</span>
+
+<span class="sd">        .. rubric:: Examples</span>
+
+<span class="sd">        Mollweide projection for global overview:</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy import read_events</span>
+<span class="sd">        &gt;&gt;&gt; cat = read_events()</span>
+<span class="sd">        &gt;&gt;&gt; cat.plot()  # doctest:+SKIP</span>
+
+<span class="sd">        .. plot::</span>
+
+<span class="sd">            from obspy import read_events</span>
+<span class="sd">            cat = read_events()</span>
+<span class="sd">            cat.plot()</span>
+
+<span class="sd">        Orthographic projection:</span>
+
+<span class="sd">        &gt;&gt;&gt; cat.plot(projection=&quot;ortho&quot;)  # doctest:+SKIP</span>
+
+<span class="sd">        .. plot::</span>
+
+<span class="sd">            from obspy import read_events</span>
+<span class="sd">            cat = read_events()</span>
+<span class="sd">            cat.plot(projection=&quot;ortho&quot;)</span>
+
+<span class="sd">        Local (Albers equal area) projection:</span>
+
+<span class="sd">        &gt;&gt;&gt; cat.plot(projection=&quot;local&quot;)  # doctest:+SKIP</span>
+
+<span class="sd">        .. plot::</span>
+
+<span class="sd">            from obspy import read_events</span>
+<span class="sd">            cat = read_events()</span>
+<span class="sd">            cat.plot(projection=&quot;local&quot;)</span>
+
+<span class="sd">        Combining a station and event plot (uses basemap):</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy import read_inventory, read_events</span>
+<span class="sd">        &gt;&gt;&gt; inv = read_inventory()</span>
+<span class="sd">        &gt;&gt;&gt; cat = read_events()</span>
+<span class="sd">        &gt;&gt;&gt; fig = inv.plot(method=basemap, show=False)  # doctest:+SKIP</span>
+<span class="sd">        &gt;&gt;&gt; cat.plot(method=basemap, fig=fig)  # doctest:+SKIP</span>
+
+<span class="sd">        .. plot::</span>
+
+<span class="sd">            from obspy import read_inventory, read_events</span>
+<span class="sd">            inv = read_inventory()</span>
+<span class="sd">            cat = read_events()</span>
+<span class="sd">            fig = inv.plot(show=False)</span>
+<span class="sd">            cat.plot(fig=fig)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">obspy.imaging.maps</span> <span class="k">import</span> <span class="n">plot_map</span><span class="p">,</span> <span class="n">_plot_basemap_into_axes</span>
+        <span class="kn">import</span> <span class="nn">matplotlib</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+        <span class="k">if</span> <span class="n">color</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Events can be color coded by date or depth. &#39;</span>
+                             <span class="s2">&quot;&#39;</span><span class="si">%s</span><span class="s2">&#39; is not supported.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">color</span><span class="p">,))</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;magnitude&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Events can be labeled by magnitude or events can&#39;</span>
+                             <span class="s1">&#39; not be labeled. &#39;</span>
+                             <span class="s2">&quot;&#39;</span><span class="si">%s</span><span class="s2">&#39; is not supported.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">label</span><span class="p">,))</span>
+
+        <span class="c1"># lat/lon coordinates, magnitudes, dates</span>
+        <span class="n">lats</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">lons</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">mags</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">origins</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Event &#39;</span><span class="si">%s</span><span class="s2">&#39; does not have an origin and will not be &quot;</span>
+                       <span class="s2">&quot;plotted.&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">resource_id</span><span class="p">))</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Event &#39;</span><span class="si">%s</span><span class="s2">&#39; does not have a magnitude and will not be &quot;</span>
+                       <span class="s2">&quot;plotted.&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">resource_id</span><span class="p">))</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">origin</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">preferred_origin</span><span class="p">()</span> <span class="ow">or</span> <span class="n">event</span><span class="o">.</span><span class="n">origins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">lats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">latitude</span><span class="p">)</span>
+            <span class="n">lons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">longitude</span><span class="p">)</span>
+            <span class="n">times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+            <span class="n">magnitude</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">preferred_magnitude</span><span class="p">()</span> <span class="ow">or</span> <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">mag</span> <span class="o">=</span> <span class="n">magnitude</span><span class="o">.</span><span class="n">mag</span>
+            <span class="n">mags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mag</span><span class="p">)</span>
+            <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s1">&#39;  </span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">mag</span><span class="p">)</span> <span class="k">if</span> <span class="n">mag</span> <span class="ow">and</span> <span class="n">label</span> <span class="o">==</span> <span class="s1">&#39;magnitude&#39;</span>
+                          <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">color</span> <span class="o">==</span> <span class="s1">&#39;date&#39;</span><span class="p">:</span>
+                <span class="n">c_</span> <span class="o">=</span> <span class="n">origin</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">c_</span> <span class="o">=</span> <span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;depth&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1e3</span>
+            <span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_</span><span class="p">)</span>
+
+        <span class="c1"># Create the colormap for date based plotting.</span>
+        <span class="k">if</span> <span class="n">colormap</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">colormap</span> <span class="o">=</span> <span class="n">obspy_sequential</span>
+
+        <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lons</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># if we have a `None` in the origin time list it likely ends up</span>
+                <span class="c1"># as min and/or max and causes problems..</span>
+                <span class="n">times_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_equal</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">compressed</span><span class="p">()</span>
+                <span class="n">min_time</span> <span class="o">=</span> <span class="n">times_</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+                <span class="n">max_time</span> <span class="o">=</span> <span class="n">times_</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+                <span class="n">title</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="s2">&quot;</span><span class="si">{event_count}</span><span class="s2"> events (</span><span class="si">{start}</span><span class="s2"> to </span><span class="si">{end}</span><span class="s2">) &quot;</span>
+                    <span class="s2">&quot;- Color codes </span><span class="si">{colorcode}</span><span class="s2">, size the magnitude&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">event_count</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">),</span>
+                        <span class="n">start</span><span class="o">=</span><span class="n">min_time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
+                        <span class="n">end</span><span class="o">=</span><span class="n">max_time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
+                        <span class="n">colorcode</span><span class="o">=</span><span class="s2">&quot;origin time&quot;</span>
+                                  <span class="k">if</span> <span class="n">color</span> <span class="o">==</span> <span class="s2">&quot;date&quot;</span>
+                                  <span class="k">else</span> <span class="s2">&quot;depth&quot;</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Event at </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">color</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;depth&quot;</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid option for &#39;color&#39; parameter (</span><span class="si">%s</span><span class="s2">).&quot;</span> <span class="o">%</span> <span class="n">color</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="n">min_size</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">max_size</span> <span class="o">=</span> <span class="mi">30</span>
+        <span class="n">min_size_</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">mags</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">max_size_</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">mags</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lons</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">frac</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">0.2</span> <span class="o">+</span> <span class="p">(</span><span class="n">_i</span> <span class="o">-</span> <span class="n">min_size_</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_size_</span> <span class="o">-</span> <span class="n">min_size_</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">mags</span><span class="p">]</span>
+            <span class="n">size_plot</span> <span class="o">=</span> <span class="p">[(</span><span class="n">_i</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_size</span> <span class="o">-</span> <span class="n">min_size</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">frac</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">size_plot</span> <span class="o">=</span> <span class="mf">15.0</span> <span class="o">**</span> <span class="mi">2</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">Axes</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">method</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">method</span> <span class="o">!=</span> <span class="s2">&quot;basemap&quot;</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Plotting into an matplotlib.axes.Axes instance &quot;</span>
+                       <span class="s2">&quot;currently only implemented for `method=&#39;basemap&#39;`.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span>
+            <span class="n">_plot_basemap_into_axes</span><span class="p">(</span>
+                <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">lons</span><span class="o">=</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="o">=</span><span class="n">lats</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size_plot</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">bmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+                <span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span>
+                <span class="n">continent_fill_color</span><span class="o">=</span><span class="n">continent_fill_color</span><span class="p">,</span>
+                <span class="n">water_fill_color</span><span class="o">=</span><span class="n">water_fill_color</span><span class="p">,</span>
+                <span class="n">colormap</span><span class="o">=</span><span class="n">colormap</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+                <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="n">plot_map</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">size_plot</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span>
+                           <span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span>
+                           <span class="n">continent_fill_color</span><span class="o">=</span><span class="n">continent_fill_color</span><span class="p">,</span>
+                           <span class="n">water_fill_color</span><span class="o">=</span><span class="n">water_fill_color</span><span class="p">,</span>
+                           <span class="n">colormap</span><span class="o">=</span><span class="n">colormap</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+                           <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">outfile</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">fig</span></div></div>
+
+
+<div class="viewcode-block" id="read_events"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.read_events.html#obspy.core.event.read_events">[docs]</a><span class="nd">@map_example_filename</span><span class="p">(</span><span class="s2">&quot;pathname_or_url&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">read_events</span><span class="p">(</span><span class="n">pathname_or_url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read event files into an ObsPy Catalog object.</span>
+
+<span class="sd">    The :func:`~obspy.core.event.read_events` function opens either one or</span>
+<span class="sd">    multiple event files given via file name or URL using the</span>
+<span class="sd">    ``pathname_or_url`` attribute.</span>
+
+<span class="sd">    :type pathname_or_url: str or StringIO.StringIO, optional</span>
+<span class="sd">    :param pathname_or_url: String containing a file name or a URL or a open</span>
+<span class="sd">        file-like object. Wildcards are allowed for a file name. If this</span>
+<span class="sd">        attribute is omitted, an example :class:`~obspy.core.event.Catalog`</span>
+<span class="sd">        object will be returned.</span>
+<span class="sd">    :type format: str, optional</span>
+<span class="sd">    :param format: Format of the file to read (e.g. ``&quot;QUAKEML&quot;``). See the</span>
+<span class="sd">        `Supported Formats`_ section below for a list of supported formats.</span>
+<span class="sd">    :return: A ObsPy :class:`~obspy.core.event.Catalog` object.</span>
+
+<span class="sd">    .. rubric:: _`Supported Formats`</span>
+
+<span class="sd">    Additional ObsPy modules extend the functionality of the</span>
+<span class="sd">    :func:`~obspy.core.event.read_events` function. The following table</span>
+<span class="sd">    summarizes all known file formats currently supported by ObsPy.</span>
+
+<span class="sd">    Please refer to the `Linked Function Call`_ of each module for any extra</span>
+<span class="sd">    options available at the import stage.</span>
+
+<span class="sd">    %s</span>
+
+<span class="sd">    Next to the :func:`~obspy.core.event.read_events` function the</span>
+<span class="sd">    :meth:`~obspy.core.event.Catalog.write` method of the returned</span>
+<span class="sd">    :class:`~obspy.core.event.Catalog` object can be used to export the data to</span>
+<span class="sd">    the file system.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">pathname_or_url</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># if no pathname or URL specified, return example catalog</span>
+        <span class="k">return</span> <span class="n">_create_example_catalog</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pathname_or_url</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">native_str</span><span class="p">)):</span>
+        <span class="c1"># not a string - we assume a file-like object</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># first try reading directly</span>
+            <span class="n">catalog</span> <span class="o">=</span> <span class="n">_read</span><span class="p">(</span><span class="n">pathname_or_url</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="c1"># if this fails, create a temporary file which is read directly</span>
+            <span class="c1"># from the file system</span>
+            <span class="n">pathname_or_url</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">NamedTemporaryFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+                <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pathname_or_url</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+                <span class="n">catalog</span> <span class="o">=</span> <span class="n">_read</span><span class="p">(</span><span class="n">fh</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">catalog</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pathname_or_url</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">)</span> <span class="ow">and</span> \
+            <span class="n">pathname_or_url</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&lt;&#39;</span><span class="p">):</span>
+        <span class="c1"># XML string</span>
+        <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">pathname_or_url</span><span class="p">),</span> <span class="nb">format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="s2">&quot;://&quot;</span> <span class="ow">in</span> <span class="n">pathname_or_url</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+        <span class="c1"># URL</span>
+        <span class="c1"># extract extension if any</span>
+        <span class="n">suffix</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">pathname_or_url</span><span class="p">)</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">&#39;.tmp&#39;</span>
+        <span class="k">with</span> <span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="n">download_to_file</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">pathname_or_url</span><span class="p">,</span> <span class="n">filename_or_buffer</span><span class="o">=</span><span class="n">fh</span><span class="p">)</span>
+            <span class="n">catalog</span> <span class="o">=</span> <span class="n">_read</span><span class="p">(</span><span class="n">fh</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">catalog</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pathname</span> <span class="o">=</span> <span class="n">pathname_or_url</span>
+        <span class="c1"># File name(s)</span>
+        <span class="n">pathnames</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">pathname</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">pathnames</span><span class="p">:</span>
+            <span class="c1"># try to give more specific information why the stream is empty</span>
+            <span class="k">if</span> <span class="n">glob</span><span class="o">.</span><span class="n">has_magic</span><span class="p">(</span><span class="n">pathname</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">pathname</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;No file matching file pattern: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">pathname</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">glob</span><span class="o">.</span><span class="n">has_magic</span><span class="p">(</span><span class="n">pathname</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">pathname</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;No such file or directory&quot;</span><span class="p">,</span> <span class="n">pathname</span><span class="p">)</span>
+
+        <span class="n">catalog</span> <span class="o">=</span> <span class="n">_read</span><span class="p">(</span><span class="n">pathnames</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pathnames</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">pathnames</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="n">catalog</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_read</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">events</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">catalog</span></div>
+
+
+<span class="nd">@uncompress_file</span>
+<span class="k">def</span> <span class="nf">_read</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads a single event file into a ObsPy Catalog object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">catalog</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="n">_read_from_plugin</span><span class="p">(</span><span class="s1">&#39;event&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">,</span>
+                                        <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">catalog</span><span class="p">:</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">_format</span> <span class="o">=</span> <span class="nb">format</span>
+    <span class="k">return</span> <span class="n">catalog</span>
+
+
+<span class="k">def</span> <span class="nf">_create_example_catalog</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create an example catalog.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">read_events</span><span class="p">(</span><span class="s1">&#39;/path/to/neries_events.xml&#39;</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

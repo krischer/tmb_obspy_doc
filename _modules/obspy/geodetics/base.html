@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.geodetics.base &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.geodetics.base</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Various geodetic utilities for ObsPy.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">circmean</span>
+
+<span class="kn">from</span> <span class="nn">obspy.core.util.decorator</span> <span class="k">import</span> <span class="n">deprecated</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.misc</span> <span class="k">import</span> <span class="n">to_int_or_zero</span>
+
+
+<span class="c1"># checking for geographiclib</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">geographiclib</span>  <span class="c1"># @UnusedImport # NOQA</span>
+    <span class="kn">from</span> <span class="nn">geographiclib.geodesic</span> <span class="k">import</span> <span class="n">Geodesic</span>
+    <span class="n">HAS_GEOGRAPHICLIB</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">GEOGRAPHICLIB_VERSION_AT_LEAST_1_34</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">34</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span>
+            <span class="n">to_int_or_zero</span><span class="p">,</span> <span class="n">geographiclib</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)))</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="n">GEOGRAPHICLIB_VERSION_AT_LEAST_1_34</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">HAS_GEOGRAPHICLIB</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">GEOGRAPHICLIB_VERSION_AT_LEAST_1_34</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+<span class="n">WGS84_A</span> <span class="o">=</span> <span class="mf">6378137.0</span>
+<span class="n">WGS84_F</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mf">298.257223563</span>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;calcVincentyInverse&#39; has been renamed to &quot;</span>
+            <span class="s2">&quot;&#39;calc_vincenty_inverse&#39;. Use that instead.&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span>
+<span class="k">def</span> <span class="nf">calcVincentyInverse</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">calc_vincenty_inverse</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="calc_vincenty_inverse"><a class="viewcode-back" href="../../../packages/autogen/obspy.geodetics.base.calc_vincenty_inverse.html#obspy.geodetics.base.calc_vincenty_inverse">[docs]</a><span class="k">def</span> <span class="nf">calc_vincenty_inverse</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">WGS84_A</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">WGS84_F</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Vincenty Inverse Solution of Geodesics on the Ellipsoid.</span>
+
+<span class="sd">    Computes the distance between two geographic points on the WGS84</span>
+<span class="sd">    ellipsoid and the forward and backward azimuths between these points.</span>
+
+<span class="sd">    :param lat1: Latitude of point A in degrees (positive for northern,</span>
+<span class="sd">        negative for southern hemisphere)</span>
+<span class="sd">    :param lon1: Longitude of point A in degrees (positive for eastern,</span>
+<span class="sd">        negative for western hemisphere)</span>
+<span class="sd">    :param lat2: Latitude of point B in degrees (positive for northern,</span>
+<span class="sd">        negative for southern hemisphere)</span>
+<span class="sd">    :param lon2: Longitude of point B in degrees (positive for eastern,</span>
+<span class="sd">        negative for western hemisphere)</span>
+<span class="sd">    :param a: Radius of Earth in m. Uses the value for WGS84 by default.</span>
+<span class="sd">    :param f: Flattening of Earth. Uses the value for WGS84 by default.</span>
+<span class="sd">    :return: (Great circle distance in m, azimuth A-&gt;B in degrees,</span>
+<span class="sd">        azimuth B-&gt;A in degrees)</span>
+<span class="sd">    :raises: This method may have no solution between two nearly antipodal</span>
+<span class="sd">        points; an iteration limit traps this case and a ``StopIteration``</span>
+<span class="sd">        exception will be raised.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        This code is based on an implementation incorporated in</span>
+<span class="sd">        Matplotlib Basemap Toolkit 0.9.5 http://sourceforge.net/projects/\</span>
+<span class="sd">matplotlib/files/matplotlib-toolkits/basemap-0.9.5/</span>
+<span class="sd">        (matplotlib/toolkits/basemap/greatcircle.py)</span>
+
+<span class="sd">        Algorithm from Geocentric Datum of Australia Technical Manual.</span>
+
+<span class="sd">        * http://www.icsm.gov.au/gda/</span>
+<span class="sd">        * http://www.icsm.gov.au/gda/gdatm/gdav2.3.pdf, pp. 15</span>
+
+<span class="sd">        It states::</span>
+
+<span class="sd">            Computations on the Ellipsoid</span>
+
+<span class="sd">            There are a number of formulae that are available to calculate</span>
+<span class="sd">            accurate geodetic positions, azimuths and distances on the</span>
+<span class="sd">            ellipsoid.</span>
+
+<span class="sd">            Vincenty&#39;s formulae (Vincenty, 1975) may be used for lines ranging</span>
+<span class="sd">            from a few cm to nearly 20,000 km, with millimetre accuracy. The</span>
+<span class="sd">            formulae have been extensively tested for the Australian region, by</span>
+<span class="sd">            comparison with results from other formulae (Rainsford, 1955 &amp;</span>
+<span class="sd">            Sodano, 1965).</span>
+
+<span class="sd">            * Inverse problem: azimuth and distance from known latitudes and</span>
+<span class="sd">              longitudes</span>
+<span class="sd">            * Direct problem: Latitude and longitude from known position,</span>
+<span class="sd">              azimuth and distance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check inputs</span>
+    <span class="k">if</span> <span class="n">lat1</span> <span class="o">&gt;</span> <span class="mi">90</span> <span class="ow">or</span> <span class="n">lat1</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">90</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Latitude of Point 1 out of bounds! (-90 &lt;= lat1 &lt;=90)&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">lon1</span> <span class="o">&gt;</span> <span class="mi">180</span><span class="p">:</span>
+        <span class="n">lon1</span> <span class="o">-=</span> <span class="mi">360</span>
+    <span class="k">while</span> <span class="n">lon1</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">180</span><span class="p">:</span>
+        <span class="n">lon1</span> <span class="o">+=</span> <span class="mi">360</span>
+    <span class="k">if</span> <span class="n">lat2</span> <span class="o">&gt;</span> <span class="mi">90</span> <span class="ow">or</span> <span class="n">lat2</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">90</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Latitude of Point 2 out of bounds! (-90 &lt;= lat2 &lt;=90)&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">lon2</span> <span class="o">&gt;</span> <span class="mi">180</span><span class="p">:</span>
+        <span class="n">lon2</span> <span class="o">-=</span> <span class="mi">360</span>
+    <span class="k">while</span> <span class="n">lon2</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">180</span><span class="p">:</span>
+        <span class="n">lon2</span> <span class="o">+=</span> <span class="mi">360</span>
+
+    <span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">f</span><span class="p">)</span>  <span class="c1"># semiminor axis</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">lat1</span> <span class="o">-</span> <span class="n">lat2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">lon1</span> <span class="o">-</span> <span class="n">lon2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-8</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
+
+    <span class="c1"># convert latitudes and longitudes to radians:</span>
+    <span class="n">lat1</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">lat1</span><span class="p">)</span>
+    <span class="n">lon1</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">lon1</span><span class="p">)</span>
+    <span class="n">lat2</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span>
+    <span class="n">lon2</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">lon2</span><span class="p">)</span>
+
+    <span class="n">tan_u1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">f</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">lat1</span><span class="p">)</span>
+    <span class="n">tan_u2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">f</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span>
+
+    <span class="n">u_1</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="n">tan_u1</span><span class="p">)</span>
+    <span class="n">u_2</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="n">tan_u2</span><span class="p">)</span>
+
+    <span class="n">dlon</span> <span class="o">=</span> <span class="n">lon2</span> <span class="o">-</span> <span class="n">lon1</span>
+    <span class="n">last_dlon</span> <span class="o">=</span> <span class="o">-</span><span class="mf">4000000.0</span>  <span class="c1"># an impossible value</span>
+    <span class="n">omega</span> <span class="o">=</span> <span class="n">dlon</span>
+
+    <span class="c1"># Iterate until no significant change in dlon or iterlimit has been</span>
+    <span class="c1"># reached (http://www.movable-type.co.uk/scripts/latlong-vincenty.html)</span>
+    <span class="n">iterlimit</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">last_dlon</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">3000000.0</span> <span class="ow">or</span> <span class="n">dlon</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span>
+               <span class="nb">abs</span><span class="p">((</span><span class="n">last_dlon</span> <span class="o">-</span> <span class="n">dlon</span><span class="p">)</span> <span class="o">/</span> <span class="n">dlon</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1.0e-9</span><span class="p">):</span>
+            <span class="n">sqr_sin_sigma</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">u_2</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dlon</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> \
+                <span class="nb">pow</span><span class="p">((</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">u_1</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">u_2</span><span class="p">)</span> <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">u_1</span><span class="p">)</span> <span class="o">*</span>
+                     <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">u_2</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dlon</span><span class="p">)),</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">sin_sigma</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sqr_sin_sigma</span><span class="p">)</span>
+            <span class="n">cos_sigma</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">u_1</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">u_2</span><span class="p">)</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">u_1</span><span class="p">)</span> <span class="o">*</span> \
+                <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">u_2</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dlon</span><span class="p">)</span>
+            <span class="n">sigma</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="n">sin_sigma</span><span class="p">,</span> <span class="n">cos_sigma</span><span class="p">)</span>
+            <span class="n">sin_alpha</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">u_1</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">u_2</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dlon</span><span class="p">)</span> <span class="o">/</span> \
+                <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">sigma</span><span class="p">)</span>
+            <span class="n">alpha</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">asin</span><span class="p">(</span><span class="n">sin_alpha</span><span class="p">)</span>
+            <span class="n">cos2sigma_m</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">sigma</span><span class="p">)</span> <span class="o">-</span> \
+                <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">u_1</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">u_2</span><span class="p">)</span> <span class="o">/</span> <span class="nb">pow</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span> <span class="o">/</span> <span class="mi">16</span><span class="p">)</span> <span class="o">*</span> <span class="nb">pow</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> \
+                <span class="p">(</span><span class="mi">4</span> <span class="o">+</span> <span class="n">f</span> <span class="o">*</span> <span class="p">(</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="nb">pow</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha</span><span class="p">),</span> <span class="mi">2</span><span class="p">)))</span>
+            <span class="n">last_dlon</span> <span class="o">=</span> <span class="n">dlon</span>
+            <span class="n">dlon</span> <span class="o">=</span> <span class="n">omega</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">c</span><span class="p">)</span> <span class="o">*</span> <span class="n">f</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> \
+                <span class="p">(</span><span class="n">sigma</span> <span class="o">+</span> <span class="n">c</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">sigma</span><span class="p">)</span> <span class="o">*</span>
+                    <span class="p">(</span><span class="n">cos2sigma_m</span> <span class="o">+</span> <span class="n">c</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">sigma</span><span class="p">)</span> <span class="o">*</span>
+                        <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">pow</span><span class="p">(</span><span class="n">cos2sigma_m</span><span class="p">,</span> <span class="mi">2</span><span class="p">))))</span>
+
+            <span class="n">u2</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">alpha</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span>
+            <span class="n">_a</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">u2</span> <span class="o">/</span> <span class="mi">16384</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">4096</span> <span class="o">+</span> <span class="n">u2</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">768</span> <span class="o">+</span> <span class="n">u2</span> <span class="o">*</span>
+                                                  <span class="p">(</span><span class="mi">320</span> <span class="o">-</span> <span class="mi">175</span> <span class="o">*</span> <span class="n">u2</span><span class="p">)))</span>
+            <span class="n">_b</span> <span class="o">=</span> <span class="p">(</span><span class="n">u2</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">256</span> <span class="o">+</span> <span class="n">u2</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">128</span> <span class="o">+</span> <span class="n">u2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">74</span> <span class="o">-</span> <span class="mi">47</span> <span class="o">*</span> <span class="n">u2</span><span class="p">)))</span>
+            <span class="n">delta_sigma</span> <span class="o">=</span> <span class="n">_b</span> <span class="o">*</span> <span class="n">sin_sigma</span> <span class="o">*</span> \
+                <span class="p">(</span><span class="n">cos2sigma_m</span> <span class="o">+</span> <span class="p">(</span><span class="n">_b</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span> <span class="o">*</span>
+                    <span class="p">(</span><span class="n">cos_sigma</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">pow</span><span class="p">(</span><span class="n">cos2sigma_m</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">-</span> <span class="p">(</span><span class="n">_b</span> <span class="o">/</span> <span class="mi">6</span><span class="p">)</span> <span class="o">*</span>
+                        <span class="n">cos2sigma_m</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">sqr_sin_sigma</span><span class="p">)</span> <span class="o">*</span>
+                        <span class="p">(</span><span class="o">-</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="nb">pow</span><span class="p">(</span><span class="n">cos2sigma_m</span><span class="p">,</span> <span class="mi">2</span><span class="p">))))</span>
+
+            <span class="n">dist</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">_a</span> <span class="o">*</span> <span class="p">(</span><span class="n">sigma</span> <span class="o">-</span> <span class="n">delta_sigma</span><span class="p">)</span>
+            <span class="n">alpha12</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">u_2</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dlon</span><span class="p">)),</span>
+                <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">u_1</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">u_2</span><span class="p">)</span> <span class="o">-</span>
+                 <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">u_1</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">u_2</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dlon</span><span class="p">)))</span>
+            <span class="n">alpha21</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">u_1</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dlon</span><span class="p">)),</span>
+                <span class="p">(</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">u_1</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">u_2</span><span class="p">)</span> <span class="o">+</span>
+                 <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">u_1</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">u_2</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dlon</span><span class="p">)))</span>
+            <span class="n">iterlimit</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">iterlimit</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># iteration limit reached</span>
+                <span class="k">raise</span> <span class="ne">StopIteration</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="c1"># usually &quot;math domain error&quot;</span>
+        <span class="k">raise</span> <span class="ne">StopIteration</span>
+
+    <span class="k">if</span> <span class="n">alpha12</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">alpha12</span> <span class="o">=</span> <span class="n">alpha12</span> <span class="o">+</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">alpha12</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">):</span>
+        <span class="n">alpha12</span> <span class="o">=</span> <span class="n">alpha12</span> <span class="o">-</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+    <span class="n">alpha21</span> <span class="o">=</span> <span class="n">alpha21</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+
+    <span class="k">if</span> <span class="n">alpha21</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">alpha21</span> <span class="o">=</span> <span class="n">alpha21</span> <span class="o">+</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">alpha21</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">):</span>
+        <span class="n">alpha21</span> <span class="o">=</span> <span class="n">alpha21</span> <span class="o">-</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+    <span class="c1"># convert to degrees:</span>
+    <span class="n">alpha12</span> <span class="o">=</span> <span class="n">alpha12</span> <span class="o">*</span> <span class="mi">360</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+    <span class="n">alpha21</span> <span class="o">=</span> <span class="n">alpha21</span> <span class="o">*</span> <span class="mi">360</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dist</span><span class="p">,</span> <span class="n">alpha12</span><span class="p">,</span> <span class="n">alpha21</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;gps2DistAzimuth&#39; has been renamed to &quot;</span>
+            <span class="s2">&quot;&#39;gps2dist_azimuth&#39;. Use that instead.&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span>
+<span class="k">def</span> <span class="nf">gps2DistAzimuth</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">gps2dist_azimuth</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="gps2dist_azimuth"><a class="viewcode-back" href="../../../packages/autogen/obspy.geodetics.base.gps2dist_azimuth.html#obspy.geodetics.base.gps2dist_azimuth">[docs]</a><span class="k">def</span> <span class="nf">gps2dist_azimuth</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">WGS84_A</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">WGS84_F</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the distance between two geographic points on the WGS84</span>
+<span class="sd">    ellipsoid and the forward and backward azimuths between these points.</span>
+
+<span class="sd">    :param lat1: Latitude of point A in degrees (positive for northern,</span>
+<span class="sd">        negative for southern hemisphere)</span>
+<span class="sd">    :param lon1: Longitude of point A in degrees (positive for eastern,</span>
+<span class="sd">        negative for western hemisphere)</span>
+<span class="sd">    :param lat2: Latitude of point B in degrees (positive for northern,</span>
+<span class="sd">        negative for southern hemisphere)</span>
+<span class="sd">    :param lon2: Longitude of point B in degrees (positive for eastern,</span>
+<span class="sd">        negative for western hemisphere)</span>
+<span class="sd">    :param a: Radius of Earth in m. Uses the value for WGS84 by default.</span>
+<span class="sd">    :param f: Flattening of Earth. Uses the value for WGS84 by default.</span>
+<span class="sd">    :return: (Great circle distance in m, azimuth A-&gt;B in degrees,</span>
+<span class="sd">        azimuth B-&gt;A in degrees)</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        This function will check if you have installed the Python module</span>
+<span class="sd">        `geographiclib &lt;http://geographiclib.sf.net&gt;`_ - a very fast module</span>
+<span class="sd">        for converting between geographic, UTM, UPS, MGRS, and geocentric</span>
+<span class="sd">        coordinates, for geoid calculations, and for solving geodesic problems.</span>
+<span class="sd">        Otherwise the locally implemented Vincenty&#39;s Inverse formulae</span>
+<span class="sd">        (:func:`obspy.core.util.geodetics.calc_vincenty_inverse`) is used which</span>
+<span class="sd">        has known limitations for two nearly antipodal points and is ca. 4x</span>
+<span class="sd">        slower.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">HAS_GEOGRAPHICLIB</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">lat1</span> <span class="o">&gt;</span> <span class="mi">90</span> <span class="ow">or</span> <span class="n">lat1</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">90</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Latitude of Point 1 out of bounds! (-90 &lt;= lat1 &lt;=90)&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">lat2</span> <span class="o">&gt;</span> <span class="mi">90</span> <span class="ow">or</span> <span class="n">lat2</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">90</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Latitude of Point 2 out of bounds! (-90 &lt;= lat2 &lt;=90)&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Geodesic</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">Inverse</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">)</span>
+        <span class="n">azim</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;azi1&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">azim</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">azim</span> <span class="o">+=</span> <span class="mi">360</span>
+        <span class="n">bazim</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;azi2&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">180</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;s12&#39;</span><span class="p">],</span> <span class="n">azim</span><span class="p">,</span> <span class="n">bazim</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">calc_vincenty_inverse</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">alltrue</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">values</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">StopIteration</span>
+            <span class="k">return</span> <span class="n">values</span>
+        <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Catching unstable calculation on antipodes. &quot;</span>
+                   <span class="s2">&quot;The currently used Vincenty&#39;s Inverse formulae &quot;</span>
+                   <span class="s2">&quot;has known limitations for two nearly antipodal points. &quot;</span>
+                   <span class="s2">&quot;Install the Python module &#39;geographiclib&#39; to solve this &quot;</span>
+                   <span class="s2">&quot;issue.&quot;</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mf">20004314.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">e</span></div>
+
+
+<div class="viewcode-block" id="kilometer2degrees"><a class="viewcode-back" href="../../../packages/autogen/obspy.geodetics.base.kilometer2degrees.html#obspy.geodetics.base.kilometer2degrees">[docs]</a><span class="k">def</span> <span class="nf">kilometer2degrees</span><span class="p">(</span><span class="n">kilometer</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">6371</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convenience function to convert kilometers to degrees assuming a perfectly</span>
+<span class="sd">    spherical Earth.</span>
+
+<span class="sd">    :type kilometer: float</span>
+<span class="sd">    :param kilometer: Distance in kilometers</span>
+<span class="sd">    :type radius: int, optional</span>
+<span class="sd">    :param radius: Radius of the Earth used for the calculation.</span>
+<span class="sd">    :rtype: float</span>
+<span class="sd">    :return: Distance in degrees as a floating point number.</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    &gt;&gt;&gt; from obspy.geodetics import kilometer2degrees</span>
+<span class="sd">    &gt;&gt;&gt; kilometer2degrees(300)</span>
+<span class="sd">    2.6979648177561915</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">kilometer</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">360.0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="degrees2kilometers"><a class="viewcode-back" href="../../../packages/autogen/obspy.geodetics.base.degrees2kilometers.html#obspy.geodetics.base.degrees2kilometers">[docs]</a><span class="k">def</span> <span class="nf">degrees2kilometers</span><span class="p">(</span><span class="n">degrees</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">6371</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convenience function to convert (great circle) degrees to kilometers</span>
+<span class="sd">    assuming a perfectly spherical Earth.</span>
+
+<span class="sd">    :type degrees: float</span>
+<span class="sd">    :param degrees: Distance in (great circle) degrees</span>
+<span class="sd">    :type radius: int, optional</span>
+<span class="sd">    :param radius: Radius of the Earth used for the calculation.</span>
+<span class="sd">    :rtype: float</span>
+<span class="sd">    :return: Distance in kilometers as a floating point number.</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    &gt;&gt;&gt; from obspy.geodetics import degrees2kilometers</span>
+<span class="sd">    &gt;&gt;&gt; degrees2kilometers(1)</span>
+<span class="sd">    111.19492664455873</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">degrees</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">360.0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="locations2degrees"><a class="viewcode-back" href="../../../packages/autogen/obspy.geodetics.base.locations2degrees.html#obspy.geodetics.base.locations2degrees">[docs]</a><span class="k">def</span> <span class="nf">locations2degrees</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">long1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">long2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convenience function to calculate the great circle distance between two</span>
+<span class="sd">    points on a spherical Earth.</span>
+
+<span class="sd">    This method uses the Vincenty formula in the special case of a spherical</span>
+<span class="sd">    Earth. For more accurate values use the geodesic distance calculations of</span>
+<span class="sd">    geopy (https://github.com/geopy/geopy).</span>
+
+<span class="sd">    :type lat1: float</span>
+<span class="sd">    :param lat1: Latitude of point 1 in degrees</span>
+<span class="sd">    :type long1: float</span>
+<span class="sd">    :param long1: Longitude of point 1 in degrees</span>
+<span class="sd">    :type lat2: float</span>
+<span class="sd">    :param lat2: Latitude of point 2 in degrees</span>
+<span class="sd">    :type long2: float</span>
+<span class="sd">    :param long2: Longitude of point 2 in degrees</span>
+<span class="sd">    :rtype: float</span>
+<span class="sd">    :return: Distance in degrees as a floating point number.</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    &gt;&gt;&gt; from obspy.geodetics import locations2degrees</span>
+<span class="sd">    &gt;&gt;&gt; locations2degrees(5, 5, 10, 10)</span>
+<span class="sd">    7.0397014191753815</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Convert to radians.</span>
+    <span class="n">lat1</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">lat1</span><span class="p">)</span>
+    <span class="n">lat2</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span>
+    <span class="n">long1</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">long1</span><span class="p">)</span>
+    <span class="n">long2</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">long2</span><span class="p">)</span>
+    <span class="n">long_diff</span> <span class="o">=</span> <span class="n">long2</span> <span class="o">-</span> <span class="n">long1</span>
+    <span class="n">gd</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span>
+        <span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span>
+            <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span>
+                <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">long_diff</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span>
+                <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat1</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span> <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat1</span><span class="p">)</span> <span class="o">*</span>
+                    <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">long_diff</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat1</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat1</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span> <span class="o">*</span>
+            <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">long_diff</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">gd</span></div>
+
+
+<div class="viewcode-block" id="mean_longitude"><a class="viewcode-back" href="../../../packages/autogen/obspy.geodetics.base.mean_longitude.html#obspy.geodetics.base.mean_longitude">[docs]</a><span class="k">def</span> <span class="nf">mean_longitude</span><span class="p">(</span><span class="n">longitudes</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute sample mean longitude, assuming longitude in degrees from -180 to</span>
+<span class="sd">    180.</span>
+
+<span class="sd">    &gt;&gt;&gt; lons = (-170.5, -178.3, 166)</span>
+<span class="sd">    &gt;&gt;&gt; np.mean(lons)  # doctest: +SKIP</span>
+<span class="sd">    -60.933</span>
+<span class="sd">    &gt;&gt;&gt; mean_longitude(lons)  # doctest: +ELLIPSIS</span>
+<span class="sd">    179.08509...</span>
+
+<span class="sd">    :type longitudes: :class:`~numpy.ndarray` (or list, ..)</span>
+<span class="sd">    :param longitudes: Geographical longitude values ranging from -180 to 180</span>
+<span class="sd">        in degrees.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mean_longitude</span> <span class="o">=</span> <span class="n">circmean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">longitudes</span><span class="p">),</span> <span class="n">low</span><span class="o">=-</span><span class="mi">180</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">mean_longitude</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">180</span><span class="p">:</span>
+        <span class="n">mean_longitude</span> <span class="o">+=</span> <span class="mi">360</span>
+    <span class="k">while</span> <span class="n">mean_longitude</span> <span class="o">&gt;</span> <span class="mi">180</span><span class="p">:</span>
+        <span class="n">mean_longitude</span> <span class="o">-=</span> <span class="mi">360</span>
+    <span class="k">return</span> <span class="n">mean_longitude</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

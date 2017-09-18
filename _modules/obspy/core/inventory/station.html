@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.core.inventory.station &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.core.inventory.station</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Provides the Station class.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    Lion Krischer (krischer@geophysik.uni-muenchen.de), 2013</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+<span class="kn">from</span> <span class="nn">future.utils</span> <span class="k">import</span> <span class="n">python_2_unicode_compatible</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">fnmatch</span>
+<span class="kn">import</span> <span class="nn">textwrap</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">UTCDateTime</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.obspy_types</span> <span class="k">import</span> <span class="n">ObsPyException</span><span class="p">,</span> <span class="n">ZeroSamplingRate</span>
+
+<span class="kn">from</span> <span class="nn">.util</span> <span class="k">import</span> <span class="n">BaseNode</span><span class="p">,</span> <span class="n">Equipment</span><span class="p">,</span> <span class="n">Operator</span><span class="p">,</span> <span class="n">Distance</span><span class="p">,</span> <span class="n">Latitude</span><span class="p">,</span> <span class="n">Longitude</span>
+
+
+<div class="viewcode-block" id="Station"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.station.Station.html#obspy.core.inventory.station.Station">[docs]</a><span class="nd">@python_2_unicode_compatible</span>
+<span class="k">class</span> <span class="nc">Station</span><span class="p">(</span><span class="n">BaseNode</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    From the StationXML definition:</span>
+<span class="sd">        This type represents a Station epoch. It is common to only have a</span>
+<span class="sd">        single station epoch with the station&#39;s creation and termination dates</span>
+<span class="sd">        as the epoch start and end dates.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Station.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.station.Station.__init__.html#obspy.core.inventory.station.Station.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">latitude</span><span class="p">,</span> <span class="n">longitude</span><span class="p">,</span> <span class="n">elevation</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">site</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vault</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">geology</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">equipments</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">operators</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">creation_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">termination_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">total_number_of_channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">selected_number_of_channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">comments</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">restricted_status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alternate_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">historical_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_availability</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :type channels: list of :class:`~obspy.core.inventory.channel.Channel`</span>
+<span class="sd">        :param channels: All channels belonging to this station.</span>
+<span class="sd">        :type latitude: :class:`~obspy.core.inventory.util.Latitude`</span>
+<span class="sd">        :param latitude: The latitude of the station</span>
+<span class="sd">        :type longitude: :class:`~obspy.core.inventory.util.Longitude`</span>
+<span class="sd">        :param longitude: The longitude of the station</span>
+<span class="sd">        :param elevation: The elevation of the station in meter.</span>
+<span class="sd">        :param site: These fields describe the location of the station using</span>
+<span class="sd">            geopolitical entities (country, city, etc.).</span>
+<span class="sd">        :param vault: Type of vault, e.g. WWSSN, tunnel, transportable array,</span>
+<span class="sd">            etc</span>
+<span class="sd">        :param geology: Type of rock and/or geologic formation.</span>
+<span class="sd">        :param equipments: Equipment used by all channels at a station.</span>
+<span class="sd">        :type operators: list of :class:`~obspy.core.inventory.util.Operator`</span>
+<span class="sd">        :param operator: An operating agency and associated contact persons. If</span>
+<span class="sd">            there multiple operators, each one should be encapsulated within an</span>
+<span class="sd">            Operator tag. Since the Contact element is a generic type that</span>
+<span class="sd">            represents any contact person, it also has its own optional Agency</span>
+<span class="sd">            element.</span>
+<span class="sd">        :type creation_date: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param creation_date: Date and time (UTC) when the station was first</span>
+<span class="sd">            installed</span>
+<span class="sd">        :type termination_date: :class:`~obspy.core.utcdatetime.UTCDateTime`,</span>
+<span class="sd">            optional</span>
+<span class="sd">        :param termination_date: Date and time (UTC) when the station was</span>
+<span class="sd">            terminated or will be terminated. A blank value should be assumed</span>
+<span class="sd">            to mean that the station is still active.</span>
+<span class="sd">        :type total_number_of_channels: int</span>
+<span class="sd">        :param total_number_of_channels: Total number of channels recorded at</span>
+<span class="sd">            this station.</span>
+<span class="sd">        :type selected_number_of_channels: int</span>
+<span class="sd">        :param selected_number_of_channels: Number of channels recorded at this</span>
+<span class="sd">            station and selected by the query that produced this document.</span>
+<span class="sd">        :type external_references: list of</span>
+<span class="sd">            :class:`~obspy.core.inventory.util.ExternalReference`</span>
+<span class="sd">        :param external_references: URI of any type of external report, such as</span>
+<span class="sd">            IRIS data reports or dataless SEED volumes.</span>
+<span class="sd">        :type description: str</span>
+<span class="sd">        :param description: A description of the resource</span>
+<span class="sd">        :type comments: list of :class:`~obspy.core.inventory.util.Comment`</span>
+<span class="sd">        :param comments: An arbitrary number of comments to the resource</span>
+<span class="sd">        :type start_date: :class:`~obspy.core.utcdatetime.UTCDateTime`,</span>
+<span class="sd">            optional</span>
+<span class="sd">        :param start_date: The start date of the resource</span>
+<span class="sd">        :type end_date: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param end_date: The end date of the resource</span>
+<span class="sd">        :type restricted_status: str</span>
+<span class="sd">        :param restricted_status: The restriction status</span>
+<span class="sd">        :type alternate_code: str</span>
+<span class="sd">        :param alternate_code: A code used for display or association,</span>
+<span class="sd">            alternate to the SEED-compliant code.</span>
+<span class="sd">        :type historical_code: str</span>
+<span class="sd">        :param historical_code: A previously used code if different from the</span>
+<span class="sd">            current code.</span>
+<span class="sd">        :type data_availability: :class:`~obspy.station.util.DataAvailability`</span>
+<span class="sd">        :param data_availability: Information about time series availability</span>
+<span class="sd">            for the station.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">latitude</span> <span class="o">=</span> <span class="n">latitude</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">longitude</span> <span class="o">=</span> <span class="n">longitude</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">elevation</span> <span class="o">=</span> <span class="n">elevation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">channels</span> <span class="o">=</span> <span class="n">channels</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">site</span> <span class="o">=</span> <span class="n">site</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vault</span> <span class="o">=</span> <span class="n">vault</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geology</span> <span class="o">=</span> <span class="n">geology</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">equipments</span> <span class="o">=</span> <span class="n">equipments</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operators</span> <span class="o">=</span> <span class="n">operators</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">creation_date</span> <span class="o">=</span> <span class="n">creation_date</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">termination_date</span> <span class="o">=</span> <span class="n">termination_date</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_number_of_channels</span> <span class="o">=</span> <span class="n">total_number_of_channels</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selected_number_of_channels</span> <span class="o">=</span> <span class="n">selected_number_of_channels</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">external_references</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Station</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">code</span><span class="o">=</span><span class="n">code</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="n">comments</span><span class="p">,</span>
+            <span class="n">start_date</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span>
+            <span class="n">restricted_status</span><span class="o">=</span><span class="n">restricted_status</span><span class="p">,</span> <span class="n">alternate_code</span><span class="o">=</span><span class="n">alternate_code</span><span class="p">,</span>
+            <span class="n">historical_code</span><span class="o">=</span><span class="n">historical_code</span><span class="p">,</span>
+            <span class="n">data_availability</span><span class="o">=</span><span class="n">data_availability</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">total_number_of_channels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_number_of_channels</span>
+
+    <span class="nd">@total_number_of_channels</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">total_number_of_channels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;total_number_of_channels cannot be negative.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_total_number_of_channels</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">selected_number_of_channels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_number_of_channels</span>
+
+    <span class="nd">@selected_number_of_channels</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">selected_number_of_channels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;selected_number_of_channels cannot be negative.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_number_of_channels</span> <span class="o">=</span> <span class="n">value</span>
+
+<div class="viewcode-block" id="Station.__str__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.station.Station.__str__.html#obspy.core.inventory.station.Station.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_contents</span><span class="p">()</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Station </span><span class="si">{station_name}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Station Code: </span><span class="si">{station_code}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Channel Count: </span><span class="si">{selected}</span><span class="s2">/</span><span class="si">{total}</span><span class="s2"> (Selected/Total)</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="si">{start_date}</span><span class="s2"> - </span><span class="si">{end_date}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Access: </span><span class="si">{restricted}</span><span class="s2"> </span><span class="si">{alternate_code}{historical_code}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Latitude: </span><span class="si">{lat:.2f}</span><span class="s2">, Longitude: </span><span class="si">{lng:.2f}</span><span class="s2">, &quot;</span>
+               <span class="s2">&quot;Elevation: </span><span class="si">{elevation:.1f}</span><span class="s2"> m</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">ret</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">station_name</span><span class="o">=</span><span class="n">contents</span><span class="p">[</span><span class="s2">&quot;stations&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">station_code</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">code</span><span class="p">,</span>
+            <span class="n">selected</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_number_of_channels</span><span class="p">,</span>
+            <span class="n">total</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">total_number_of_channels</span><span class="p">,</span>
+            <span class="n">start_date</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="p">),</span>
+            <span class="n">end_date</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">restricted</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">restricted_status</span><span class="p">,</span>
+            <span class="n">lat</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span> <span class="n">lng</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span> <span class="n">elevation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">elevation</span><span class="p">,</span>
+            <span class="n">alternate_code</span><span class="o">=</span><span class="s2">&quot;Alternate Code: </span><span class="si">%s</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">alternate_code</span> <span class="k">if</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">alternate_code</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">historical_code</span><span class="o">=</span><span class="s2">&quot;historical Code: </span><span class="si">%s</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">historical_code</span> <span class="k">if</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">historical_code</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Available Channels:</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">textwrap</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span>
+            <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">contents</span><span class="p">[</span><span class="s2">&quot;channels&quot;</span><span class="p">]),</span> <span class="n">initial_indent</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">subsequent_indent</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">expand_tabs</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">ret</span></div>
+
+<div class="viewcode-block" id="Station._repr_pretty_"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.station.Station._repr_pretty_.html#obspy.core.inventory.station.Station._repr_pretty_">[docs]</a>    <span class="k">def</span> <span class="nf">_repr_pretty_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cycle</span><span class="p">):</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Station.__getitem__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.station.Station.__getitem__.html#obspy.core.inventory.station.Station.__getitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">channels</span><span class="p">[</span><span class="n">index</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Station.__len__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.station.Station.__len__.html#obspy.core.inventory.station.Station.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channels</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Station.get_contents"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.station.Station.get_contents.html#obspy.core.inventory.station.Station.get_contents">[docs]</a>    <span class="k">def</span> <span class="nf">get_contents</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary containing the contents of the object.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy import read_inventory</span>
+<span class="sd">        &gt;&gt;&gt; example_filename = &quot;/path/to/IRIS_single_channel_with_response.xml&quot;</span>
+<span class="sd">        &gt;&gt;&gt; inventory = read_inventory(example_filename)</span>
+<span class="sd">        &gt;&gt;&gt; station = inventory.networks[0].stations[0]</span>
+<span class="sd">        &gt;&gt;&gt; station.get_contents()  # doctest: +NORMALIZE_WHITESPACE +ELLIPSIS</span>
+<span class="sd">        {...}</span>
+<span class="sd">        &gt;&gt;&gt; for (k, v) in sorted(station.get_contents().items()):</span>
+<span class="sd">        ...     print(k, v[0])</span>
+<span class="sd">        channels ANMO.10.BHZ</span>
+<span class="sd">        stations ANMO (Albuquerque, New Mexico, USA)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">site_name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">site</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="n">site_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="s2">&quot; (</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">site_name</span> <span class="k">if</span> <span class="n">site_name</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+        <span class="n">content_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;stations&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">desc</span><span class="p">],</span> <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+
+        <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">channels</span><span class="p">:</span>
+            <span class="n">content_dict</span><span class="p">[</span><span class="s2">&quot;channels&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">channel</span><span class="o">.</span><span class="n">location_code</span><span class="p">,</span> <span class="n">channel</span><span class="o">.</span><span class="n">code</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">content_dict</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">operators</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operators</span>
+
+    <span class="nd">@operators</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">operators</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;__iter__&quot;</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Operators needs to be an iterable, e.g. a list.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Operator</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">value</span><span class="p">]):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Operators can only contain Operator objects.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operators</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">equipments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_equipments</span>
+
+    <span class="nd">@equipments</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">equipments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;__iter__&quot;</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;equipments needs to be an iterable, e.g. a list.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Equipment</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">value</span><span class="p">]):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;equipments can only contain Equipment objects.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_equipments</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="c1"># if value is None or isinstance(value, Equipment):</span>
+        <span class="c1">#    self._equipment = value</span>
+        <span class="c1"># elif isinstance(value, dict):</span>
+        <span class="c1">#    self._equipment = Equipment(**value)</span>
+        <span class="c1"># else:</span>
+        <span class="c1">#    msg = (&quot;equipment needs to be be of type</span>
+        <span class="c1"># obspy.core.inventory.Equipment &quot;</span>
+        <span class="c1">#        &quot;or contain a dictionary with values suitable for &quot;</span>
+        <span class="c1">#        &quot;initialization.&quot;)</span>
+        <span class="c1">#    raise ValueError(msg)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">creation_date</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_creation_date</span>
+
+    <span class="nd">@creation_date</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">creation_date</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_creation_date</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">UTCDateTime</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_creation_date</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">termination_date</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_termination_date</span>
+
+    <span class="nd">@termination_date</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">termination_date</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">UTCDateTime</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_termination_date</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">external_references</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_external_references</span>
+
+    <span class="nd">@external_references</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">external_references</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;__iter__&quot;</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;external_references needs to be iterable, e.g. a list.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_external_references</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">longitude</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_longitude</span>
+
+    <span class="nd">@longitude</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">longitude</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Longitude</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_longitude</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_longitude</span> <span class="o">=</span> <span class="n">Longitude</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">latitude</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_latitude</span>
+
+    <span class="nd">@latitude</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">latitude</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Latitude</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_latitude</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_latitude</span> <span class="o">=</span> <span class="n">Latitude</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">elevation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elevation</span>
+
+    <span class="nd">@elevation</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">elevation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Distance</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_elevation</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_elevation</span> <span class="o">=</span> <span class="n">Distance</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Station.select"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.station.Station.select.html#obspy.core.inventory.station.Station.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">starttime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">endtime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the :class:`Station` object with only the</span>
+<span class="sd">        :class:`~obspy.core.inventory.channel.Channel`\ s that match the given</span>
+<span class="sd">        criteria (e.g. all channels with ``channel=&quot;EHZ&quot;``).</span>
+
+<span class="sd">        .. warning::</span>
+<span class="sd">            The returned object is based on a shallow copy of the original</span>
+<span class="sd">            object. That means that modifying any mutable child elements will</span>
+<span class="sd">            also modify the original object</span>
+<span class="sd">            (see https://docs.python.org/2/library/copy.html).</span>
+<span class="sd">            Use :meth:`copy()` afterwards to make a new copy of the data in</span>
+<span class="sd">            memory.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy import read_inventory, UTCDateTime</span>
+<span class="sd">        &gt;&gt;&gt; sta = read_inventory()[0][0]</span>
+<span class="sd">        &gt;&gt;&gt; t = UTCDateTime(2008, 7, 1, 12)</span>
+<span class="sd">        &gt;&gt;&gt; sta = sta.select(channel=&quot;[LB]HZ&quot;, time=t)</span>
+<span class="sd">        &gt;&gt;&gt; print(sta)  # doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">        Station FUR (Fuerstenfeldbruck, Bavaria, GR-Net)</span>
+<span class="sd">            Station Code: FUR</span>
+<span class="sd">            Channel Count: None/None (Selected/Total)</span>
+<span class="sd">            2006-12-16T00:00:00.000000Z -</span>
+<span class="sd">            Access: None</span>
+<span class="sd">            Latitude: 48.16, Longitude: 11.28, Elevation: 565.0 m</span>
+<span class="sd">            Available Channels:</span>
+<span class="sd">                FUR..BHZ, FUR..LHZ</span>
+
+<span class="sd">        The `location` and `channel` selection criteria  may also contain UNIX</span>
+<span class="sd">        style wildcards (e.g. ``*``, ``?``, ...; see</span>
+<span class="sd">        :func:`~fnmatch.fnmatch`).</span>
+
+<span class="sd">        :type location: str</span>
+<span class="sd">        :param location: Potentially wildcarded location code. If not given,</span>
+<span class="sd">            all location codes will be accepted.</span>
+<span class="sd">        :type channel: str</span>
+<span class="sd">        :param channel: Potentially wildcarded channel code. If not given,</span>
+<span class="sd">            all channel codes will be accepted.</span>
+<span class="sd">        :type time: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param time: Only include channels active at given point in time.</span>
+<span class="sd">        :type starttime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param starttime: Only include channels active at or after given point</span>
+<span class="sd">            in time (i.e. channels ending before given time will not be shown).</span>
+<span class="sd">        :type endtime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param endtime: Only include channels active before or at given point</span>
+<span class="sd">            in time (i.e. channels starting after given time will not be</span>
+<span class="sd">            shown).</span>
+<span class="sd">        :type sampling_rate: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">channels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">cha</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">channels</span><span class="p">:</span>
+            <span class="c1"># skip if any given criterion is not matched</span>
+            <span class="k">if</span> <span class="n">location</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">fnmatch</span><span class="o">.</span><span class="n">fnmatch</span><span class="p">(</span><span class="n">cha</span><span class="o">.</span><span class="n">location_code</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span>
+                                       <span class="n">location</span><span class="o">.</span><span class="n">upper</span><span class="p">()):</span>
+                    <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">channel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">fnmatch</span><span class="o">.</span><span class="n">fnmatch</span><span class="p">(</span><span class="n">cha</span><span class="o">.</span><span class="n">code</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span>
+                                       <span class="n">channel</span><span class="o">.</span><span class="n">upper</span><span class="p">()):</span>
+                    <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">sampling_rate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">cha</span><span class="o">.</span><span class="n">sample_rate</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Omitting channel that has no sampling rate &quot;</span>
+                           <span class="s2">&quot;specified.&quot;</span><span class="p">)</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">sampling_rate</span><span class="p">),</span> <span class="n">cha</span><span class="o">.</span><span class="n">sample_rate</span><span class="p">,</span>
+                                   <span class="n">rtol</span><span class="o">=</span><span class="mf">1E-5</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1E-8</span><span class="p">):</span>
+                    <span class="k">continue</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="n">t</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">starttime</span><span class="p">,</span> <span class="n">endtime</span><span class="p">)]):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">cha</span><span class="o">.</span><span class="n">is_active</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">starttime</span><span class="o">=</span><span class="n">starttime</span><span class="p">,</span>
+                                     <span class="n">endtime</span><span class="o">=</span><span class="n">endtime</span><span class="p">):</span>
+                    <span class="k">continue</span>
+
+            <span class="n">channels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cha</span><span class="p">)</span>
+        <span class="n">sta</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">sta</span><span class="o">.</span><span class="n">channels</span> <span class="o">=</span> <span class="n">channels</span>
+        <span class="k">return</span> <span class="n">sta</span></div>
+
+<div class="viewcode-block" id="Station.plot"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.station.Station.plot.html#obspy.core.inventory.station.Station.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">min_freq</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;VEL&quot;</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
+             <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">starttime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+             <span class="n">unwrap_phase</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Show bode plot of instrument response of all (or a subset of) the</span>
+<span class="sd">        station&#39;s channels.</span>
+
+<span class="sd">        :type min_freq: float</span>
+<span class="sd">        :param min_freq: Lowest frequency to plot.</span>
+<span class="sd">        :type output: str</span>
+<span class="sd">        :param output: Output units. One of:</span>
+
+<span class="sd">                ``&quot;DISP&quot;``</span>
+<span class="sd">                    displacement, output unit is meters</span>
+<span class="sd">                ``&quot;VEL&quot;``</span>
+<span class="sd">                    velocity, output unit is meters/second</span>
+<span class="sd">                ``&quot;ACC&quot;``</span>
+<span class="sd">                    acceleration, output unit is meters/second**2</span>
+
+<span class="sd">        :type location: str</span>
+<span class="sd">        :param location: Only plot matching channels. Accepts UNIX style</span>
+<span class="sd">            patterns and wildcards (e.g. ``&quot;BH*&quot;``, ``&quot;BH?&quot;``, ``&quot;*Z&quot;``,</span>
+<span class="sd">            ``&quot;[LB]HZ&quot;``; see :func:`~fnmatch.fnmatch`)</span>
+<span class="sd">        :type channel: str</span>
+<span class="sd">        :param channel: Only plot matching channels. Accepts UNIX style</span>
+<span class="sd">            patterns and wildcards (e.g. ``&quot;BH*&quot;``, ``&quot;BH?&quot;``, ``&quot;*Z&quot;``,</span>
+<span class="sd">            ``&quot;[LB]HZ&quot;``; see :func:`~fnmatch.fnmatch`)</span>
+<span class="sd">        :param time: Only show channels active at given point in time.</span>
+<span class="sd">        :type starttime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param starttime: Only show channels active at or after given point in</span>
+<span class="sd">            time (i.e. channels ending before given time will not be shown).</span>
+<span class="sd">        :type endtime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param endtime: Only show channels active before or at given point in</span>
+<span class="sd">            time (i.e. channels starting after given time will not be shown).</span>
+<span class="sd">        :type axes: list of 2 :class:`matplotlib.axes.Axes`</span>
+<span class="sd">        :param axes: List/tuple of two axes instances to plot the</span>
+<span class="sd">            amplitude/phase spectrum into. If not specified, a new figure is</span>
+<span class="sd">            opened.</span>
+<span class="sd">        :type unwrap_phase: bool</span>
+<span class="sd">        :param unwrap_phase: Set optional phase unwrapping using NumPy.</span>
+<span class="sd">        :type show: bool</span>
+<span class="sd">        :param show: Whether to show the figure after plotting or not. Can be</span>
+<span class="sd">            used to do further customization of the plot before showing it.</span>
+<span class="sd">        :type outfile: str</span>
+<span class="sd">        :param outfile: Output file path to directly save the resulting image</span>
+<span class="sd">            (e.g. ``&quot;/tmp/image.png&quot;``). Overrides the ``show`` option, image</span>
+<span class="sd">            will not be displayed interactively. The given path/file name is</span>
+<span class="sd">            also used to automatically determine the output format. Supported</span>
+<span class="sd">            file formats depend on your matplotlib backend.  Most backends</span>
+<span class="sd">            support png, pdf, ps, eps and svg. Defaults to ``None``.</span>
+
+<span class="sd">        .. rubric:: Basic Usage</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy import read_inventory</span>
+<span class="sd">        &gt;&gt;&gt; sta = read_inventory()[0][0]</span>
+<span class="sd">        &gt;&gt;&gt; sta.plot(0.001, output=&quot;VEL&quot;, channel=&quot;*Z&quot;)  # doctest: +SKIP</span>
+
+<span class="sd">        .. plot::</span>
+
+<span class="sd">            from obspy import read_inventory</span>
+<span class="sd">            sta = read_inventory()[0][0]</span>
+<span class="sd">            sta.plot(0.001, output=&quot;VEL&quot;, channel=&quot;*Z&quot;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+        <span class="k">if</span> <span class="n">axes</span><span class="p">:</span>
+            <span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="n">axes</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">figure</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+            <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+            <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+
+        <span class="n">matching</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
+                               <span class="n">starttime</span><span class="o">=</span><span class="n">starttime</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="n">endtime</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">cha</span> <span class="ow">in</span> <span class="n">matching</span><span class="o">.</span><span class="n">channels</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">cha</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">min_freq</span><span class="o">=</span><span class="n">min_freq</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">),</span>
+                         <span class="n">label</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">cha</span><span class="o">.</span><span class="n">location_code</span><span class="p">,</span>
+                                         <span class="n">cha</span><span class="o">.</span><span class="n">code</span><span class="p">)),</span>
+                         <span class="n">unwrap_phase</span><span class="o">=</span><span class="n">unwrap_phase</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">ZeroSamplingRate</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Skipping plot of channel with zero &quot;</span>
+                       <span class="s2">&quot;sampling rate:</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">cha</span><span class="p">),</span> <span class="ne">UserWarning</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">ObsPyException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Skipping plot of channel (</span><span class="si">%s</span><span class="s2">):</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">cha</span><span class="p">)),</span> <span class="ne">UserWarning</span><span class="p">)</span>
+
+        <span class="c1"># final adjustments to plot if we created the figure in here</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">axes</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">obspy.core.inventory.response</span> <span class="k">import</span> <span class="n">_adjust_bode_plot_figure</span>
+            <span class="n">_adjust_bode_plot_figure</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">outfile</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">fig</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

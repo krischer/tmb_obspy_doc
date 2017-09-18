@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.signal.array_analysis.array_rotation_strain &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../contents.html">ObsPy Documentation (1.0.3)</a></li> 
+    </ol>
+  
+  <div class="section" id="obspy-signal-array-analysis-array-rotation-strain">
+<h1>obspy.signal.array_analysis.array_rotation_strain<a class="headerlink" href="#obspy-signal-array-analysis-array-rotation-strain" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="obspy.signal.array_analysis.array_rotation_strain">
+<code class="descname">array_rotation_strain</code><span class="sig-paren">(</span><em>subarray</em>, <em>ts1</em>, <em>ts2</em>, <em>ts3</em>, <em>vp</em>, <em>vs</em>, <em>array_coords</em>, <em>sigmau</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/obspy/signal/array_analysis.html#array_rotation_strain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#obspy.signal.array_analysis.array_rotation_strain" title="Permalink to this definition">¶</a></dt>
+<dd><p>This routine calculates the best-fitting rigid body rotation and
+uniform strain as functions of time, and their formal errors, given
+three-component ground motion time series recorded on a seismic array.
+The theory implemented herein is presented in the papers <a class="reference internal" href="../../citations.html#spudich1995" id="id1">[Spudich1995]</a>,
+(abbreviated S95 herein) <a class="reference internal" href="../../citations.html#spudich2008" id="id2">[Spudich2008]</a> (SF08) and <a class="reference internal" href="../../citations.html#spudich2009" id="id3">[Spudich2009]</a> (SF09).</p>
+<p>This is a translation of the Matlab Code presented in (SF09) with
+small changes in details only. Output has been checked to be the same
+as the original Matlab Code.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">ts_ below means “time series”</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>vp</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a>) – P wave speed in the soil under the array (km/s)</li>
+<li><strong>vs</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a>) – S wave speed in the soil under the array Note - vp and vs may be
+any unit (e.g. miles/week), and this unit need not be related to the
+units of the station coordinates or ground motions, but the units of vp
+and vs must be the SAME because only their ratio is used.</li>
+<li><strong>array_coords</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.13)"><em>numpy.ndarray</em></a>) – array of dimension Na x 3, where Na is the number of
+stations in the array.  array_coords[i,j], i in arange(Na), j in
+arange(3) is j coordinate of station i.  units of array_coords may be
+anything, but see the “Discussion of input and output units” above.
+The origin of coordinates is arbitrary and does not affect the
+calculated strains and rotations.  Stations may be entered in any
+order.</li>
+<li><strong>ts1</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.13)"><em>numpy.ndarray</em></a>) – array of x1-component seismograms, dimension nt x Na.
+ts1[j,k], j in arange(nt), k in arange(Na) contains the k’th time
+sample of the x1 component ground motion at station k. NOTE that the
+seismogram in column k must correspond to the station whose coordinates
+are in row k of in.array_coords. nt is the number of time samples in
+the seismograms.  Seismograms may be displacement, velocity,
+acceleration, jerk, etc.  See the “Discussion of input and output
+units” below.</li>
+<li><strong>ts2</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.13)"><em>numpy.ndarray</em></a>) – same as ts1, but for the x2 component of motion.</li>
+<li><strong>ts3</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.13)"><em>numpy.ndarray</em></a>) – same as ts1, but for the x3 (UP or DOWN) component of motion.</li>
+<li><strong>sigmau</strong> (float or <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.13)"><code class="xref py py-class docutils literal"><span class="pre">numpy.ndarray</span></code></a>) – <p>standard deviation (NOT VARIANCE) of ground noise,
+corresponds to sigma-sub-u in S95 lines above eqn (A5).
+NOTE: This may be entered as a scalar, vector, or matrix!</p>
+<ul>
+<li>If sigmau is a scalar, it will be used for all components of all
+stations.</li>
+<li>If sigmau is a 1D array of length Na, sigmau[i] will be the noise
+assigned to all components of the station corresponding to
+array_coords[i,:]</li>
+<li>If sigmau is a 2D array of dimension  Na x 3, then sigmau[i,j] is
+used as the noise of station i, component j.</li>
+</ul>
+<p>In all cases, this routine assumes that the noise covariance between
+different stations and/or components is zero.</p>
+</li>
+<li><strong>subarray</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.13)"><em>numpy.ndarray</em></a>) – NumPy array of subarray stations to use. I.e. if subarray
+= array([1, 4, 10]), then only rows 1, 4, and 10 of array_coords will
+be used, and only ground motion time series in the first, fourth, and
+tenth columns of ts1 will be used. Nplus1 is the number of elements in
+the subarray vector, and N is set to Nplus1 - 1. To use all stations in
+the array, set in.subarray = arange(Na), where Na is the total number
+of stations in the array (equal to the number of rows of
+in.array_coords. Sequence of stations in the subarray vector is
+unimportant; i.e.  subarray = array([1, 4, 10]) will yield essentially
+the same rotations and strains as subarray = array([10, 4, 1]).
+“Essentially” because permuting subarray sequence changes the d vector,
+yielding a slightly different numerical result.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><p>Dictionary with fields:</p>
+<dl class="docutils">
+<dt><strong>A:</strong> (array, dimension 3N x 6)</dt>
+<dd><p class="first last">data mapping matrix ‘A’ of S95(A4)</p>
+</dd>
+<dt><strong>g:</strong> (array, dimension 6 x 3N)</dt>
+<dd><p class="first last">generalized inverse matrix relating ptilde and data vector, in
+S95(A5)</p>
+</dd>
+<dt><strong>ce:</strong> (4 x 4)</dt>
+<dd><p class="first last">covariance matrix of the 4 independent strain tensor elements e11,
+e21, e22, e33</p>
+</dd>
+<dt><strong>ts_d:</strong> (array, length nt)</dt>
+<dd><p class="first last">dilatation (trace of the 3x3 strain tensor) as a function of time</p>
+</dd>
+<dt><strong>sigmad:</strong> (scalar)</dt>
+<dd><p class="first last">standard deviation of dilatation</p>
+</dd>
+<dt><strong>ts_dh:</strong> (array, length nt)</dt>
+<dd><p class="first last">horizontal dilatation (also known as areal strain) (eEE+eNN) as a
+function of time</p>
+</dd>
+<dt><strong>sigmadh:</strong> (scalar)</dt>
+<dd><p class="first last">standard deviation of horizontal dilatation (areal strain)</p>
+</dd>
+<dt><strong>ts_e:</strong> (array, dimension nt x 3 x 3)</dt>
+<dd><p class="first last">strain tensor</p>
+</dd>
+<dt><strong>ts_s:</strong> (array, length nt)</dt>
+<dd><p class="first last">maximum strain ( .5*(max eigval of e - min eigval of e) as a
+function of time, where e is the 3x3 strain tensor</p>
+</dd>
+<dt><strong>cgamma:</strong> (4 x 4)</dt>
+<dd><p class="first last">covariance matrix of the 4 independent shear strain tensor elements
+g11, g12, g22, g33 (includes full covariance effects). gamma is
+traceless part of e.</p>
+</dd>
+<dt><strong>ts_sh:</strong> (array, length nt)</dt>
+<dd><p class="first last">maximum horizontal strain ( .5*(max eigval of eh - min eigval of
+eh) as a function of time, where eh is e(1:2,1:2)</p>
+</dd>
+<dt><strong>cgammah:</strong> (3 x 3)</dt>
+<dd><p class="first last">covariance matrix of the 3 independent horizontal shear strain
+tensor elements gamma11, gamma12, gamma22 gamma is traceless part
+of e.</p>
+</dd>
+<dt><strong>ts_wmag:</strong> (array, length nt)</dt>
+<dd><p class="first last">total rotation angle (radians) as a function of time.  I.e. if the
+rotation vector at the j’th time step is
+w = array([w1, w2, w3]), then ts_wmag[j] = sqrt(sum(w**2))
+positive for right-handed rotation</p>
+</dd>
+<dt><strong>cw:</strong> (3 x 3)</dt>
+<dd><p class="first last">covariance matrix of the 3 independent rotation tensor elements
+w21, w31, w32</p>
+</dd>
+<dt><strong>ts_w1:</strong> (array, length nt)</dt>
+<dd><p class="first last">rotation (rad) about the x1 axis, positive for right-handed
+rotation</p>
+</dd>
+<dt><strong>sigmaw1:</strong> (scalar)</dt>
+<dd><p class="first last">standard deviation of the ts_w1 (sigma-omega-1 in SF08)</p>
+</dd>
+<dt><strong>ts_w2:</strong> (array, length nt)</dt>
+<dd><p class="first last">rotation (rad) about the x2 axis, positive for right-handed
+rotation</p>
+</dd>
+<dt><strong>sigmaw2:</strong> (scalar)</dt>
+<dd><p class="first last">standard deviation of ts_w2 (sigma-omega-2 in SF08)</p>
+</dd>
+<dt><strong>ts_w3:</strong> (array, length nt)</dt>
+<dd><p class="first last">”torsion”, rotation (rad) about a vertical up or down axis, i.e.
+x3, positive for right-handed rotation</p>
+</dd>
+<dt><strong>sigmaw3:</strong> (scalar)</dt>
+<dd><p class="first last">standard deviation of the torsion (sigma-omega-3 in SF08)</p>
+</dd>
+<dt><strong>ts_tilt:</strong> (array, length nt)</dt>
+<dd><p class="first last">tilt (rad) (rotation about a horizontal axis, positive for right
+handed rotation) as a function of time
+tilt = sqrt( w1^2 + w2^2)</p>
+</dd>
+<dt><strong>sigmat:</strong> (scalar)</dt>
+<dd><p class="first last">standard deviation of the tilt (not defined in SF08, From
+Papoulis (1965, p. 195, example 7.8))</p>
+</dd>
+<dt><strong>ts_data:</strong> (array, shape (nt x 3N))</dt>
+<dd><p class="first last">time series of the observed displacement differences, which are
+the di in S95 eqn A1</p>
+</dd>
+<dt><strong>ts_pred:</strong> (array, shape (nt x 3N))</dt>
+<dd><p class="first last">time series of the fitted model’s predicted displacement difference
+Note that the fitted model displacement differences correspond
+to linalg.dot(A, ptilde), where A is the big matrix in S95 eqn A4
+and ptilde is S95 eqn A5</p>
+</dd>
+<dt><strong>ts_misfit:</strong> (array, shape (nt x 3N))</dt>
+<dd><p class="first last">time series of the residuals (fitted model displacement differences
+minus observed displacement differences). Note that the fitted
+model displacement differences correspond to linalg.dot(A, ptilde),
+where A is the big matrix in S95 eqn A4 and ptilde is S95 eqn A5</p>
+</dd>
+<dt><strong>ts_m:</strong> (array, length nt)</dt>
+<dd><p class="first last">Time series of M, misfit ratio of S95, p. 688</p>
+</dd>
+<dt><strong>ts_ptilde:</strong> (array, shape (nt x 6))</dt>
+<dd><p class="first last">solution vector p-tilde (from S95 eqn A5) as a function of time</p>
+</dd>
+<dt><strong>cp:</strong> (6 x 6)</dt>
+<dd><p class="first last">solution covariance matrix defined in SF08</p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Warnings</p>
+<p>This routine does not check to verify that your array is small
+enough to conform to the assumption that the array aperture is less
+than 1/4 of the shortest seismic wavelength in the data. See SF08
+for a discussion of this assumption.</p>
+<p>This code assumes that ts1[j,:], ts2[j,:], and ts3[j,:] are all sampled
+SIMULTANEOUSLY.</p>
+<p class="rubric">Notes</p>
+<ol class="arabic">
+<li><p class="first">Note On Specifying Input Array And Selecting Subarrays</p>
+<p>This routine allows the user to input the coordinates and ground
+motion time series of all stations in a seismic array having Na
+stations and the user may select for analysis a subarray of Nplus1
+&lt;= Na stations.</p>
+</li>
+<li><p class="first">Discussion Of Physical Units Of Input And Output</p>
+<p>If the input seismograms are in units of displacement, the output
+strains and rotations will be in units of strain (unitless) and
+angle (radians).  If the input seismograms are in units of
+velocity, the output will be strain rate (units = 1/s) and rotation
+rate (rad/s).  Higher temporal derivative inputs yield higher
+temporal derivative outputs.</p>
+<p>Input units of the array station coordinates must match the spatial
+units of the seismograms.  For example, if the input seismograms
+are in units of m/s^2, array coordinates must be entered in m.</p>
+</li>
+<li><p class="first">Note On Coordinate System</p>
+<p>This routine assumes x1-x2-x3 is a RIGHT handed orthogonal
+coordinate system. x3 must point either UP or DOWN.</p>
+</li>
+</ol>
+</dd></dl>
+
+</div>
+
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

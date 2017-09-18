@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>5. Retrieving Data from Data Centers &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="6. Filtering Seismograms" href="filtering_seismograms.html" />
+    <link rel="prev" title="4. Waveform Plotting Tutorial" href="waveform_plotting_tutorial.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../py-modindex.html" title="Python Module Index"
+         >modules</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="filtering_seismograms.html" title="6. Filtering Seismograms"
+         accesskey="N">next</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="waveform_plotting_tutorial.html" title="4. Waveform Plotting Tutorial"
+         accesskey="P">previous</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../index.html" accesskey="U">ObsPy Tutorial</a></li> 
+    </ol>
+  
+  <div class="section" id="retrieving-data-from-data-centers">
+<h1>5. Retrieving Data from Data Centers<a class="headerlink" href="#retrieving-data-from-data-centers" title="Permalink to this headline">¶</a></h1>
+<p>This section is intended as a small guide to help you choose the best way to
+download data for a given purpose using ObsPy. Keep in mind that data centers
+and web services are constantly changing so this recommendation might not be
+valid anymore at the time you read this. For actual code examples, please see
+the documentation of the various modules.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The most common use case is likely to download waveforms and event/station
+meta information. In almost all cases you will want to use the
+<a class="reference internal" href="../../packages/obspy.clients.fdsn.html#module-obspy.clients.fdsn" title="obspy.clients.fdsn"><code class="xref py py-mod docutils literal"><span class="pre">obspy.clients.fdsn</span></code></a> module for this. It supports the largest number
+of data centers and uses the most modern data formats. There are still a
+number of reasons to choose a different module but please make sure you
+have one.</p>
+</div>
+<div class="section" id="the-fdsn-web-services">
+<h2>5.1. The FDSN Web Services<a class="headerlink" href="#the-fdsn-web-services" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Available Data Types</th>
+<th class="head">Format</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Waveforms</td>
+<td>MiniSEED and optionally others</td>
+</tr>
+<tr class="row-odd"><td>Station Information</td>
+<td>StationXML and Text</td>
+</tr>
+<tr class="row-even"><td>Event Information</td>
+<td>QuakeML and Text</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Not all data providers offer all three data types. Many offer only one or two.</p>
+</div>
+<p>If you want to requests waveforms, or station/event meta information <strong>you will
+most likely want to use the</strong> <a class="reference internal" href="../../packages/obspy.clients.fdsn.html#module-obspy.clients.fdsn" title="obspy.clients.fdsn"><code class="xref py py-mod docutils literal"><span class="pre">obspy.clients.fdsn</span></code></a> <strong>module</strong>. It is able
+to request data from any data center implementing the <a class="reference external" href="https://www.fdsn.org/webservices/">FDSN web services</a>. Example data centers include
+IRIS/ORFEUS/INGV/ETH/GFZ/RESIF/… - a curated list can be found <a class="reference external" href="https://www.fdsn.org/webservices/datacenters/">here</a>. As a further advantage it
+returns data in the most modern and future proof formats.</p>
+</div>
+<div class="section" id="arclink">
+<h2>5.2. ArcLink<a class="headerlink" href="#arclink" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Available Data Types</th>
+<th class="head">Format</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Waveforms</td>
+<td>MiniSEED, SEED</td>
+</tr>
+<tr class="row-odd"><td>Station Information</td>
+<td>dataless SEED, SEED</td>
+</tr>
+</tbody>
+</table>
+<p>ArcLink is a distributed data request protocol usable to access archived
+waveform data in the MiniSEED or SEED format and associated meta information as
+Dataless SEED files. You can use the <a class="reference internal" href="../../packages/obspy.clients.arclink.html#module-obspy.clients.arclink" title="obspy.clients.arclink"><code class="xref py py-mod docutils literal"><span class="pre">obspy.clients.arclink</span></code></a> module to
+request data from the <a class="reference external" href="http://www.orfeus-eu.org/eida/">EIDA</a> initiative but
+most (or all) of that data can also be requested using the
+<a class="reference internal" href="../../packages/obspy.clients.fdsn.html#module-obspy.clients.fdsn" title="obspy.clients.fdsn"><code class="xref py py-mod docutils literal"><span class="pre">obspy.clients.fdsn</span></code></a> module.</p>
+</div>
+<div class="section" id="iris-web-services">
+<h2>5.3. IRIS Web Services<a class="headerlink" href="#iris-web-services" title="Permalink to this headline">¶</a></h2>
+<p><strong>Available Data Types and Formats:</strong> Various</p>
+<p>IRIS (in addition to FDSN web services) offers a variety of special-purpose web
+services, for some of which ObsPy has interfaces in the
+<a class="reference internal" href="../../packages/obspy.clients.iris.html#module-obspy.clients.iris" title="obspy.clients.iris"><code class="xref py py-mod docutils literal"><span class="pre">obspy.clients.iris</span></code></a> module. Use this if you require response information
+in the SAC poles &amp; zeros or in the RESP format. If you just care about the
+instrument response, please use the <a class="reference internal" href="../../packages/obspy.clients.fdsn.html#module-obspy.clients.fdsn" title="obspy.clients.fdsn"><code class="xref py py-mod docutils literal"><span class="pre">obspy.clients.fdsn</span></code></a> module to request
+StationXML data which contains the same information.</p>
+<p>The interfaces for the calculation tools are kept around for legacy reasons;
+internal ObsPy functionality should be considered as an alternative when
+working within ObsPy:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="52%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">IRIS Web Service</th>
+<th class="head">Equivalent ObsPy Function/Module</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference internal" href="../../packages/autogen/obspy.clients.iris.client.Client.traveltime.html#obspy.clients.iris.client.Client.traveltime" title="obspy.clients.iris.client.Client.traveltime"><code class="xref py py-meth docutils literal"><span class="pre">obspy.clients.iris.client.Client.traveltime()</span></code></a></td>
+<td><a class="reference internal" href="../../packages/obspy.taup.html#module-obspy.taup" title="obspy.taup"><code class="xref py py-mod docutils literal"><span class="pre">obspy.taup</span></code></a></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../../packages/autogen/obspy.clients.iris.client.Client.distaz.html#obspy.clients.iris.client.Client.distaz" title="obspy.clients.iris.client.Client.distaz"><code class="xref py py-meth docutils literal"><span class="pre">obspy.clients.iris.client.Client.distaz()</span></code></a></td>
+<td><a class="reference internal" href="../../packages/obspy.geodetics.html#module-obspy.geodetics" title="obspy.geodetics"><code class="xref py py-mod docutils literal"><span class="pre">obspy.geodetics</span></code></a></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../../packages/autogen/obspy.clients.iris.client.Client.flinnengdahl.html#obspy.clients.iris.client.Client.flinnengdahl" title="obspy.clients.iris.client.Client.flinnengdahl"><code class="xref py py-meth docutils literal"><span class="pre">obspy.clients.iris.client.Client.flinnengdahl()</span></code></a></td>
+<td><a class="reference internal" href="../../packages/autogen/obspy.geodetics.flinnengdahl.FlinnEngdahl.html#obspy.geodetics.flinnengdahl.FlinnEngdahl" title="obspy.geodetics.flinnengdahl.FlinnEngdahl"><code class="xref py py-class docutils literal"><span class="pre">obspy.geodetics.flinnengdahl.FlinnEngdahl</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="earthworm-wave-server">
+<h2>5.4. Earthworm Wave Server<a class="headerlink" href="#earthworm-wave-server" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Available Data Types</th>
+<th class="head">Format</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Waveforms</td>
+<td>Custom Format</td>
+</tr>
+</tbody>
+</table>
+<p>Use the <a class="reference internal" href="../../packages/obspy.clients.earthworm.html#module-obspy.clients.earthworm" title="obspy.clients.earthworm"><code class="xref py py-mod docutils literal"><span class="pre">obspy.clients.earthworm</span></code></a> module to request data from the
+<a class="reference external" href="http://www.earthwormcentral.org/">Earthworm</a> data acquisition system.</p>
+</div>
+<div class="section" id="neries-web-services">
+<h2>5.5. NERIES Web Services<a class="headerlink" href="#neries-web-services" title="Permalink to this headline">¶</a></h2>
+<p>This service is largely deprecated as the data can just as well be requested
+via the <a class="reference internal" href="../../packages/obspy.clients.fdsn.html#module-obspy.clients.fdsn" title="obspy.clients.fdsn"><code class="xref py py-mod docutils literal"><span class="pre">obspy.clients.fdsn</span></code></a> module.</p>
+</div>
+<div class="section" id="neic">
+<h2>5.6. NEIC<a class="headerlink" href="#neic" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Available Data Types</th>
+<th class="head">Format</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Waveforms</td>
+<td>MiniSEED</td>
+</tr>
+</tbody>
+</table>
+<p>The Continuous Waveform Buffer (CWB) is a repository for seismic waveform data
+that passes through the NEIC “Edge” processing system. Use the
+<a class="reference internal" href="../../packages/obspy.clients.neic.html#module-obspy.clients.neic" title="obspy.clients.neic"><code class="xref py py-mod docutils literal"><span class="pre">obspy.clients.neic</span></code></a> module to request data from it.</p>
+</div>
+<div class="section" id="seedlink">
+<h2>5.7. SeedLink<a class="headerlink" href="#seedlink" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Available Data Types</th>
+<th class="head">Format</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Waveforms</td>
+<td>MiniSEED</td>
+</tr>
+</tbody>
+</table>
+<p>To connect to a real time SeedLink server, use the
+<a class="reference internal" href="../../packages/obspy.clients.seedlink.html#module-obspy.clients.seedlink" title="obspy.clients.seedlink"><code class="xref py py-mod docutils literal"><span class="pre">obspy.clients.seedlink</span></code></a> module. Also see the
+<a class="reference internal" href="easyseedlink.html#seedlink-tutorial"><span class="std std-ref">ObsPy Tutorial</span></a> for a more detailed introduction.</p>
+</div>
+<div class="section" id="syngine-service">
+<h2>5.8. Syngine Service<a class="headerlink" href="#syngine-service" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Available Data Types</th>
+<th class="head">Format</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Waveforms</td>
+<td>MiniSEED and zipped SAC files</td>
+</tr>
+</tbody>
+</table>
+<p>Use the <a class="reference internal" href="../../packages/obspy.clients.syngine.html#module-obspy.clients.syngine" title="obspy.clients.syngine"><code class="xref py py-mod docutils literal"><span class="pre">obspy.clients.syngine</span></code></a> module to download high-frequency global
+synthetic seismograms for any source receiver combination from the IRIS syngine
+service.</p>
+</div>
+</div>
+
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

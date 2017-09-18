@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.realtime.signal &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.realtime.signal</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Signal processing functions for RtMemory objects.</span>
+
+<span class="sd">For sequential packet processing that requires memory (which includes recursive</span>
+<span class="sd">filtering), each processing function (e.g., :mod:`obspy.realtime.signal`)</span>
+<span class="sd">needs to manage the initialization and update of</span>
+<span class="sd">:class:`~obspy.realtime.rtmemory.RtMemory` object(s), and needs to know when</span>
+<span class="sd">and how to get values from this memory.</span>
+
+<span class="sd">For example: Boxcar smoothing: For each new data point available past the end</span>
+<span class="sd">of the boxcar, the original, un-smoothed data point value at the beginning of</span>
+<span class="sd">the boxcar has to be subtracted from the running boxcar sum, this value may be</span>
+<span class="sd">in a previous packet, so has to be retrieved from memory see</span>
+<span class="sd">:func:`obspy.realtime.signal.boxcar`.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org), Anthony Lomax &amp; Alessia Maggi</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">obspy.core.trace</span> <span class="k">import</span> <span class="n">Trace</span><span class="p">,</span> <span class="n">UTCDateTime</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.deprecation_helpers</span> <span class="k">import</span> \
+    <span class="n">DynamicAttributeImportRerouteModule</span>
+<span class="kn">from</span> <span class="nn">obspy.realtime.rtmemory</span> <span class="k">import</span> <span class="n">RtMemory</span>
+
+
+<span class="n">_PI</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">_TWO_PI</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">_MIN_FLOAT_VAL</span> <span class="o">=</span> <span class="mf">1.0e-20</span>
+
+
+<div class="viewcode-block" id="offset"><a class="viewcode-back" href="../../../packages/autogen/obspy.realtime.signal.offset.html#obspy.realtime.signal.offset">[docs]</a><span class="k">def</span> <span class="nf">offset</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rtmemory_list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># @UnusedVariable</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add the specified offset to the data.</span>
+
+<span class="sd">    :type trace: :class:`~obspy.core.trace.Trace`</span>
+<span class="sd">    :param trace: :class:`~obspy.core.trace.Trace` object to append to this</span>
+<span class="sd">        RtTrace</span>
+<span class="sd">    :type offset: float, optional</span>
+<span class="sd">    :param offset: offset (default is 0.0)</span>
+<span class="sd">    :type rtmemory_list: list of :class:`~obspy.realtime.rtmemory.RtMemory`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param rtmemory_list: Persistent memory used by this process for specified</span>
+<span class="sd">        trace</span>
+<span class="sd">    :rtype: NumPy :class:`numpy.ndarray`</span>
+<span class="sd">    :return: Processed trace data from appended Trace object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">Trace</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Trace parameter must be an obspy.core.trace.Trace object.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="n">trace</span><span class="o">.</span><span class="n">data</span> <span class="o">+=</span> <span class="n">offset</span>
+    <span class="k">return</span> <span class="n">trace</span><span class="o">.</span><span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="scale"><a class="viewcode-back" href="../../../packages/autogen/obspy.realtime.signal.scale.html#obspy.realtime.signal.scale">[docs]</a><span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">rtmemory_list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># @UnusedVariable</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Scale array data samples by specified factor.</span>
+
+<span class="sd">    :type trace: :class:`~obspy.core.trace.Trace`</span>
+<span class="sd">    :param trace:  :class:`~obspy.core.trace.Trace` object to append to this</span>
+<span class="sd">        RtTrace</span>
+<span class="sd">    :type factor: float, optional</span>
+<span class="sd">    :param factor: Scale factor (default is 1.0).</span>
+<span class="sd">    :type rtmemory_list: list of :class:`~obspy.realtime.rtmemory.RtMemory`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param rtmemory_list: Persistent memory used by this process for specified</span>
+<span class="sd">        trace.</span>
+<span class="sd">    :rtype: NumPy :class:`numpy.ndarray`</span>
+<span class="sd">    :return: Processed trace data from appended Trace object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">Trace</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;trace parameter must be an obspy.core.trace.Trace object.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="c1"># XXX not sure how this should be for realtime analysis, here</span>
+    <span class="c1"># I assume, we do not want to change the underlying dtype</span>
+    <span class="n">trace</span><span class="o">.</span><span class="n">data</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">factor</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">trace</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">trace</span><span class="o">.</span><span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="integrate"><a class="viewcode-back" href="../../../packages/autogen/obspy.realtime.signal.integrate.html#obspy.realtime.signal.integrate">[docs]</a><span class="k">def</span> <span class="nf">integrate</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">rtmemory_list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply simple rectangular integration to array data.</span>
+
+<span class="sd">    :type trace: :class:`~obspy.core.trace.Trace`</span>
+<span class="sd">    :param trace:  :class:`~obspy.core.trace.Trace` object to append to this</span>
+<span class="sd">        RtTrace</span>
+<span class="sd">    :type rtmemory_list: list of :class:`~obspy.realtime.rtmemory.RtMemory`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param rtmemory_list: Persistent memory used by this process for specified</span>
+<span class="sd">        trace.</span>
+<span class="sd">    :rtype: NumPy :class:`numpy.ndarray`</span>
+<span class="sd">    :return: Processed trace data from appended Trace object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">Trace</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;trace parameter must be an obspy.core.trace.Trace object.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rtmemory_list</span><span class="p">:</span>
+        <span class="n">rtmemory_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">RtMemory</span><span class="p">()]</span>
+
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">data</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">sample</span>
+
+    <span class="n">delta_time</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">delta</span>
+
+    <span class="n">rtmemory</span> <span class="o">=</span> <span class="n">rtmemory_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># initialize memory object</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">initialized</span><span class="p">:</span>
+        <span class="n">memory_size_input</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">memory_size_output</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">rtmemory</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">memory_size_input</span><span class="p">,</span>
+                            <span class="n">memory_size_output</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">sum_</span> <span class="o">=</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">sample</span><span class="p">)):</span>
+        <span class="n">sum_</span> <span class="o">+=</span> <span class="n">sample</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">delta_time</span>
+        <span class="n">sample</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sum_</span>
+
+    <span class="n">rtmemory</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">sum_</span>
+
+    <span class="k">return</span> <span class="n">sample</span></div>
+
+
+<div class="viewcode-block" id="differentiate"><a class="viewcode-back" href="../../../packages/autogen/obspy.realtime.signal.differentiate.html#obspy.realtime.signal.differentiate">[docs]</a><span class="k">def</span> <span class="nf">differentiate</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">rtmemory_list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply simple differentiation to array data.</span>
+
+<span class="sd">    :type trace: :class:`~obspy.core.trace.Trace`</span>
+<span class="sd">    :param trace:  :class:`~obspy.core.trace.Trace` object to append to this</span>
+<span class="sd">        RtTrace</span>
+<span class="sd">    :type rtmemory_list: list of :class:`~obspy.realtime.rtmemory.RtMemory`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param rtmemory_list: Persistent memory used by this process for specified</span>
+<span class="sd">        trace.</span>
+<span class="sd">    :rtype: NumPy :class:`numpy.ndarray`</span>
+<span class="sd">    :return: Processed trace data from appended Trace object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">Trace</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;trace parameter must be an obspy.core.trace.Trace object.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rtmemory_list</span><span class="p">:</span>
+        <span class="n">rtmemory_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">RtMemory</span><span class="p">()]</span>
+
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">data</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+
+    <span class="n">delta_time</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">delta</span>
+
+    <span class="n">rtmemory</span> <span class="o">=</span> <span class="n">rtmemory_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># initialize memory object</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">initialized</span><span class="p">:</span>
+        <span class="n">memory_size_input</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">memory_size_output</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">rtmemory</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">memory_size_input</span><span class="p">,</span>
+                            <span class="n">memory_size_output</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># avoid large diff value for first output sample</span>
+        <span class="n">rtmemory</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">previous_sample</span> <span class="o">=</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">sample</span><span class="p">)):</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">previous_sample</span><span class="p">)</span> <span class="o">/</span> <span class="n">delta_time</span>
+        <span class="n">previous_sample</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">sample</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">diff</span>
+
+    <span class="n">rtmemory</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">previous_sample</span>
+
+    <span class="k">return</span> <span class="n">sample</span></div>
+
+
+<div class="viewcode-block" id="boxcar"><a class="viewcode-back" href="../../../packages/autogen/obspy.realtime.signal.boxcar.html#obspy.realtime.signal.boxcar">[docs]</a><span class="k">def</span> <span class="nf">boxcar</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">rtmemory_list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply boxcar smoothing to data in array sample.</span>
+
+<span class="sd">    :type trace: :class:`~obspy.core.trace.Trace`</span>
+<span class="sd">    :param trace:  :class:`~obspy.core.trace.Trace` object to append to this</span>
+<span class="sd">        RtTrace</span>
+<span class="sd">    :type width: int</span>
+<span class="sd">    :param width: Width in number of sample points for filter.</span>
+<span class="sd">    :type rtmemory_list: list of :class:`~obspy.realtime.rtmemory.RtMemory`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param rtmemory_list: Persistent memory used by this process for specified</span>
+<span class="sd">        trace.</span>
+<span class="sd">    :rtype: NumPy :class:`numpy.ndarray`</span>
+<span class="sd">    :return: Processed trace data from appended Trace object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">Trace</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;trace parameter must be an obspy.core.trace.Trace object.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">width</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;width parameter not specified or &lt; 1.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rtmemory_list</span><span class="p">:</span>
+        <span class="n">rtmemory_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">RtMemory</span><span class="p">()]</span>
+
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">data</span>
+
+    <span class="n">rtmemory</span> <span class="o">=</span> <span class="n">rtmemory_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># initialize memory object</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">initialized</span><span class="p">:</span>
+        <span class="n">memory_size_input</span> <span class="o">=</span> <span class="n">width</span>
+        <span class="n">memory_size_output</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">rtmemory</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">memory_size_input</span><span class="p">,</span>
+                            <span class="n">memory_size_output</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># initialize array for time-series results</span>
+    <span class="n">new_sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="n">sample</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">i1</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">width</span>
+    <span class="n">i2</span> <span class="o">=</span> <span class="n">i</span>  <span class="c1"># causal boxcar of width width</span>
+    <span class="n">sum_</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">icount</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">sample</span><span class="p">)):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">icount</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>  <span class="c1"># first pass, accumulate sum</span>
+            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="n">width</span> <span class="o">+</span> <span class="n">n</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+                <span class="n">sum_</span> <span class="o">+=</span> <span class="n">value</span>
+                <span class="n">icount</span> <span class="o">=</span> <span class="n">icount</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># later passes, update sum</span>
+            <span class="k">if</span> <span class="p">((</span><span class="n">i1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="n">width</span> <span class="o">+</span> <span class="p">(</span><span class="n">i1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[(</span><span class="n">i1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+            <span class="n">sum_</span> <span class="o">-=</span> <span class="n">value</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">i2</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="n">width</span> <span class="o">+</span> <span class="n">i2</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="n">i2</span><span class="p">]</span>
+            <span class="n">sum_</span> <span class="o">+=</span> <span class="n">value</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">icount</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">new_sample</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span><span class="p">)(</span><span class="n">sum_</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">icount</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_sample</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">i1</span> <span class="o">=</span> <span class="n">i1</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">i2</span> <span class="o">=</span> <span class="n">i2</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="n">rtmemory</span><span class="o">.</span><span class="n">update_input</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">new_sample</span></div>
+
+
+<div class="viewcode-block" id="tauc"><a class="viewcode-back" href="../../../packages/autogen/obspy.realtime.signal.tauc.html#obspy.realtime.signal.tauc">[docs]</a><span class="k">def</span> <span class="nf">tauc</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">rtmemory_list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate instantaneous period in a fixed window (Tau_c).</span>
+
+<span class="sd">    .. seealso::</span>
+
+<span class="sd">        Implements equations 1-3 in [Allen2003]_ except use a fixed width</span>
+<span class="sd">        window instead of decay function.</span>
+
+<span class="sd">    :type trace: :class:`~obspy.core.trace.Trace`</span>
+<span class="sd">    :param trace:  :class:`~obspy.core.trace.Trace` object to append to this</span>
+<span class="sd">        RtTrace</span>
+<span class="sd">    :type width: int</span>
+<span class="sd">    :param width: Width in number of sample points for tauc window.</span>
+<span class="sd">    :type rtmemory_list: list of :class:`~obspy.realtime.rtmemory.RtMemory`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param rtmemory_list: Persistent memory used by this process for specified</span>
+<span class="sd">        trace.</span>
+<span class="sd">    :rtype: NumPy :class:`numpy.ndarray`</span>
+<span class="sd">    :return: Processed trace data from appended Trace object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">Trace</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;trace parameter must be an obspy.core.trace.Trace object.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">width</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;tauc: width parameter not specified or &lt; 1.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rtmemory_list</span><span class="p">:</span>
+        <span class="n">rtmemory_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">RtMemory</span><span class="p">(),</span> <span class="n">RtMemory</span><span class="p">()]</span>
+
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">delta_time</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">delta</span>
+
+    <span class="n">rtmemory</span> <span class="o">=</span> <span class="n">rtmemory_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">rtmemory_dval</span> <span class="o">=</span> <span class="n">rtmemory_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">sample_last</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="c1"># initialize memory object</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">initialized</span><span class="p">:</span>
+        <span class="n">memory_size_input</span> <span class="o">=</span> <span class="n">width</span>
+        <span class="n">memory_size_output</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">rtmemory</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">memory_size_input</span><span class="p">,</span>
+                            <span class="n">memory_size_output</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">sample_last</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sample_last</span> <span class="o">=</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="n">width</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># initialize memory object</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rtmemory_dval</span><span class="o">.</span><span class="n">initialized</span><span class="p">:</span>
+        <span class="n">memory_size_input</span> <span class="o">=</span> <span class="n">width</span>
+        <span class="n">memory_size_output</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">rtmemory_dval</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">memory_size_input</span><span class="p">,</span>
+                                 <span class="n">memory_size_output</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">new_sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="n">sample</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">deriv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="n">sample</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="c1"># sample_last = rtmemory.input[width - 1]</span>
+    <span class="n">sample_d</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">deriv_d</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">xval</span> <span class="o">=</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">dval</span> <span class="o">=</span> <span class="n">rtmemory_dval</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">sample</span><span class="p">)):</span>
+
+        <span class="n">sample_d</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">deriv_d</span> <span class="o">=</span> <span class="p">(</span><span class="n">sample_d</span> <span class="o">-</span> <span class="n">sample_last</span><span class="p">)</span> <span class="o">/</span> <span class="n">delta_time</span>
+        <span class="n">index_begin</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">width</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">index_begin</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">xval</span> <span class="o">=</span> <span class="n">xval</span> <span class="o">-</span> <span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="n">index_begin</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="n">index_begin</span><span class="p">])</span> \
+                <span class="o">+</span> <span class="n">sample_d</span> <span class="o">*</span> <span class="n">sample_d</span>
+            <span class="n">dval</span> <span class="o">=</span> <span class="n">dval</span> <span class="o">-</span> <span class="n">deriv</span><span class="p">[</span><span class="n">index_begin</span><span class="p">]</span> <span class="o">*</span> <span class="n">deriv</span><span class="p">[</span><span class="n">index_begin</span><span class="p">]</span> \
+                <span class="o">+</span> <span class="n">deriv_d</span> <span class="o">*</span> <span class="n">deriv_d</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="n">xval</span> <span class="o">=</span> <span class="n">xval</span> <span class="o">-</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">*</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> \
+                <span class="o">+</span> <span class="n">sample_d</span> <span class="o">*</span> <span class="n">sample_d</span>
+            <span class="n">dval</span> <span class="o">=</span> <span class="n">dval</span> \
+                <span class="o">-</span> <span class="n">rtmemory_dval</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">*</span> <span class="n">rtmemory_dval</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> \
+                <span class="o">+</span> <span class="n">deriv_d</span> <span class="o">*</span> <span class="n">deriv_d</span>
+        <span class="n">deriv</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">deriv_d</span>
+        <span class="n">sample_last</span> <span class="o">=</span> <span class="n">sample_d</span>
+        <span class="c1"># if (xval &gt; _MIN_FLOAT_VAL &amp;  &amp; dval &gt; _MIN_FLOAT_VAL) {</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">dval</span> <span class="o">&gt;</span> <span class="n">_MIN_FLOAT_VAL</span><span class="p">):</span>
+            <span class="n">new_sample</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">_TWO_PI</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">xval</span> <span class="o">/</span> <span class="n">dval</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_sample</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="c1"># update memory</span>
+    <span class="n">rtmemory</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">xval</span>
+    <span class="n">rtmemory</span><span class="o">.</span><span class="n">update_input</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+    <span class="n">rtmemory_dval</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dval</span>
+    <span class="n">rtmemory_dval</span><span class="o">.</span><span class="n">update_input</span><span class="p">(</span><span class="n">deriv</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">new_sample</span></div>
+
+
+<span class="c1"># memory object indices for storing specific values</span>
+<span class="n">_AMP_AT_PICK</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">_HAVE_USED_MEMORY</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">_FLAG_COMPETE_MWP</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">_INT_INT_SUM</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">_POLARITY</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">_MEMORY_SIZE_OUTPUT</span> <span class="o">=</span> <span class="mi">5</span>
+
+
+<div class="viewcode-block" id="mwpintegral"><a class="viewcode-back" href="../../../packages/autogen/obspy.realtime.signal.mwpintegral.html#obspy.realtime.signal.mwpintegral">[docs]</a><span class="k">def</span> <span class="nf">mwpintegral</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">max_time</span><span class="p">,</span> <span class="n">ref_time</span><span class="p">,</span> <span class="n">mem_time</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">gain</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                <span class="n">rtmemory_list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate Mwp integral on a displacement trace.</span>
+
+<span class="sd">    .. seealso:: [Tsuboi1999]_ and [Tsuboi1995]_</span>
+
+<span class="sd">    :type trace: :class:`~obspy.core.trace.Trace`</span>
+<span class="sd">    :param trace:  :class:`~obspy.core.trace.Trace` object to append to this</span>
+<span class="sd">        RtTrace</span>
+<span class="sd">    :type max_time: float</span>
+<span class="sd">    :param max_time: Maximum time in seconds after ref_time to apply Mwp</span>
+<span class="sd">        integration.</span>
+<span class="sd">    :type ref_time: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :param ref_time: Reference date and time of the data sample</span>
+<span class="sd">        (e.g. P pick time) at which to begin Mwp integration.</span>
+<span class="sd">    :type mem_time: float, optional</span>
+<span class="sd">    :param mem_time: Length in seconds of data memory (must be much larger</span>
+<span class="sd">        than maximum delay between pick declaration and pick time). Defaults</span>
+<span class="sd">        to ``1.0``.</span>
+<span class="sd">    :type gain: float, optional</span>
+<span class="sd">    :param gain: Nominal gain to convert input displacement trace to meters</span>
+<span class="sd">        of ground displacement. Defaults to ``1.0``.</span>
+<span class="sd">    :type rtmemory_list: list of :class:`~obspy.realtime.rtmemory.RtMemory`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param rtmemory_list: Persistent memory used by this process for specified</span>
+<span class="sd">        trace.</span>
+<span class="sd">    :rtype: NumPy :class:`numpy.ndarray`</span>
+<span class="sd">    :return: Processed trace data from appended Trace object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">Trace</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;trace parameter must be an obspy.core.trace.Trace object.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ref_time</span><span class="p">,</span> <span class="n">UTCDateTime</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;ref_time must be an obspy.core.utcdatetime.UTCDateTime object.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">max_time</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;max_time parameter not specified or &lt; 0.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rtmemory_list</span><span class="p">:</span>
+        <span class="n">rtmemory_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">RtMemory</span><span class="p">()]</span>
+
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">delta_time</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">delta</span>
+
+    <span class="n">rtmemory</span> <span class="o">=</span> <span class="n">rtmemory_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># initialize memory object</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">initialized</span><span class="p">:</span>
+        <span class="n">memory_size_input</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">+</span> <span class="n">mem_time</span> <span class="o">*</span> <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sampling_rate</span><span class="p">)</span>
+        <span class="n">memory_size_output</span> <span class="o">=</span> <span class="n">_MEMORY_SIZE_OUTPUT</span>
+        <span class="n">rtmemory</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">memory_size_input</span><span class="p">,</span>
+                            <span class="n">memory_size_output</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">new_sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="n">sample</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="n">ioffset_pick</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span>
+                       <span class="p">(</span><span class="n">ref_time</span> <span class="o">-</span> <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span><span class="p">)</span> <span class="o">*</span>
+                       <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sampling_rate</span><span class="p">))</span>
+    <span class="n">ioffset_mwp_min</span> <span class="o">=</span> <span class="n">ioffset_pick</span>
+
+    <span class="c1"># set reference amplitude</span>
+    <span class="k">if</span> <span class="n">ioffset_mwp_min</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">ioffset_mwp_min</span> <span class="o">&lt;</span> <span class="n">trace</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+        <span class="c1"># value in trace data array</span>
+        <span class="n">rtmemory</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">_AMP_AT_PICK</span><span class="p">]</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">ioffset_mwp_min</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">ioffset_mwp_min</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">rtmemory</span><span class="o">.</span><span class="n">input</span><span class="p">))</span> <span class="ow">and</span> <span class="n">ioffset_mwp_min</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># value in memory array</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">ioffset_mwp_min</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">rtmemory</span><span class="o">.</span><span class="n">input</span><span class="p">)</span>
+        <span class="n">rtmemory</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">_AMP_AT_PICK</span><span class="p">]</span> <span class="o">=</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">ioffset_mwp_min</span> <span class="o">&lt;</span> <span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">rtmemory</span><span class="o">.</span><span class="n">input</span><span class="p">))</span> \
+            <span class="ow">and</span> <span class="ow">not</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">_HAVE_USED_MEMORY</span><span class="p">]:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;mem_time not large enough to buffer required input data.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ioffset_mwp_min</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">_HAVE_USED_MEMORY</span><span class="p">]:</span>
+        <span class="n">ioffset_mwp_min</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">rtmemory</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">_HAVE_USED_MEMORY</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="c1"># set Mwp end index corresponding to maximum duration</span>
+    <span class="n">mwp_end_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">max_time</span> <span class="o">/</span> <span class="n">delta_time</span><span class="p">))</span>
+    <span class="n">ioffset_mwp_max</span> <span class="o">=</span> <span class="n">mwp_end_index</span> <span class="o">+</span> <span class="n">ioffset_pick</span>
+    <span class="k">if</span> <span class="n">ioffset_mwp_max</span> <span class="o">&lt;</span> <span class="n">trace</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+        <span class="n">rtmemory</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">_FLAG_COMPETE_MWP</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># will complete</span>
+    <span class="k">if</span> <span class="n">ioffset_mwp_max</span> <span class="o">&gt;</span> <span class="n">trace</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+        <span class="n">ioffset_mwp_max</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">size</span>
+    <span class="c1"># apply double integration, check for extrema</span>
+    <span class="n">mwp_amp_at_pick</span> <span class="o">=</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">_AMP_AT_PICK</span><span class="p">]</span>
+    <span class="n">mwp_int_int_sum</span> <span class="o">=</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">_INT_INT_SUM</span><span class="p">]</span>
+    <span class="n">polarity</span> <span class="o">=</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">_POLARITY</span><span class="p">]</span>
+    <span class="n">amplitude</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ioffset_mwp_min</span><span class="p">,</span> <span class="n">ioffset_mwp_max</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">amplitude</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">rtmemory</span><span class="o">.</span><span class="n">input</span><span class="p">)):</span>
+            <span class="c1"># value in memory array</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">rtmemory</span><span class="o">.</span><span class="n">input</span><span class="p">)</span>
+            <span class="n">amplitude</span> <span class="o">=</span> <span class="n">rtmemory</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Error: Mwp: attempt to access rtmemory.input array of &quot;</span> <span class="o">+</span> \
+                <span class="s2">&quot;size=</span><span class="si">%d</span><span class="s2"> at invalid index=</span><span class="si">%d</span><span class="s2">: this should not happen!&quot;</span> <span class="o">%</span> \
+                <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">rtmemory</span><span class="o">.</span><span class="n">input</span><span class="p">),</span> <span class="n">n</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">rtmemory</span><span class="o">.</span><span class="n">input</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">continue</span>  <span class="c1"># should never reach here</span>
+        <span class="n">disp_amp</span> <span class="o">=</span> <span class="n">amplitude</span> <span class="o">-</span> <span class="n">mwp_amp_at_pick</span>
+        <span class="c1"># check displacement polarity</span>
+        <span class="k">if</span> <span class="n">disp_amp</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">:</span>  <span class="c1"># pos</span>
+            <span class="c1"># check if past extremum</span>
+            <span class="k">if</span> <span class="n">polarity</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># passed from neg to pos displacement</span>
+                <span class="n">mwp_int_int_sum</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.0</span>
+                <span class="n">mwp_int_int_sum</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">polarity</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">disp_amp</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>  <span class="c1"># neg</span>
+            <span class="c1"># check if past extremum</span>
+            <span class="k">if</span> <span class="n">polarity</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># passed from pos to neg displacement</span>
+                <span class="n">mwp_int_int_sum</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">polarity</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">mwp_int_int_sum</span> <span class="o">+=</span> <span class="p">(</span><span class="n">amplitude</span> <span class="o">-</span> <span class="n">mwp_amp_at_pick</span><span class="p">)</span> <span class="o">*</span> <span class="n">delta_time</span> <span class="o">/</span> <span class="n">gain</span>
+        <span class="n">new_sample</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">mwp_int_int_sum</span>
+
+    <span class="n">rtmemory</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">_INT_INT_SUM</span><span class="p">]</span> <span class="o">=</span> <span class="n">mwp_int_int_sum</span>
+    <span class="n">rtmemory</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">_POLARITY</span><span class="p">]</span> <span class="o">=</span> <span class="n">polarity</span>
+
+    <span class="c1"># update memory</span>
+    <span class="n">rtmemory</span><span class="o">.</span><span class="n">update_input</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">new_sample</span></div>
+
+
+<span class="n">MWP_INVALID</span> <span class="o">=</span> <span class="o">-</span><span class="mf">9.9</span>
+<span class="c1"># 4.213e19 - Tsuboi 1995, 1999</span>
+<span class="n">MWP_CONST</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="n">_PI</span>  <span class="c1"># 4 PI</span>
+<span class="n">MWP_CONST</span> <span class="o">*=</span> <span class="mf">3400.0</span>  <span class="c1"># rho</span>
+<span class="n">MWP_CONST</span> <span class="o">*=</span> <span class="mf">7900.0</span> <span class="o">*</span> <span class="mf">7900.0</span> <span class="o">*</span> <span class="mf">7900.0</span>  <span class="c1"># Pvel**3</span>
+<span class="n">MWP_CONST</span> <span class="o">*=</span> <span class="mf">2.0</span>  <span class="c1"># FP average radiation pattern</span>
+<span class="n">MWP_CONST</span> <span class="o">*=</span> <span class="p">(</span><span class="mf">10000.0</span> <span class="o">/</span> <span class="mf">90.0</span><span class="p">)</span>  <span class="c1"># distance deg -&gt; km</span>
+<span class="n">MWP_CONST</span> <span class="o">*=</span> <span class="mf">1000.0</span>  <span class="c1"># distance km -&gt; meters</span>
+<span class="c1"># https://mail.python.org/pipermail/python-list/2010-February/567089.html, ff.</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">FLOAT_MIN</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">float_info</span><span class="o">.</span><span class="n">min</span>
+<span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+    <span class="n">FLOAT_MIN</span> <span class="o">=</span> <span class="mf">1.1e-37</span>
+
+
+<div class="viewcode-block" id="calculate_mwp_mag"><a class="viewcode-back" href="../../../packages/autogen/obspy.realtime.signal.calculate_mwp_mag.html#obspy.realtime.signal.calculate_mwp_mag">[docs]</a><span class="k">def</span> <span class="nf">calculate_mwp_mag</span><span class="p">(</span><span class="n">peak</span><span class="p">,</span> <span class="n">epicentral_distance</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate Mwp magnitude.</span>
+
+<span class="sd">    .. seealso:: [Tsuboi1999]_ and [Tsuboi1995]_</span>
+
+<span class="sd">    :type peak: float</span>
+<span class="sd">    :param peak: Peak value of integral of displacement seismogram.</span>
+<span class="sd">    :type epicentral_distance: float</span>
+<span class="sd">    :param epicentral_distance: Great-circle epicentral distance from station</span>
+<span class="sd">        in degrees.</span>
+<span class="sd">    :rtype: float</span>
+<span class="sd">    :returns: Calculated Mwp magnitude.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">moment</span> <span class="o">=</span> <span class="n">MWP_CONST</span> <span class="o">*</span> <span class="n">peak</span> <span class="o">*</span> <span class="n">epicentral_distance</span>
+    <span class="n">mwp_mag</span> <span class="o">=</span> <span class="n">MWP_INVALID</span>
+    <span class="k">if</span> <span class="n">moment</span> <span class="o">&gt;</span> <span class="n">FLOAT_MIN</span><span class="p">:</span>
+        <span class="n">mwp_mag</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">moment</span><span class="p">)</span> <span class="o">-</span> <span class="mf">9.1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mwp_mag</span></div>
+
+
+<div class="viewcode-block" id="kurtosis"><a class="viewcode-back" href="../../../packages/autogen/obspy.realtime.signal.kurtosis.html#obspy.realtime.signal.kurtosis">[docs]</a><span class="k">def</span> <span class="nf">kurtosis</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">win</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">rtmemory_list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply recursive kurtosis calculation on data.</span>
+
+<span class="sd">    Recursive kurtosis is computed using the [ChassandeMottin2002]_</span>
+<span class="sd">    formulation adjusted to give the kurtosis of a Gaussian distribution = 0.0.</span>
+
+<span class="sd">    :type trace: :class:`~obspy.core.trace.Trace`</span>
+<span class="sd">    :param trace: :class:`~obspy.core.trace.Trace` object to append to this</span>
+<span class="sd">        RtTrace</span>
+<span class="sd">    :type win: float, optional</span>
+<span class="sd">    :param win: window length in seconds for the kurtosis (default is 3.0 s)</span>
+<span class="sd">    :type rtmemory_list: list of :class:`~obspy.realtime.rtmemory.RtMemory`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param rtmemory_list: Persistent memory used by this process for specified</span>
+<span class="sd">        trace</span>
+<span class="sd">    :rtype: NumPy :class:`numpy.ndarray`</span>
+<span class="sd">    :return: Processed trace data from appended Trace object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">Trace</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Trace parameter must be an obspy.core.trace.Trace object.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="c1"># if this is the first appended trace, the rtmemory_list will be None</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rtmemory_list</span><span class="p">:</span>
+        <span class="n">rtmemory_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">RtMemory</span><span class="p">(),</span> <span class="n">RtMemory</span><span class="p">(),</span> <span class="n">RtMemory</span><span class="p">()]</span>
+
+    <span class="c1"># deal with case of empty trace</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">data</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">sample</span>
+
+    <span class="c1"># get simple info from trace</span>
+    <span class="n">npts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">delta</span>
+
+    <span class="c1"># set some constants for the kurtosis calculation</span>
+    <span class="n">c_1</span> <span class="o">=</span> <span class="n">dt</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">win</span><span class="p">)</span>
+    <span class="n">a1</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">c_1</span>
+    <span class="n">c_2</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">a1</span> <span class="o">*</span> <span class="n">a1</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">bias</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span> <span class="o">*</span> <span class="n">c_1</span> <span class="o">-</span> <span class="mf">3.0</span>
+
+    <span class="c1"># prepare the output array</span>
+    <span class="n">kappa4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">npts</span><span class="p">,</span> <span class="n">sample</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="c1"># initialize the real-time memory needed to store</span>
+    <span class="c1"># the recursive kurtosis coefficients until the</span>
+    <span class="c1"># next bloc of data is added</span>
+    <span class="n">rtmemory_mu1</span> <span class="o">=</span> <span class="n">rtmemory_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">rtmemory_mu2</span> <span class="o">=</span> <span class="n">rtmemory_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">rtmemory_k4_bar</span> <span class="o">=</span> <span class="n">rtmemory_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="c1"># there are three memory objects, one for each &quot;last&quot; coefficient</span>
+    <span class="c1"># that needs carrying over</span>
+    <span class="c1"># initialize mu1_last to 0</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rtmemory_mu1</span><span class="o">.</span><span class="n">initialized</span><span class="p">:</span>
+        <span class="n">memory_size_input</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">memory_size_output</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">rtmemory_mu1</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">memory_size_input</span><span class="p">,</span>
+                                <span class="n">memory_size_output</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># initialize mu2_last (sigma) to 1</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rtmemory_mu2</span><span class="o">.</span><span class="n">initialized</span><span class="p">:</span>
+        <span class="n">memory_size_input</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">memory_size_output</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">rtmemory_mu2</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">memory_size_input</span><span class="p">,</span>
+                                <span class="n">memory_size_output</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># initialize k4_bar_last to 0</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rtmemory_k4_bar</span><span class="o">.</span><span class="n">initialized</span><span class="p">:</span>
+        <span class="n">memory_size_input</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">memory_size_output</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">rtmemory_k4_bar</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">memory_size_input</span><span class="p">,</span>
+                                   <span class="n">memory_size_output</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">mu1_last</span> <span class="o">=</span> <span class="n">rtmemory_mu1</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">mu2_last</span> <span class="o">=</span> <span class="n">rtmemory_mu2</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">k4_bar_last</span> <span class="o">=</span> <span class="n">rtmemory_k4_bar</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># do recursive kurtosis</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">npts</span><span class="p">):</span>
+        <span class="n">mu1</span> <span class="o">=</span> <span class="n">a1</span> <span class="o">*</span> <span class="n">mu1_last</span> <span class="o">+</span> <span class="n">c_1</span> <span class="o">*</span> <span class="n">sample</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">dx2</span> <span class="o">=</span> <span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">mu1_last</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">mu1_last</span><span class="p">)</span>
+        <span class="n">mu2</span> <span class="o">=</span> <span class="n">a1</span> <span class="o">*</span> <span class="n">mu2_last</span> <span class="o">+</span> <span class="n">c_2</span> <span class="o">*</span> <span class="n">dx2</span>
+        <span class="n">dx2</span> <span class="o">=</span> <span class="n">dx2</span> <span class="o">/</span> <span class="n">mu2_last</span>
+        <span class="n">k4_bar</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">c_1</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">c_1</span> <span class="o">*</span> <span class="n">dx2</span><span class="p">)</span> <span class="o">*</span> <span class="n">k4_bar_last</span> <span class="o">+</span> <span class="n">c_1</span> <span class="o">*</span> <span class="n">dx2</span> <span class="o">*</span> <span class="n">dx2</span>
+        <span class="n">kappa4</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">k4_bar</span> <span class="o">+</span> <span class="n">bias</span>
+        <span class="n">mu1_last</span> <span class="o">=</span> <span class="n">mu1</span>
+        <span class="n">mu2_last</span> <span class="o">=</span> <span class="n">mu2</span>
+        <span class="n">k4_bar_last</span> <span class="o">=</span> <span class="n">k4_bar</span>
+
+    <span class="n">rtmemory_mu1</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">mu1_last</span>
+    <span class="n">rtmemory_mu2</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">mu2_last</span>
+    <span class="n">rtmemory_k4_bar</span><span class="o">.</span><span class="n">input</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">k4_bar_last</span>
+
+    <span class="k">return</span> <span class="n">kappa4</span></div>
+
+
+<span class="c1"># Remove once 0.11 has been released.</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">DynamicAttributeImportRerouteModule</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="vm">__doc__</span><span class="p">,</span> <span class="n">locs</span><span class="o">=</span><span class="nb">locals</span><span class="p">(),</span>
+    <span class="n">original_module</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">],</span>
+    <span class="n">import_map</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">function_map</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;calculateMwpMag&#39;</span><span class="p">:</span> <span class="s1">&#39;obspy.realtime.signal.calculate_mwp_mag&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;mwpIntegral&#39;</span><span class="p">:</span> <span class="s1">&#39;obspy.realtime.signal.mwpintegral&#39;</span><span class="p">})</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

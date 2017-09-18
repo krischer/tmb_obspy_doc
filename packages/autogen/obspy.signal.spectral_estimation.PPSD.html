@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.signal.spectral_estimation.PPSD &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../contents.html">ObsPy Documentation (1.0.3)</a></li> 
+    </ol>
+  
+  <div class="section" id="obspy-signal-spectral-estimation-ppsd">
+<h1>obspy.signal.spectral_estimation.PPSD<a class="headerlink" href="#obspy-signal-spectral-estimation-ppsd" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="obspy.signal.spectral_estimation.PPSD">
+<em class="property">class </em><code class="descname">PPSD</code><span class="sig-paren">(</span><em>stats</em>, <em>metadata</em>, <em>skip_on_gaps=False</em>, <em>db_bins=(-200</em>, <em>-50</em>, <em>1.0)</em>, <em>ppsd_length=3600.0</em>, <em>overlap=0.5</em>, <em>special_handling=None</em>, <em>period_smoothing_width_octaves=1.0</em>, <em>period_step_octaves=0.125</em>, <em>period_limits=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/obspy/signal/spectral_estimation.html#PPSD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#obspy.signal.spectral_estimation.PPSD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Class to compile probabilistic power spectral densities for one combination
+of network/station/location/channel/sampling_rate.</p>
+<p>Calculations are based on the routine used by <a class="reference internal" href="../../citations.html#mcnamara2004" id="id1">[McNamara2004]</a>.
+For information on New High/Low Noise Model see <a class="reference internal" href="../../citations.html#peterson1993" id="id2">[Peterson1993]</a>.</p>
+<p class="rubric">Basic Usage</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">read</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.signal</span> <span class="k">import</span> <span class="n">PPSD</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">read</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">channel</span><span class="o">=</span><span class="s2">&quot;EHZ&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">paz</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;gain&#39;</span><span class="p">:</span> <span class="mf">60077000.0</span><span class="p">,</span>
+<span class="gp">... </span>       <span class="s1">&#39;poles&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.037004</span><span class="o">+</span><span class="mf">0.037016</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.037004</span><span class="o">-</span><span class="mf">0.037016</span><span class="n">j</span><span class="p">,</span>
+<span class="gp">... </span>                 <span class="o">-</span><span class="mf">251.33</span><span class="o">+</span><span class="mi">0</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mf">131.04</span><span class="o">-</span><span class="mf">467.29</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mf">131.04</span><span class="o">+</span><span class="mf">467.29</span><span class="n">j</span><span class="p">],</span>
+<span class="gp">... </span>       <span class="s1">&#39;sensitivity&#39;</span><span class="p">:</span> <span class="mf">2516778400.0</span><span class="p">,</span>
+<span class="gp">... </span>       <span class="s1">&#39;zeros&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="n">j</span><span class="p">]}</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ppsd</span> <span class="o">=</span> <span class="n">PPSD</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="p">,</span> <span class="n">paz</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ppsd</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="go">BW.RJOB..EHZ</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ppsd</span><span class="o">.</span><span class="n">times_processed</span><span class="p">)</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+<p>Now we could add data to the probabilistic psd (all processing like
+demeaning, tapering and so on is done internally) and plot it like …</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ppsd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">st</span><span class="p">)</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ppsd</span><span class="o">.</span><span class="n">times</span><span class="p">)</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ppsd</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span> 
+</pre></div>
+</div>
+<p>… but the example stream is too short and does not contain enough data.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For a real world example see the <a class="reference external" href="https://docs.obspy.org/tutorial/">ObsPy Tutorial</a>.</p>
+</div>
+<p class="rubric">Saving and Loading</p>
+<p>The PPSD object supports saving to a numpy npz compressed binary file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ppsd</span><span class="o">.</span><span class="n">save_npz</span><span class="p">(</span><span class="s2">&quot;myfile.npz&quot;</span><span class="p">)</span> 
+</pre></div>
+</div>
+<p>The saved PPSD can then be loaded again using the static method
+<a class="reference internal" href="obspy.signal.spectral_estimation.PPSD.load_npz.html#obspy.signal.spectral_estimation.PPSD.load_npz" title="obspy.signal.spectral_estimation.PPSD.load_npz"><code class="xref py py-func docutils literal"><span class="pre">load_npz()</span></code></a>, e.g. to plot the
+results again. If additional data is to be processed (note that another
+option is to combine multiple npz files using
+<a class="reference internal" href="obspy.signal.spectral_estimation.PPSD.add_npz.html#obspy.signal.spectral_estimation.PPSD.add_npz" title="obspy.signal.spectral_estimation.PPSD.add_npz"><code class="xref py py-meth docutils literal"><span class="pre">add_npz()</span></code></a>), metadata must be
+provided again, since they are not stored in the numpy npz file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ppsd</span> <span class="o">=</span> <span class="n">PPSD</span><span class="o">.</span><span class="n">load_npz</span><span class="p">(</span><span class="s2">&quot;myfile.npz&quot;</span><span class="p">)</span>  
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When using metadata from an
+<a class="reference internal" href="obspy.core.inventory.inventory.Inventory.html#obspy.core.inventory.inventory.Inventory" title="obspy.core.inventory.inventory.Inventory"><code class="xref py py-class docutils literal"><span class="pre">Inventory</span></code></a>,
+a <a class="reference internal" href="obspy.io.xseed.parser.Parser.html#obspy.io.xseed.parser.Parser" title="obspy.io.xseed.parser.Parser"><code class="xref py py-class docutils literal"><span class="pre">Parser</span></code></a> instance or from a RESP file,
+information on metadata will be correctly picked for the respective
+starttime of the data trace. This means that instrument changes are
+correctly taken into account during response removal.
+This is obviously not the case for a static PAZ dictionary!</p>
+</div>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.NPZ_STORE_KEYS</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.NPZ_STORE_KEYS_ARRAY_TYPES</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.NPZ_STORE_KEYS_LIST_TYPES</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.NPZ_STORE_KEYS_SIMPLE_TYPES</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.NPZ_STORE_KEYS_VERSION_NUMBERS</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.__dict__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.__doc__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.__module__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.__weakref__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.channel</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.current_histogram</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.current_histogram_count</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.current_histogram_cumulative</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.current_times_used</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.db_bin_centers</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.db_bin_edges</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.delta</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.len</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.location</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.merge_method</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.network</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.nfft</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.nlap</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.period_bin_centers</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.period_bin_left_edges</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.period_bin_right_edges</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.period_xedges</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.psd_frequencies</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.psd_periods</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.station</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.times_data</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.times_gaps</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.times_processed</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Public Methods</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD.add.html#obspy.signal.spectral_estimation.PPSD.add" title="obspy.signal.spectral_estimation.PPSD.add"><code class="xref py py-obj docutils literal"><span class="pre">PPSD.add</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD.add_npz.html#obspy.signal.spectral_estimation.PPSD.add_npz" title="obspy.signal.spectral_estimation.PPSD.add_npz"><code class="xref py py-obj docutils literal"><span class="pre">PPSD.add_npz</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD.calculate_histogram.html#obspy.signal.spectral_estimation.PPSD.calculate_histogram" title="obspy.signal.spectral_estimation.PPSD.calculate_histogram"><code class="xref py py-obj docutils literal"><span class="pre">PPSD.calculate_histogram</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD.get_mean.html#obspy.signal.spectral_estimation.PPSD.get_mean" title="obspy.signal.spectral_estimation.PPSD.get_mean"><code class="xref py py-obj docutils literal"><span class="pre">PPSD.get_mean</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD.get_mode.html#obspy.signal.spectral_estimation.PPSD.get_mode" title="obspy.signal.spectral_estimation.PPSD.get_mode"><code class="xref py py-obj docutils literal"><span class="pre">PPSD.get_mode</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD.get_percentile.html#obspy.signal.spectral_estimation.PPSD.get_percentile" title="obspy.signal.spectral_estimation.PPSD.get_percentile"><code class="xref py py-obj docutils literal"><span class="pre">PPSD.get_percentile</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD.load_npz.html#obspy.signal.spectral_estimation.PPSD.load_npz" title="obspy.signal.spectral_estimation.PPSD.load_npz"><code class="xref py py-obj docutils literal"><span class="pre">PPSD.load_npz</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.next</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD.plot.html#obspy.signal.spectral_estimation.PPSD.plot" title="obspy.signal.spectral_estimation.PPSD.plot"><code class="xref py py-obj docutils literal"><span class="pre">PPSD.plot</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD.plot_coverage.html#obspy.signal.spectral_estimation.PPSD.plot_coverage" title="obspy.signal.spectral_estimation.PPSD.plot_coverage"><code class="xref py py-obj docutils literal"><span class="pre">PPSD.plot_coverage</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD.save_npz.html#obspy.signal.spectral_estimation.PPSD.save_npz" title="obspy.signal.spectral_estimation.PPSD.save_npz"><code class="xref py py-obj docutils literal"><span class="pre">PPSD.save_npz</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Private Methods</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Private methods are mainly for internal/developer use and their API might change without notice.</p>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._PPSD__check_histogram.html#obspy.signal.spectral_estimation.PPSD._PPSD__check_histogram" title="obspy.signal.spectral_estimation.PPSD._PPSD__check_histogram"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._PPSD__check_histogram</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._PPSD__check_time_present.html#obspy.signal.spectral_estimation.PPSD._PPSD__check_time_present" title="obspy.signal.spectral_estimation.PPSD._PPSD__check_time_present"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._PPSD__check_time_present</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._PPSD__insert_data_times.html#obspy.signal.spectral_estimation.PPSD._PPSD__insert_data_times" title="obspy.signal.spectral_estimation.PPSD._PPSD__insert_data_times"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._PPSD__insert_data_times</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._PPSD__insert_gap_times.html#obspy.signal.spectral_estimation.PPSD._PPSD__insert_gap_times" title="obspy.signal.spectral_estimation.PPSD._PPSD__insert_gap_times"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._PPSD__insert_gap_times</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._PPSD__insert_processed_data.html#obspy.signal.spectral_estimation.PPSD._PPSD__insert_processed_data" title="obspy.signal.spectral_estimation.PPSD._PPSD__insert_processed_data"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._PPSD__insert_processed_data</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._PPSD__invalidate_histogram.html#obspy.signal.spectral_estimation.PPSD._PPSD__invalidate_histogram" title="obspy.signal.spectral_estimation.PPSD._PPSD__invalidate_histogram"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._PPSD__invalidate_histogram</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._PPSD__plot_coverage.html#obspy.signal.spectral_estimation.PPSD._PPSD__plot_coverage" title="obspy.signal.spectral_estimation.PPSD._PPSD__plot_coverage"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._PPSD__plot_coverage</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._PPSD__process.html#obspy.signal.spectral_estimation.PPSD._PPSD__process" title="obspy.signal.spectral_estimation.PPSD._PPSD__process"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._PPSD__process</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._PPSD__sanity_check.html#obspy.signal.spectral_estimation.PPSD._PPSD__sanity_check" title="obspy.signal.spectral_estimation.PPSD._PPSD__sanity_check"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._PPSD__sanity_check</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._add_npz.html#obspy.signal.spectral_estimation.PPSD._add_npz" title="obspy.signal.spectral_estimation.PPSD._add_npz"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._add_npz</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._get_plot_title.html#obspy.signal.spectral_estimation.PPSD._get_plot_title" title="obspy.signal.spectral_estimation.PPSD._get_plot_title"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._get_plot_title</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._get_response.html#obspy.signal.spectral_estimation.PPSD._get_response" title="obspy.signal.spectral_estimation.PPSD._get_response"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._get_response</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._get_response_from_inventory.html#obspy.signal.spectral_estimation.PPSD._get_response_from_inventory" title="obspy.signal.spectral_estimation.PPSD._get_response_from_inventory"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._get_response_from_inventory</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._get_response_from_parser.html#obspy.signal.spectral_estimation.PPSD._get_response_from_parser" title="obspy.signal.spectral_estimation.PPSD._get_response_from_parser"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._get_response_from_parser</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._get_response_from_paz_dict.html#obspy.signal.spectral_estimation.PPSD._get_response_from_paz_dict" title="obspy.signal.spectral_estimation.PPSD._get_response_from_paz_dict"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._get_response_from_paz_dict</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._get_response_from_resp.html#obspy.signal.spectral_estimation.PPSD._get_response_from_resp" title="obspy.signal.spectral_estimation.PPSD._get_response_from_resp"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._get_response_from_resp</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._get_times_all_details.html#obspy.signal.spectral_estimation.PPSD._get_times_all_details" title="obspy.signal.spectral_estimation.PPSD._get_times_all_details"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._get_times_all_details</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._plot_histogram.html#obspy.signal.spectral_estimation.PPSD._plot_histogram" title="obspy.signal.spectral_estimation.PPSD._plot_histogram"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._plot_histogram</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._setup_period_binning.html#obspy.signal.spectral_estimation.PPSD._setup_period_binning" title="obspy.signal.spectral_estimation.PPSD._setup_period_binning"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._setup_period_binning</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD._stack_selection.html#obspy.signal.spectral_estimation.PPSD._stack_selection" title="obspy.signal.spectral_estimation.PPSD._stack_selection"><code class="xref py py-obj docutils literal"><span class="pre">PPSD._stack_selection</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Special Methods</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD.__format__.html#obspy.signal.spectral_estimation.PPSD.__format__" title="obspy.signal.spectral_estimation.PPSD.__format__"><code class="xref py py-obj docutils literal"><span class="pre">PPSD.__format__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD.__init__.html#obspy.signal.spectral_estimation.PPSD.__init__" title="obspy.signal.spectral_estimation.PPSD.__init__"><code class="xref py py-obj docutils literal"><span class="pre">PPSD.__init__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.__long__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.__native__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD.__new__.html#obspy.signal.spectral_estimation.PPSD.__new__" title="obspy.signal.spectral_estimation.PPSD.__new__"><code class="xref py py-obj docutils literal"><span class="pre">PPSD.__new__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.__nonzero__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD.__reduce__.html#obspy.signal.spectral_estimation.PPSD.__reduce__" title="obspy.signal.spectral_estimation.PPSD.__reduce__"><code class="xref py py-obj docutils literal"><span class="pre">PPSD.__reduce__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD.__reduce_ex__.html#obspy.signal.spectral_estimation.PPSD.__reduce_ex__" title="obspy.signal.spectral_estimation.PPSD.__reduce_ex__"><code class="xref py py-obj docutils literal"><span class="pre">PPSD.__reduce_ex__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD.__sizeof__.html#obspy.signal.spectral_estimation.PPSD.__sizeof__" title="obspy.signal.spectral_estimation.PPSD.__sizeof__"><code class="xref py py-obj docutils literal"><span class="pre">PPSD.__sizeof__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.signal.spectral_estimation.PPSD.__subclasshook__.html#obspy.signal.spectral_estimation.PPSD.__subclasshook__" title="obspy.signal.spectral_estimation.PPSD.__subclasshook__"><code class="xref py py-obj docutils literal"><span class="pre">PPSD.__subclasshook__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">PPSD.__unicode__</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

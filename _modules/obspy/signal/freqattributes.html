@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.signal.freqattributes &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.signal.freqattributes</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># -----------------------------------------------------------------</span>
+<span class="c1"># Filename: freqattributes.py</span>
+<span class="c1">#   Author: Conny Hammer</span>
+<span class="c1">#    Email: conny.hammer@geo.uni-potsdam.de</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (C) 2008-2012 Conny Hammer</span>
+<span class="c1"># -----------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Frequency Attributes</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">from</span> <span class="nn">operator</span> <span class="k">import</span> <span class="n">itemgetter</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">fftpack</span><span class="p">,</span> <span class="n">signal</span><span class="p">,</span> <span class="n">sparse</span>
+
+<span class="kn">from</span> <span class="nn">obspy.core.util.deprecation_helpers</span> <span class="k">import</span> \
+    <span class="n">DynamicAttributeImportRerouteModule</span>
+<span class="kn">from</span> <span class="nn">obspy.signal</span> <span class="k">import</span> <span class="n">util</span>
+<span class="kn">from</span> <span class="nn">obspy.signal.invsim</span> <span class="k">import</span> <span class="n">corn_freq_2_paz</span><span class="p">,</span> <span class="n">simulate_seismometer</span>
+
+
+<div class="viewcode-block" id="spectrum"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.freqattributes.spectrum.html#obspy.signal.freqattributes.spectrum">[docs]</a><span class="k">def</span> <span class="nf">spectrum</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">win</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">n1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n2</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Spectrum of a signal.</span>
+
+<span class="sd">    Computes the spectrum of the given data which can be windowed or not. The</span>
+<span class="sd">    spectrum is estimated using the modified periodogram. If n1 and n2 are not</span>
+<span class="sd">    specified the periodogram of the entire sequence is returned.</span>
+
+<span class="sd">    The modified periodogram of the given signal is returned.</span>
+
+<span class="sd">    :type data: :class:`~numpy.ndarray`</span>
+<span class="sd">    :param data: Data to make spectrum of.</span>
+<span class="sd">    :param win: Window to multiply with given signal.</span>
+<span class="sd">    :param nfft: Number of points for FFT.</span>
+<span class="sd">    :type n1: int, optional</span>
+<span class="sd">    :param n1: Starting index, defaults to ``0``.</span>
+<span class="sd">    :type n2: int, optional</span>
+<span class="sd">    :param n2: Ending index, defaults to ``0``.</span>
+<span class="sd">    :return: Spectrum.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">n2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">n2</span> <span class="o">-</span> <span class="n">n1</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">([</span><span class="n">win</span><span class="p">]),</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="n">xw</span> <span class="o">=</span> <span class="n">data</span> <span class="o">*</span> <span class="n">win</span>
+    <span class="n">px</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">fftpack</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">xw</span><span class="p">,</span> <span class="n">nfft</span><span class="p">)),</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">u</span><span class="p">)</span>
+    <span class="n">px</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">px</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">px</span></div>
+
+
+<div class="viewcode-block" id="welch"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.freqattributes.welch.html#obspy.signal.freqattributes.welch">[docs]</a><span class="k">def</span> <span class="nf">welch</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">win</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">over</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Spectrum of a signal.</span>
+
+<span class="sd">    Computes the spectrum of the given data which can be windowed or not.</span>
+<span class="sd">    The spectrum is estimated using Welch&#39;s method of averaging modified</span>
+<span class="sd">    periodograms.</span>
+
+<span class="sd">    Welch&#39;s estimate of the power spectrum is returned using a linear scale.</span>
+
+<span class="sd">    :type data: :class:`~numpy.ndarray`</span>
+<span class="sd">    :param data: Data to make spectrum of.</span>
+<span class="sd">    :param win: Window to multiply with given signal.</span>
+<span class="sd">    :param nfft: Number of points for FFT.</span>
+<span class="sd">    :type l: int, optional</span>
+<span class="sd">    :param l: Length of windows to be averaged, defaults to ``0``.</span>
+<span class="sd">    :type over: float, optional</span>
+<span class="sd">    :param over: Overlap of windows to be averaged 0&lt;over&lt;1, defaults to ``0``.</span>
+<span class="sd">    :return: Spectrum.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">l</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">n1</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">n2</span> <span class="o">=</span> <span class="n">l</span>
+    <span class="n">n0</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">over</span><span class="p">))</span> <span class="o">*</span> <span class="n">l</span>
+    <span class="n">nsect</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="n">l</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n0</span><span class="p">)))</span>
+    <span class="n">px</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nsect</span><span class="p">):</span>
+        <span class="n">px</span> <span class="o">=</span> <span class="n">px</span> <span class="o">+</span> <span class="n">spectrum</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">win</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">)</span> <span class="o">/</span> <span class="n">nsect</span>
+        <span class="n">n1</span> <span class="o">=</span> <span class="n">n1</span> <span class="o">+</span> <span class="n">n0</span>
+        <span class="n">n2</span> <span class="o">=</span> <span class="n">n2</span> <span class="o">+</span> <span class="n">n0</span>
+    <span class="k">return</span> <span class="n">px</span></div>
+
+
+<div class="viewcode-block" id="central_frequency"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.freqattributes.central_frequency.html#obspy.signal.freqattributes.central_frequency">[docs]</a><span class="k">def</span> <span class="nf">central_frequency</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">smoothie</span><span class="p">,</span> <span class="n">fk</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Central frequency of a signal.</span>
+
+<span class="sd">    Computes the central frequency of the given data which can be windowed or</span>
+<span class="sd">    not. The central frequency is a measure of the frequency where the</span>
+<span class="sd">    power is concentrated. It corresponds to the second moment of the power</span>
+<span class="sd">    spectral density function.</span>
+
+<span class="sd">    The central frequency is returned.</span>
+
+<span class="sd">    :type data: :class:`~numpy.ndarray`</span>
+<span class="sd">    :param data: Data to estimate central frequency from.</span>
+<span class="sd">    :param fs: Sampling frequency in Hz.</span>
+<span class="sd">    :param smoothie: Factor for smoothing the result.</span>
+<span class="sd">    :param fk: Coefficients for calculating time derivatives</span>
+<span class="sd">        (calculated via central difference).</span>
+<span class="sd">    :return: **cfreq[, dcfreq]** - Central frequency, Time derivative of center</span>
+<span class="sd">        frequency (windowed only).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># for windowed data</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">cfreq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">cfreq</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">central_frequency_unwindowed</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">fs</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">cfreq</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">smooth</span><span class="p">(</span><span class="n">cfreq</span><span class="p">,</span> <span class="n">smoothie</span><span class="p">)</span>
+        <span class="c1"># cfreq_add = \</span>
+        <span class="c1">#        np.append(np.append([cfreq[0]] * (np.size(fk) // 2), cfreq),</span>
+        <span class="c1">#        [cfreq[np.size(cfreq) - 1]] * (np.size(fk) // 2))</span>
+        <span class="c1"># faster alternative</span>
+        <span class="n">cfreq_add</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
+            <span class="p">([</span><span class="n">cfreq</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">),</span> <span class="n">cfreq</span><span class="p">,</span>
+             <span class="p">[</span><span class="n">cfreq</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">cfreq</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)))</span>
+        <span class="n">dcfreq</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">fk</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">cfreq_add</span><span class="p">)</span>
+        <span class="c1"># dcfreq = dcfreq[np.size(fk) // 2:(np.size(dcfreq) -</span>
+        <span class="c1">#         np.size(fk) // 2)]</span>
+        <span class="c1"># correct start and end values of time derivative</span>
+        <span class="n">dcfreq</span> <span class="o">=</span> <span class="n">dcfreq</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">dcfreq</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">cfreq</span><span class="p">,</span> <span class="n">dcfreq</span>
+    <span class="c1"># for unwindowed data</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cfreq</span> <span class="o">=</span> <span class="n">central_frequency_unwindowed</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">fs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cfreq</span></div>
+
+
+<div class="viewcode-block" id="central_frequency_unwindowed"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.freqattributes.central_frequency_unwindowed.html#obspy.signal.freqattributes.central_frequency_unwindowed">[docs]</a><span class="k">def</span> <span class="nf">central_frequency_unwindowed</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">fs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Central frequency of a signal.</span>
+
+<span class="sd">    Computes the central frequency of the given data (a single waveform).</span>
+<span class="sd">    The central frequency is a measure of the frequency where the</span>
+<span class="sd">    power is concentrated. It corresponds to the second moment of the power</span>
+<span class="sd">    spectral density function.</span>
+
+<span class="sd">    The central frequency is returned in Hz.</span>
+
+<span class="sd">    :type data: :class:`~numpy.ndarray`</span>
+<span class="sd">    :param data: Data to estimate central frequency from.</span>
+<span class="sd">    :param fs: Sampling frequency in Hz.</span>
+<span class="sd">    :return: **cfreq** - Central frequency in Hz</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nfft</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">next_pow_2</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+    <span class="n">freq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">nfft</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">freqaxis</span> <span class="o">=</span> <span class="n">freq</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nfft</span> <span class="o">//</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="n">px_wm</span> <span class="o">=</span> <span class="n">welch</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">hamming</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span> <span class="n">nfft</span><span class="p">)</span>
+    <span class="n">px</span> <span class="o">=</span> <span class="n">px_wm</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">px_wm</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="n">cfreq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">freqaxis</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">px</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">px</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">cfreq</span></div>
+
+
+<div class="viewcode-block" id="bandwidth"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.freqattributes.bandwidth.html#obspy.signal.freqattributes.bandwidth">[docs]</a><span class="k">def</span> <span class="nf">bandwidth</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">smoothie</span><span class="p">,</span> <span class="n">fk</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Bandwidth of a signal.</span>
+
+<span class="sd">    Computes the bandwidth of the given data which can be windowed or not.</span>
+<span class="sd">    The bandwidth corresponds to the level where the power of the spectrum is</span>
+<span class="sd">    half its maximum value. It is determined as the level of 1/sqrt(2) times</span>
+<span class="sd">    the maximum Fourier amplitude.</span>
+
+<span class="sd">    If data are windowed the bandwidth of each window is returned.</span>
+
+<span class="sd">    :type data: :class:`~numpy.ndarray`</span>
+<span class="sd">    :param data: Data to make envelope of.</span>
+<span class="sd">    :param fs: Sampling frequency in Hz.</span>
+<span class="sd">    :param smoothie: Factor for smoothing the result.</span>
+<span class="sd">    :param fk: Coefficients for calculating time derivatives</span>
+<span class="sd">        (calculated via central difference).</span>
+<span class="sd">    :return: **bandwidth[, dbwithd]** - Bandwidth, Time derivative of</span>
+<span class="sd">        predominant period (windowed only).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">new_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span> <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">new_dtype</span><span class="p">)</span>
+
+    <span class="n">nfft</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">next_pow_2</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">freqaxis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">nfft</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">bwith</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">fftpack</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">nfft</span><span class="p">)</span>
+    <span class="n">f_sm</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">smooth</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">f</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="n">nfft</span> <span class="o">//</span> <span class="mi">2</span><span class="p">]),</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">f_sm</span><span class="p">:</span>
+            <span class="n">minfc</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">row</span> <span class="o">-</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">row</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)))))</span>
+            <span class="p">[</span><span class="n">mdist_ind</span><span class="p">,</span> <span class="n">_mindist</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">minfc</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">bwith</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">freqaxis</span><span class="p">[</span><span class="n">mdist_ind</span><span class="p">]</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="c1"># bwith_add = \</span>
+        <span class="c1"># np.append(np.append([bandwidth[0]] * (np.size(fk) // 2), bandwidth),</span>
+        <span class="c1">#        [bandwidth[np.size(bandwidth) - 1]] * (np.size(fk) // 2))</span>
+        <span class="c1"># faster alternative</span>
+        <span class="n">bwith_add</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
+            <span class="p">([</span><span class="n">bwith</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">),</span> <span class="n">bwith</span><span class="p">,</span>
+             <span class="p">[</span><span class="n">bwith</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">bwith</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)))</span>
+        <span class="n">dbwith</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">fk</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">bwith_add</span><span class="p">)</span>
+        <span class="c1"># dbwith = dbwith[np.size(fk) // 2:(np.size(dbwith) -</span>
+        <span class="c1">#         np.size(fk) // 2)]</span>
+        <span class="c1"># correct start and end values of time derivative</span>
+        <span class="n">dbwith</span> <span class="o">=</span> <span class="n">dbwith</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:]</span>
+        <span class="n">bwith</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">smooth</span><span class="p">(</span><span class="n">bwith</span><span class="p">,</span> <span class="n">smoothie</span><span class="p">)</span>
+        <span class="n">dbwith</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">smooth</span><span class="p">(</span><span class="n">dbwith</span><span class="p">,</span> <span class="n">smoothie</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">bwith</span><span class="p">,</span> <span class="n">dbwith</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">minfc</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">data</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)))))</span>
+        <span class="p">[</span><span class="n">mdist_ind</span><span class="p">,</span> <span class="n">_mindist</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">minfc</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">bwith</span> <span class="o">=</span> <span class="n">freqaxis</span><span class="p">[</span><span class="n">mdist_ind</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">bwith</span></div>
+
+
+<div class="viewcode-block" id="dominant_period"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.freqattributes.dominant_period.html#obspy.signal.freqattributes.dominant_period">[docs]</a><span class="k">def</span> <span class="nf">dominant_period</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">smoothie</span><span class="p">,</span> <span class="n">fk</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Predominant period of a signal.</span>
+
+<span class="sd">    Computes the predominant period of the given data which can be windowed or</span>
+<span class="sd">    not. The period is determined as the period of the maximum value of the</span>
+<span class="sd">    Fourier amplitude spectrum.</span>
+
+<span class="sd">    If data are windowed the predominant period of each window is returned.</span>
+
+<span class="sd">    :type data: :class:`~numpy.ndarray`</span>
+<span class="sd">    :param data: Data to determine predominant period of.</span>
+<span class="sd">    :param fs: Sampling frequency in Hz.</span>
+<span class="sd">    :param smoothie: Factor for smoothing the result.</span>
+<span class="sd">    :param fk: Coefficients for calculating time derivatives</span>
+<span class="sd">        (calculated via central difference).</span>
+<span class="sd">    :return: **dperiod[, ddperiod]** - Predominant period, Time derivative of</span>
+<span class="sd">        predominant period (windowed only).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">new_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span> <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">new_dtype</span><span class="p">)</span>
+
+    <span class="n">nfft</span> <span class="o">=</span> <span class="mi">1024</span>
+    <span class="c1"># nfft = util.next_pow_2(data.shape[1])</span>
+    <span class="n">freqaxis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">nfft</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">dperiod</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">fftpack</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">nfft</span><span class="p">)</span>
+    <span class="c1"># f_sm = util.smooth(abs(f[:,0:nfft // 2]),1)</span>
+    <span class="n">f_sm</span> <span class="o">=</span> <span class="n">f</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="n">nfft</span> <span class="o">//</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">f_sm</span><span class="p">:</span>
+            <span class="p">[</span><span class="n">mdist_ind</span><span class="p">,</span> <span class="n">_mindist</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">row</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">dperiod</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">freqaxis</span><span class="p">[</span><span class="n">mdist_ind</span><span class="p">]</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="c1"># dperiod_add = np.append(np.append([dperiod[0]] * \</span>
+        <span class="c1">#        (np.size(fk) // 2), dperiod),</span>
+        <span class="c1">#        [dperiod[np.size(dperiod) - 1]] * (np.size(fk) // 2))</span>
+        <span class="c1"># faster alternative</span>
+        <span class="n">dperiod_add</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
+            <span class="p">([</span><span class="n">dperiod</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dperiod</span><span class="p">,</span>
+             <span class="p">[</span><span class="n">dperiod</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">dperiod</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)))</span>
+        <span class="n">ddperiod</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">fk</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dperiod_add</span><span class="p">)</span>
+        <span class="c1"># ddperiod = ddperiod[np.size(fk) / \</span>
+        <span class="c1">#    2:(np.size(ddperiod) - np.size(fk) // 2)]</span>
+        <span class="c1"># correct start and end values of time derivative</span>
+        <span class="n">ddperiod</span> <span class="o">=</span> <span class="n">ddperiod</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:]</span>
+        <span class="n">dperiod</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">smooth</span><span class="p">(</span><span class="n">dperiod</span><span class="p">,</span> <span class="n">smoothie</span><span class="p">)</span>
+        <span class="n">ddperiod</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">smooth</span><span class="p">(</span><span class="n">ddperiod</span><span class="p">,</span> <span class="n">smoothie</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dperiod</span><span class="p">,</span> <span class="n">ddperiod</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="p">[</span><span class="n">mdist_ind</span><span class="p">,</span> <span class="n">_mindist</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">dperiod</span> <span class="o">=</span> <span class="n">freqaxis</span><span class="p">[</span><span class="n">mdist_ind</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">dperiod</span></div>
+
+
+<div class="viewcode-block" id="log_spaced_filterbank_matrix"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.freqattributes.log_spaced_filterbank_matrix.html#obspy.signal.freqattributes.log_spaced_filterbank_matrix">[docs]</a><span class="k">def</span> <span class="nf">log_spaced_filterbank_matrix</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Matrix for a log-spaced filterbank.</span>
+
+<span class="sd">    Computes a matrix containing the filterbank amplitudes for a log-spaced</span>
+<span class="sd">    filterbank.</span>
+
+<span class="sd">    :param p: Number of filters in filterbank.</span>
+<span class="sd">    :param n: Length of fft.</span>
+<span class="sd">    :param fs: Sampling frequency in Hz.</span>
+<span class="sd">    :param w: Window function.</span>
+<span class="sd">    :return: **xx, yy, zz** - Matrix containing the filterbank amplitudes,</span>
+<span class="sd">        Lowest fft bin with a non-zero coefficient, Highest fft bin with a</span>
+<span class="sd">        non-zero coefficient.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># alternative to avoid above problems: low end of the lowest filter</span>
+    <span class="c1"># corresponds to maximum frequency resolution</span>
+    <span class="n">fn2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">n</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">fl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">fs</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">fh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">fs</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">lr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">((</span><span class="n">fh</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">fl</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">bl</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="p">((</span><span class="n">fl</span><span class="p">)</span> <span class="o">*</span>
+              <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">lr</span><span class="p">))</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">fs</span><span class="p">))</span>
+    <span class="n">b2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">bl</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">b3</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">bl</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+    <span class="n">b1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">bl</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">b4</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">fn2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">bl</span><span class="p">[</span><span class="mi">3</span><span class="p">])))</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">pf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">b1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span> <span class="o">*</span> <span class="n">fs</span> <span class="o">/</span> <span class="n">fl</span><span class="p">)</span> <span class="o">/</span> <span class="n">lr</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">pf</span><span class="p">)</span>
+    <span class="n">pm</span> <span class="o">=</span> <span class="n">pf</span> <span class="o">-</span> <span class="n">fp</span>
+    <span class="n">k2</span> <span class="o">=</span> <span class="n">b2</span> <span class="o">-</span> <span class="n">b1</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">k3</span> <span class="o">=</span> <span class="n">b3</span> <span class="o">-</span> <span class="n">b1</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">k4</span> <span class="o">=</span> <span class="n">b4</span> <span class="o">-</span> <span class="n">b1</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fp</span><span class="p">[</span><span class="n">k2</span><span class="p">:</span><span class="n">k4</span> <span class="o">+</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">fp</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">k2</span><span class="p">,</span> <span class="n">k4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">k3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pm</span><span class="p">[</span><span class="n">k2</span><span class="p">:</span><span class="n">k4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="n">pm</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]])</span>
+    <span class="n">mn</span> <span class="o">=</span> <span class="n">b1</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">mx</span> <span class="o">=</span> <span class="n">b4</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="c1"># x = np.array([[c],[r]], dtype=[(&#39;x&#39;, np.float), (&#39;y&#39;, np.float)])</span>
+    <span class="c1"># ind=np.argsort(x, order=(&#39;x&#39;,&#39;y&#39;))</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">w</span> <span class="o">==</span> <span class="s1">&#39;Hann&#39;</span><span class="p">):</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">-</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">([</span><span class="n">v</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)])]</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">w</span> <span class="o">==</span> <span class="s1">&#39;Hamming&#39;</span><span class="p">):</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">-</span> <span class="mf">0.92</span> <span class="o">/</span> <span class="mf">1.08</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">v</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="c1"># bugfix for #70 - scipy.sparse.csr_matrix() delivers sometimes a</span>
+    <span class="c1"># transposed matrix depending on the installed NumPy version - using</span>
+    <span class="c1"># scipy.sparse.coo_matrix() ensures compatibility with old NumPy versions</span>
+    <span class="n">xx</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">((</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">r</span><span class="p">)))</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">xx</span><span class="p">,</span> <span class="n">mn</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mx</span> <span class="o">-</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="log_cepstrum"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.freqattributes.log_cepstrum.html#obspy.signal.freqattributes.log_cepstrum">[docs]</a><span class="k">def</span> <span class="nf">log_cepstrum</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">nc</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>  <span class="c1"># @UnusedVariable: n is never used!!!</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cepstrum of a signal.</span>
+
+<span class="sd">    Computes the cepstral coefficient on a logarithmic scale of the given data</span>
+<span class="sd">    which can be windowed or not.</span>
+
+<span class="sd">    If data are windowed the analytic signal and the envelope of each window is</span>
+<span class="sd">    returned.</span>
+
+<span class="sd">    :type data: :class:`~numpy.ndarray`</span>
+<span class="sd">    :param data: Data to make envelope of.</span>
+<span class="sd">    :param fs: Sampling frequency in Hz.</span>
+<span class="sd">    :param nc: number of cepstral coefficients.</span>
+<span class="sd">    :param p: Number of filters in filterbank.</span>
+<span class="sd">    :param n: Number of data windows.</span>
+<span class="sd">    :return: Cepstral coefficients.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">new_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span> <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">new_dtype</span><span class="p">)</span>
+
+    <span class="n">data_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">nfft</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">next_pow_2</span><span class="p">(</span><span class="n">data_t</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">fc</span> <span class="o">=</span> <span class="n">fftpack</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">data_t</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">fc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">fc</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">log_spaced_filterbank_matrix</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">nfft</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+    <span class="n">pw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">a</span><span class="p">:</span><span class="n">b</span><span class="p">,</span> <span class="p">:],</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">a</span><span class="p">:</span><span class="n">b</span><span class="p">,</span> <span class="p">:])))</span>
+    <span class="n">pth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">pw</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1E-20</span>
+    <span class="n">ath</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span>
+    <span class="c1"># h1 = np.transpose(np.array([[ath] * int(b + 1 - a)]))</span>
+    <span class="c1"># h2 = m * abs(f[a - 1:b, :])</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="nb">abs</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">a</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span><span class="n">b</span><span class="p">,</span> <span class="p">:]),</span> <span class="n">ath</span><span class="p">))</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">rdct</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span>
+    <span class="c1"># nc = nc + 1</span>
+    <span class="n">nf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">&gt;</span> <span class="n">nc</span><span class="p">):</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="p">[:</span><span class="n">nc</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">p</span> <span class="o">&lt;</span> <span class="n">nc</span><span class="p">):</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nf</span><span class="p">,</span> <span class="n">nc</span> <span class="o">-</span> <span class="n">p</span><span class="p">)])</span>
+    <span class="k">return</span> <span class="n">z</span></div>
+
+
+<div class="viewcode-block" id="peak_ground_motion"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.freqattributes.peak_ground_motion.html#obspy.signal.freqattributes.peak_ground_motion">[docs]</a><span class="k">def</span> <span class="nf">peak_ground_motion</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">damp</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Peak ground motion parameters</span>
+
+<span class="sd">    Compute the maximal displacement, velocity, acceleration and the peak</span>
+<span class="sd">    ground acceleration at a certain frequency (standard frequencies for</span>
+<span class="sd">    ShakeMaps are 0.3/1.0/3.0 Hz).</span>
+
+<span class="sd">    Data must be displacement</span>
+
+<span class="sd">    :type data: :class:`~numpy.ndarray`</span>
+<span class="sd">    :param data: Data in displacement to convolve with pendulum at freq.</span>
+<span class="sd">    :type delta: float</span>
+<span class="sd">    :param delta: Sampling interval</span>
+<span class="sd">    :type freq: float</span>
+<span class="sd">    :param freq: Frequency in Hz.</span>
+<span class="sd">    :type damp: float</span>
+<span class="sd">    :param damp: damping factor. Default is set to 0.1</span>
+<span class="sd">    :rtype: (float, float, float, float)</span>
+<span class="sd">    :return: Peak Ground Acceleration, maximal displacement, velocity,</span>
+<span class="sd">        acceleration</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># Displacement</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+        <span class="n">m_dis</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">m_dis</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+    <span class="c1"># Velocity</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+        <span class="n">m_vel</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">m_vel</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+    <span class="c1"># Acceleration</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+        <span class="n">m_acc</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">m_acc</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+    <span class="n">samp_rate</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">delta</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">freq</span> <span class="o">*</span> <span class="mf">1.0</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">damp</span>
+    <span class="n">omega</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mf">3.14159</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+
+    <span class="n">paz_sa</span> <span class="o">=</span> <span class="n">corn_freq_2_paz</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">damp</span><span class="o">=</span><span class="n">d</span><span class="p">)</span>
+    <span class="n">paz_sa</span><span class="p">[</span><span class="s1">&#39;sensitivity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">omega</span>
+    <span class="n">paz_sa</span><span class="p">[</span><span class="s1">&#39;zeros&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">simulate_seismometer</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">samp_rate</span><span class="p">,</span> <span class="n">paz_remove</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                <span class="n">paz_simulate</span><span class="o">=</span><span class="n">paz_sa</span><span class="p">,</span> <span class="n">taper</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                <span class="n">simulate_sensitivity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">taper_fraction</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+        <span class="n">pga</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pga</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">pga</span><span class="p">,</span> <span class="n">m_dis</span><span class="p">,</span> <span class="n">m_vel</span><span class="p">,</span> <span class="n">m_acc</span><span class="p">)</span></div>
+
+
+<span class="c1"># Remove once 0.11 has been released.</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">DynamicAttributeImportRerouteModule</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="vm">__doc__</span><span class="p">,</span> <span class="n">locs</span><span class="o">=</span><span class="nb">locals</span><span class="p">(),</span>
+    <span class="n">original_module</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">],</span>
+    <span class="n">import_map</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">function_map</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;bwith&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.freqattributes.bandwidth&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cfrequency&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.freqattributes.central_frequency&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cfrequency_unwindowed&quot;</span><span class="p">:</span>
+            <span class="s2">&quot;obspy.signal.freqattributes.central_frequency_unwindowed&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;domperiod&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.freqattributes.dominant_period&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;logbankm&quot;</span><span class="p">:</span>
+            <span class="s2">&quot;obspy.signal.freqattributes.log_spaced_filterbank_matrix&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;logcep&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.freqattributes.log_cepstrum&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mper&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.freqattributes.spectrum&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pgm&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.freqattributes.peak_ground_motion&quot;</span><span class="p">})</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

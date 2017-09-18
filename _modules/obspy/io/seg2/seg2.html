@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.io.seg2.seg2 &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.io.seg2.seg2</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">SEG-2 support for ObsPy.</span>
+
+<span class="sd">A file format description is given by [Pullan1990]_.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    Lion Krischer (krischer@geophysik.uni-muenchen.de), 2011</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+<span class="kn">from</span> <span class="nn">future.utils</span> <span class="k">import</span> <span class="n">PY2</span>
+
+<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">struct</span> <span class="k">import</span> <span class="n">unpack</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">Stream</span><span class="p">,</span> <span class="n">Trace</span><span class="p">,</span> <span class="n">UTCDateTime</span>
+<span class="kn">from</span> <span class="nn">obspy.core</span> <span class="k">import</span> <span class="n">AttribDict</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.decorator</span> <span class="k">import</span> <span class="n">deprecated</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.deprecation_helpers</span> <span class="k">import</span> \
+    <span class="n">DynamicAttributeImportRerouteModule</span>
+<span class="kn">from</span> <span class="nn">.header</span> <span class="k">import</span> <span class="n">MONTHS</span>
+
+
+<span class="n">WARNING_HEADER</span> <span class="o">=</span> <span class="s2">&quot;Many companies use custom defined SEG2 header variables.&quot;</span> <span class="o">+</span> \
+    <span class="s2">&quot; This might cause basic header information reflected in the single &quot;</span> <span class="o">+</span> \
+    <span class="s2">&quot;traces&#39; stats to be wrong (e.g. recording delays, first sample &quot;</span> <span class="o">+</span> \
+    <span class="s2">&quot;number, station code names, ..). Please check the complete list of &quot;</span> <span class="o">+</span> \
+    <span class="s2">&quot;additional unmapped header fields that gets stored in &quot;</span> <span class="o">+</span> \
+    <span class="s2">&quot;Trace.stats.seg2 and/or the manual of the source of the SEG2 files &quot;</span> <span class="o">+</span> \
+    <span class="s2">&quot;for fields that might influence e.g. trace start times.&quot;</span>
+
+
+<div class="viewcode-block" id="SEG2BaseError"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seg2.seg2.SEG2BaseError.html#obspy.io.seg2.seg2.SEG2BaseError">[docs]</a><span class="k">class</span> <span class="nc">SEG2BaseError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for all SEG-2 specific errors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="SEG2InvalidFileError"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seg2.seg2.SEG2InvalidFileError.html#obspy.io.seg2.seg2.SEG2InvalidFileError">[docs]</a><span class="k">class</span> <span class="nc">SEG2InvalidFileError</span><span class="p">(</span><span class="n">SEG2BaseError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Will be raised if something is not correct with the SEG-2 file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="SEG2"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seg2.seg2.SEG2.html#obspy.io.seg2.seg2.SEG2">[docs]</a><span class="k">class</span> <span class="nc">SEG2</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to read and write SEG 2 formatted files. The main reason this is</span>
+<span class="sd">    realized as a class is for the ease of passing the various parameters from</span>
+<span class="sd">    one function to the next.</span>
+
+<span class="sd">    Do not change the file_pointer attribute while using this class. It will</span>
+<span class="sd">    be used to keep track of which parts have been read yet and which not.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SEG2.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seg2.seg2.SEG2.__init__.html#obspy.io.seg2.seg2.SEG2.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;readFile&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;read_file&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">readFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;readFile&#39; has been renamed to</span>
+<span class="sd">        &#39;read_file&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;readFileDescriptorBlock&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;read_file_descriptor_block&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">readFileDescriptorBlock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;readFileDescriptorBlock&#39; has been renamed to</span>
+<span class="sd">        &#39;read_file_descriptor_block&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_file_descriptor_block</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SEG2.read_file"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seg2.seg2.SEG2.read_file.html#obspy.io.seg2.seg2.SEG2.read_file">[docs]</a>    <span class="k">def</span> <span class="nf">read_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_object</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads the following file and will return a Stream object. If</span>
+<span class="sd">        file_object is a string it will be treated as a file name, otherwise it</span>
+<span class="sd">        will be expected to be a file like object with read(), seek() and</span>
+<span class="sd">        tell() methods.</span>
+
+<span class="sd">        If it is a file_like object, file.seek(0, 0) is expected to be the</span>
+<span class="sd">        beginning of the SEG-2 file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Read the file if it is a file name.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">file_object</span><span class="p">,</span> <span class="s1">&#39;write&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_pointer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_object</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_pointer</span> <span class="o">=</span> <span class="n">file_object</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_pointer</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="n">Stream</span><span class="p">()</span>
+
+        <span class="c1"># Read the file descriptor block. This will also determine the</span>
+        <span class="c1"># endianness.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_file_descriptor_block</span><span class="p">()</span>
+
+        <span class="c1"># Loop over every trace, read it and append it to the Stream.</span>
+        <span class="k">for</span> <span class="n">tr_pointer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">trace_pointers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_pointer</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">tr_pointer</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_next_trace</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">file_object</span><span class="p">,</span> <span class="s1">&#39;write&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_pointer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span></div>
+
+<div class="viewcode-block" id="SEG2.read_file_descriptor_block"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seg2.seg2.SEG2.read_file_descriptor_block.html#obspy.io.seg2.seg2.SEG2.read_file_descriptor_block">[docs]</a>    <span class="k">def</span> <span class="nf">read_file_descriptor_block</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the reading of the file descriptor block and the free form</span>
+<span class="sd">        section following it.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">file_descriptor_block</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_pointer</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+
+        <span class="c1"># Determine the endianness and check if the block id is valid.</span>
+        <span class="k">if</span> <span class="n">unpack</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">file_descriptor_block</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x55</span> <span class="ow">and</span> \
+           <span class="n">unpack</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">file_descriptor_block</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x3a</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&lt;&#39;</span>
+        <span class="k">elif</span> <span class="n">unpack</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">file_descriptor_block</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x3a</span> <span class="ow">and</span> \
+                <span class="n">unpack</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">file_descriptor_block</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x55</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&gt;&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Wrong File Descriptor Block ID&#39;</span>
+            <span class="k">raise</span> <span class="n">SEG2InvalidFileError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="c1"># Check the revision number.</span>
+        <span class="n">revision_number</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;H&#39;</span><span class="p">,</span>
+                                 <span class="n">file_descriptor_block</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">revision_number</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Only SEG 2 revision 1 is officially supported. This file &#39;</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;has revision </span><span class="si">%i</span><span class="s1">. Reading it might fail.&#39;</span> <span class="o">%</span> <span class="n">revision_number</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Please contact the ObsPy developers with a sample file.&#39;</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">size_of_trace_pointer_sub_block</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">file_descriptor_block</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">number_of_traces</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">file_descriptor_block</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Define the string and line terminators.</span>
+        <span class="p">(</span><span class="n">size_of_string_terminator</span><span class="p">,</span>
+         <span class="n">first_string_terminator_char</span><span class="p">,</span>
+         <span class="n">second_string_terminator_char</span><span class="p">,</span>
+         <span class="n">size_of_line_terminator</span><span class="p">,</span>
+         <span class="n">first_line_terminator_char</span><span class="p">,</span>
+         <span class="n">second_line_terminator_char</span>
+         <span class="p">)</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;BccBcc&#39;</span><span class="p">,</span> <span class="n">file_descriptor_block</span><span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">14</span><span class="p">])</span>
+
+        <span class="c1"># Assemble the string terminator.</span>
+        <span class="k">if</span> <span class="n">size_of_string_terminator</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">string_terminator</span> <span class="o">=</span> <span class="n">first_string_terminator_char</span>
+        <span class="k">elif</span> <span class="n">size_of_string_terminator</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">string_terminator</span> <span class="o">=</span> <span class="n">first_string_terminator_char</span> <span class="o">+</span> \
+                <span class="n">second_string_terminator_char</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Wrong size of string terminator.&#39;</span>
+            <span class="k">raise</span> <span class="n">SEG2InvalidFileError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="c1"># Assemble the line terminator.</span>
+        <span class="k">if</span> <span class="n">size_of_line_terminator</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">line_terminator</span> <span class="o">=</span> <span class="n">first_line_terminator_char</span>
+        <span class="k">elif</span> <span class="n">size_of_line_terminator</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">line_terminator</span> <span class="o">=</span> <span class="n">first_line_terminator_char</span> <span class="o">+</span> \
+                <span class="n">second_line_terminator_char</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Wrong size of line terminator.&#39;</span>
+            <span class="k">raise</span> <span class="n">SEG2InvalidFileError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="c1"># Read the trace pointer sub-block and retrieve all the pointers.</span>
+        <span class="n">trace_pointer_sub_block</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_pointer</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">size_of_trace_pointer_sub_block</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trace_pointers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_of_traces</span><span class="p">):</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">_i</span> <span class="o">*</span> <span class="mi">4</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">trace_pointers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">unpack</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;L&#39;</span><span class="p">,</span>
+                       <span class="n">trace_pointer_sub_block</span><span class="p">[</span><span class="n">index</span><span class="p">:</span><span class="n">index</span> <span class="o">+</span> <span class="mi">4</span><span class="p">])[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1"># The rest of the header up to where the first trace pointer points is</span>
+        <span class="c1"># a free form section.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="n">AttribDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">seg2</span> <span class="o">=</span> <span class="n">AttribDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parse_free_form</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_pointer</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trace_pointers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span>
+                                   <span class="bp">self</span><span class="o">.</span><span class="n">file_pointer</span><span class="o">.</span><span class="n">tell</span><span class="p">()),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">seg2</span><span class="p">)</span>
+
+        <span class="c1"># Get the time information from the file header.</span>
+        <span class="c1"># XXX: Need some more generic date/time parsers.</span>
+        <span class="k">if</span> <span class="s2">&quot;ACQUISITION_TIME&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">seg2</span> \
+                <span class="ow">and</span> <span class="s2">&quot;ACQUISITION_DATE&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">seg2</span><span class="p">:</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">seg2</span><span class="o">.</span><span class="n">ACQUISITION_TIME</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">seg2</span><span class="o">.</span><span class="n">ACQUISITION_DATE</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+            <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">day</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">date</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">MONTHS</span><span class="p">[</span><span class="n">date</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()],</span> \
+                <span class="nb">int</span><span class="p">(</span><span class="n">date</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">starttime</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span>
+                                         <span class="n">second</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">starttime</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;parseNextTrace&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;parse_next_trace&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">parseNextTrace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;parseNextTrace&#39; has been renamed to</span>
+<span class="sd">        &#39;parse_next_trace&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_next_trace</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SEG2.parse_next_trace"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seg2.seg2.SEG2.parse_next_trace.html#obspy.io.seg2.seg2.SEG2.parse_next_trace">[docs]</a>    <span class="k">def</span> <span class="nf">parse_next_trace</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse the next trace in the trace pointer list and return a Trace</span>
+<span class="sd">        object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">trace_descriptor_block</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_pointer</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+        <span class="c1"># Check if the trace descriptor block id is valid.</span>
+        <span class="k">if</span> <span class="n">unpack</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">trace_descriptor_block</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> \
+           <span class="mh">0x4422</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Invalid trace descriptor block id.&#39;</span>
+            <span class="k">raise</span> <span class="n">SEG2InvalidFileError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">size_of_this_block</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;H&#39;</span><span class="p">,</span>
+                                    <span class="n">trace_descriptor_block</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">number_of_samples_in_data_block</span> <span class="o">=</span> \
+            <span class="n">unpack</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="n">trace_descriptor_block</span><span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">12</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">data_format_code</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">trace_descriptor_block</span><span class="p">[</span><span class="mi">12</span><span class="p">:</span><span class="mi">13</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Parse the data format code.</span>
+        <span class="k">if</span> <span class="n">data_format_code</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span>
+            <span class="n">sample_size</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="k">elif</span> <span class="n">data_format_code</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span>
+            <span class="n">sample_size</span> <span class="o">=</span> <span class="mi">8</span>
+        <span class="k">elif</span> <span class="n">data_format_code</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int16</span>
+            <span class="n">sample_size</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="n">data_format_code</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span>
+            <span class="n">sample_size</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="k">elif</span> <span class="n">data_format_code</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Data format code 3 (20-bit SEG-D floating point) not &#39;</span>
+                   <span class="s1">&#39;supported yet.</span><span class="se">\n</span><span class="s1">Please contact the ObsPy developers with &#39;</span>
+                   <span class="s1">&#39;a sample file.&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Unrecognized data format code&#39;</span>
+            <span class="k">raise</span> <span class="n">SEG2InvalidFileError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="c1"># The rest of the trace block is free form.</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;seg2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">AttribDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parse_free_form</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_pointer</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">size_of_this_block</span> <span class="o">-</span> <span class="mi">32</span><span class="p">),</span>
+                             <span class="n">header</span><span class="p">[</span><span class="s1">&#39;seg2&#39;</span><span class="p">])</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;seg2&#39;</span><span class="p">][</span><span class="s1">&#39;SAMPLE_INTERVAL&#39;</span><span class="p">])</span>
+        <span class="c1"># Set to the file&#39;s start time.</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;starttime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">starttime</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;DELAY&#39;</span> <span class="ow">in</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;seg2&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;seg2&#39;</span><span class="p">][</span><span class="s1">&#39;DELAY&#39;</span><span class="p">])</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Non-zero value found in Trace&#39;s &#39;DELAY&#39; field. &quot;</span> <span class="o">+</span> \
+                      <span class="s2">&quot;This is not supported/tested yet and might lead &quot;</span> <span class="o">+</span> \
+                      <span class="s2">&quot;to a wrong starttime of the Trace. Please contact &quot;</span> <span class="o">+</span> \
+                      <span class="s2">&quot;the ObsPy developers with a sample file.&quot;</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s2">&quot;DESCALING_FACTOR&quot;</span> <span class="ow">in</span> <span class="n">header</span><span class="p">[</span><span class="s2">&quot;seg2&quot;</span><span class="p">]:</span>
+            <span class="n">header</span><span class="p">[</span><span class="s1">&#39;calib&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;seg2&#39;</span><span class="p">][</span><span class="s1">&#39;DESCALING_FACTOR&#39;</span><span class="p">])</span>
+
+        <span class="c1"># Unpack the data.</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_pointer</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">number_of_samples_in_data_block</span> <span class="o">*</span>
+                                   <span class="n">sample_size</span><span class="p">),</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="c1"># Integrate SEG2 file header into each trace header</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">seg2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">tmp</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">header</span><span class="p">[</span><span class="s1">&#39;seg2&#39;</span><span class="p">])</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;seg2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span>
+        <span class="k">return</span> <span class="n">Trace</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">)</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;parseFreeForm&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;parse_free_form&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">parseFreeForm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;parseFreeForm&#39; has been renamed to</span>
+<span class="sd">        &#39;parse_free_form&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_free_form</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SEG2.parse_free_form"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seg2.seg2.SEG2.parse_free_form.html#obspy.io.seg2.seg2.SEG2.parse_free_form">[docs]</a>    <span class="k">def</span> <span class="nf">parse_free_form</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">free_form_str</span><span class="p">,</span> <span class="n">attrib_dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse the free form section stored in free_form_str and save it in</span>
+<span class="sd">        attrib_dict.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Separate the strings.</span>
+        <span class="n">strings</span> <span class="o">=</span> <span class="n">free_form_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">string_terminator</span><span class="p">)</span>
+        <span class="c1"># This is not fully according to the SEG-2 format specification (or</span>
+        <span class="c1"># rather the specification only speaks about on offset of 2 bytes</span>
+        <span class="c1"># between strings and a string_terminator between two free form</span>
+        <span class="c1"># strings. The file I have show the following separation between two</span>
+        <span class="c1"># strings: &#39;random offset byte&#39;, &#39;string_terminator&#39;,</span>
+        <span class="c1"># &#39;random offset byte&#39;</span>
+        <span class="c1"># Therefore every string has to be at least 3 bytes wide to be</span>
+        <span class="c1"># acceptable after being split at the string terminator.</span>
+
+        <span class="k">def</span> <span class="nf">is_good_char</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">(</span><span class="sa">b</span><span class="s1">&#39;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN&#39;</span>
+                         <span class="sa">b</span><span class="s1">&#39;OPQRSTUVWXYZ!&quot;#$%&amp;</span><span class="se">\&#39;</span><span class="s1">()*+,-./:; &lt;=&gt;?@[</span><span class="se">\\</span><span class="s1">]^_`{|}~ &#39;</span><span class="p">)</span>
+
+        <span class="c1"># A loop over a bytestring in Python 3 returns integers. This can be</span>
+        <span class="c1"># solved with a number of imports from the python-future module and</span>
+        <span class="c1"># all kinds of subtle changes throughout this file. Separating the</span>
+        <span class="c1"># handling for Python 2 and 3 seems the cleaner and simpler approach.</span>
+        <span class="k">if</span> <span class="n">PY2</span><span class="p">:</span>
+            <span class="n">strings</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">is_good_char</span><span class="p">,</span> <span class="n">_i</span><span class="p">))</span>
+                       <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">strings</span>
+                       <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_i</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">strings</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">chr</span><span class="p">,</span> <span class="nb">filter</span><span class="p">(</span><span class="n">is_good_char</span><span class="p">,</span> <span class="n">_i</span><span class="p">)))</span>
+                       <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">strings</span>
+                       <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_i</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">]</span>
+
+        <span class="c1"># Every string has the structure OPTION&lt;SPACE&gt;VALUE. Write to</span>
+        <span class="c1"># stream.stats attribute.</span>
+        <span class="k">for</span> <span class="n">string</span> <span class="ow">in</span> <span class="n">strings</span><span class="p">:</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">string</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">string</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">attrib_dict</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="c1"># Parse the notes string again.</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">attrib_dict</span><span class="p">,</span> <span class="s1">&#39;NOTE&#39;</span><span class="p">):</span>
+            <span class="n">notes</span> <span class="o">=</span> <span class="n">attrib_dict</span><span class="o">.</span><span class="n">NOTE</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_terminator</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+            <span class="n">attrib_dict</span><span class="o">.</span><span class="n">NOTE</span> <span class="o">=</span> <span class="n">AttribDict</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="n">notes</span><span class="p">:</span>
+                <span class="n">note</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">note</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+                <span class="n">key</span> <span class="o">=</span> <span class="n">note</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">note</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">attrib_dict</span><span class="o">.</span><span class="n">NOTE</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="_is_seg2"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seg2.seg2._is_seg2.html#obspy.io.seg2.seg2._is_seg2">[docs]</a><span class="k">def</span> <span class="nf">_is_seg2</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;write&#39;</span><span class="p">):</span>
+        <span class="n">file_pointer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">file_pointer</span> <span class="o">=</span> <span class="n">filename</span>
+
+    <span class="n">file_descriptor_block</span> <span class="o">=</span> <span class="n">file_pointer</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;write&#39;</span><span class="p">):</span>
+        <span class="n">file_pointer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Determine the endianness and check if the block id is valid.</span>
+        <span class="k">if</span> <span class="n">unpack</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">file_descriptor_block</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x55</span> <span class="ow">and</span> \
+           <span class="n">unpack</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">file_descriptor_block</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x3a</span><span class="p">:</span>
+            <span class="n">endian</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&lt;&#39;</span>
+        <span class="k">elif</span> <span class="n">unpack</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">file_descriptor_block</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x3a</span> <span class="ow">and</span> \
+                <span class="n">unpack</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">file_descriptor_block</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x55</span><span class="p">:</span>
+            <span class="n">endian</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&gt;&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="c1"># Check the revision number.</span>
+    <span class="n">revision_number</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="n">endian</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;H&#39;</span><span class="p">,</span>
+                             <span class="n">file_descriptor_block</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">revision_number</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="_read_seg2"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seg2.seg2._read_seg2.html#obspy.io.seg2.seg2._read_seg2">[docs]</a><span class="k">def</span> <span class="nf">_read_seg2</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># @UnusedVariable</span>
+    <span class="n">seg2</span> <span class="o">=</span> <span class="n">SEG2</span><span class="p">()</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">seg2</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">WARNING_HEADER</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">st</span></div>
+
+
+<span class="c1"># Remove once 0.11 has been released.</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">DynamicAttributeImportRerouteModule</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="vm">__doc__</span><span class="p">,</span> <span class="n">locs</span><span class="o">=</span><span class="nb">locals</span><span class="p">(),</span>
+    <span class="n">original_module</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">],</span>
+    <span class="n">import_map</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">function_map</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;isSEG2&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.io.seg2.seg2._is_seg2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;readSEG2&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.io.seg2.seg2._read_seg2&quot;</span><span class="p">})</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

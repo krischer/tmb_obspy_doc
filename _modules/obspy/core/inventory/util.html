@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.core.inventory.util &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.core.inventory.util</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Utility objects.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    Lion Krischer (krischer@geophysik.uni-muenchen.de), 2013</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">UTCDateTime</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.base</span> <span class="k">import</span> <span class="n">ComparingObject</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.obspy_types</span> <span class="k">import</span> <span class="p">(</span><span class="n">FloatWithUncertaintiesAndUnit</span><span class="p">,</span>
+                                         <span class="n">FloatWithUncertaintiesFixedUnit</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="BaseNode"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.BaseNode.html#obspy.core.inventory.channel.BaseNode">[docs]</a><span class="k">class</span> <span class="nc">BaseNode</span><span class="p">(</span><span class="n">ComparingObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    From the StationXML definition:</span>
+<span class="sd">        A base node type for derivation of: Network, Station and Channel</span>
+<span class="sd">        types.</span>
+
+<span class="sd">    The parent class for the network, station and channel classes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="BaseNode.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.BaseNode.__init__.html#obspy.core.inventory.channel.BaseNode.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">end_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">restricted_status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alternate_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">historical_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_availability</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :type code: str</span>
+<span class="sd">        :param code: The SEED network, station, or channel code</span>
+<span class="sd">        :type description: str, optional</span>
+<span class="sd">        :param description: A description of the resource</span>
+<span class="sd">        :type comments: list of :class:`Comment`, optional</span>
+<span class="sd">        :param comments: An arbitrary number of comments to the resource</span>
+<span class="sd">        :type start_date: :class:`~obspy.core.utcdatetime.UTCDateTime`,</span>
+<span class="sd">            optional</span>
+<span class="sd">        :param start_date: The start date of the resource</span>
+<span class="sd">        :type end_date: :class:`~obspy.core.utcdatetime.UTCDateTime`, optional</span>
+<span class="sd">        :param end_date: The end date of the resource</span>
+<span class="sd">        :type restricted_status: str, optional</span>
+<span class="sd">        :param restricted_status: The restriction status</span>
+<span class="sd">        :type alternate_code: str, optional</span>
+<span class="sd">        :param alternate_code: A code used for display or association,</span>
+<span class="sd">            alternate to the SEED-compliant code.</span>
+<span class="sd">        :type historical_code: str, optional</span>
+<span class="sd">        :param historical_code: A previously used code if different from the</span>
+<span class="sd">            current code.</span>
+<span class="sd">        :type data_availability: :class:`~obspy.station.util.DataAvailability`</span>
+<span class="sd">        :param data_availability: Information about time series availability</span>
+<span class="sd">            for the network/station/channel.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">code</span> <span class="o">=</span> <span class="n">code</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comments</span> <span class="o">=</span> <span class="n">comments</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_date</span> <span class="o">=</span> <span class="n">start_date</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span> <span class="o">=</span> <span class="n">end_date</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">restricted_status</span> <span class="o">=</span> <span class="n">restricted_status</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alternate_code</span> <span class="o">=</span> <span class="n">alternate_code</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">historical_code</span> <span class="o">=</span> <span class="n">historical_code</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_availability</span> <span class="o">=</span> <span class="n">data_availability</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code</span>
+
+    <span class="nd">@code</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;A Code is required&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_code</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">alternate_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        From the StationXML definition:</span>
+<span class="sd">            A code used for display or association, alternate to the</span>
+<span class="sd">            SEED-compliant code.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_alternate_code</span>
+
+    <span class="nd">@alternate_code</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">alternate_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_alternate_code</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_alternate_code</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">historical_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        From the StationXML definition:</span>
+<span class="sd">            A previously used code if different from the current code.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_historical_code</span>
+
+    <span class="nd">@historical_code</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">historical_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_historical_code</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_historical_code</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="BaseNode.copy"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.BaseNode.copy.html#obspy.core.inventory.channel.BaseNode.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a deepcopy of the object.</span>
+
+<span class="sd">        :rtype: same class as original object</span>
+<span class="sd">        :return: Copy of current object.</span>
+
+<span class="sd">        .. rubric:: Examples</span>
+
+<span class="sd">        1. Create a station object and copy it</span>
+
+<span class="sd">            &gt;&gt;&gt; from obspy import read_inventory</span>
+<span class="sd">            &gt;&gt;&gt; sta = read_inventory()[0][0]</span>
+<span class="sd">            &gt;&gt;&gt; sta2 = sta.copy()</span>
+
+<span class="sd">           The two objects are not the same:</span>
+
+<span class="sd">            &gt;&gt;&gt; sta is sta2</span>
+<span class="sd">            False</span>
+
+<span class="sd">           But they have equal data (before applying further processing):</span>
+
+<span class="sd">            &gt;&gt;&gt; sta == sta2</span>
+<span class="sd">            True</span>
+
+<span class="sd">        2. The following example shows how to make an alias but not copy the</span>
+<span class="sd">           data. Any changes on ``st3`` would also change the contents of</span>
+<span class="sd">           ``st``.</span>
+
+<span class="sd">            &gt;&gt;&gt; sta3 = sta</span>
+<span class="sd">            &gt;&gt;&gt; sta is sta3</span>
+<span class="sd">            True</span>
+<span class="sd">            &gt;&gt;&gt; sta == sta3</span>
+<span class="sd">            True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseNode.is_active"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.BaseNode.is_active.html#obspy.core.inventory.channel.BaseNode.is_active">[docs]</a>    <span class="k">def</span> <span class="nf">is_active</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">starttime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if the item was active at some given point in time (`time`)</span>
+<span class="sd">        and/or if it was active at some point during a certain time range</span>
+<span class="sd">        (`starttime`, `endtime`).</span>
+
+<span class="sd">        .. note::</span>
+<span class="sd">            If none of the time constraints is specified the result will always</span>
+<span class="sd">            be `True`.</span>
+
+<span class="sd">        :type time: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param time: Only include networks/stations/channels active at given</span>
+<span class="sd">            point in time.</span>
+<span class="sd">        :type starttime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param starttime: Only include networks/stations/channels active at or</span>
+<span class="sd">            after given point in time (i.e. channels ending before given time</span>
+<span class="sd">            will not be shown).</span>
+<span class="sd">        :type endtime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param endtime: Only include networks/stations/channels active before</span>
+<span class="sd">            or at given point in time (i.e. channels starting after given time</span>
+<span class="sd">            will not be shown).</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        :returns: `True`/`False` depending on whether the item matches the</span>
+<span class="sd">            specified time criteria.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_date</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">time</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">time</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">starttime</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">starttime</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_date</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">endtime</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_date</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">endtime</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_date</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div></div>
+
+
+<div class="viewcode-block" id="DataAvailability"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.DataAvailability.html#obspy.core.inventory.channel.DataAvailability">[docs]</a><span class="k">class</span> <span class="nc">DataAvailability</span><span class="p">(</span><span class="n">ComparingObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A description of time series data availability. This information should</span>
+<span class="sd">    be considered transient and is primarily useful as a guide for</span>
+<span class="sd">    generating time series data requests. The information for a</span>
+<span class="sd">    DataAvailability (time) span may be specific to the time range used in a</span>
+<span class="sd">    request that resulted in the document or limited to the availability of</span>
+<span class="sd">    data within the request range. These details may or may not be</span>
+<span class="sd">    retained when synchronizing metadata between data centers.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="DataAvailability.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.DataAvailability.__init__.html#obspy.core.inventory.channel.DataAvailability.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">end</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DataAvailability.__str__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.DataAvailability.__str__.html#obspy.core.inventory.channel.DataAvailability.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;Data Availability from </span><span class="si">%s</span><span class="s2"> to </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">),</span>
+                                                     <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="DataAvailability._repr_pretty_"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.DataAvailability._repr_pretty_.html#obspy.core.inventory.channel.DataAvailability._repr_pretty_">[docs]</a>    <span class="k">def</span> <span class="nf">_repr_pretty_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cycle</span><span class="p">):</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="Equipment"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Equipment.html#obspy.core.inventory.channel.Equipment">[docs]</a><span class="k">class</span> <span class="nc">Equipment</span><span class="p">(</span><span class="n">ComparingObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An object containing a detailed description of an equipment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Equipment.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Equipment.__init__.html#obspy.core.inventory.channel.Equipment.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">manufacturer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">vendor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">serial_number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">installation_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">removal_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">calibration_dates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resource_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :type type: str</span>
+<span class="sd">        :param type: The equipment type</span>
+<span class="sd">        :type description: str</span>
+<span class="sd">        :param description: Description of the equipment</span>
+<span class="sd">        :type manufacturer: str</span>
+<span class="sd">        :param manufacturer: The manufacturer of the equipment</span>
+<span class="sd">        :type vendor: str</span>
+<span class="sd">        :param vendor: The vendor of the equipment</span>
+<span class="sd">        :type model: str</span>
+<span class="sd">        :param model: The model of the equipment</span>
+<span class="sd">        :type serial_number: str</span>
+<span class="sd">        :param serial_number: The serial number of the equipment</span>
+<span class="sd">        :type installation_date: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param installation_date: The installation date of the equipment</span>
+<span class="sd">        :type removal_date: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param removal_date: The removal data of the equipment</span>
+<span class="sd">        :type calibration_dates: list of</span>
+<span class="sd">            :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param calibration_dates: A list with all calibration dates of the</span>
+<span class="sd">            equipment.</span>
+<span class="sd">        :type resource_id: str</span>
+<span class="sd">        :param resource_id: This field contains a string that should serve as a</span>
+<span class="sd">            unique resource identifier. This identifier can be interpreted</span>
+<span class="sd">            differently depending on the data center/software that generated</span>
+<span class="sd">            the document. Also, we recommend to use something like</span>
+<span class="sd">            GENERATOR:Meaningful ID. As a common behavior equipment with the</span>
+<span class="sd">            same ID should contain the same information/be derived from the</span>
+<span class="sd">            same base instruments.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">manufacturer</span> <span class="o">=</span> <span class="n">manufacturer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vendor</span> <span class="o">=</span> <span class="n">vendor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">serial_number</span> <span class="o">=</span> <span class="n">serial_number</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">installation_date</span> <span class="o">=</span> <span class="n">installation_date</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">removal_date</span> <span class="o">=</span> <span class="n">removal_date</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calibration_dates</span> <span class="o">=</span> <span class="n">calibration_dates</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">resource_id</span>
+
+        <span class="nd">@property</span>
+        <span class="k">def</span> <span class="nf">installation_date</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_installation_date</span>
+
+        <span class="nd">@installation_date</span><span class="o">.</span><span class="n">setter</span>
+        <span class="k">def</span> <span class="nf">installation_date</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">UTCDateTime</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_installation_date</span> <span class="o">=</span> <span class="n">value</span>
+                <span class="k">return</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_installation_date</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="nd">@property</span>
+        <span class="k">def</span> <span class="nf">removal_date</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_removal_date</span>
+
+        <span class="nd">@removal_date</span><span class="o">.</span><span class="n">setter</span>
+        <span class="k">def</span> <span class="nf">removal_date</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">UTCDateTime</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_removal_date</span> <span class="o">=</span> <span class="n">value</span>
+                <span class="k">return</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_removal_date</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Equipment.__str__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Equipment.__str__.html#obspy.core.inventory.channel.Equipment.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Equipment:</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Type: </span><span class="si">{type}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Description: </span><span class="si">{description}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Manufacturer: </span><span class="si">{manufacturer}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Vendor: </span><span class="si">{vendor}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Model: </span><span class="si">{model}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Serial number: </span><span class="si">{serial_number}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Installation date: </span><span class="si">{installation_date}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Removal date: </span><span class="si">{removal_date}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Resource id: </span><span class="si">{resource_id}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Calibration Dates:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">calib_date</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">calibration_dates</span><span class="p">:</span>
+            <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\t\t</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">calib_date</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">ret</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret</span></div>
+
+<div class="viewcode-block" id="Equipment._repr_pretty_"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Equipment._repr_pretty_.html#obspy.core.inventory.channel.Equipment._repr_pretty_">[docs]</a>    <span class="k">def</span> <span class="nf">_repr_pretty_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cycle</span><span class="p">):</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="Operator"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Operator.html#obspy.core.inventory.channel.Operator">[docs]</a><span class="k">class</span> <span class="nc">Operator</span><span class="p">(</span><span class="n">ComparingObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An operating agency and associated contact persons. If there are multiple</span>
+<span class="sd">    operators, each one should be encapsulated within an Operator object. Since</span>
+<span class="sd">    the Contact element is a generic type that represents any contact person,</span>
+<span class="sd">    it also has its own optional Agency element.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Operator.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Operator.__init__.html#obspy.core.inventory.channel.Operator.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">agencies</span><span class="p">,</span> <span class="n">contacts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">website</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :type agencies: list of str</span>
+<span class="sd">        :param agencies: The agencies of the operator.</span>
+<span class="sd">        :type contacts: list of :class:`Person`, optional</span>
+<span class="sd">        :param contacts: One or more contact persons.</span>
+<span class="sd">        :type website: str, optional</span>
+<span class="sd">        :param website: The website.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">agencies</span> <span class="o">=</span> <span class="n">agencies</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">contacts</span> <span class="o">=</span> <span class="n">contacts</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">website</span> <span class="o">=</span> <span class="n">website</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">agencies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_agencies</span>
+
+    <span class="nd">@agencies</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">agencies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;__iter__&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;agencies needs to be iterable, e.g. a list, and contain &quot;</span>
+                   <span class="s2">&quot;at least one entry.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_agencies</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">contacts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contacts</span>
+
+    <span class="nd">@contacts</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">contacts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;__iter__&quot;</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;contacts needs to be iterable, e.g. a list.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_contacts</span> <span class="o">=</span> <span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="Person"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Person.html#obspy.core.inventory.channel.Person">[docs]</a><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">ComparingObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    From the StationXML definition:</span>
+<span class="sd">        Representation of a person&#39;s contact information. A person can belong</span>
+<span class="sd">        to multiple agencies and have multiple email addresses and phone</span>
+<span class="sd">        numbers.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">email_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;[\w\.\-_]+@[\w\.\-_]+&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Person.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Person.__init__.html#obspy.core.inventory.channel.Person.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">agencies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">emails</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">phones</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :type names: list of str, optional</span>
+<span class="sd">        :param names: Self-explanatory. Multiple names allowed.</span>
+<span class="sd">        :type agencies: list of str, optional</span>
+<span class="sd">        :param agencies: Self-explanatory. Multiple agencies allowed.</span>
+<span class="sd">        :type emails: list of str, optional</span>
+<span class="sd">        :param emails: Self-explanatory. Multiple emails allowed.</span>
+<span class="sd">        :type phones: list of :class:`PhoneNumber`, optional</span>
+<span class="sd">        :param phones: Self-explanatory. Multiple phone numbers allowed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="n">names</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">agencies</span> <span class="o">=</span> <span class="n">agencies</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">emails</span> <span class="o">=</span> <span class="n">emails</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">phones</span> <span class="o">=</span> <span class="n">phones</span> <span class="ow">or</span> <span class="p">[]</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_names</span>
+
+    <span class="nd">@names</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;__iter__&quot;</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;names needs to be iterable, e.g. a list.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_names</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">agencies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_agencies</span>
+
+    <span class="nd">@agencies</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">agencies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;__iter__&quot;</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;agencies needs to be iterable, e.g. a list.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_agencies</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">emails</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_emails</span>
+
+    <span class="nd">@emails</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">emails</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="s2">&quot;__iter__&quot;</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;emails needs to be iterable, e.g. a list.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">email_pattern</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;emails needs to match the pattern &quot;</span>
+                       <span class="s2">&quot;&#39;[\w\.\-_]+@[\w\.\-_]+&#39;&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_emails</span> <span class="o">=</span> <span class="n">values</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">phones</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_phones</span>
+
+    <span class="nd">@phones</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">phones</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="s2">&quot;__iter__&quot;</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;phones needs to be iterable, e.g. a list.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_phones</span> <span class="o">=</span> <span class="n">values</span></div>
+
+
+<div class="viewcode-block" id="PhoneNumber"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.PhoneNumber.html#obspy.core.inventory.channel.PhoneNumber">[docs]</a><span class="k">class</span> <span class="nc">PhoneNumber</span><span class="p">(</span><span class="n">ComparingObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A simple object representing a phone number.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">phone_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;^[0-9]+-[0-9]+$&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PhoneNumber.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.PhoneNumber.__init__.html#obspy.core.inventory.channel.PhoneNumber.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">area_code</span><span class="p">,</span> <span class="n">phone_number</span><span class="p">,</span> <span class="n">country_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :type area_code: int</span>
+<span class="sd">        :param area_code: The area code.</span>
+<span class="sd">        :type phone_number: str</span>
+<span class="sd">        :param phone_number: The phone number minus the country and area code.</span>
+<span class="sd">            Must be in the form &quot;[0-9]+-[0-9]+&quot;, e.g. 1234-5678.</span>
+<span class="sd">        :type country_code: int, optional</span>
+<span class="sd">        :param country_code: The country code.</span>
+<span class="sd">        :type description: str, optional</span>
+<span class="sd">        :param description: Any additional information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">country_code</span> <span class="o">=</span> <span class="n">country_code</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">area_code</span> <span class="o">=</span> <span class="n">area_code</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">phone_number</span> <span class="o">=</span> <span class="n">phone_number</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">phone_number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_phone_number</span>
+
+    <span class="nd">@phone_number</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">phone_number</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phone_pattern</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;phone_number needs to match the pattern &#39;[0-9]+-[0-9]+&#39;&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_phone_number</span> <span class="o">=</span> <span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="ExternalReference"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.ExternalReference.html#obspy.core.inventory.channel.ExternalReference">[docs]</a><span class="k">class</span> <span class="nc">ExternalReference</span><span class="p">(</span><span class="n">ComparingObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    From the StationXML definition:</span>
+<span class="sd">        This type contains a URI and description for external data that users</span>
+<span class="sd">        may want to reference in StationXML.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ExternalReference.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.ExternalReference.__init__.html#obspy.core.inventory.channel.ExternalReference.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">description</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :type uri: str</span>
+<span class="sd">        :param uri: The URI to the external data.</span>
+<span class="sd">        :type description: str</span>
+<span class="sd">        :param description: A description of the external data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uri</span> <span class="o">=</span> <span class="n">uri</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span></div></div>
+
+
+<div class="viewcode-block" id="Comment"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Comment.html#obspy.core.inventory.channel.Comment">[docs]</a><span class="k">class</span> <span class="nc">Comment</span><span class="p">(</span><span class="n">ComparingObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    From the StationXML definition:</span>
+<span class="sd">        Container for a comment or log entry. Corresponds to SEED blockettes</span>
+<span class="sd">        31, 51 and 59.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Comment.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Comment.__init__.html#obspy.core.inventory.channel.Comment.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">begin_effective_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">end_effective_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">authors</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :type value: str</span>
+<span class="sd">        :param value: The actual comment string</span>
+<span class="sd">        :type id: int</span>
+<span class="sd">        :param id: ID of comment, must be 0 or greater.</span>
+<span class="sd">        :type begin_effective_time:</span>
+<span class="sd">            :class:`~obspy.core.utcdatetime.UTCDateTime`, optional</span>
+<span class="sd">        :param begin_effective_time: The effective start date.</span>
+<span class="sd">        :type end_effective_time:</span>
+<span class="sd">            :class:`~obspy.core.utcdatetime.UTCDateTime`, optional</span>
+<span class="sd">        :param end_effective_time: The effective end date.</span>
+<span class="sd">        :type authors: list of :class:`Person`, optional</span>
+<span class="sd">        :param authors: The authors of this comment.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">begin_effective_time</span> <span class="o">=</span> <span class="n">begin_effective_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_effective_time</span> <span class="o">=</span> <span class="n">end_effective_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">authors</span> <span class="o">=</span> <span class="n">authors</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
+
+    <span class="nd">@id</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;ID must be 0 or positive integer.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span>
+
+    <span class="nd">@value</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">begin_effective_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_begin_effective_time</span>
+
+    <span class="nd">@begin_effective_time</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">begin_effective_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_begin_effective_time</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_begin_effective_time</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">end_effective_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_effective_time</span>
+
+    <span class="nd">@end_effective_time</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">end_effective_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_end_effective_time</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_end_effective_time</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">authors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authors</span>
+
+    <span class="nd">@authors</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">authors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="s2">&quot;__iter__&quot;</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;authors needs to be iterable, e.g. a list.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_authors</span> <span class="o">=</span> <span class="n">values</span></div>
+
+
+<div class="viewcode-block" id="Site"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Site.html#obspy.core.inventory.channel.Site">[docs]</a><span class="k">class</span> <span class="nc">Site</span><span class="p">(</span><span class="n">ComparingObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    From the StationXML definition:</span>
+<span class="sd">        Description of a site location using name and optional geopolitical</span>
+<span class="sd">        boundaries (country, city, etc.).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Site.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Site.__init__.html#obspy.core.inventory.channel.Site.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">town</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">county</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">country</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :type name: str</span>
+<span class="sd">        :param name: The commonly used name of this station, equivalent to the</span>
+<span class="sd">            SEED blockette 50, field 9.</span>
+<span class="sd">        :type description: str, optional</span>
+<span class="sd">        :param description: A longer description of the location of this</span>
+<span class="sd">            station, e.g.  &quot;NW corner of Yellowstone National Park&quot; or &quot;20</span>
+<span class="sd">            miles west of Highway 40.&quot;</span>
+<span class="sd">        :type town: str, optional</span>
+<span class="sd">        :param town: The town or city closest to the station.</span>
+<span class="sd">        :type county: str, optional</span>
+<span class="sd">        :param county: The county.</span>
+<span class="sd">        :type region: str, optional</span>
+<span class="sd">        :param region: The state, province, or region of this site.</span>
+<span class="sd">        :type country: str, optional</span>
+<span class="sd">        :param country: The country.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">town</span> <span class="o">=</span> <span class="n">town</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">county</span> <span class="o">=</span> <span class="n">county</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">region</span> <span class="o">=</span> <span class="n">region</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">country</span> <span class="o">=</span> <span class="n">country</span></div>
+
+<div class="viewcode-block" id="Site.__str__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Site.__str__.html#obspy.core.inventory.channel.Site.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Site: </span><span class="si">{name}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Description: </span><span class="si">{description}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Town:    </span><span class="si">{town}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">County:  </span><span class="si">{county}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Region:  </span><span class="si">{region}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Country: </span><span class="si">{country}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">ret</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+            <span class="n">town</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">town</span><span class="p">,</span> <span class="n">county</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">county</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">region</span><span class="p">,</span>
+            <span class="n">country</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">country</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret</span></div>
+
+<div class="viewcode-block" id="Site._repr_pretty_"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Site._repr_pretty_.html#obspy.core.inventory.channel.Site._repr_pretty_">[docs]</a>    <span class="k">def</span> <span class="nf">_repr_pretty_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cycle</span><span class="p">):</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="Latitude"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Latitude.html#obspy.core.inventory.channel.Latitude">[docs]</a><span class="k">class</span> <span class="nc">Latitude</span><span class="p">(</span><span class="n">FloatWithUncertaintiesFixedUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Latitude object</span>
+
+<span class="sd">    :type value: float</span>
+<span class="sd">    :param value: Latitude value</span>
+<span class="sd">    :type lower_uncertainty: float</span>
+<span class="sd">    :param lower_uncertainty: Lower uncertainty (aka minusError)</span>
+<span class="sd">    :type upper_uncertainty: float</span>
+<span class="sd">    :param upper_uncertainty: Upper uncertainty (aka plusError)</span>
+<span class="sd">    :type datum: str</span>
+<span class="sd">    :param datum: Datum for latitude coordinate</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_minimum</span> <span class="o">=</span> <span class="o">-</span><span class="mi">90</span>
+    <span class="n">_maximum</span> <span class="o">=</span> <span class="mi">90</span>
+    <span class="n">_unit</span> <span class="o">=</span> <span class="s2">&quot;DEGREES&quot;</span>
+
+<div class="viewcode-block" id="Latitude.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Latitude.__init__.html#obspy.core.inventory.channel.Latitude.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">lower_uncertainty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upper_uncertainty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">datum</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datum</span> <span class="o">=</span> <span class="n">datum</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Latitude</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">value</span><span class="p">,</span> <span class="n">lower_uncertainty</span><span class="o">=</span><span class="n">lower_uncertainty</span><span class="p">,</span>
+            <span class="n">upper_uncertainty</span><span class="o">=</span><span class="n">upper_uncertainty</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Longitude"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Longitude.html#obspy.core.inventory.channel.Longitude">[docs]</a><span class="k">class</span> <span class="nc">Longitude</span><span class="p">(</span><span class="n">FloatWithUncertaintiesFixedUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Longitude object</span>
+
+<span class="sd">    :type value: float</span>
+<span class="sd">    :param value: Longitude value</span>
+<span class="sd">    :type lower_uncertainty: float</span>
+<span class="sd">    :param lower_uncertainty: Lower uncertainty (aka minusError)</span>
+<span class="sd">    :type upper_uncertainty: float</span>
+<span class="sd">    :param upper_uncertainty: Upper uncertainty (aka plusError)</span>
+<span class="sd">    :type datum: str</span>
+<span class="sd">    :param datum: Datum for longitude coordinate</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_minimum</span> <span class="o">=</span> <span class="o">-</span><span class="mi">180</span>
+    <span class="n">_maximum</span> <span class="o">=</span> <span class="mi">180</span>
+    <span class="n">unit</span> <span class="o">=</span> <span class="s2">&quot;DEGREES&quot;</span>
+
+<div class="viewcode-block" id="Longitude.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Longitude.__init__.html#obspy.core.inventory.channel.Longitude.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">lower_uncertainty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upper_uncertainty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">datum</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datum</span> <span class="o">=</span> <span class="n">datum</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Longitude</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">value</span><span class="p">,</span> <span class="n">lower_uncertainty</span><span class="o">=</span><span class="n">lower_uncertainty</span><span class="p">,</span>
+            <span class="n">upper_uncertainty</span><span class="o">=</span><span class="n">upper_uncertainty</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Distance"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Distance.html#obspy.core.inventory.channel.Distance">[docs]</a><span class="k">class</span> <span class="nc">Distance</span><span class="p">(</span><span class="n">FloatWithUncertaintiesAndUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Distance object</span>
+
+<span class="sd">    :type value: float</span>
+<span class="sd">    :param value: Distance value</span>
+<span class="sd">    :type lower_uncertainty: float</span>
+<span class="sd">    :param lower_uncertainty: Lower uncertainty (aka minusError)</span>
+<span class="sd">    :type upper_uncertainty: float</span>
+<span class="sd">    :param upper_uncertainty: Upper uncertainty (aka plusError)</span>
+<span class="sd">    :type unit: str</span>
+<span class="sd">    :param unit: Unit for distance measure.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Distance.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Distance.__init__.html#obspy.core.inventory.channel.Distance.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">lower_uncertainty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upper_uncertainty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;METERS&quot;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Distance</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">value</span><span class="p">,</span> <span class="n">lower_uncertainty</span><span class="o">=</span><span class="n">lower_uncertainty</span><span class="p">,</span>
+            <span class="n">upper_uncertainty</span><span class="o">=</span><span class="n">upper_uncertainty</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_unit</span> <span class="o">=</span> <span class="n">unit</span></div></div>
+
+
+<div class="viewcode-block" id="Azimuth"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Azimuth.html#obspy.core.inventory.channel.Azimuth">[docs]</a><span class="k">class</span> <span class="nc">Azimuth</span><span class="p">(</span><span class="n">FloatWithUncertaintiesFixedUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Azimuth object</span>
+
+<span class="sd">    :type value: float</span>
+<span class="sd">    :param value: Azimuth value</span>
+<span class="sd">    :type lower_uncertainty: float</span>
+<span class="sd">    :param lower_uncertainty: Lower uncertainty (aka minusError)</span>
+<span class="sd">    :type upper_uncertainty: float</span>
+<span class="sd">    :param upper_uncertainty: Upper uncertainty (aka plusError)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_minimum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">_maximum</span> <span class="o">=</span> <span class="mi">360</span>
+    <span class="n">unit</span> <span class="o">=</span> <span class="s2">&quot;DEGREES&quot;</span></div>
+
+
+<div class="viewcode-block" id="Dip"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Dip.html#obspy.core.inventory.channel.Dip">[docs]</a><span class="k">class</span> <span class="nc">Dip</span><span class="p">(</span><span class="n">FloatWithUncertaintiesFixedUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dip object</span>
+
+<span class="sd">    :type value: float</span>
+<span class="sd">    :param value: Dip value</span>
+<span class="sd">    :type lower_uncertainty: float</span>
+<span class="sd">    :param lower_uncertainty: Lower uncertainty (aka minusError)</span>
+<span class="sd">    :type upper_uncertainty: float</span>
+<span class="sd">    :param upper_uncertainty: Upper uncertainty (aka plusError)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_minimum</span> <span class="o">=</span> <span class="o">-</span><span class="mi">90</span>
+    <span class="n">_maximum</span> <span class="o">=</span> <span class="mi">90</span>
+    <span class="n">unit</span> <span class="o">=</span> <span class="s2">&quot;DEGREES&quot;</span></div>
+
+
+<div class="viewcode-block" id="ClockDrift"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.ClockDrift.html#obspy.core.inventory.channel.ClockDrift">[docs]</a><span class="k">class</span> <span class="nc">ClockDrift</span><span class="p">(</span><span class="n">FloatWithUncertaintiesFixedUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ClockDrift object</span>
+
+<span class="sd">    :type value: float</span>
+<span class="sd">    :param value: ClockDrift value</span>
+<span class="sd">    :type lower_uncertainty: float</span>
+<span class="sd">    :param lower_uncertainty: Lower uncertainty (aka minusError)</span>
+<span class="sd">    :type upper_uncertainty: float</span>
+<span class="sd">    :param upper_uncertainty: Upper uncertainty (aka plusError)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_minimum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">unit</span> <span class="o">=</span> <span class="s2">&quot;SECONDS/SAMPLE&quot;</span></div>
+
+
+<div class="viewcode-block" id="SampleRate"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.SampleRate.html#obspy.core.inventory.channel.SampleRate">[docs]</a><span class="k">class</span> <span class="nc">SampleRate</span><span class="p">(</span><span class="n">FloatWithUncertaintiesFixedUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    SampleRate object</span>
+
+<span class="sd">    :type value: float</span>
+<span class="sd">    :param value: ClockDrift value</span>
+<span class="sd">    :type lower_uncertainty: float</span>
+<span class="sd">    :param lower_uncertainty: Lower uncertainty (aka minusError)</span>
+<span class="sd">    :type upper_uncertainty: float</span>
+<span class="sd">    :param upper_uncertainty: Upper uncertainty (aka plusError)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">unit</span> <span class="o">=</span> <span class="s2">&quot;SAMPLES/S&quot;</span></div>
+
+
+<div class="viewcode-block" id="Frequency"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Frequency.html#obspy.core.inventory.channel.Frequency">[docs]</a><span class="k">class</span> <span class="nc">Frequency</span><span class="p">(</span><span class="n">FloatWithUncertaintiesFixedUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Frequency object</span>
+
+<span class="sd">    :type value: float</span>
+<span class="sd">    :param value: Frequency value</span>
+<span class="sd">    :type lower_uncertainty: float</span>
+<span class="sd">    :param lower_uncertainty: Lower uncertainty (aka minusError)</span>
+<span class="sd">    :type upper_uncertainty: float</span>
+<span class="sd">    :param upper_uncertainty: Upper uncertainty (aka plusError)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">unit</span> <span class="o">=</span> <span class="s2">&quot;HERTZ&quot;</span></div>
+
+
+<div class="viewcode-block" id="Angle"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.util.Angle.html#obspy.core.inventory.channel.Angle">[docs]</a><span class="k">class</span> <span class="nc">Angle</span><span class="p">(</span><span class="n">FloatWithUncertaintiesFixedUnit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Angle object</span>
+
+<span class="sd">    :type value: float</span>
+<span class="sd">    :param value: Angle value</span>
+<span class="sd">    :type lower_uncertainty: float</span>
+<span class="sd">    :param lower_uncertainty: Lower uncertainty (aka minusError)</span>
+<span class="sd">    :type upper_uncertainty: float</span>
+<span class="sd">    :param upper_uncertainty: Upper uncertainty (aka plusError)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_minimum</span> <span class="o">=</span> <span class="o">-</span><span class="mi">360</span>
+    <span class="n">_maximum</span> <span class="o">=</span> <span class="mi">360</span>
+    <span class="n">unit</span> <span class="o">=</span> <span class="s2">&quot;DEGREES&quot;</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

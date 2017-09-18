@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.clients.seedlink.easyseedlink &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.clients.seedlink.easyseedlink</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">A simplified interface to the obspy.clients.seedlink module.</span>
+
+<span class="sd">The :class:`~.EasySeedLinkClient` class contained in this module provides a</span>
+<span class="sd">more pythonic interface to the :mod:`obspy.clients.seedlink` module with a</span>
+<span class="sd">focus on ease of use, while minimizing unnecessary exposure of the protocol</span>
+<span class="sd">specifics.</span>
+
+<span class="sd">A client object can easily be created using the :func:`~.create_client`</span>
+<span class="sd">function, e.g. by providing a function to handle incoming data and a server</span>
+<span class="sd">URL:</span>
+
+<span class="sd">.. code-block:: python</span>
+
+<span class="sd">    from obspy.clients.seedlink.easyseedlink import create_client</span>
+
+<span class="sd">    # A function to handle incoming data</span>
+<span class="sd">    def handle_data(trace):</span>
+<span class="sd">        print(&#39;Received the following trace:&#39;)</span>
+<span class="sd">        print(trace)</span>
+<span class="sd">        print()</span>
+
+<span class="sd">    # Create the client and pass the function as a callback</span>
+<span class="sd">    client = create_client(&#39;geofon.gfz-potsdam.de&#39;, on_data=handle_data)</span>
+<span class="sd">    client.select_stream(&#39;BW&#39;, &#39;MANZ&#39;, &#39;EHZ&#39;)</span>
+<span class="sd">    client.run()</span>
+
+<span class="sd">For advanced applications, subclassing the :class:`~.EasySeedLinkClient` class</span>
+<span class="sd">allows for more flexibility. See the :class:`~.EasySeedLinkClient`</span>
+<span class="sd">documentation for an example.</span>
+
+<span class="sd">.. note::</span>
+
+<span class="sd">    For finer grained control of the SeedLink connection (e.g. custom</span>
+<span class="sd">    processing of individual SeedLink packets), using</span>
+<span class="sd">    :class:`~obspy.clients.seedlink.client.seedlinkconnection.SeedLinkConnection`</span>
+<span class="sd">    or :class:`~obspy.clients.seedlink.slclient.SLClient` directly might be the</span>
+<span class="sd">    preferred option.</span>
+
+<span class="sd">.. rubric:: Limitations</span>
+
+<span class="sd">As of now, single station mode is not supported. Neither are in-stream ``INFO``</span>
+<span class="sd">requests.</span>
+
+<span class="sd">The client is using the</span>
+<span class="sd">:class:`~obspy.clients.seedlink.client.seedlinkconnection.SeedLinkConnection`</span>
+<span class="sd">class and hence inherits all of its limitations. For example, erroneous packets</span>
+<span class="sd">are only logged, but otherwise ignored, with no possibility of handling them</span>
+<span class="sd">explicitly. Keepalive handling is completely encapsulated inside the</span>
+<span class="sd">connection object and cannot be easily influenced. Also, a ``HELLO`` is always</span>
+<span class="sd">sent to the server when connecting in order to determine the SeedLink protocol</span>
+<span class="sd">version.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+<span class="kn">from</span> <span class="nn">future.utils</span> <span class="k">import</span> <span class="n">native_str</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">urlparse</span> <span class="k">import</span> <span class="n">urlparse</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="k">import</span> <span class="n">urlparse</span>
+
+<span class="kn">import</span> <span class="nn">lxml</span>
+
+<span class="kn">from</span> <span class="nn">.client.seedlinkconnection</span> <span class="k">import</span> <span class="n">SeedLinkConnection</span>
+<span class="kn">from</span> <span class="nn">.client.slstate</span> <span class="k">import</span> <span class="n">SLState</span>
+<span class="kn">from</span> <span class="nn">.slpacket</span> <span class="k">import</span> <span class="n">SLPacket</span>
+
+
+<div class="viewcode-block" id="EasySeedLinkClientException"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.easyseedlink.EasySeedLinkClientException.html#obspy.clients.seedlink.easyseedlink.EasySeedLinkClientException">[docs]</a><span class="k">class</span> <span class="nc">EasySeedLinkClientException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A base exception for all errors triggered explicitly by EasySeedLinkClient.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># XXX Base on SeedLinkException?</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="EasySeedLinkClient"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.html#obspy.clients.seedlink.easyseedlink.EasySeedLinkClient">[docs]</a><span class="k">class</span> <span class="nc">EasySeedLinkClient</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An easy-to-use SeedLink client.</span>
+
+<span class="sd">    This class is meant to be used as a base class, with a subclass</span>
+<span class="sd">    implementing one or more of the callbacks (most usefully the</span>
+<span class="sd">    :meth:`~.EasySeedLinkClient.on_data` callback). See the :ref:`ObsPy</span>
+<span class="sd">    Tutorial &lt;seedlink-tutorial&gt;` for a detailed example.</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        # Subclass the client class</span>
+<span class="sd">        class MyClient(EasySeedLinkClient):</span>
+<span class="sd">            # Implement the on_data callback</span>
+<span class="sd">            def on_data(self, trace):</span>
+<span class="sd">                print(&#39;Received trace:&#39;)</span>
+<span class="sd">                print(trace)</span>
+
+<span class="sd">        # Connect to a SeedLink server</span>
+<span class="sd">        client = MyClient(&#39;geofon.gfz-potsdam.de:18000&#39;)</span>
+
+<span class="sd">        # Retrieve INFO:STREAMS</span>
+<span class="sd">        streams_xml = client.get_info(&#39;STREAMS&#39;)</span>
+<span class="sd">        print(streams_xml)</span>
+
+<span class="sd">        # Select a stream and start receiving data</span>
+<span class="sd">        client.select_stream(&#39;BW&#39;, &#39;RJOB&#39;, &#39;EHZ&#39;)</span>
+<span class="sd">        client.run()</span>
+
+<span class="sd">    .. rubric:: Implementation</span>
+
+<span class="sd">    The EasySeedLinkClient uses the</span>
+<span class="sd">    :class:`~obspy.clients.seedlink.client.seedlinkconnection.SeedLinkConnection`</span>
+<span class="sd">    object. (It is not based on</span>
+<span class="sd">    :class:`~obspy.clients.seedlink.slclient.SLClient`.)</span>
+
+<span class="sd">    :type server_url: str</span>
+<span class="sd">    :param server_url: The SeedLink server URL</span>
+<span class="sd">    :type autoconnect: bool</span>
+<span class="sd">    :param autoconnect: Connect to the server when the client object is</span>
+<span class="sd">                        created; default is True.</span>
+
+<span class="sd">    .. warning::</span>
+
+<span class="sd">        The SeedLink connection only fails on connection errors if the</span>
+<span class="sd">        connection was started explicitly, either when ``autoconnect`` is</span>
+<span class="sd">        ``True`` or by calling :meth:`~.EasySeedLinkClient.connect` explicitly.</span>
+<span class="sd">        Otherwise the client might get stuck in an infinite reconnect loop if</span>
+<span class="sd">        there are connection problems (e.g. connect, timeout, reconnect,</span>
+<span class="sd">        timeout, ...). This might be intended behavior in some situations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="EasySeedLinkClient.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.__init__.html#obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_url</span><span class="p">,</span> <span class="n">autoconnect</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="c1"># Catch invalid server_url parameters</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">server_url</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">native_str</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Expected string for SeedLink server URL&#39;</span><span class="p">)</span>
+        <span class="c1"># Allow for sloppy server URLs (e.g. &#39;geofon.gfz-potsdam.de:18000).</span>
+        <span class="c1"># (According to RFC 1808 the net_path segment needs to start with &#39;//&#39;</span>
+        <span class="c1"># and this is expected by the urlparse function, so it is silently</span>
+        <span class="c1"># added if it was omitted by the user.)</span>
+        <span class="k">if</span> <span class="s1">&#39;://&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">server_url</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">server_url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;//&#39;</span><span class="p">):</span>
+            <span class="n">server_url</span> <span class="o">=</span> <span class="s1">&#39;//&#39;</span> <span class="o">+</span> <span class="n">server_url</span>
+
+        <span class="n">parsed_url</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">server_url</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="s1">&#39;seedlink&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Check the provided scheme</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">parsed_url</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s1">&#39;seedlink&#39;</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Unsupported scheme </span><span class="si">%s</span><span class="s1"> (expected &quot;seedlink&quot;)&#39;</span> <span class="o">%</span> \
+                  <span class="n">parsed_url</span><span class="o">.</span><span class="n">scheme</span>
+            <span class="k">raise</span> <span class="n">EasySeedLinkClientException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">parsed_url</span><span class="o">.</span><span class="n">hostname</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;No host name provided&#39;</span>
+            <span class="k">raise</span> <span class="n">EasySeedLinkClientException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">server_hostname</span> <span class="o">=</span> <span class="n">parsed_url</span><span class="o">.</span><span class="n">hostname</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server_port</span> <span class="o">=</span> <span class="n">parsed_url</span><span class="o">.</span><span class="n">port</span> <span class="ow">or</span> <span class="mi">18000</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="o">=</span> <span class="n">SeedLinkConnection</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">set_sl_address</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">:</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span>
+                                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server_hostname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_port</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">autoconnect</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+
+        <span class="c1"># A flag to indicate if the client has entered streaming mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__streaming_started</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__capabilities</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="EasySeedLinkClient.connect"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.connect.html#obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connect to the SeedLink server.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># XXX Check if already connected?</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">SLState</span><span class="o">.</span><span class="n">SL_UP</span></div>
+
+<div class="viewcode-block" id="EasySeedLinkClient.get_info"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.get_info.html#obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.get_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Send a SeedLink ``INFO`` command and retrieve response.</span>
+
+<span class="sd">        Available info levels depend on the server implementation. Usually one</span>
+<span class="sd">        of ``ID``, ``CAPABILITIES``, ``STATIONS``, ``STREAMS``, ``GAPS``,</span>
+<span class="sd">        ``CONNNECTIONS``, ``ALL``.</span>
+
+<span class="sd">        As a convenience, the server&#39;s ``CAPABILITIES`` can be accessed through</span>
+<span class="sd">        the client&#39;s :attr:`~.EasySeedLinkClient.capabilities` attribute.</span>
+
+<span class="sd">        .. note::</span>
+
+<span class="sd">            This is a synchronous call. While the client waits for the</span>
+<span class="sd">            response, other packets the server might potentially send will</span>
+<span class="sd">            be disregarded.</span>
+
+<span class="sd">        :type level: str</span>
+<span class="sd">        :param level: The INFO level to retrieve (sent as ``INFO:LEVEL``)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__streaming_started</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Method not available after SeedLink connection has &#39;</span> <span class="o">+</span> \
+                  <span class="s1">&#39;entered streaming mode.&#39;</span>
+            <span class="k">raise</span> <span class="n">EasySeedLinkClientException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="c1"># Send the INFO request</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">request_info</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+
+        <span class="c1"># Wait for full response</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="n">SLPacket</span><span class="o">.</span><span class="n">SLTERMINATE</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;SeedLink connection terminated while expecting &#39;</span> <span class="o">+</span> \
+                      <span class="s1">&#39;INFO response&#39;</span>
+                <span class="k">raise</span> <span class="n">EasySeedLinkClientException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">data</span> <span class="o">==</span> <span class="n">SLPacket</span><span class="o">.</span><span class="n">SLERROR</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Unknown error occured while expecting INFO response&#39;</span>
+                <span class="k">raise</span> <span class="n">EasySeedLinkClientException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+            <span class="c1"># Wait for the terminated INFO response</span>
+            <span class="n">packet_type</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_type</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">packet_type</span> <span class="o">==</span> <span class="n">SLPacket</span><span class="o">.</span><span class="n">TYPE_SLINFT</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">get_info_string</span><span class="p">()</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">capabilities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The server&#39;s capabilities, parsed from ``INFO:CAPABILITIES`` (cached).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__capabilities</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__capabilities</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="n">capabilities_xml</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_info</span><span class="p">(</span><span class="s1">&#39;CAPABILITIES&#39;</span><span class="p">)</span>
+
+            <span class="c1"># The INFO response should be encoded in UTF-8. However, if the</span>
+            <span class="c1"># encoding is given in the XML header (e.g. by IRIS Ringserver),</span>
+            <span class="c1"># lxml accepts byte input only (and raises a ValueError otherwise.)</span>
+            <span class="c1">#</span>
+            <span class="c1"># Example XML header with encoding:</span>
+            <span class="c1">#     &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">root</span> <span class="o">=</span> <span class="n">lxml</span><span class="o">.</span><span class="n">etree</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">capabilities_xml</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">root</span> <span class="o">=</span> <span class="n">lxml</span><span class="o">.</span><span class="n">etree</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">capabilities_xml</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">))</span>
+
+            <span class="n">nodes</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;capability&#39;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__capabilities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__capabilities</span>
+
+<div class="viewcode-block" id="EasySeedLinkClient.has_capability"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.has_capability.html#obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.has_capability">[docs]</a>    <span class="k">def</span> <span class="nf">has_capability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capability</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if the SeedLink server has a certain capability.</span>
+
+<span class="sd">        The capabilities are fetched using an ``INFO:CAPABILITIES`` request.</span>
+
+<span class="sd">        :type capability: str</span>
+<span class="sd">        :param capability: The capability to check for</span>
+
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        :return: Whether the server has the given capability</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">capability</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">capabilities</span></div>
+
+<div class="viewcode-block" id="EasySeedLinkClient.has_info_capability"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.has_info_capability.html#obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.has_info_capability">[docs]</a>    <span class="k">def</span> <span class="nf">has_info_capability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capability</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A shortcut for checking for ``INFO`` capabilities.</span>
+
+<span class="sd">        Calling this is equivalent to calling</span>
+<span class="sd">        :meth:`~.EasySeedLinkClient.has_capability`</span>
+<span class="sd">        with ``&#39;info:&#39; + capability``.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            # Check if the server has the INFO:STREAMS capability</span>
+<span class="sd">            client.has_info_capability(&#39;STREAMS&#39;)</span>
+
+<span class="sd">        :type capability: str</span>
+<span class="sd">        :param capability: The ``INFO`` capability to check for</span>
+
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        :return: Whether the server has the given ``INFO`` capability</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_capability</span><span class="p">(</span><span class="s1">&#39;info:&#39;</span> <span class="o">+</span> <span class="n">capability</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="EasySeedLinkClient._send_and_recv"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.easyseedlink.EasySeedLinkClient._send_and_recv.html#obspy.clients.seedlink.easyseedlink.EasySeedLinkClient._send_and_recv">[docs]</a>    <span class="k">def</span> <span class="nf">_send_and_recv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bytes_</span><span class="p">,</span> <span class="n">stop_on</span><span class="o">=</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;END&#39;</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Send a command to the server and read the response.</span>
+
+<span class="sd">        The response is read until a packet is received that ends with one of</span>
+<span class="sd">        the provided stop words.</span>
+
+<span class="sd">        .. warning::</span>
+
+<span class="sd">            If the server doesn&#39;t send one of the stop words, this never</span>
+<span class="sd">            returns!</span>
+
+<span class="sd">        :type bytes_: str (Python 2) or bytes (Python 3)</span>
+<span class="sd">        :param bytes_: The bytes to send to the server</span>
+<span class="sd">        :type stop_on: list</span>
+<span class="sd">        :param stop_on: A list of strings that indicate the end of the server</span>
+<span class="sd">                        response.</span>
+
+<span class="sd">        :rtype: str (Python 2) or bytes (Python 3)</span>
+<span class="sd">        :return: The server&#39;s response</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bytes_</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">):</span>
+            <span class="n">bytes_</span> <span class="o">+=</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">stop_on</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="n">stop_on</span> <span class="o">=</span> <span class="p">[</span><span class="n">stop_on</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">stopword</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">stop_on</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">stopword</span><span class="p">)</span> <span class="o">==</span> <span class="nb">bytes</span><span class="p">:</span>
+                <span class="n">stop_on</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">stopword</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">bytes_</span><span class="p">)</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">()</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">bytes_read</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span>
+                <span class="n">SeedLinkConnection</span><span class="o">.</span><span class="n">DFT_READBUF_SIZE</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">bytes_read</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">response</span> <span class="o">+=</span> <span class="n">bytes_read</span>
+            <span class="k">for</span> <span class="n">stopword</span> <span class="ow">in</span> <span class="n">stop_on</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">stopword</span><span class="p">):</span>
+                    <span class="c1"># Collapse the bytearray</span>
+                    <span class="k">return</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">response</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="EasySeedLinkClient._get_cat"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.easyseedlink.EasySeedLinkClient._get_cat.html#obspy.clients.seedlink.easyseedlink.EasySeedLinkClient._get_cat">[docs]</a>    <span class="k">def</span> <span class="nf">_get_cat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Send the CAT command to a server and receive the answer.</span>
+
+<span class="sd">        This can potentially be used for older SeedLink servers that don&#39;t</span>
+<span class="sd">        support the ``INFO:STREAMS`` command yet.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Quick hack, but works so far</span>
+        <span class="n">ringserver_error</span> <span class="o">=</span> <span class="s1">&#39;CAT command not implemented</span><span class="se">\r\n</span><span class="s1">&#39;</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_and_recv</span><span class="p">(</span><span class="s1">&#39;CAT&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;END&#39;</span><span class="p">,</span> <span class="n">ringserver_error</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">response</span> <span class="o">==</span> <span class="n">ringserver_error</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">EasySeedLinkClientException</span><span class="p">(</span><span class="n">ringserver_error</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">response</span></div>
+
+<div class="viewcode-block" id="EasySeedLinkClient.select_stream"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.select_stream.html#obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.select_stream">[docs]</a>    <span class="k">def</span> <span class="nf">select_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net</span><span class="p">,</span> <span class="n">station</span><span class="p">,</span> <span class="n">selector</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Select a stream for data transfer.</span>
+
+<span class="sd">        This method can be called once or multiple times as needed. A</span>
+<span class="sd">        subsequent call to the :meth:`~.EasySeedLinkClient.run` method starts</span>
+<span class="sd">        the streaming process.</span>
+
+<span class="sd">        .. note::</span>
+<span class="sd">            Selecting a stream always puts the SeedLink connection in</span>
+<span class="sd">            *multi-station mode*, even if only a single stream is selected.</span>
+<span class="sd">            *Uni-station mode* is not supported.</span>
+
+<span class="sd">        :type net: str</span>
+<span class="sd">        :param net: The network id</span>
+<span class="sd">        :type station: str</span>
+<span class="sd">        :param station: The station id</span>
+<span class="sd">        :type selectors: str</span>
+<span class="sd">        :param selector: a valid SeedLink selector, e.g. ``EHZ`` or ``EH?``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_capability</span><span class="p">(</span><span class="s1">&#39;multistation&#39;</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;SeedLink server does not support multi-station mode&#39;</span>
+            <span class="k">raise</span> <span class="n">EasySeedLinkClientException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__streaming_started</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Adding streams is not supported after the SeedLink &#39;</span> <span class="o">+</span> \
+                  <span class="s1">&#39;connection has entered streaming mode.&#39;</span>
+            <span class="k">raise</span> <span class="n">EasySeedLinkClientException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">add_stream</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">station</span><span class="p">,</span> <span class="n">selector</span><span class="p">,</span> <span class="n">seqnum</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="EasySeedLinkClient.run"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.run.html#obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Start streaming data from the SeedLink server.</span>
+
+<span class="sd">        Streams need to be selected using</span>
+<span class="sd">        :meth:`~.EasySeedLinkClient.select_stream` before this is called.</span>
+
+<span class="sd">        This method enters an infinite loop, calling the client&#39;s callbacks</span>
+<span class="sd">        when events occur.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Note: This somewhat resembles the run() method in SLClient.</span>
+
+        <span class="c1"># Check if any streams have been specified (otherwise this will result</span>
+        <span class="c1"># in an infinite reconnect loop in the SeedLinkConnection)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">streams</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;No streams specified. Use select_stream() to select &#39;</span> <span class="o">+</span> \
+                  <span class="s1">&#39;a stream.&#39;</span>
+            <span class="k">raise</span> <span class="n">EasySeedLinkClientException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__streaming_started</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Start the collection loop</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="n">SLPacket</span><span class="o">.</span><span class="n">SLTERMINATE</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">on_terminate</span><span class="p">()</span>
+                <span class="k">break</span>
+            <span class="k">elif</span> <span class="n">data</span> <span class="o">==</span> <span class="n">SLPacket</span><span class="o">.</span><span class="n">SLERROR</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">on_seedlink_error</span><span class="p">()</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># At this point the received data should be a SeedLink packet</span>
+            <span class="c1"># XXX In SLClient there is a check for data == None, but I think</span>
+            <span class="c1">#     there is no way that self.conn.collect() can ever return None</span>
+            <span class="k">assert</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">SLPacket</span><span class="p">))</span>
+
+            <span class="n">packet_type</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_type</span><span class="p">()</span>
+
+            <span class="c1"># Ignore in-stream INFO packets (not supported)</span>
+            <span class="k">if</span> <span class="n">packet_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">SLPacket</span><span class="o">.</span><span class="n">TYPE_SLINF</span><span class="p">,</span> <span class="n">SLPacket</span><span class="o">.</span><span class="n">TYPE_SLINFT</span><span class="p">):</span>
+                <span class="c1"># The packet should be a data packet</span>
+                <span class="n">trace</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_trace</span><span class="p">()</span>
+                <span class="c1"># Pass the trace to the on_data callback</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">on_data</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="EasySeedLinkClient.close"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.close.html#obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Close the SeedLink connection.</span>
+
+<span class="sd">        .. note::</span>
+
+<span class="sd">            Closing  the connection is not threadsafe yet. Client code must</span>
+<span class="sd">            ensure that :meth:`~.EasySeedLinkClient.run` and</span>
+<span class="sd">            :meth:`SeedLinkConnection.terminate()</span>
+<span class="sd">            &lt;obspy.clients.seedlink.client.seedlinkconnection.SeedLinkConnection.terminate&gt;`</span>
+<span class="sd">            are not being called after the connection has been closed.</span>
+
+<span class="sd">            See the corresponding `GitHub issue</span>
+<span class="sd">            &lt;https://github.com/obspy/obspy/pull/876#issuecomment-60537414&gt;`_</span>
+<span class="sd">            for details.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="EasySeedLinkClient.on_terminate"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.on_terminate.html#obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.on_terminate">[docs]</a>    <span class="k">def</span> <span class="nf">on_terminate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Callback for handling connection termination.</span>
+
+<span class="sd">        A termination event can either be triggered by the SeedLink server</span>
+<span class="sd">        explicitly terminating the connection (by sending an ``END`` packet in</span>
+<span class="sd">        streaming mode) or by the</span>
+<span class="sd">        :meth:`~obspy.clients.seedlink.client.seedlinkconnection.SeedLinkConnection.terminate`</span>
+<span class="sd">        method of the</span>
+<span class="sd">        :class:`~obspy.clients.seedlink.client.seedlinkconnection.SeedLinkConnection`</span>
+<span class="sd">        object being called.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="EasySeedLinkClient.on_seedlink_error"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.on_seedlink_error.html#obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.on_seedlink_error">[docs]</a>    <span class="k">def</span> <span class="nf">on_seedlink_error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Callback for handling SeedLink errors.</span>
+
+<span class="sd">        This handler is called when an ``ERROR`` response is received. The</span>
+<span class="sd">        error generally corresponds to the last command that was sent to the</span>
+<span class="sd">        server. However, with the current implementation of the SeedLink</span>
+<span class="sd">        connection, no further information about the error is available.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="EasySeedLinkClient.on_data"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.on_data.html#obspy.clients.seedlink.easyseedlink.EasySeedLinkClient.on_data">[docs]</a>    <span class="k">def</span> <span class="nf">on_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trace</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Callback for handling the reception of waveform data.</span>
+
+<span class="sd">        Override this for data streaming.</span>
+
+<span class="sd">        :type trace: :class:`~obspy.core.trace.Trace`</span>
+<span class="sd">        :param trace: The trace received from the server</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="create_client"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.seedlink.easyseedlink.create_client.html#obspy.clients.seedlink.easyseedlink.create_client">[docs]</a><span class="k">def</span> <span class="nf">create_client</span><span class="p">(</span><span class="n">server_url</span><span class="p">,</span> <span class="n">on_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_seedlink_error</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                  <span class="n">on_terminate</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Quickly create an EasySeedLinkClient instance.</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy.clients.seedlink.easyseedlink import create_client</span>
+
+<span class="sd">        &gt;&gt;&gt; def handle_data(trace):</span>
+<span class="sd">        ...     print(&#39;Received new data:&#39;)</span>
+<span class="sd">        ...     print(trace)</span>
+<span class="sd">        ...     print()</span>
+<span class="sd">        ...</span>
+<span class="sd">        &gt;&gt;&gt; client = create_client(&#39;geofon.gfz-potsdam.de&#39;,</span>
+<span class="sd">        ...                        handle_data)  # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; client.select_stream(&#39;BW&#39;, &#39;MANZ&#39;, &#39;EHZ&#39;)  # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt; client.run()  # doctest: +SKIP</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        The methods passed to the :func:`create_client` function are not bound</span>
+<span class="sd">        to the client instance, i.e. they do not have access to the instance</span>
+<span class="sd">        via the ``self`` attribute. To get a bound method, the client class</span>
+<span class="sd">        can be subclassed and the method overridden.</span>
+
+<span class="sd">    :type server_url: str</span>
+<span class="sd">    :param server_url: The SeedLink server URL</span>
+<span class="sd">    :type on_data: function or callable</span>
+<span class="sd">    :param on_data: A function or callable that is called for every new trace</span>
+<span class="sd">                    received from the server; needs to accept one argument (the</span>
+<span class="sd">                    trace); default is ``None``</span>
+<span class="sd">    :type on_seedlink_error: function or callable</span>
+<span class="sd">    :param on_seedlink_error: A function or callable that is called when a</span>
+<span class="sd">                              SeedLink ERROR response is received (see the</span>
+<span class="sd">                              :meth:`~.EasySeedLinkClient.on_seedlink_error`</span>
+<span class="sd">                              method for details); default is ``None``</span>
+<span class="sd">    :type on_terminate: function or callable</span>
+<span class="sd">    :param on_terminate: A function or callable that is called when the</span>
+<span class="sd">                         connection is terminated (see the</span>
+<span class="sd">                         :meth:`~.EasySeedLinkClient.on_terminate`</span>
+<span class="sd">                         method for details); default is ``None``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">EasySeedLinkClient</span><span class="p">(</span><span class="n">server_url</span><span class="p">,</span> <span class="n">autoconnect</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">not_callable_error</span> <span class="o">=</span> <span class="s1">&#39;A callable must be passed to </span><span class="si">%s</span><span class="s1">&#39;</span>
+
+    <span class="k">if</span> <span class="n">on_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">on_data</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">EasySeedLinkClientException</span><span class="p">(</span><span class="n">not_callable_error</span> <span class="o">%</span> <span class="s1">&#39;on_data&#39;</span><span class="p">)</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">on_data</span> <span class="o">=</span> <span class="n">on_data</span>
+
+    <span class="k">if</span> <span class="n">on_seedlink_error</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">on_seedlink_error</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">EasySeedLinkClientException</span><span class="p">(</span><span class="n">not_callable_error</span> <span class="o">%</span>
+                                              <span class="s1">&#39;on_seedlink_error&#39;</span><span class="p">)</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">on_seedlink_error</span> <span class="o">=</span> <span class="n">on_seedlink_error</span>
+
+    <span class="k">if</span> <span class="n">on_terminate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">on_terminate</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">EasySeedLinkClientException</span><span class="p">(</span><span class="n">not_callable_error</span> <span class="o">%</span>
+                                              <span class="s1">&#39;on_terminate&#39;</span><span class="p">)</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">on_terminate</span> <span class="o">=</span> <span class="n">on_terminate</span>
+
+    <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">client</span></div>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

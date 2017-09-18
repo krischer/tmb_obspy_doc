@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.core.event.origin &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.core.event.origin</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">obspy.core.event.origin - The Origin class definition</span>
+<span class="sd">=====================================================</span>
+<span class="sd">This module provides a class hierarchy to consistently handle event metadata.</span>
+<span class="sd">This class hierarchy is closely modelled after the de-facto standard format</span>
+<span class="sd">`QuakeML &lt;https://quake.ethz.ch/quakeml/&gt;`_.</span>
+
+<span class="sd">.. note::</span>
+
+<span class="sd">    For handling additional information not covered by the QuakeML standard and</span>
+<span class="sd">    how to output it to QuakeML see the :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (http://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">UTCDateTime</span>
+<span class="kn">from</span> <span class="nn">obspy.core.event.base</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">_event_type_class_factory</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">,</span> <span class="n">CreationInfo</span><span class="p">,</span>
+    <span class="n">WaveformStreamID</span><span class="p">,</span> <span class="n">ConfidenceEllipsoid</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">obspy.core.event.header</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">EvaluationMode</span><span class="p">,</span> <span class="n">EvaluationStatus</span><span class="p">,</span> <span class="n">OriginDepthType</span><span class="p">,</span> <span class="n">OriginType</span><span class="p">,</span>
+    <span class="n">OriginUncertaintyDescription</span><span class="p">,</span> <span class="n">PickOnset</span><span class="p">,</span> <span class="n">PickPolarity</span><span class="p">,</span>
+    <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">)</span>
+
+
+<span class="n">__OriginUncertainty</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__OriginUncertainty&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;horizontal_uncertainty&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;min_horizontal_uncertainty&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;max_horizontal_uncertainty&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;azimuth_max_horizontal_uncertainty&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;confidence_ellipsoid&quot;</span><span class="p">,</span> <span class="n">ConfidenceEllipsoid</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;preferred_description&quot;</span><span class="p">,</span> <span class="n">OriginUncertaintyDescription</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;confidence_level&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)])</span>
+
+
+<div class="viewcode-block" id="OriginUncertainty"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.origin.OriginUncertainty.html#obspy.core.event.origin.OriginUncertainty">[docs]</a><span class="k">class</span> <span class="nc">OriginUncertainty</span><span class="p">(</span><span class="n">__OriginUncertainty</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class describes the location uncertainties of an origin.</span>
+
+<span class="sd">    The uncertainty can be described either as a simple circular horizontal</span>
+<span class="sd">    uncertainty, an uncertainty ellipse according to IMS1.0, or a confidence</span>
+<span class="sd">    ellipsoid. If multiple uncertainty models are given, the preferred variant</span>
+<span class="sd">    can be specified in the attribute ``preferred_description``.</span>
+
+<span class="sd">    :type horizontal_uncertainty: float, optional</span>
+<span class="sd">    :param horizontal_uncertainty: Circular confidence region, given by single</span>
+<span class="sd">        value of horizontal uncertainty. Unit: m</span>
+<span class="sd">    :type min_horizontal_uncertainty: float, optional</span>
+<span class="sd">    :param min_horizontal_uncertainty: Semi-minor axis of confidence ellipse.</span>
+<span class="sd">        Unit: m</span>
+<span class="sd">    :type max_horizontal_uncertainty: float, optional</span>
+<span class="sd">    :param max_horizontal_uncertainty: Semi-major axis of confidence ellipse.</span>
+<span class="sd">        Unit: m</span>
+<span class="sd">    :type azimuth_max_horizontal_uncertainty: float, optional</span>
+<span class="sd">    :param azimuth_max_horizontal_uncertainty: Azimuth of major axis of</span>
+<span class="sd">        confidence ellipse. Measured clockwise from South-North direction at</span>
+<span class="sd">        epicenter. Unit: deg</span>
+<span class="sd">    :type confidence_ellipsoid:</span>
+<span class="sd">        :class:`~obspy.core.event.base.ConfidenceEllipsoid`, optional</span>
+<span class="sd">    :param confidence_ellipsoid: Confidence ellipsoid</span>
+<span class="sd">    :type preferred_description: str, optional</span>
+<span class="sd">    :param preferred_description: Preferred uncertainty description.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.OriginUncertaintyDescription` for</span>
+<span class="sd">        allowed values.</span>
+<span class="sd">    :type confidence_level: float, optional</span>
+<span class="sd">    :param confidence_level: Confidence level of the uncertainty, given in</span>
+<span class="sd">        percent.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">__OriginQuality</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__OriginQuality&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;associated_phase_count&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;used_phase_count&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;associated_station_count&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;used_station_count&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;depth_phase_count&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;standard_error&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;azimuthal_gap&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;secondary_azimuthal_gap&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;ground_truth_level&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;minimum_distance&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;maximum_distance&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;median_distance&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)])</span>
+
+
+<div class="viewcode-block" id="OriginQuality"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.origin.OriginQuality.html#obspy.core.event.origin.OriginQuality">[docs]</a><span class="k">class</span> <span class="nc">OriginQuality</span><span class="p">(</span><span class="n">__OriginQuality</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This type contains various attributes commonly used to describe the quality</span>
+<span class="sd">    of an origin, e. g., errors, azimuthal coverage, etc. Origin objects have</span>
+<span class="sd">    an optional attribute of the type OriginQuality.</span>
+
+<span class="sd">    :type associated_phase_count: int, optional</span>
+<span class="sd">    :param associated_phase_count: Number of associated phases, regardless of</span>
+<span class="sd">        their use for origin computation.</span>
+<span class="sd">    :type used_phase_count: int, optional</span>
+<span class="sd">    :param used_phase_count: Number of defining phases, i. e., phase</span>
+<span class="sd">        observations that were actually used for computing the origin. Note</span>
+<span class="sd">        that there may be more than one defining phase per station.</span>
+<span class="sd">    :type associated_station_count: int, optional</span>
+<span class="sd">    :param associated_station_count: Number of stations at which the event was</span>
+<span class="sd">        observed.</span>
+<span class="sd">    :type used_station_count: int, optional</span>
+<span class="sd">    :param used_station_count: Number of stations from which data was used for</span>
+<span class="sd">        origin computation.</span>
+<span class="sd">    :type depth_phase_count: int, optional</span>
+<span class="sd">    :param depth_phase_count: Number of depth phases (typically pP, sometimes</span>
+<span class="sd">        sP) used in depth computation.</span>
+<span class="sd">    :type standard_error: float, optional</span>
+<span class="sd">    :param standard_error: RMS of the travel time residuals of the arrivals</span>
+<span class="sd">        used for the origin computation. Unit: s</span>
+<span class="sd">    :type azimuthal_gap: float, optional</span>
+<span class="sd">    :param azimuthal_gap: Largest azimuthal gap in station distribution as seen</span>
+<span class="sd">        from epicenter. For an illustration of azimuthal gap and secondary</span>
+<span class="sd">        azimuthal gap (see below), see Fig. 5 of Bond ́ar et al. (2004).</span>
+<span class="sd">        Unit: deg</span>
+<span class="sd">    :type secondary_azimuthal_gap: float, optional</span>
+<span class="sd">    :param secondary_azimuthal_gap: Secondary azimuthal gap in station</span>
+<span class="sd">        distribution, i. e., the largest azimuthal gap a station closes.</span>
+<span class="sd">        Unit: deg</span>
+<span class="sd">    :type ground_truth_level: str, optional</span>
+<span class="sd">    :param ground_truth_level: String describing ground-truth level, e. g. GT0,</span>
+<span class="sd">        GT5, etc.</span>
+<span class="sd">    :type minimum_distance: float, optional</span>
+<span class="sd">    :param minimum_distance: Epicentral distance of station closest to the</span>
+<span class="sd">        epicenter.  Unit: deg</span>
+<span class="sd">    :type maximum_distance: float, optional</span>
+<span class="sd">    :param maximum_distance: Epicentral distance of station farthest from the</span>
+<span class="sd">        epicenter.  Unit: deg</span>
+<span class="sd">    :type median_distance: float, optional</span>
+<span class="sd">    :param median_distance: Median epicentral distance of used stations.</span>
+<span class="sd">        Unit: deg</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">__Origin</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__Origin&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;resource_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">UTCDateTime</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;depth&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;depth_type&quot;</span><span class="p">,</span> <span class="n">OriginDepthType</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;time_fixed&quot;</span><span class="p">,</span> <span class="nb">bool</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;epicenter_fixed&quot;</span><span class="p">,</span> <span class="nb">bool</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;reference_system_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;method_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;earth_model_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;quality&quot;</span><span class="p">,</span> <span class="n">OriginQuality</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;origin_type&quot;</span><span class="p">,</span> <span class="n">OriginType</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;origin_uncertainty&quot;</span><span class="p">,</span> <span class="n">OriginUncertainty</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;region&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;evaluation_mode&quot;</span><span class="p">,</span> <span class="n">EvaluationMode</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;evaluation_status&quot;</span><span class="p">,</span> <span class="n">EvaluationStatus</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;creation_info&quot;</span><span class="p">,</span> <span class="n">CreationInfo</span><span class="p">)],</span>
+    <span class="n">class_contains</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">,</span> <span class="s2">&quot;arrivals&quot;</span><span class="p">,</span> <span class="s2">&quot;composite_times&quot;</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="Origin"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.origin.Origin.html#obspy.core.event.origin.Origin">[docs]</a><span class="k">class</span> <span class="nc">Origin</span><span class="p">(</span><span class="n">__Origin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class represents the focal time and geographical location of an</span>
+<span class="sd">    earthquake hypocenter, as well as additional meta-information. Origin can</span>
+<span class="sd">    have objects of type OriginUncertainty and Arrival as child elements.</span>
+
+<span class="sd">    :type resource_id: :class:`~obspy.core.event.base.ResourceIdentifier`</span>
+<span class="sd">    :param resource_id: Resource identifier of Origin.</span>
+<span class="sd">    :type force_resource_id: bool, optional</span>
+<span class="sd">    :param force_resource_id: If set to False, the automatic initialization of</span>
+<span class="sd">        `resource_id` attribute in case it is not specified will be skipped.</span>
+<span class="sd">    :type time: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :param time: Focal time.</span>
+<span class="sd">    :type time_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param time_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type longitude: float</span>
+<span class="sd">    :param longitude: Hypocenter longitude, with respect to the World Geodetic</span>
+<span class="sd">        System 1984 (WGS84) reference system. Unit: deg</span>
+<span class="sd">    :type longitude_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param longitude_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type latitude: float</span>
+<span class="sd">    :param latitude: Hypocenter latitude, with respect to the WGS84 reference</span>
+<span class="sd">        system. Unit: deg</span>
+<span class="sd">    :type latitude_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param latitude_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type depth: float, optional</span>
+<span class="sd">    :param depth: Depth of hypocenter with respect to the nominal sea level</span>
+<span class="sd">        given by the WGS84 geoid. Positive values indicate hypocenters below</span>
+<span class="sd">        sea level. For shallow hypocenters, the depth value can be negative.</span>
+<span class="sd">        Note: Other standards use different conventions for depth measurement.</span>
+<span class="sd">        As an example, GSE2.0, defines depth with respect to the local surface.</span>
+<span class="sd">        If event data is converted from other formats to QuakeML, depth values</span>
+<span class="sd">        may have to be modified accordingly. Unit: m</span>
+<span class="sd">    :type depth_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param depth_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type depth_type: str, optional</span>
+<span class="sd">    :param depth_type: Type of depth determination.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.OriginDepthType` for allowed</span>
+<span class="sd">        values.</span>
+<span class="sd">    :type time_fixed: bool, optional</span>
+<span class="sd">    :param time_fixed: True if focal time was kept fixed for computation of the</span>
+<span class="sd">        Origin.</span>
+<span class="sd">    :type epicenter_fixed: bool, optional</span>
+<span class="sd">    :param epicenter_fixed: True if epicenter was kept fixed for computation of</span>
+<span class="sd">        Origin.</span>
+<span class="sd">    :type reference_system_id:</span>
+<span class="sd">        :class:`~obspy.core.event.base.ResourceIdentifier`, optional</span>
+<span class="sd">    :param reference_system_id: Identifies the reference system used for</span>
+<span class="sd">        hypocenter determination. This is only necessary if a modified version</span>
+<span class="sd">        of the standard (with local extensions) is used that provides a</span>
+<span class="sd">        non-standard coordinate system.</span>
+<span class="sd">    :type method_id: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param method_id: Identifies the method used for locating the event.</span>
+<span class="sd">    :type earth_model_id: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param earth_model_id: Identifies the earth model used in method_id.</span>
+<span class="sd">    :type arrivals: list of :class:`~obspy.core.event.origin.Arrival`, optional</span>
+<span class="sd">    :param arrivals: List of arrivals associated with the origin.</span>
+<span class="sd">    :type composite_times: list of</span>
+<span class="sd">        :class:`~obspy.core.event.base.CompositeTime`, optional</span>
+<span class="sd">    :param composite_times: Supplementary information on time of rupture start.</span>
+<span class="sd">        Complex descriptions of focal times of historic events are possible,</span>
+<span class="sd">        see description of the CompositeTime type. Note that even if</span>
+<span class="sd">        compositeTime is used, the mandatory time attribute has to be set, too.</span>
+<span class="sd">        It has to be set to the single point in time (with uncertainties</span>
+<span class="sd">        allowed) that is most characteristic for the event.</span>
+<span class="sd">    :type quality: :class:`~obspy.core.event.origin.OriginQuality`, optional</span>
+<span class="sd">    :param quality: Additional parameters describing the quality of an Origin</span>
+<span class="sd">        determination.</span>
+<span class="sd">    :type origin_type: str, optional</span>
+<span class="sd">    :param origin_type: Describes the origin type.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.OriginType` for allowed values.</span>
+<span class="sd">    :type origin_uncertainty:</span>
+<span class="sd">        :class:`~obspy.core.event.origin.OriginUncertainty`, optional</span>
+<span class="sd">    :param origin_uncertainty: Describes the location uncertainties of an</span>
+<span class="sd">        origin.</span>
+<span class="sd">    :type region: str, optional</span>
+<span class="sd">    :param region: Can be used to describe the geographical region of the</span>
+<span class="sd">        epicenter location. Useful if an event has multiple origins from</span>
+<span class="sd">        different agencies, and these have different region designations. Note</span>
+<span class="sd">        that an event-wide region can be defined in the description attribute</span>
+<span class="sd">        of an Event object. The user has to take care that this information</span>
+<span class="sd">        corresponds to the region attribute of the preferred Origin.</span>
+<span class="sd">    :type evaluation_mode: str, optional</span>
+<span class="sd">    :param evaluation_mode: Evaluation mode of Origin.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.EvaluationMode` for allowed</span>
+<span class="sd">        values.</span>
+<span class="sd">    :type evaluation_status: str, optional</span>
+<span class="sd">    :param evaluation_status: Evaluation status of Origin.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.EvaluationStatus` for allowed</span>
+<span class="sd">        values.</span>
+<span class="sd">    :type comments: list of :class:`~obspy.core.event.base.Comment`, optional</span>
+<span class="sd">    :param comments: Additional comments.</span>
+<span class="sd">    :type creation_info: :class:`~obspy.core.event.base.CreationInfo`, optional</span>
+<span class="sd">    :param creation_info: Creation information used to describe author,</span>
+<span class="sd">        version, and creation time.</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    &gt;&gt;&gt; from obspy.core.event import Origin</span>
+<span class="sd">    &gt;&gt;&gt; origin = Origin()</span>
+<span class="sd">    &gt;&gt;&gt; origin.resource_id = &#39;smi:ch.ethz.sed/origin/37465&#39;</span>
+<span class="sd">    &gt;&gt;&gt; origin.time = UTCDateTime(0)</span>
+<span class="sd">    &gt;&gt;&gt; origin.latitude = 12</span>
+<span class="sd">    &gt;&gt;&gt; origin.latitude_errors.uncertainty = 0.01</span>
+<span class="sd">    &gt;&gt;&gt; origin.latitude_errors.confidence_level = 95.0</span>
+<span class="sd">    &gt;&gt;&gt; origin.longitude = 42</span>
+<span class="sd">    &gt;&gt;&gt; origin.depth_type = &#39;from location&#39;</span>
+<span class="sd">    &gt;&gt;&gt; print(origin)  # doctest: +NORMALIZE_WHITESPACE +ELLIPSIS</span>
+<span class="sd">    Origin</span>
+<span class="sd">        resource_id: ResourceIdentifier(id=&quot;smi:ch.ethz.sed/...&quot;)</span>
+<span class="sd">               time: UTCDateTime(1970, 1, 1, 0, 0)</span>
+<span class="sd">          longitude: 42.0</span>
+<span class="sd">           latitude: 12.0 [confidence_level=95.0, uncertainty=0.01]</span>
+<span class="sd">         depth_type: ...&#39;from location&#39;</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">__Pick</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__Pick&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;resource_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">UTCDateTime</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;waveform_id&quot;</span><span class="p">,</span> <span class="n">WaveformStreamID</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;filter_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;method_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;horizontal_slowness&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;backazimuth&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;slowness_method_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;onset&quot;</span><span class="p">,</span> <span class="n">PickOnset</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;phase_hint&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;polarity&quot;</span><span class="p">,</span> <span class="n">PickPolarity</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;evaluation_mode&quot;</span><span class="p">,</span> <span class="n">EvaluationMode</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;evaluation_status&quot;</span><span class="p">,</span> <span class="n">EvaluationStatus</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;creation_info&quot;</span><span class="p">,</span> <span class="n">CreationInfo</span><span class="p">)],</span>
+    <span class="n">class_contains</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="Pick"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.origin.Pick.html#obspy.core.event.origin.Pick">[docs]</a><span class="k">class</span> <span class="nc">Pick</span><span class="p">(</span><span class="n">__Pick</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A pick is the observation of an amplitude anomaly in a seismogram at a</span>
+<span class="sd">    specific point in time. It is not necessarily related to a seismic event.</span>
+
+<span class="sd">    :type resource_id: :class:`~obspy.core.event.base.ResourceIdentifier`</span>
+<span class="sd">    :param resource_id: Resource identifier of Pick.</span>
+<span class="sd">    :type force_resource_id: bool, optional</span>
+<span class="sd">    :param force_resource_id: If set to False, the automatic initialization of</span>
+<span class="sd">        `resource_id` attribute in case it is not specified will be skipped.</span>
+<span class="sd">    :type time: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :param time: Observed onset time of signal (“pick time”).</span>
+<span class="sd">    :type time_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param time_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type waveform_id: :class:`~obspy.core.event.base.WaveformStreamID`</span>
+<span class="sd">    :param waveform_id: Identifies the waveform stream.</span>
+<span class="sd">    :type filter_id: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param filter_id: Identifies the filter or filter setup used for filtering</span>
+<span class="sd">        the waveform stream referenced by waveform_id.</span>
+<span class="sd">    :type method_id: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param method_id: Identifies the picker that produced the pick. This can be</span>
+<span class="sd">        either a detection software program or a person.</span>
+<span class="sd">    :type horizontal_slowness: float, optional</span>
+<span class="sd">    :param horizontal_slowness: Observed horizontal slowness of the signal.</span>
+<span class="sd">        Most relevant in array measurements. Unit: s·deg^(−1)</span>
+<span class="sd">    :type horizontal_slowness_errors:</span>
+<span class="sd">        :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param horizontal_slowness_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type backazimuth: float, optional</span>
+<span class="sd">    :param backazimuth: Observed backazimuth of the signal. Most relevant in</span>
+<span class="sd">        array measurements. Unit: deg</span>
+<span class="sd">    :type backazimuth_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param backazimuth_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type slowness_method_id:</span>
+<span class="sd">        :class:`~obspy.core.event.base.ResourceIdentifier`, optional</span>
+<span class="sd">    :param slowness_method_id: Identifies the method that was used to determine</span>
+<span class="sd">        the slowness.</span>
+<span class="sd">    :type onset: str, optional</span>
+<span class="sd">    :param onset: Flag that roughly categorizes the sharpness of the onset.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.PickOnset` for allowed values.</span>
+<span class="sd">    :type phase_hint: str, optional</span>
+<span class="sd">    :param phase_hint: Tentative phase identification as specified by the</span>
+<span class="sd">        picker.</span>
+<span class="sd">    :type polarity: str, optional</span>
+<span class="sd">    :param polarity: Indicates the polarity of first motion, usually from</span>
+<span class="sd">        impulsive onsets.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.PickPolarity` for allowed values.</span>
+<span class="sd">    :type evaluation_mode: str, optional</span>
+<span class="sd">    :param evaluation_mode: Evaluation mode of Pick.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.EvaluationMode` for allowed</span>
+<span class="sd">        values.</span>
+<span class="sd">    :type evaluation_status: str, optional</span>
+<span class="sd">    :param evaluation_status: Evaluation status of Pick.</span>
+<span class="sd">        See :class:`~obspy.core.event.header.EvaluationStatus` for allowed</span>
+<span class="sd">        values.</span>
+<span class="sd">    :type comments: list of :class:`~obspy.core.event.base.Comment`, optional</span>
+<span class="sd">    :param comments: Additional comments.</span>
+<span class="sd">    :type creation_info: :class:`~obspy.core.event.base.CreationInfo`, optional</span>
+<span class="sd">    :param creation_info: CreationInfo for the Pick object.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="n">__Arrival</span> <span class="o">=</span> <span class="n">_event_type_class_factory</span><span class="p">(</span>
+    <span class="s2">&quot;__Arrival&quot;</span><span class="p">,</span>
+    <span class="n">class_attributes</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;resource_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;pick_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;phase&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;time_correction&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;azimuth&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;distance&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;takeoff_angle&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">ATTRIBUTE_HAS_ERRORS</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;time_residual&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;horizontal_slowness_residual&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;backazimuth_residual&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;time_weight&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;horizontal_slowness_weight&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;backazimuth_weight&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;earth_model_id&quot;</span><span class="p">,</span> <span class="n">ResourceIdentifier</span><span class="p">),</span>
+                      <span class="p">(</span><span class="s2">&quot;creation_info&quot;</span><span class="p">,</span> <span class="n">CreationInfo</span><span class="p">)],</span>
+    <span class="n">class_contains</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="Arrival"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.event.origin.Arrival.html#obspy.core.event.origin.Arrival">[docs]</a><span class="k">class</span> <span class="nc">Arrival</span><span class="p">(</span><span class="n">__Arrival</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Successful association of a pick with an origin qualifies this pick as an</span>
+<span class="sd">    arrival. An arrival thus connects a pick with an origin and provides</span>
+<span class="sd">    additional attributes that describe this relationship. Usually</span>
+<span class="sd">    qualification of a pick as an arrival for a given origin is a hypothesis,</span>
+<span class="sd">    which is based on assumptions about the type of arrival (phase) as well as</span>
+<span class="sd">    observed and (on the basis of an earth model) computed arrival times, or</span>
+<span class="sd">    the residual, respectively. Additional pick attributes like the horizontal</span>
+<span class="sd">    slowness and backazimuth of the observed wave—especially if derived from</span>
+<span class="sd">    array data—may further constrain the nature of the arrival.</span>
+
+<span class="sd">    :type resource_id: :class:`~obspy.core.event.base.ResourceIdentifier`</span>
+<span class="sd">    :param resource_id: Resource identifier of Arrival.</span>
+<span class="sd">    :type force_resource_id: bool, optional</span>
+<span class="sd">    :param force_resource_id: If set to False, the automatic initialization of</span>
+<span class="sd">        `resource_id` attribute in case it is not specified will be skipped.</span>
+<span class="sd">    :type pick_id: :class:`~obspy.core.event.base.ResourceIdentifier`</span>
+<span class="sd">    :param pick_id: Refers to the resource_id of a Pick.</span>
+<span class="sd">    :type phase: str</span>
+<span class="sd">    :param phase: Phase identification. For possible values, please refer to</span>
+<span class="sd">        the description of the Phase object.</span>
+<span class="sd">    :type time_correction: float, optional</span>
+<span class="sd">    :param time_correction: Time correction value. Usually, a value</span>
+<span class="sd">        characteristic for the station at which the pick was detected,</span>
+<span class="sd">        sometimes also characteristic for the phase type or the slowness.</span>
+<span class="sd">        Unit: s</span>
+<span class="sd">    :type azimuth: float, optional</span>
+<span class="sd">    :param azimuth: Azimuth of station as seen from the epicenter. Unit: deg</span>
+<span class="sd">    :type distance: float, optional</span>
+<span class="sd">    :param distance: Epicentral distance. Unit: deg</span>
+<span class="sd">    :type takeoff_angle: float, optional</span>
+<span class="sd">    :param takeoff_angle: Angle of emerging ray at the source, measured against</span>
+<span class="sd">        the downward normal direction. Unit: deg</span>
+<span class="sd">    :type takeoff_angle_errors: :class:`~obspy.core.event.base.QuantityError`</span>
+<span class="sd">    :param takeoff_angle_errors: AttribDict containing error quantities.</span>
+<span class="sd">    :type time_residual: float, optional</span>
+<span class="sd">    :param time_residual: Residual between observed and expected arrival time</span>
+<span class="sd">        assuming proper phase identification and given the earth_model_ID of</span>
+<span class="sd">        the Origin, taking into account the time_correction. Unit: s</span>
+<span class="sd">    :type horizontal_slowness_residual: float, optional</span>
+<span class="sd">    :param horizontal_slowness_residual: Residual of horizontal slowness and</span>
+<span class="sd">        the expected slowness given the current origin (refers to attribute</span>
+<span class="sd">        horizontal_slowness of class Pick).</span>
+<span class="sd">    :type backazimuth_residual: float, optional</span>
+<span class="sd">    :param backazimuth_residual: Residual of backazimuth and the backazimuth</span>
+<span class="sd">        computed for the current origin (refers to attribute backazimuth of</span>
+<span class="sd">        class Pick).</span>
+<span class="sd">    :type time_weight: float, optional</span>
+<span class="sd">    :param time_weight: Weight of the arrival time for computation of the</span>
+<span class="sd">        associated Origin. Note that the sum of all weights is not required to</span>
+<span class="sd">        be unity.</span>
+<span class="sd">    :type horizontal_slowness_weight: float, optional</span>
+<span class="sd">    :param horizontal_slowness_weight: Weight of the horizontal slowness for</span>
+<span class="sd">        computation of the associated Origin. Note that the sum of all weights</span>
+<span class="sd">        is not required to be unity.</span>
+<span class="sd">    :type backazimuth_weight: float, optional</span>
+<span class="sd">    :param backazimuth_weight: Weight of the backazimuth for computation of the</span>
+<span class="sd">        associated Origin. Note that the sum of all weights is not required to</span>
+<span class="sd">        be unity.</span>
+<span class="sd">    :type earth_model_id: :class:`~obspy.core.event.base.ResourceIdentifier`,</span>
+<span class="sd">        optional</span>
+<span class="sd">    :param earth_model_id: Earth model which is used for the association of</span>
+<span class="sd">        Arrival to Pick and computation of the residuals.</span>
+<span class="sd">    :type comments: list of :class:`~obspy.core.event.base.Comment`, optional</span>
+<span class="sd">    :param comments: Additional comments.</span>
+<span class="sd">    :type creation_info: :class:`~obspy.core.event.base.CreationInfo`, optional</span>
+<span class="sd">    :param creation_info: CreationInfo for the Arrival object.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For handling additional information not covered by the QuakeML</span>
+<span class="sd">        standard and how to output it to QuakeML see the</span>
+<span class="sd">        :ref:`ObsPy Tutorial &lt;quakeml-extra&gt;`.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

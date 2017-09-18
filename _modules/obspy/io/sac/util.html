@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.io.sac.util &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.io.sac.util</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">SAC module helper functions and data.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">UTCDateTime</span>
+<span class="kn">from</span> <span class="nn">obspy.core</span> <span class="k">import</span> <span class="n">Stats</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">header</span> <span class="k">as</span> <span class="n">HD</span>  <span class="c1"># noqa</span>
+
+<span class="c1"># ------------- DATA ----------------------------------------------------------</span>
+<span class="n">TWO_DIGIT_YEAR_MSG</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;SAC file with 2-digit year header field encountered. &quot;</span>
+                      <span class="s2">&quot;This is not supported by the SAC file format standard. &quot;</span>
+                      <span class="s2">&quot;Prepending &#39;19&#39;.&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># ------------- SAC-SPECIFIC EXCEPTIONS ---------------------------------------</span>
+<div class="viewcode-block" id="SacError"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.sac.util.SacError.html#obspy.io.sac.util.SacError">[docs]</a><span class="k">class</span> <span class="nc">SacError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Raised if the SAC file is corrupt or if necessary information</span>
+<span class="sd">    in the SAC file is missing.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="SacIOError"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.sac.util.SacIOError.html#obspy.io.sac.util.SacIOError">[docs]</a><span class="k">class</span> <span class="nc">SacIOError</span><span class="p">(</span><span class="n">SacError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Raised if the given SAC file can&#39;t be read.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="SacInvalidContentError"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.sac.util.SacInvalidContentError.html#obspy.io.sac.util.SacInvalidContentError">[docs]</a><span class="k">class</span> <span class="nc">SacInvalidContentError</span><span class="p">(</span><span class="n">SacError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Raised if headers and/or data are not valid.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="SacHeaderError"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.sac.util.SacHeaderError.html#obspy.io.sac.util.SacHeaderError">[docs]</a><span class="k">class</span> <span class="nc">SacHeaderError</span><span class="p">(</span><span class="n">SacError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Raised if header has issues.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="SacHeaderTimeError"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.sac.util.SacHeaderTimeError.html#obspy.io.sac.util.SacHeaderTimeError">[docs]</a><span class="k">class</span> <span class="nc">SacHeaderTimeError</span><span class="p">(</span><span class="n">SacHeaderError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Raised if header has invalid &quot;nz&quot; times.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<span class="c1"># ------------- VALIDITY CHECKS -----------------------------------------------</span>
+<div class="viewcode-block" id="is_valid_enum_str"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.sac.util.is_valid_enum_str.html#obspy.io.sac.util.is_valid_enum_str">[docs]</a><span class="k">def</span> <span class="nf">is_valid_enum_str</span><span class="p">(</span><span class="n">hdr</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="c1"># is this a valid string name for this hdr</span>
+    <span class="c1"># assume that, if a value isn&#39;t in HD.ACCEPTED_VALS, it&#39;s not valid</span>
+    <span class="k">if</span> <span class="n">hdr</span> <span class="ow">in</span> <span class="n">HD</span><span class="o">.</span><span class="n">ACCEPTED_VALS</span><span class="p">:</span>
+        <span class="n">tf</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">HD</span><span class="o">.</span><span class="n">ACCEPTED_VALS</span><span class="p">[</span><span class="n">hdr</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tf</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="n">tf</span></div>
+
+
+<div class="viewcode-block" id="is_valid_enum_int"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.sac.util.is_valid_enum_int.html#obspy.io.sac.util.is_valid_enum_int">[docs]</a><span class="k">def</span> <span class="nf">is_valid_enum_int</span><span class="p">(</span><span class="n">hdr</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">allow_null</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="c1"># is this a valid integer for this hdr.</span>
+    <span class="k">if</span> <span class="n">hdr</span> <span class="ow">in</span> <span class="n">HD</span><span class="o">.</span><span class="n">ACCEPTED_VALS</span><span class="p">:</span>
+        <span class="n">accep</span> <span class="o">=</span> <span class="p">[</span><span class="n">HD</span><span class="o">.</span><span class="n">ENUM_VALS</span><span class="p">[</span><span class="n">nm</span><span class="p">]</span> <span class="k">for</span> <span class="n">nm</span> <span class="ow">in</span> <span class="n">HD</span><span class="o">.</span><span class="n">ACCEPTED_VALS</span><span class="p">[</span><span class="n">hdr</span><span class="p">]]</span>
+        <span class="k">if</span> <span class="n">allow_null</span><span class="p">:</span>
+            <span class="n">accep</span> <span class="o">+=</span> <span class="p">[</span><span class="n">HD</span><span class="o">.</span><span class="n">INULL</span><span class="p">]</span>
+        <span class="n">tf</span> <span class="o">=</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">accep</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tf</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="n">tf</span></div>
+
+
+<span class="c1"># ------------- GENERAL -------------------------------------------------------</span>
+<div class="viewcode-block" id="_convert_enum"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.sac.util._convert_enum.html#obspy.io.sac.util._convert_enum">[docs]</a><span class="k">def</span> <span class="nf">_convert_enum</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">converter</span><span class="p">,</span> <span class="n">accep</span><span class="p">):</span>
+    <span class="c1"># header : dict, SAC header</span>
+    <span class="c1"># converter : dict, {source value: target value}</span>
+    <span class="c1"># accep : dict, {header name: acceptable value list}</span>
+
+    <span class="c1"># TODO: use functools.partial/wraps?</span>
+    <span class="k">for</span> <span class="n">hdr</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">header</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">hdr</span> <span class="ow">in</span> <span class="n">HD</span><span class="o">.</span><span class="n">ACCEPTED_VALS</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">accep</span><span class="p">[</span><span class="n">hdr</span><span class="p">]:</span>
+                <span class="n">header</span><span class="p">[</span><span class="n">hdr</span><span class="p">]</span> <span class="o">=</span> <span class="n">converter</span><span class="p">[</span><span class="n">val</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Unrecognized enumerated value &quot;</span><span class="si">{}</span><span class="s1">&quot; for header &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">hdr</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">header</span></div>
+
+
+<div class="viewcode-block" id="enum_string_to_int"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.sac.util.enum_string_to_int.html#obspy.io.sac.util.enum_string_to_int">[docs]</a><span class="k">def</span> <span class="nf">enum_string_to_int</span><span class="p">(</span><span class="n">header</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert enumerated string values in header dictionary to int values.&quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">_convert_enum</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="n">HD</span><span class="o">.</span><span class="n">ENUM_VALS</span><span class="p">,</span> <span class="n">accep</span><span class="o">=</span><span class="n">HD</span><span class="o">.</span><span class="n">ACCEPTED_VALS</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="enum_int_to_string"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.sac.util.enum_int_to_string.html#obspy.io.sac.util.enum_int_to_string">[docs]</a><span class="k">def</span> <span class="nf">enum_int_to_string</span><span class="p">(</span><span class="n">header</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert enumerated int values in header dictionary to string values.&quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">_convert_enum</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="n">HD</span><span class="o">.</span><span class="n">ENUM_NAMES</span><span class="p">,</span> <span class="n">accep</span><span class="o">=</span><span class="n">HD</span><span class="o">.</span><span class="n">ACCEPTED_INT</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="byteswap"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.sac.util.byteswap.html#obspy.io.sac.util.byteswap">[docs]</a><span class="k">def</span> <span class="nf">byteswap</span><span class="p">(</span><span class="o">*</span><span class="n">arrays</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Swapping of bytes for provided arrays.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    arr.newbyteorder(&#39;S&#39;) swaps dtype interpretation, but not bytes in memory</span>
+<span class="sd">    arr.byteswap() swaps bytes in memory, but not dtype interpretation</span>
+<span class="sd">    arr.byteswap(True).newbyteorder(&#39;S&#39;) completely swaps both</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    https://docs.scipy.org/doc/numpy/user/basics.byteswapping.html</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">arr</span><span class="o">.</span><span class="n">newbyteorder</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">arr</span> <span class="ow">in</span> <span class="n">arrays</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="is_same_byteorder"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.sac.util.is_same_byteorder.html#obspy.io.sac.util.is_same_byteorder">[docs]</a><span class="k">def</span> <span class="nf">is_same_byteorder</span><span class="p">(</span><span class="n">bo1</span><span class="p">,</span> <span class="n">bo2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Deal with all the ways to compare byte order string representations.</span>
+
+<span class="sd">    :param bo1: Byte order string. Can be one of {&#39;l&#39;, &#39;little&#39;, &#39;L&#39;, &#39;&lt;&#39;,</span>
+<span class="sd">        &#39;b&#39;, &#39;big&#39;, &#39;B&#39;, &#39;&gt;&#39;, &#39;n&#39;, &#39;native&#39;,&#39;N&#39;, &#39;=&#39;}</span>
+<span class="sd">    :type bo1: str</span>
+<span class="sd">    :param bo2: Byte order string. Can be one of {&#39;l&#39;, &#39;little&#39;, &#39;L&#39;, &#39;&lt;&#39;,</span>
+<span class="sd">        &#39;b&#39;, &#39;big&#39;, &#39;B&#39;, &#39;&gt;&#39;, &#39;n&#39;, &#39;native&#39;,&#39;N&#39;, &#39;=&#39;}</span>
+<span class="sd">    :type bo1: str</span>
+
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    :return: True of same byte order.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: extend this as is_same_byteorder(*byteorders) using itertools</span>
+    <span class="n">be</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;big&#39;</span><span class="p">,</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">)</span>
+    <span class="n">le</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;little&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;&#39;</span><span class="p">)</span>
+    <span class="n">ne</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;native&#39;</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">)</span>
+    <span class="n">ok</span> <span class="o">=</span> <span class="n">be</span> <span class="o">+</span> <span class="n">le</span> <span class="o">+</span> <span class="n">ne</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">bo1</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ok</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">bo2</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ok</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unrecognized byte order string.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># make native decide what it is</span>
+    <span class="n">bo1</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">byteorder</span> <span class="k">if</span> <span class="n">bo1</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">ne</span> <span class="k">else</span> <span class="n">bo1</span>
+    <span class="n">bo2</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">byteorder</span> <span class="k">if</span> <span class="n">bo2</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">ne</span> <span class="k">else</span> <span class="n">bo2</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">bo1</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">le</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">bo2</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">le</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_clean_str"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.sac.util._clean_str.html#obspy.io.sac.util._clean_str">[docs]</a><span class="k">def</span> <span class="nf">_clean_str</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">strip_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove null values and whitespace, return a str</span>
+
+<span class="sd">    This fn is used in two places: in SACTrace.read, to sanitize strings for</span>
+<span class="sd">    SACTrace, and in sac_to_obspy_header, to sanitize strings for making a</span>
+<span class="sd">    Trace that the user may have manually added.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ASCII&#39;</span><span class="p">,</span> <span class="s1">&#39;replace&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="n">null_term</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">null_term</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="p">[:</span><span class="n">null_term</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="n">null_term</span><span class="p">:])</span>
+
+    <span class="k">if</span> <span class="n">strip_whitespace</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">value</span></div>
+
+
+<span class="c1"># TODO: do this in SACTrace?</span>
+<div class="viewcode-block" id="sac_to_obspy_header"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.sac.util.sac_to_obspy_header.html#obspy.io.sac.util.sac_to_obspy_header">[docs]</a><span class="k">def</span> <span class="nf">sac_to_obspy_header</span><span class="p">(</span><span class="n">sacheader</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make an ObsPy Stats header dictionary from a SAC header dictionary.</span>
+
+<span class="sd">    :param sacheader: SAC header dictionary.</span>
+<span class="sd">    :type sacheader: dict</span>
+
+<span class="sd">    :rtype: :class:`~obspy.core.Stats`</span>
+<span class="sd">    :return: Filled ObsPy Stats header.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># 1. get required sac header values</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">npts</span> <span class="o">=</span> <span class="n">sacheader</span><span class="p">[</span><span class="s1">&#39;npts&#39;</span><span class="p">]</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="n">sacheader</span><span class="p">[</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Incomplete SAC header information to build an ObsPy header.&quot;</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">npts</span> <span class="o">!=</span> <span class="n">HD</span><span class="o">.</span><span class="n">INULL</span>
+    <span class="k">assert</span> <span class="n">delta</span> <span class="o">!=</span> <span class="n">HD</span><span class="o">.</span><span class="n">FNULL</span>
+    <span class="c1">#</span>
+    <span class="c1"># 2. get time</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">reftime</span> <span class="o">=</span> <span class="n">get_sac_reftime</span><span class="p">(</span><span class="n">sacheader</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="n">SacError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+        <span class="c1"># ObsPy doesn&#39;t require a valid reftime</span>
+        <span class="n">reftime</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+
+    <span class="n">b</span> <span class="o">=</span> <span class="n">sacheader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">HD</span><span class="o">.</span><span class="n">FNULL</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># 3. get optional sac header values</span>
+    <span class="n">calib</span> <span class="o">=</span> <span class="n">sacheader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;scale&#39;</span><span class="p">,</span> <span class="n">HD</span><span class="o">.</span><span class="n">FNULL</span><span class="p">)</span>
+    <span class="n">kcmpnm</span> <span class="o">=</span> <span class="n">sacheader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;kcmpnm&#39;</span><span class="p">,</span> <span class="n">HD</span><span class="o">.</span><span class="n">SNULL</span><span class="p">)</span>
+    <span class="n">kstnm</span> <span class="o">=</span> <span class="n">sacheader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;kstnm&#39;</span><span class="p">,</span> <span class="n">HD</span><span class="o">.</span><span class="n">SNULL</span><span class="p">)</span>
+    <span class="n">knetwk</span> <span class="o">=</span> <span class="n">sacheader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;knetwk&#39;</span><span class="p">,</span> <span class="n">HD</span><span class="o">.</span><span class="n">SNULL</span><span class="p">)</span>
+    <span class="n">khole</span> <span class="o">=</span> <span class="n">sacheader</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;khole&#39;</span><span class="p">,</span> <span class="n">HD</span><span class="o">.</span><span class="n">SNULL</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># 4. deal with null values</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="k">if</span> <span class="p">(</span><span class="n">b</span> <span class="o">!=</span> <span class="n">HD</span><span class="o">.</span><span class="n">FNULL</span><span class="p">)</span> <span class="k">else</span> <span class="mf">0.0</span>
+    <span class="n">calib</span> <span class="o">=</span> <span class="n">calib</span> <span class="k">if</span> <span class="p">(</span><span class="n">calib</span> <span class="o">!=</span> <span class="n">HD</span><span class="o">.</span><span class="n">FNULL</span><span class="p">)</span> <span class="k">else</span> <span class="mf">1.0</span>
+    <span class="n">kcmpnm</span> <span class="o">=</span> <span class="n">kcmpnm</span> <span class="k">if</span> <span class="p">(</span><span class="n">kcmpnm</span> <span class="o">!=</span> <span class="n">HD</span><span class="o">.</span><span class="n">SNULL</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">kstnm</span> <span class="o">=</span> <span class="n">kstnm</span> <span class="k">if</span> <span class="p">(</span><span class="n">kstnm</span> <span class="o">!=</span> <span class="n">HD</span><span class="o">.</span><span class="n">SNULL</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">knetwk</span> <span class="o">=</span> <span class="n">knetwk</span> <span class="k">if</span> <span class="p">(</span><span class="n">knetwk</span> <span class="o">!=</span> <span class="n">HD</span><span class="o">.</span><span class="n">SNULL</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">khole</span> <span class="o">=</span> <span class="n">khole</span> <span class="k">if</span> <span class="p">(</span><span class="n">khole</span> <span class="o">!=</span> <span class="n">HD</span><span class="o">.</span><span class="n">SNULL</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+    <span class="c1">#</span>
+    <span class="c1"># 5. transform to obspy values</span>
+    <span class="c1"># nothing is null</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;npts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">npts</span>
+    <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;sampling_rate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="mf">1.</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+    <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;network&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_clean_str</span><span class="p">(</span><span class="n">knetwk</span><span class="p">)</span>
+    <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_clean_str</span><span class="p">(</span><span class="n">kstnm</span><span class="p">)</span>
+    <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_clean_str</span><span class="p">(</span><span class="n">kcmpnm</span><span class="p">)</span>
+    <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_clean_str</span><span class="p">(</span><span class="n">khole</span><span class="p">)</span>
+    <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;calib&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calib</span>
+
+    <span class="c1"># store _all_ provided SAC header values</span>
+    <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;sac&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sacheader</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># get first sample absolute time as UTCDateTime</span>
+    <span class="c1"># always add the begin time (if it&#39;s defined) to get the given</span>
+    <span class="c1"># SAC reference time, no matter which iztype is given</span>
+    <span class="c1"># b may be non-zero, even for iztype &#39;ib&#39;, especially if it was used to</span>
+    <span class="c1">#   store microseconds from obspy_to_sac_header</span>
+    <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;starttime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">reftime</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span>
+
+    <span class="k">return</span> <span class="n">Stats</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="split_microseconds"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.sac.util.split_microseconds.html#obspy.io.sac.util.split_microseconds">[docs]</a><span class="k">def</span> <span class="nf">split_microseconds</span><span class="p">(</span><span class="n">microseconds</span><span class="p">):</span>
+    <span class="c1"># Returns milliseconds and remainder microseconds</span>
+    <span class="n">milliseconds</span> <span class="o">=</span> <span class="n">microseconds</span> <span class="o">//</span> <span class="mi">1000</span>
+    <span class="n">microseconds</span> <span class="o">=</span> <span class="p">(</span><span class="n">microseconds</span> <span class="o">-</span> <span class="n">milliseconds</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">milliseconds</span><span class="p">,</span> <span class="n">microseconds</span></div>
+
+
+<div class="viewcode-block" id="utcdatetime_to_sac_nztimes"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.sac.util.utcdatetime_to_sac_nztimes.html#obspy.io.sac.util.utcdatetime_to_sac_nztimes">[docs]</a><span class="k">def</span> <span class="nf">utcdatetime_to_sac_nztimes</span><span class="p">(</span><span class="n">utcdt</span><span class="p">):</span>
+    <span class="c1"># Returns a dict of integer nz-times and remainder microseconds</span>
+    <span class="n">nztimes</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">nztimes</span><span class="p">[</span><span class="s1">&#39;nzyear&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utcdt</span><span class="o">.</span><span class="n">year</span>
+    <span class="n">nztimes</span><span class="p">[</span><span class="s1">&#39;nzjday&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utcdt</span><span class="o">.</span><span class="n">julday</span>
+    <span class="n">nztimes</span><span class="p">[</span><span class="s1">&#39;nzhour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utcdt</span><span class="o">.</span><span class="n">hour</span>
+    <span class="n">nztimes</span><span class="p">[</span><span class="s1">&#39;nzmin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utcdt</span><span class="o">.</span><span class="n">minute</span>
+    <span class="n">nztimes</span><span class="p">[</span><span class="s1">&#39;nzsec&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utcdt</span><span class="o">.</span><span class="n">second</span>
+    <span class="c1"># nz times don&#39;t have enough precision, so push microseconds into b,</span>
+    <span class="c1"># using integer arithmetic</span>
+    <span class="n">millisecond</span><span class="p">,</span> <span class="n">microsecond</span> <span class="o">=</span> <span class="n">split_microseconds</span><span class="p">(</span><span class="n">utcdt</span><span class="o">.</span><span class="n">microsecond</span><span class="p">)</span>
+    <span class="n">nztimes</span><span class="p">[</span><span class="s1">&#39;nzmsec&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">millisecond</span>
+
+    <span class="k">return</span> <span class="n">nztimes</span><span class="p">,</span> <span class="n">microsecond</span></div>
+
+
+<div class="viewcode-block" id="obspy_to_sac_header"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.sac.util.obspy_to_sac_header.html#obspy.io.sac.util.obspy_to_sac_header">[docs]</a><span class="k">def</span> <span class="nf">obspy_to_sac_header</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">keep_sac_header</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Merge a primary with a secondary header, reconciling some differences.</span>
+
+<span class="sd">    :param stats: Filled ObsPy Stats header</span>
+<span class="sd">    :type stats: dict or :class:`~obspy.core.Stats`</span>
+<span class="sd">    :param keep_sac_header: If keep_sac_header is True, old stats.sac</span>
+<span class="sd">        header values are kept, and a minimal set of values are updated from</span>
+<span class="sd">        the stats dictionary according to these guidelines:</span>
+<span class="sd">        * npts, delta always come from stats</span>
+<span class="sd">        * If a valid old reftime is found, the new b and e will be made</span>
+<span class="sd">          and properly referenced to it. All other old SAC headers are simply</span>
+<span class="sd">          carried along.</span>
+<span class="sd">        * If the old SAC reftime is invalid and relative time headers are set,</span>
+<span class="sd">          a SacHeaderError exception will be raised.</span>
+<span class="sd">        * If the old SAC reftime is invalid, no relative time headers are set,</span>
+<span class="sd">          and &quot;b&quot; is set, &quot;e&quot; is updated from stats and other old SAC headers</span>
+<span class="sd">          are carried along.</span>
+<span class="sd">        * If the old SAC reftime is invalid, no relative time headers are set,</span>
+<span class="sd">          and &quot;b&quot; is not set, the reftime will be set from stats.starttime</span>
+<span class="sd">          (with micro/milliseconds precision adjustments) and &quot;b&quot; and &quot;e&quot; are</span>
+<span class="sd">          set accordingly.</span>
+<span class="sd">        * If &#39;kstnm&#39;, &#39;knetwk&#39;, &#39;kcmpnm&#39;, or &#39;khole&#39; are not set or differ</span>
+<span class="sd">          from Stats values &#39;station&#39;, &#39;network&#39;, &#39;channel&#39;, or &#39;location&#39;,</span>
+<span class="sd">          they are taken from the Stats values.</span>
+<span class="sd">        If keep_sac_header is False, a new SAC header is constructed from only</span>
+<span class="sd">        information found in the Stats dictionary, with some other default</span>
+<span class="sd">        values introduced.  It will be an iztype 9 (&quot;ib&quot;) file, with small</span>
+<span class="sd">        reference time adjustments for micro/milliseconds precision issues.</span>
+<span class="sd">        SAC headers nvhdr, level, lovrok, and iftype are always produced.</span>
+<span class="sd">    :type keep_sac_header: bool</span>
+<span class="sd">    :rtype merged: dict</span>
+<span class="sd">    :return: SAC header</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">oldsac</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sac&#39;</span><span class="p">,</span> <span class="p">{})</span>
+
+    <span class="k">if</span> <span class="n">keep_sac_header</span> <span class="ow">and</span> <span class="n">oldsac</span><span class="p">:</span>
+        <span class="n">header</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">oldsac</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">reftime</span> <span class="o">=</span> <span class="n">get_sac_reftime</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">SacHeaderTimeError</span><span class="p">:</span>
+            <span class="n">reftime</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">relhdrs</span> <span class="o">=</span> <span class="p">[</span><span class="n">hdr</span> <span class="k">for</span> <span class="n">hdr</span> <span class="ow">in</span> <span class="n">HD</span><span class="o">.</span><span class="n">RELHDRS</span>
+                   <span class="k">if</span> <span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">hdr</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">HD</span><span class="o">.</span><span class="n">SNULL</span><span class="p">)]</span>
+
+        <span class="k">if</span> <span class="n">reftime</span><span class="p">:</span>
+            <span class="c1"># Set current &#39;b&#39; relative to the old reftime.</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;starttime&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">reftime</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Invalid reference time. Relative times like &#39;b&#39; cannot be</span>
+            <span class="c1"># unambiguously referenced to stats.starttime.</span>
+            <span class="k">if</span> <span class="s1">&#39;b&#39;</span> <span class="ow">in</span> <span class="n">relhdrs</span><span class="p">:</span>
+                <span class="c1"># Assume no trimming/expanding of the Trace occurred relative</span>
+                <span class="c1"># to the old &#39;b&#39;, and just use the old &#39;b&#39; value.</span>
+                <span class="n">b</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Assume it&#39;s an iztype=ib (9) type file. Also set iztype?</span>
+                <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># Set the stats.starttime as the reftime and set &#39;b&#39; and &#39;e&#39;.</span>
+            <span class="c1"># ObsPy issue 1204</span>
+            <span class="n">reftime</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;starttime&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span>
+            <span class="n">nztimes</span><span class="p">,</span> <span class="n">microsecond</span> <span class="o">=</span> <span class="n">utcdatetime_to_sac_nztimes</span><span class="p">(</span><span class="n">reftime</span><span class="p">)</span>
+            <span class="n">header</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">nztimes</span><span class="p">)</span>
+            <span class="n">b</span> <span class="o">+=</span> <span class="p">(</span><span class="n">microsecond</span> <span class="o">*</span> <span class="mf">1e-6</span><span class="p">)</span>
+
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span> <span class="o">+</span> <span class="p">(</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;endtime&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;starttime&#39;</span><span class="p">])</span>
+
+        <span class="c1"># Merge some values from stats if they&#39;re missing in the SAC header</span>
+        <span class="c1"># ObsPy issues 1204, 1457</span>
+        <span class="c1"># XXX: If Stats values are empty/&quot;&quot; and SAC header values are real,</span>
+        <span class="c1">#   this will replace the real SAC values with SAC null values.</span>
+        <span class="k">for</span> <span class="n">sachdr</span><span class="p">,</span> <span class="n">statshdr</span> <span class="ow">in</span> <span class="p">[(</span><span class="s1">&#39;kstnm&#39;</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;knetwk&#39;</span><span class="p">,</span> <span class="s1">&#39;network&#39;</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="s1">&#39;kcmpnm&#39;</span><span class="p">,</span> <span class="s1">&#39;channel&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;khole&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="p">)]:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sachdr</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">HD</span><span class="o">.</span><span class="n">SNULL</span><span class="p">))</span> <span class="ow">or</span> \
+               <span class="p">(</span><span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sachdr</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">!=</span> <span class="n">stats</span><span class="p">[</span><span class="n">statshdr</span><span class="p">]):</span>
+                <span class="n">header</span><span class="p">[</span><span class="n">sachdr</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="n">statshdr</span><span class="p">]</span> <span class="ow">or</span> <span class="n">HD</span><span class="o">.</span><span class="n">SNULL</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># SAC header from Stats only.</span>
+
+        <span class="c1"># Here, set headers from Stats that would otherwise depend on the old</span>
+        <span class="c1"># SAC header</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;iztype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span>
+        <span class="n">starttime</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;starttime&#39;</span><span class="p">]</span>
+        <span class="c1"># nz times don&#39;t have enough precision, so push microseconds into b,</span>
+        <span class="c1"># using integer arithmetic</span>
+        <span class="n">nztimes</span><span class="p">,</span> <span class="n">microsecond</span> <span class="o">=</span> <span class="n">utcdatetime_to_sac_nztimes</span><span class="p">(</span><span class="n">starttime</span><span class="p">)</span>
+        <span class="n">header</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">nztimes</span><span class="p">)</span>
+
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">microsecond</span> <span class="o">*</span> <span class="mf">1e-6</span>
+
+        <span class="c1"># we now have correct b, npts, delta, and nz times</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;npts&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span>
+
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;scale&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;calib&#39;</span><span class="p">,</span> <span class="n">HD</span><span class="o">.</span><span class="n">FNULL</span><span class="p">)</span>
+
+        <span class="c1"># NOTE: overwrites existing SAC headers</span>
+        <span class="c1"># nulls for these are &#39;&#39;, which stats.get(hdr, HD.SNULL) won&#39;t catch</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;kcmpnm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="n">HD</span><span class="o">.</span><span class="n">SNULL</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;kstnm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="n">HD</span><span class="o">.</span><span class="n">SNULL</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;knetwk&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;network&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;network&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="n">HD</span><span class="o">.</span><span class="n">SNULL</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;khole&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="n">HD</span><span class="o">.</span><span class="n">SNULL</span>
+
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;lpspol&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">header</span><span class="p">[</span><span class="s1">&#39;lcalda&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># ObsPy issue 1204</span>
+    <span class="n">header</span><span class="p">[</span><span class="s1">&#39;nvhdr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="n">header</span><span class="p">[</span><span class="s1">&#39;leven&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">header</span><span class="p">[</span><span class="s1">&#39;lovrok&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">header</span><span class="p">[</span><span class="s1">&#39;iftype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="c1"># ObsPy issue #1317</span>
+    <span class="n">header</span><span class="p">[</span><span class="s1">&#39;npts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;npts&#39;</span><span class="p">]</span>
+    <span class="n">header</span><span class="p">[</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;delta&#39;</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">header</span></div>
+
+
+<div class="viewcode-block" id="get_sac_reftime"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.sac.util.get_sac_reftime.html#obspy.io.sac.util.get_sac_reftime">[docs]</a><span class="k">def</span> <span class="nf">get_sac_reftime</span><span class="p">(</span><span class="n">header</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get SAC header reference time as a UTCDateTime instance from a SAC header</span>
+<span class="sd">    dictionary.</span>
+
+<span class="sd">    Builds the reference time from SAC &quot;nz&quot; time fields. Raises</span>
+<span class="sd">    :class:`SacHeaderTimeError` if any time fields are null.</span>
+
+<span class="sd">    :param header: SAC header</span>
+<span class="sd">    :type header: dict</span>
+
+<span class="sd">    :rtype: :class:`~obspy.core.UTCDateTime`</span>
+<span class="sd">    :returns: SAC reference time.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># NOTE: epoch seconds can be got by:</span>
+    <span class="c1"># (reftime - datetime.datetime(1970,1,1)).total_seconds()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">yr</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;nzyear&#39;</span><span class="p">]</span>
+        <span class="n">nzjday</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;nzjday&#39;</span><span class="p">]</span>
+        <span class="n">nzhour</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;nzhour&#39;</span><span class="p">]</span>
+        <span class="n">nzmin</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;nzmin&#39;</span><span class="p">]</span>
+        <span class="n">nzsec</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;nzsec&#39;</span><span class="p">]</span>
+        <span class="n">nzmsec</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s1">&#39;nzmsec&#39;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="c1"># header doesn&#39;t have all the keys</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Not enough time information: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">SacHeaderTimeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">yr</span> <span class="o">&lt;=</span> <span class="mi">99</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">TWO_DIGIT_YEAR_MSG</span><span class="p">)</span>
+        <span class="n">yr</span> <span class="o">+=</span> <span class="mi">1900</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">reftime</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">yr</span><span class="p">,</span> <span class="n">julday</span><span class="o">=</span><span class="n">nzjday</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="n">nzhour</span><span class="p">,</span>
+                              <span class="n">minute</span><span class="o">=</span><span class="n">nzmin</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="n">nzsec</span><span class="p">,</span>
+                              <span class="n">microsecond</span><span class="o">=</span><span class="n">nzmsec</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid time headers. May contain null values.&quot;</span>
+        <span class="k">raise</span> <span class="n">SacHeaderTimeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">reftime</span></div>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

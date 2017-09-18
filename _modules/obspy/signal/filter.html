@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.signal.filter &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.signal.filter</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># ------------------------------------------------------------------</span>
+<span class="c1"># Filename: filter.py</span>
+<span class="c1">#  Purpose: Various Seismogram Filtering Functions</span>
+<span class="c1">#   Author: Tobias Megies, Moritz Beyreuther, Yannik Behr</span>
+<span class="c1">#    Email: tobias.megies@geophysik.uni-muenchen.de</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (C) 2009 Tobias Megies, Moritz Beyreuther, Yannik Behr</span>
+<span class="c1"># --------------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Various Seismogram Filtering Functions</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.fftpack</span> <span class="k">import</span> <span class="n">hilbert</span>
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="k">import</span> <span class="p">(</span><span class="n">cheb2ord</span><span class="p">,</span> <span class="n">cheby2</span><span class="p">,</span> <span class="n">convolve</span><span class="p">,</span> <span class="n">get_window</span><span class="p">,</span> <span class="n">iirfilter</span><span class="p">,</span>
+                          <span class="n">remez</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="k">import</span> <span class="n">sosfilt</span>
+    <span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="k">import</span> <span class="n">zpk2sos</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">._sosfilt</span> <span class="k">import</span> <span class="n">_sosfilt</span> <span class="k">as</span> <span class="n">sosfilt</span>
+    <span class="kn">from</span> <span class="nn">._sosfilt</span> <span class="k">import</span> <span class="n">_zpk2sos</span> <span class="k">as</span> <span class="n">zpk2sos</span>
+
+
+<div class="viewcode-block" id="bandpass"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.filter.bandpass.html#obspy.signal.filter.bandpass">[docs]</a><span class="k">def</span> <span class="nf">bandpass</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">freqmin</span><span class="p">,</span> <span class="n">freqmax</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">corners</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">zerophase</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Butterworth-Bandpass Filter.</span>
+
+<span class="sd">    Filter data from ``freqmin`` to ``freqmax`` using ``corners``</span>
+<span class="sd">    corners.</span>
+<span class="sd">    The filter uses :func:`scipy.signal.iirfilter` (for design)</span>
+<span class="sd">    and :func:`scipy.signal.sosfilt` (for applying the filter).</span>
+
+<span class="sd">    :type data: numpy.ndarray</span>
+<span class="sd">    :param data: Data to filter.</span>
+<span class="sd">    :param freqmin: Pass band low corner frequency.</span>
+<span class="sd">    :param freqmax: Pass band high corner frequency.</span>
+<span class="sd">    :param df: Sampling rate in Hz.</span>
+<span class="sd">    :param corners: Filter corners / order.</span>
+<span class="sd">    :param zerophase: If True, apply filter once forwards and once backwards.</span>
+<span class="sd">        This results in twice the filter order but zero phase shift in</span>
+<span class="sd">        the resulting filtered trace.</span>
+<span class="sd">    :return: Filtered data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fe</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">df</span>
+    <span class="n">low</span> <span class="o">=</span> <span class="n">freqmin</span> <span class="o">/</span> <span class="n">fe</span>
+    <span class="n">high</span> <span class="o">=</span> <span class="n">freqmax</span> <span class="o">/</span> <span class="n">fe</span>
+    <span class="c1"># raise for some bad scenarios</span>
+    <span class="k">if</span> <span class="n">high</span> <span class="o">-</span> <span class="mf">1.0</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">1e-6</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Selected high corner frequency (</span><span class="si">{}</span><span class="s2">) of bandpass is at or &quot;</span>
+               <span class="s2">&quot;above Nyquist (</span><span class="si">{}</span><span class="s2">). Applying a high-pass instead.&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">freqmax</span><span class="p">,</span> <span class="n">fe</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">highpass</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="n">freqmin</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">corners</span><span class="o">=</span><span class="n">corners</span><span class="p">,</span>
+                        <span class="n">zerophase</span><span class="o">=</span><span class="n">zerophase</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">low</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Selected low corner frequency is above Nyquist.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">z</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">iirfilter</span><span class="p">(</span><span class="n">corners</span><span class="p">,</span> <span class="p">[</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">],</span> <span class="n">btype</span><span class="o">=</span><span class="s1">&#39;band&#39;</span><span class="p">,</span>
+                        <span class="n">ftype</span><span class="o">=</span><span class="s1">&#39;butter&#39;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;zpk&#39;</span><span class="p">)</span>
+    <span class="n">sos</span> <span class="o">=</span> <span class="n">zpk2sos</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">zerophase</span><span class="p">:</span>
+        <span class="n">firstpass</span> <span class="o">=</span> <span class="n">sosfilt</span><span class="p">(</span><span class="n">sos</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sosfilt</span><span class="p">(</span><span class="n">sos</span><span class="p">,</span> <span class="n">firstpass</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">sosfilt</span><span class="p">(</span><span class="n">sos</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="bandstop"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.filter.bandstop.html#obspy.signal.filter.bandstop">[docs]</a><span class="k">def</span> <span class="nf">bandstop</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">freqmin</span><span class="p">,</span> <span class="n">freqmax</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">corners</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">zerophase</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Butterworth-Bandstop Filter.</span>
+
+<span class="sd">    Filter data removing data between frequencies ``freqmin`` and ``freqmax``</span>
+<span class="sd">    using ``corners`` corners.</span>
+<span class="sd">    The filter uses :func:`scipy.signal.iirfilter` (for design)</span>
+<span class="sd">    and :func:`scipy.signal.sosfilt` (for applying the filter).</span>
+
+<span class="sd">    :type data: numpy.ndarray</span>
+<span class="sd">    :param data: Data to filter.</span>
+<span class="sd">    :param freqmin: Stop band low corner frequency.</span>
+<span class="sd">    :param freqmax: Stop band high corner frequency.</span>
+<span class="sd">    :param df: Sampling rate in Hz.</span>
+<span class="sd">    :param corners: Filter corners / order.</span>
+<span class="sd">    :param zerophase: If True, apply filter once forwards and once backwards.</span>
+<span class="sd">        This results in twice the number of corners but zero phase shift in</span>
+<span class="sd">        the resulting filtered trace.</span>
+<span class="sd">    :return: Filtered data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fe</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">df</span>
+    <span class="n">low</span> <span class="o">=</span> <span class="n">freqmin</span> <span class="o">/</span> <span class="n">fe</span>
+    <span class="n">high</span> <span class="o">=</span> <span class="n">freqmax</span> <span class="o">/</span> <span class="n">fe</span>
+    <span class="c1"># raise for some bad scenarios</span>
+    <span class="k">if</span> <span class="n">high</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">high</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Selected high corner frequency is above Nyquist. &quot;</span> <span class="o">+</span> \
+              <span class="s2">&quot;Setting Nyquist as high corner.&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">low</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Selected low corner frequency is above Nyquist.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">z</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">iirfilter</span><span class="p">(</span><span class="n">corners</span><span class="p">,</span> <span class="p">[</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">],</span>
+                        <span class="n">btype</span><span class="o">=</span><span class="s1">&#39;bandstop&#39;</span><span class="p">,</span> <span class="n">ftype</span><span class="o">=</span><span class="s1">&#39;butter&#39;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;zpk&#39;</span><span class="p">)</span>
+    <span class="n">sos</span> <span class="o">=</span> <span class="n">zpk2sos</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">zerophase</span><span class="p">:</span>
+        <span class="n">firstpass</span> <span class="o">=</span> <span class="n">sosfilt</span><span class="p">(</span><span class="n">sos</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sosfilt</span><span class="p">(</span><span class="n">sos</span><span class="p">,</span> <span class="n">firstpass</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">sosfilt</span><span class="p">(</span><span class="n">sos</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="lowpass"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.filter.lowpass.html#obspy.signal.filter.lowpass">[docs]</a><span class="k">def</span> <span class="nf">lowpass</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">corners</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">zerophase</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Butterworth-Lowpass Filter.</span>
+
+<span class="sd">    Filter data removing data over certain frequency ``freq`` using ``corners``</span>
+<span class="sd">    corners.</span>
+<span class="sd">    The filter uses :func:`scipy.signal.iirfilter` (for design)</span>
+<span class="sd">    and :func:`scipy.signal.sosfilt` (for applying the filter).</span>
+
+<span class="sd">    :type data: numpy.ndarray</span>
+<span class="sd">    :param data: Data to filter.</span>
+<span class="sd">    :param freq: Filter corner frequency.</span>
+<span class="sd">    :param df: Sampling rate in Hz.</span>
+<span class="sd">    :param corners: Filter corners / order.</span>
+<span class="sd">    :param zerophase: If True, apply filter once forwards and once backwards.</span>
+<span class="sd">        This results in twice the number of corners but zero phase shift in</span>
+<span class="sd">        the resulting filtered trace.</span>
+<span class="sd">    :return: Filtered data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fe</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">df</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">freq</span> <span class="o">/</span> <span class="n">fe</span>
+    <span class="c1"># raise for some bad scenarios</span>
+    <span class="k">if</span> <span class="n">f</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Selected corner frequency is above Nyquist. &quot;</span> <span class="o">+</span> \
+              <span class="s2">&quot;Setting Nyquist as high corner.&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">z</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">iirfilter</span><span class="p">(</span><span class="n">corners</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">btype</span><span class="o">=</span><span class="s1">&#39;lowpass&#39;</span><span class="p">,</span> <span class="n">ftype</span><span class="o">=</span><span class="s1">&#39;butter&#39;</span><span class="p">,</span>
+                        <span class="n">output</span><span class="o">=</span><span class="s1">&#39;zpk&#39;</span><span class="p">)</span>
+    <span class="n">sos</span> <span class="o">=</span> <span class="n">zpk2sos</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">zerophase</span><span class="p">:</span>
+        <span class="n">firstpass</span> <span class="o">=</span> <span class="n">sosfilt</span><span class="p">(</span><span class="n">sos</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sosfilt</span><span class="p">(</span><span class="n">sos</span><span class="p">,</span> <span class="n">firstpass</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">sosfilt</span><span class="p">(</span><span class="n">sos</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="highpass"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.filter.highpass.html#obspy.signal.filter.highpass">[docs]</a><span class="k">def</span> <span class="nf">highpass</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">corners</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">zerophase</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Butterworth-Highpass Filter.</span>
+
+<span class="sd">    Filter data removing data below certain frequency ``freq`` using</span>
+<span class="sd">    ``corners`` corners.</span>
+<span class="sd">    The filter uses :func:`scipy.signal.iirfilter` (for design)</span>
+<span class="sd">    and :func:`scipy.signal.sosfilt` (for applying the filter).</span>
+
+<span class="sd">    :type data: numpy.ndarray</span>
+<span class="sd">    :param data: Data to filter.</span>
+<span class="sd">    :param freq: Filter corner frequency.</span>
+<span class="sd">    :param df: Sampling rate in Hz.</span>
+<span class="sd">    :param corners: Filter corners / order.</span>
+<span class="sd">    :param zerophase: If True, apply filter once forwards and once backwards.</span>
+<span class="sd">        This results in twice the number of corners but zero phase shift in</span>
+<span class="sd">        the resulting filtered trace.</span>
+<span class="sd">    :return: Filtered data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fe</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">df</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">freq</span> <span class="o">/</span> <span class="n">fe</span>
+    <span class="c1"># raise for some bad scenarios</span>
+    <span class="k">if</span> <span class="n">f</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Selected corner frequency is above Nyquist.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">z</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">iirfilter</span><span class="p">(</span><span class="n">corners</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">btype</span><span class="o">=</span><span class="s1">&#39;highpass&#39;</span><span class="p">,</span> <span class="n">ftype</span><span class="o">=</span><span class="s1">&#39;butter&#39;</span><span class="p">,</span>
+                        <span class="n">output</span><span class="o">=</span><span class="s1">&#39;zpk&#39;</span><span class="p">)</span>
+    <span class="n">sos</span> <span class="o">=</span> <span class="n">zpk2sos</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">zerophase</span><span class="p">:</span>
+        <span class="n">firstpass</span> <span class="o">=</span> <span class="n">sosfilt</span><span class="p">(</span><span class="n">sos</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sosfilt</span><span class="p">(</span><span class="n">sos</span><span class="p">,</span> <span class="n">firstpass</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">sosfilt</span><span class="p">(</span><span class="n">sos</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="envelope"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.filter.envelope.html#obspy.signal.filter.envelope">[docs]</a><span class="k">def</span> <span class="nf">envelope</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Envelope of a function.</span>
+
+<span class="sd">    Computes the envelope of the given function. The envelope is determined by</span>
+<span class="sd">    adding the squared amplitudes of the function and it&#39;s Hilbert-Transform</span>
+<span class="sd">    and then taking the square-root. (See [Kanasewich1981]_)</span>
+<span class="sd">    The envelope at the start/end should not be taken too seriously.</span>
+
+<span class="sd">    :type data: numpy.ndarray</span>
+<span class="sd">    :param data: Data to make envelope of.</span>
+<span class="sd">    :return: Envelope of input data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hilb</span> <span class="o">=</span> <span class="n">hilbert</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">hilb</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="remez_fir"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.filter.remez_fir.html#obspy.signal.filter.remez_fir">[docs]</a><span class="k">def</span> <span class="nf">remez_fir</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">freqmin</span><span class="p">,</span> <span class="n">freqmax</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The minimax optimal bandpass using Remez algorithm. (experimental)</span>
+
+<span class="sd">    .. warning:: This is experimental code. Use with caution!</span>
+
+<span class="sd">    :type data: numpy.ndarray</span>
+<span class="sd">    :param data: Data to filter.</span>
+<span class="sd">    :param freqmin: Low corner frequency.</span>
+<span class="sd">    :param freqmax: High corner frequency.</span>
+<span class="sd">    :param df: Sampling rate in Hz.</span>
+<span class="sd">    :return: Filtered data.</span>
+
+<span class="sd">    Finite impulse response (FIR) filter whose transfer function minimizes</span>
+<span class="sd">    the maximum error between the desired gain and the realized gain in the</span>
+<span class="sd">    specified bands using the Remez exchange algorithm.</span>
+
+<span class="sd">    .. versionadded:: 0.6.2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Remez filter description</span>
+    <span class="c1"># ========================</span>
+    <span class="c1">#</span>
+    <span class="c1"># So, let&#39;s go over the inputs that you&#39;ll have to worry about.</span>
+    <span class="c1"># First is numtaps. This parameter will basically determine how good your</span>
+    <span class="c1"># filter is and how much processor power it takes up. If you go for some</span>
+    <span class="c1"># obscene number of taps (in the thousands) there&#39;s other things to worry</span>
+    <span class="c1"># about, but with sane numbers (probably below 30-50 in your case) that is</span>
+    <span class="c1"># pretty much what it affects (more taps is better, but more expensive</span>
+    <span class="c1">#         processing wise). There are other ways to do filters as well</span>
+    <span class="c1"># which require less CPU power if you really need it, but I doubt that you</span>
+    <span class="c1"># will. Filtering signals basically breaks down to convolution, and apple</span>
+    <span class="c1"># has DSP libraries to do lightning fast convolution I&#39;m sure, so don&#39;t</span>
+    <span class="c1"># worry about this too much. Numtaps is basically equivalent to the number</span>
+    <span class="c1"># of terms in the convolution, so a power of 2 is a good idea, 32 is</span>
+    <span class="c1"># probably fine.</span>
+    <span class="c1">#</span>
+    <span class="c1"># bands has literally your list of bands, so you&#39;ll break it up into your</span>
+    <span class="c1"># low band, your pass band, and your high band. Something like [0, 99, 100,</span>
+    <span class="c1"># 999, 1000, 22049] should work, if you want to pass frequencies between</span>
+    <span class="c1"># 100-999 Hz (assuming you are sampling at 44.1 kHz).</span>
+    <span class="c1">#</span>
+    <span class="c1"># desired will just be [0, 1, 0] as you want to drop the high and low</span>
+    <span class="c1"># bands, and keep the middle one without modifying the amplitude.</span>
+    <span class="c1">#</span>
+    <span class="c1"># Also, specify Hz = 44100 (or whatever).</span>
+    <span class="c1">#</span>
+    <span class="c1"># That should be all you need; run the function and it will spit out a list</span>
+    <span class="c1"># of coefficients [c0, ... c(N-1)] where N is your tap count. When you run</span>
+    <span class="c1"># this filter, your output signal y[t] will be computed from the input x[t]</span>
+    <span class="c1"># like this (t-N means N samples before the current one):</span>
+    <span class="c1">#</span>
+    <span class="c1"># y[t] = c0*x[t] + c1*x[t-1] + ... + c(N-1)*x[t-(N-1)]</span>
+    <span class="c1">#</span>
+    <span class="c1"># After playing around with remez for a bit, it looks like numtaps should</span>
+    <span class="c1"># be above 100 for a solid filter. See what works out for you. Eventually,</span>
+    <span class="c1"># take those coefficients and then move them over and do the convolution</span>
+    <span class="c1"># in C or whatever. Also, note the gaps between the bands in the call to</span>
+    <span class="c1"># remez. You have to leave some space for the transition in frequency</span>
+    <span class="c1"># response to occur, otherwise the call to remez will complain.</span>
+    <span class="c1">#</span>
+    <span class="c1"># Source:</span>
+    <span class="c1"># http://episteme.arstechnica.com/</span>
+    <span class="c1">#         eve/forums/a/tpc/f/6330927813/m/175006289731</span>
+    <span class="c1">#</span>
+    <span class="c1"># take 10% of freqmin and freqmax as &quot;&quot;&quot;corners&quot;&quot;&quot;</span>
+    <span class="n">flt</span> <span class="o">=</span> <span class="n">freqmin</span> <span class="o">-</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">freqmin</span>
+    <span class="n">fut</span> <span class="o">=</span> <span class="n">freqmax</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">freqmax</span>
+    <span class="c1"># bandpass between freqmin and freqmax</span>
+    <span class="n">filt</span> <span class="o">=</span> <span class="n">remez</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">flt</span><span class="p">,</span> <span class="n">freqmin</span><span class="p">,</span> <span class="n">freqmax</span><span class="p">,</span> <span class="n">fut</span><span class="p">,</span> <span class="n">df</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]),</span>
+                 <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">Hz</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">convolve</span><span class="p">(</span><span class="n">filt</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="lowpass_fir"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.filter.lowpass_fir.html#obspy.signal.filter.lowpass_fir">[docs]</a><span class="k">def</span> <span class="nf">lowpass_fir</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">winlen</span><span class="o">=</span><span class="mi">2048</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    FIR-Lowpass Filter. (experimental)</span>
+
+<span class="sd">    .. warning:: This is experimental code. Use with caution!</span>
+
+<span class="sd">    Filter data by passing data only below a certain frequency.</span>
+
+<span class="sd">    :type data: numpy.ndarray</span>
+<span class="sd">    :param data: Data to filter.</span>
+<span class="sd">    :param freq: Data below this frequency pass.</span>
+<span class="sd">    :param df: Sampling rate in Hz.</span>
+<span class="sd">    :param winlen: Window length for filter in samples, must be power of 2;</span>
+<span class="sd">        Default 2048</span>
+<span class="sd">    :return: Filtered data.</span>
+
+<span class="sd">    .. versionadded:: 0.6.2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Source: Travis Oliphant</span>
+    <span class="c1"># https://mail.scipy.org/pipermail/scipy-user/2004-February/002628.html</span>
+    <span class="c1">#</span>
+    <span class="c1"># There is not currently an FIR-filter design program in SciPy. One</span>
+    <span class="c1"># should be constructed as it is not hard to implement (of course making</span>
+    <span class="c1"># it generic with all the options you might want would take some time).</span>
+    <span class="c1">#</span>
+    <span class="c1"># What kind of window are you currently using?</span>
+    <span class="c1">#</span>
+    <span class="c1"># For your purposes this is what I would do:</span>
+    <span class="c1">#</span>
+    <span class="c1"># winlen = 2**11 #2**10 = 1024; 2**11 = 2048; 2**12 = 4096</span>
+    <span class="c1"># give frequency bins in Hz and sample spacing</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftfreq</span><span class="p">(</span><span class="n">winlen</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+    <span class="c1"># cutoff is low-pass filter</span>
+    <span class="n">myfilter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="nb">abs</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">freq</span><span class="p">),</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span>
+    <span class="c1"># ideal filter</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft</span><span class="p">(</span><span class="n">myfilter</span><span class="p">)</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="mf">11.7</span>
+    <span class="c1"># beta implies Kaiser</span>
+    <span class="n">myh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="o">*</span> <span class="n">get_window</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">winlen</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">convolve</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">myh</span><span class="p">),</span> <span class="n">data</span><span class="p">)[</span><span class="n">winlen</span> <span class="o">/</span> <span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="n">winlen</span> <span class="o">/</span> <span class="mi">2</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="integer_decimation"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.filter.integer_decimation.html#obspy.signal.filter.integer_decimation">[docs]</a><span class="k">def</span> <span class="nf">integer_decimation</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">decimation_factor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Downsampling by applying a simple integer decimation.</span>
+
+<span class="sd">    Make sure that no signal is present in frequency bands above the new</span>
+<span class="sd">    Nyquist frequency (samp_rate/2/decimation_factor), e.g. by applying a</span>
+<span class="sd">    lowpass filter beforehand!</span>
+<span class="sd">    New sampling rate is old sampling rate divided by decimation_factor.</span>
+
+<span class="sd">    :type data: numpy.ndarray</span>
+<span class="sd">    :param data: Data to filter.</span>
+<span class="sd">    :param decimation_factor: Integer decimation factor</span>
+<span class="sd">    :return: Downsampled data (array length: old length / decimation_factor)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">decimation_factor</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Decimation_factor must be an integer!&quot;</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="c1"># reshape and only use every decimation_factor-th sample</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">[::</span><span class="n">decimation_factor</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="lowpass_cheby_2"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.filter.lowpass_cheby_2.html#obspy.signal.filter.lowpass_cheby_2">[docs]</a><span class="k">def</span> <span class="nf">lowpass_cheby_2</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">maxorder</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">ba</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">freq_passband</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cheby2-Lowpass Filter</span>
+
+<span class="sd">    Filter data by passing data only below a certain frequency.</span>
+<span class="sd">    The main purpose of this cheby2 filter is downsampling.</span>
+<span class="sd">    #318 shows some plots of this filter design itself.</span>
+
+<span class="sd">    This method will iteratively design a filter, whose pass</span>
+<span class="sd">    band frequency is determined dynamically, such that the</span>
+<span class="sd">    values above the stop band frequency are lower than -96dB.</span>
+
+<span class="sd">    :type data: numpy.ndarray</span>
+<span class="sd">    :param data: Data to filter.</span>
+<span class="sd">    :param freq: The frequency above which signals are attenuated</span>
+<span class="sd">        with 95 dB</span>
+<span class="sd">    :param df: Sampling rate in Hz.</span>
+<span class="sd">    :param maxorder: Maximal order of the designed cheby2 filter</span>
+<span class="sd">    :param ba: If True return only the filter coefficients (b, a) instead</span>
+<span class="sd">        of filtering</span>
+<span class="sd">    :param freq_passband: If True return additionally to the filtered data,</span>
+<span class="sd">        the iteratively determined pass band frequency</span>
+<span class="sd">    :return: Filtered data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nyquist</span> <span class="o">=</span> <span class="n">df</span> <span class="o">*</span> <span class="mf">0.5</span>
+    <span class="c1"># rp - maximum ripple of passband, rs - attenuation of stopband</span>
+    <span class="n">rp</span><span class="p">,</span> <span class="n">rs</span><span class="p">,</span> <span class="n">order</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mf">1e99</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">freq</span> <span class="o">/</span> <span class="n">nyquist</span>  <span class="c1"># stop band frequency</span>
+    <span class="n">wp</span> <span class="o">=</span> <span class="n">ws</span>  <span class="c1"># pass band frequency</span>
+    <span class="c1"># raise for some bad scenarios</span>
+    <span class="k">if</span> <span class="n">ws</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Selected corner frequency is above Nyquist. &quot;</span> <span class="o">+</span> \
+              <span class="s2">&quot;Setting Nyquist as high corner.&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">order</span> <span class="o">&lt;=</span> <span class="n">maxorder</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">wp</span> <span class="o">=</span> <span class="n">wp</span> <span class="o">*</span> <span class="mf">0.99</span>
+        <span class="n">order</span><span class="p">,</span> <span class="n">wn</span> <span class="o">=</span> <span class="n">cheb2ord</span><span class="p">(</span><span class="n">wp</span><span class="p">,</span> <span class="n">ws</span><span class="p">,</span> <span class="n">rp</span><span class="p">,</span> <span class="n">rs</span><span class="p">,</span> <span class="n">analog</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ba</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">cheby2</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">rs</span><span class="p">,</span> <span class="n">wn</span><span class="p">,</span> <span class="n">btype</span><span class="o">=</span><span class="s1">&#39;low&#39;</span><span class="p">,</span> <span class="n">analog</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;ba&#39;</span><span class="p">)</span>
+    <span class="n">z</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">cheby2</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">rs</span><span class="p">,</span> <span class="n">wn</span><span class="p">,</span> <span class="n">btype</span><span class="o">=</span><span class="s1">&#39;low&#39;</span><span class="p">,</span> <span class="n">analog</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;zpk&#39;</span><span class="p">)</span>
+    <span class="n">sos</span> <span class="o">=</span> <span class="n">zpk2sos</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">freq_passband</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">sosfilt</span><span class="p">(</span><span class="n">sos</span><span class="p">,</span> <span class="n">data</span><span class="p">),</span> <span class="n">wp</span> <span class="o">*</span> <span class="n">nyquist</span>
+    <span class="k">return</span> <span class="n">sosfilt</span><span class="p">(</span><span class="n">sos</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

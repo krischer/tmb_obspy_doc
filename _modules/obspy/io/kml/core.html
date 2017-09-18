@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.io.kml.core &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.io.kml.core</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Keyhole Markup Language (KML) output support in ObsPy</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">log</span>
+
+<span class="kn">from</span> <span class="nn">lxml.etree</span> <span class="k">import</span> <span class="n">Element</span><span class="p">,</span> <span class="n">SubElement</span><span class="p">,</span> <span class="n">tostring</span>
+<span class="kn">from</span> <span class="nn">matplotlib.cm</span> <span class="k">import</span> <span class="n">get_cmap</span>
+
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">UTCDateTime</span>
+<span class="kn">from</span> <span class="nn">obspy.core.event</span> <span class="k">import</span> <span class="n">Catalog</span>
+<span class="kn">from</span> <span class="nn">obspy.core.inventory.inventory</span> <span class="k">import</span> <span class="n">Inventory</span>
+
+
+<div class="viewcode-block" id="inventory_to_kml_string"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.kml.core.inventory_to_kml_string.html#obspy.io.kml.core.inventory_to_kml_string">[docs]</a><span class="k">def</span> <span class="nf">inventory_to_kml_string</span><span class="p">(</span>
+        <span class="n">inventory</span><span class="p">,</span>
+        <span class="n">icon_url</span><span class="o">=</span><span class="s2">&quot;https://maps.google.com/mapfiles/kml/shapes/triangle.png&quot;</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Paired&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">,</span>
+        <span class="n">timespans</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">strip_far_future_end_times</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert an :class:`~obspy.core.inventory.inventory.Inventory` to a KML</span>
+<span class="sd">    string representation.</span>
+
+<span class="sd">    :type inventory: :class:`~obspy.core.inventory.inventory.Inventory`</span>
+<span class="sd">    :param inventory: Input station metadata.</span>
+<span class="sd">    :type icon_url: str</span>
+<span class="sd">    :param icon_url: Internet URL of icon to use for station (e.g. PNG image).</span>
+<span class="sd">    :type icon_size: float</span>
+<span class="sd">    :param icon_size: Icon size.</span>
+<span class="sd">    :type label_size: float</span>
+<span class="sd">    :param label_size: Label size.</span>
+<span class="sd">    :type encoding: str</span>
+<span class="sd">    :param encoding: Encoding used for XML string.</span>
+<span class="sd">    :type timespans: bool</span>
+<span class="sd">    :param timespans: Whether to add timespan information to the single station</span>
+<span class="sd">        elements in the KML or not. If timespans are used, the displayed</span>
+<span class="sd">        information in e.g. Google Earth will represent a snapshot in time,</span>
+<span class="sd">        such that using the time slider different states of the inventory in</span>
+<span class="sd">        time can be visualized. If timespans are not used, any station active</span>
+<span class="sd">        at any point in time is always shown.</span>
+<span class="sd">    :type strip_far_future_end_times: bool</span>
+<span class="sd">    :param strip_far_future_end_times: Leave out likely fictitious end times of</span>
+<span class="sd">        stations (more than twenty years after current time). Far future end</span>
+<span class="sd">        times may produce time sliders with bad overall time span in third</span>
+<span class="sd">        party applications viewing the KML file.</span>
+<span class="sd">    :rtype: byte string</span>
+<span class="sd">    :return: Encoded byte string containing KML information of the station</span>
+<span class="sd">        metadata.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">twenty_years_from_now</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">()</span> <span class="o">+</span> <span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">365</span> <span class="o">*</span> <span class="mi">20</span>
+    <span class="c1"># construct the KML file</span>
+    <span class="n">kml</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="s2">&quot;kml&quot;</span><span class="p">)</span>
+    <span class="n">kml</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;xmlns&quot;</span><span class="p">,</span> <span class="s2">&quot;http://www.opengis.net/kml/2.2&quot;</span><span class="p">)</span>
+
+    <span class="n">document</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">kml</span><span class="p">,</span> <span class="s2">&quot;Document&quot;</span><span class="p">)</span>
+    <span class="n">SubElement</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Inventory&quot;</span>
+
+    <span class="c1"># style definition</span>
+    <span class="n">cmap</span> <span class="o">=</span> <span class="n">get_cmap</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">lut</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">inventory</span><span class="o">.</span><span class="n">networks</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inventory</span><span class="o">.</span><span class="n">networks</span><span class="p">)):</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">_rgba_tuple_to_kml_color_code</span><span class="p">(</span><span class="n">cmap</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="n">style</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="s2">&quot;Style&quot;</span><span class="p">)</span>
+        <span class="n">style</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;station_</span><span class="si">%i</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+
+        <span class="n">iconstyle</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">style</span><span class="p">,</span> <span class="s2">&quot;IconStyle&quot;</span><span class="p">)</span>
+        <span class="n">SubElement</span><span class="p">(</span><span class="n">iconstyle</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">color</span>
+        <span class="n">SubElement</span><span class="p">(</span><span class="n">iconstyle</span><span class="p">,</span> <span class="s2">&quot;scale&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">icon_size</span><span class="p">)</span>
+        <span class="n">icon</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">iconstyle</span><span class="p">,</span> <span class="s2">&quot;Icon&quot;</span><span class="p">)</span>
+        <span class="n">SubElement</span><span class="p">(</span><span class="n">icon</span><span class="p">,</span> <span class="s2">&quot;href&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">icon_url</span>
+        <span class="n">hotspot</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">iconstyle</span><span class="p">,</span> <span class="s2">&quot;hotSpot&quot;</span><span class="p">)</span>
+        <span class="n">hotspot</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;0.5&quot;</span><span class="p">)</span>
+        <span class="n">hotspot</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;0.5&quot;</span><span class="p">)</span>
+        <span class="n">hotspot</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;xunits&quot;</span><span class="p">,</span> <span class="s2">&quot;fraction&quot;</span><span class="p">)</span>
+        <span class="n">hotspot</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;yunits&quot;</span><span class="p">,</span> <span class="s2">&quot;fraction&quot;</span><span class="p">)</span>
+
+        <span class="n">labelstyle</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">style</span><span class="p">,</span> <span class="s2">&quot;LabelStyle&quot;</span><span class="p">)</span>
+        <span class="n">SubElement</span><span class="p">(</span><span class="n">labelstyle</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">color</span>
+        <span class="n">SubElement</span><span class="p">(</span><span class="n">labelstyle</span><span class="p">,</span> <span class="s2">&quot;scale&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">label_size</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">net</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">inventory</span><span class="p">):</span>
+        <span class="n">folder</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="s2">&quot;Folder&quot;</span><span class="p">)</span>
+        <span class="n">SubElement</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">code</span><span class="p">)</span>
+        <span class="n">SubElement</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="s2">&quot;open&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+
+        <span class="n">SubElement</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
+
+        <span class="n">style</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="s2">&quot;Style&quot;</span><span class="p">)</span>
+        <span class="n">liststyle</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">style</span><span class="p">,</span> <span class="s2">&quot;ListStyle&quot;</span><span class="p">)</span>
+        <span class="n">SubElement</span><span class="p">(</span><span class="n">liststyle</span><span class="p">,</span> <span class="s2">&quot;listItemType&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;check&quot;</span>
+        <span class="n">SubElement</span><span class="p">(</span><span class="n">liststyle</span><span class="p">,</span> <span class="s2">&quot;bgColor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;00ffff&quot;</span>
+        <span class="n">SubElement</span><span class="p">(</span><span class="n">liststyle</span><span class="p">,</span> <span class="s2">&quot;maxSnippetLines&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;5&quot;</span>
+
+        <span class="c1"># add one marker per station code</span>
+        <span class="k">for</span> <span class="n">sta</span> <span class="ow">in</span> <span class="n">net</span><span class="p">:</span>
+            <span class="n">placemark</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="s2">&quot;Placemark&quot;</span><span class="p">)</span>
+            <span class="n">SubElement</span><span class="p">(</span><span class="n">placemark</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">net</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">sta</span><span class="o">.</span><span class="n">code</span><span class="p">))</span>
+            <span class="n">SubElement</span><span class="p">(</span><span class="n">placemark</span><span class="p">,</span> <span class="s2">&quot;styleUrl&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;#station_</span><span class="si">%i</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">i</span>
+            <span class="n">SubElement</span><span class="p">(</span><span class="n">placemark</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">color</span>
+            <span class="k">if</span> <span class="n">sta</span><span class="o">.</span><span class="n">longitude</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">sta</span><span class="o">.</span><span class="n">latitude</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">point</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">placemark</span><span class="p">,</span> <span class="s2">&quot;Point&quot;</span><span class="p">)</span>
+                <span class="n">SubElement</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="s2">&quot;coordinates&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%.6f</span><span class="s2">,</span><span class="si">%.6f</span><span class="s2">,0&quot;</span> <span class="o">%</span> \
+                    <span class="p">(</span><span class="n">sta</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span> <span class="n">sta</span><span class="o">.</span><span class="n">latitude</span><span class="p">)</span>
+
+            <span class="n">SubElement</span><span class="p">(</span><span class="n">placemark</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sta</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">timespans</span><span class="p">:</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="n">sta</span><span class="o">.</span><span class="n">start_date</span>
+                <span class="n">end</span> <span class="o">=</span> <span class="n">sta</span><span class="o">.</span><span class="n">end_date</span>
+                <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">end</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">timespan</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">placemark</span><span class="p">,</span> <span class="s2">&quot;TimeSpan&quot;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">SubElement</span><span class="p">(</span><span class="n">timespan</span><span class="p">,</span> <span class="s2">&quot;begin&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">end</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">strip_far_future_end_times</span> <span class="ow">or</span> \
+                                <span class="n">end</span> <span class="o">&lt;</span> <span class="n">twenty_years_from_now</span><span class="p">:</span>
+                            <span class="n">SubElement</span><span class="p">(</span><span class="n">timespan</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">timespans</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">start_date</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">end_date</span>
+            <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">end</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">timespan</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="s2">&quot;TimeSpan&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">SubElement</span><span class="p">(</span><span class="n">timespan</span><span class="p">,</span> <span class="s2">&quot;begin&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">end</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">strip_far_future_end_times</span> <span class="ow">or</span> \
+                            <span class="n">end</span> <span class="o">&lt;</span> <span class="n">twenty_years_from_now</span><span class="p">:</span>
+                        <span class="n">SubElement</span><span class="p">(</span><span class="n">timespan</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+
+    <span class="c1"># generate and return KML string</span>
+    <span class="k">return</span> <span class="n">tostring</span><span class="p">(</span><span class="n">kml</span><span class="p">,</span> <span class="n">pretty_print</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">xml_declaration</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="catalog_to_kml_string"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.kml.core.catalog_to_kml_string.html#obspy.io.kml.core.catalog_to_kml_string">[docs]</a><span class="k">def</span> <span class="nf">catalog_to_kml_string</span><span class="p">(</span>
+        <span class="n">catalog</span><span class="p">,</span>
+        <span class="n">icon_url</span><span class="o">=</span><span class="s2">&quot;https://maps.google.com/mapfiles/kml/shapes/earthquake.png&quot;</span><span class="p">,</span>
+        <span class="n">label_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">icon_size_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">,</span>
+        <span class="n">timestamps</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert a :class:`~obspy.core.event.Catalog` to a KML string</span>
+<span class="sd">    representation.</span>
+
+<span class="sd">    :type catalog: :class:`~obspy.core.event.Catalog`</span>
+<span class="sd">    :param catalog: Input catalog data.</span>
+<span class="sd">    :type icon_url: str</span>
+<span class="sd">    :param icon_url: Internet URL of icon to use for events (e.g. PNG image).</span>
+<span class="sd">    :type label_func: func</span>
+<span class="sd">    :type label_func: Custom function to use for determining each event&#39;s</span>
+<span class="sd">        label. User provided function is supposed to take an</span>
+<span class="sd">        :class:`~obspy.core.event.Event` object as single argument, e.g. for</span>
+<span class="sd">        empty labels use `label_func=lambda x: &quot;&quot;`.</span>
+<span class="sd">    :type icon_size_func: func</span>
+<span class="sd">    :type icon_size_func: Custom function to use for determining each</span>
+<span class="sd">        event&#39;s icon size. User provided function should take an</span>
+<span class="sd">        :class:`~obspy.core.event.Event` object as single argument and return a</span>
+<span class="sd">        float.</span>
+<span class="sd">    :type encoding: str</span>
+<span class="sd">    :param encoding: Encoding used for XML string.</span>
+<span class="sd">    :type timestamps: bool</span>
+<span class="sd">    :param timestamps: Whether to add timestamp information to the event</span>
+<span class="sd">        elements in the KML or not. If timestamps are used, the displayed</span>
+<span class="sd">        information in e.g. Google Earth will represent a snapshot in time,</span>
+<span class="sd">        such that using the time slider different states of the catalog in time</span>
+<span class="sd">        can be visualized. If timespans are not used, any event happening at</span>
+<span class="sd">        any point in time is always shown.</span>
+<span class="sd">    :rtype: byte string</span>
+<span class="sd">    :return: Encoded byte string containing KML information of the event</span>
+<span class="sd">        metadata.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># default label and size functions</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">label_func</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">label_func</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+            <span class="n">origin</span> <span class="o">=</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">preferred_origin</span><span class="p">()</span> <span class="ow">or</span>
+                      <span class="n">event</span><span class="o">.</span><span class="n">origins</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">origins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span>
+                      <span class="kc">None</span><span class="p">)</span>
+            <span class="n">mag</span> <span class="o">=</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">preferred_magnitude</span><span class="p">()</span> <span class="ow">or</span>
+                   <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span>
+                   <span class="kc">None</span><span class="p">)</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">origin</span><span class="o">.</span><span class="n">time</span> <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">date</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">if</span> <span class="n">mag</span><span class="p">:</span>
+                <span class="n">label</span> <span class="o">+=</span> <span class="s2">&quot; </span><span class="si">%.1f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mag</span><span class="o">.</span><span class="n">mag</span>
+            <span class="k">return</span> <span class="n">label</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">icon_size_func</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">icon_size_func</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+            <span class="n">mag</span> <span class="o">=</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">preferred_magnitude</span><span class="p">()</span> <span class="ow">or</span>
+                   <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span>
+                   <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">mag</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">icon_size</span> <span class="o">=</span> <span class="mf">1.2</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="mf">1.5</span> <span class="o">+</span> <span class="n">mag</span><span class="o">.</span><span class="n">mag</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="n">icon_size</span> <span class="o">=</span> <span class="mf">0.1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">icon_size</span> <span class="o">=</span> <span class="mf">0.5</span>
+            <span class="k">return</span> <span class="n">icon_size</span>
+
+    <span class="c1"># construct the KML file</span>
+    <span class="n">kml</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="s2">&quot;kml&quot;</span><span class="p">)</span>
+    <span class="n">kml</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;xmlns&quot;</span><span class="p">,</span> <span class="s2">&quot;http://www.opengis.net/kml/2.2&quot;</span><span class="p">)</span>
+
+    <span class="n">document</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">kml</span><span class="p">,</span> <span class="s2">&quot;Document&quot;</span><span class="p">)</span>
+    <span class="n">SubElement</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Catalog&quot;</span>
+
+    <span class="c1"># style definitions for earthquakes</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="s2">&quot;Style&quot;</span><span class="p">)</span>
+    <span class="n">style</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;earthquake&quot;</span><span class="p">)</span>
+
+    <span class="n">iconstyle</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">style</span><span class="p">,</span> <span class="s2">&quot;IconStyle&quot;</span><span class="p">)</span>
+    <span class="n">SubElement</span><span class="p">(</span><span class="n">iconstyle</span><span class="p">,</span> <span class="s2">&quot;scale&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;0.5&quot;</span>
+    <span class="n">icon</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">iconstyle</span><span class="p">,</span> <span class="s2">&quot;Icon&quot;</span><span class="p">)</span>
+    <span class="n">SubElement</span><span class="p">(</span><span class="n">icon</span><span class="p">,</span> <span class="s2">&quot;href&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">icon_url</span>
+    <span class="n">hotspot</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">iconstyle</span><span class="p">,</span> <span class="s2">&quot;hotSpot&quot;</span><span class="p">)</span>
+    <span class="n">hotspot</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;0.5&quot;</span><span class="p">)</span>
+    <span class="n">hotspot</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;0.5&quot;</span><span class="p">)</span>
+    <span class="n">hotspot</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;xunits&quot;</span><span class="p">,</span> <span class="s2">&quot;fraction&quot;</span><span class="p">)</span>
+    <span class="n">hotspot</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;yunits&quot;</span><span class="p">,</span> <span class="s2">&quot;fraction&quot;</span><span class="p">)</span>
+
+    <span class="n">labelstyle</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">style</span><span class="p">,</span> <span class="s2">&quot;LabelStyle&quot;</span><span class="p">)</span>
+    <span class="n">SubElement</span><span class="p">(</span><span class="n">labelstyle</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;ff0000ff&quot;</span>
+    <span class="n">SubElement</span><span class="p">(</span><span class="n">labelstyle</span><span class="p">,</span> <span class="s2">&quot;scale&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;0.8&quot;</span>
+
+    <span class="n">folder</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="s2">&quot;Folder&quot;</span><span class="p">)</span>
+    <span class="n">SubElement</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Catalog&quot;</span>
+    <span class="n">SubElement</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="s2">&quot;open&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+
+    <span class="n">SubElement</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">catalog</span><span class="p">)</span>
+
+    <span class="n">style</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="s2">&quot;Style&quot;</span><span class="p">)</span>
+    <span class="n">liststyle</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">style</span><span class="p">,</span> <span class="s2">&quot;ListStyle&quot;</span><span class="p">)</span>
+    <span class="n">SubElement</span><span class="p">(</span><span class="n">liststyle</span><span class="p">,</span> <span class="s2">&quot;listItemType&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;check&quot;</span>
+    <span class="n">SubElement</span><span class="p">(</span><span class="n">liststyle</span><span class="p">,</span> <span class="s2">&quot;bgColor&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;00ffffff&quot;</span>
+    <span class="n">SubElement</span><span class="p">(</span><span class="n">liststyle</span><span class="p">,</span> <span class="s2">&quot;maxSnippetLines&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;5&quot;</span>
+
+    <span class="c1"># add one marker per event</span>
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">catalog</span><span class="p">:</span>
+        <span class="n">origin</span> <span class="o">=</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">preferred_origin</span><span class="p">()</span> <span class="ow">or</span>
+                  <span class="n">event</span><span class="o">.</span><span class="n">origins</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">origins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span>
+                  <span class="kc">None</span><span class="p">)</span>
+
+        <span class="n">placemark</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="s2">&quot;Placemark&quot;</span><span class="p">)</span>
+        <span class="n">SubElement</span><span class="p">(</span><span class="n">placemark</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">label_func</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="n">SubElement</span><span class="p">(</span><span class="n">placemark</span><span class="p">,</span> <span class="s2">&quot;styleUrl&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;#earthquake&quot;</span>
+        <span class="n">style</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">placemark</span><span class="p">,</span> <span class="s2">&quot;Style&quot;</span><span class="p">)</span>
+        <span class="n">icon_style</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">style</span><span class="p">,</span> <span class="s2">&quot;IconStyle&quot;</span><span class="p">)</span>
+        <span class="n">liststyle</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">style</span><span class="p">,</span> <span class="s2">&quot;ListStyle&quot;</span><span class="p">)</span>
+        <span class="n">SubElement</span><span class="p">(</span><span class="n">liststyle</span><span class="p">,</span> <span class="s2">&quot;maxSnippetLines&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;5&quot;</span>
+        <span class="n">SubElement</span><span class="p">(</span><span class="n">icon_style</span><span class="p">,</span> <span class="s2">&quot;scale&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%.5f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">icon_size_func</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">origin</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">origin</span><span class="o">.</span><span class="n">longitude</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">origin</span><span class="o">.</span><span class="n">latitude</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">point</span> <span class="o">=</span> <span class="n">SubElement</span><span class="p">(</span><span class="n">placemark</span><span class="p">,</span> <span class="s2">&quot;Point&quot;</span><span class="p">)</span>
+                <span class="n">SubElement</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="s2">&quot;coordinates&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%.6f</span><span class="s2">,</span><span class="si">%.6f</span><span class="s2">,0&quot;</span> <span class="o">%</span> \
+                    <span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span> <span class="n">origin</span><span class="o">.</span><span class="n">latitude</span><span class="p">)</span>
+
+        <span class="n">SubElement</span><span class="p">(</span><span class="n">placemark</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">timestamps</span><span class="p">:</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="n">_get_event_timestamp</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">SubElement</span><span class="p">(</span><span class="n">placemark</span><span class="p">,</span> <span class="s2">&quot;TimeStamp&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+
+    <span class="c1"># generate and return KML string</span>
+    <span class="k">return</span> <span class="n">tostring</span><span class="p">(</span><span class="n">kml</span><span class="p">,</span> <span class="n">pretty_print</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">xml_declaration</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_write_kml"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.kml.core._write_kml.html#obspy.io.kml.core._write_kml">[docs]</a><span class="k">def</span> <span class="nf">_write_kml</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write :class:`~obspy.core.inventory.inventory.Inventory` or</span>
+<span class="sd">    :class:`~obspy.core.event.Catalog` object to a KML file.</span>
+<span class="sd">    For additional parameters see :meth:`inventory_to_kml_string` and</span>
+<span class="sd">    :meth:`catalog_to_kml_string`.</span>
+
+<span class="sd">    :type obj: :class:`~obspy.core.event.Catalog` or</span>
+<span class="sd">        :class:`~obspy.core.inventory.Inventory`</span>
+<span class="sd">    :param obj: ObsPy object for KML output</span>
+<span class="sd">    :type filename: str</span>
+<span class="sd">    :param filename: Filename to write to. Suffix &quot;.kml&quot; will be appended if</span>
+<span class="sd">        not already present.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Catalog</span><span class="p">):</span>
+        <span class="n">kml_string</span> <span class="o">=</span> <span class="n">catalog_to_kml_string</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Inventory</span><span class="p">):</span>
+        <span class="n">kml_string</span> <span class="o">=</span> <span class="n">inventory_to_kml_string</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Object for KML output must be &quot;</span>
+               <span class="s2">&quot;a Catalog or Inventory.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.kml&quot;</span><span class="p">):</span>
+        <span class="n">filename</span> <span class="o">+=</span> <span class="s2">&quot;.kml&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">kml_string</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_rgba_tuple_to_kml_color_code"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.kml.core._rgba_tuple_to_kml_color_code.html#obspy.io.kml.core._rgba_tuple_to_kml_color_code">[docs]</a><span class="k">def</span> <span class="nf">_rgba_tuple_to_kml_color_code</span><span class="p">(</span><span class="n">rgba</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert tuple of (red, green, blue, alpha) float values (0.0-1.0) to KML</span>
+<span class="sd">    hex color code string &quot;aabbggrr&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">rgba</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">rgba</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%02x</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">255</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">r</span><span class="p">)])</span></div>
+
+
+<div class="viewcode-block" id="_get_event_timestamp"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.kml.core._get_event_timestamp.html#obspy.io.kml.core._get_event_timestamp">[docs]</a><span class="k">def</span> <span class="nf">_get_event_timestamp</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get timestamp information for the event. Search is perfomed in the</span>
+<span class="sd">    following order:</span>
+
+<span class="sd">     - origin time of preferred origin</span>
+<span class="sd">     - origin time of first origin found that has a origin time</span>
+<span class="sd">     - minimum of all found pick times</span>
+<span class="sd">     - `None` if no time is found in the above search</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">origin</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">preferred_origin</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">origin</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">origin</span><span class="o">.</span><span class="n">time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">origin</span><span class="o">.</span><span class="n">time</span>
+    <span class="k">for</span> <span class="n">origin</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">origins</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">origin</span><span class="o">.</span><span class="n">time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">origin</span><span class="o">.</span><span class="n">time</span>
+    <span class="n">pick_times</span> <span class="o">=</span> <span class="p">[</span><span class="n">pick</span><span class="o">.</span><span class="n">time</span> <span class="k">for</span> <span class="n">pick</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">picks</span>
+                  <span class="k">if</span> <span class="n">pick</span><span class="o">.</span><span class="n">time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">pick_times</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">pick_times</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

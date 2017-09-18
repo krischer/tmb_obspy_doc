@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.signal.polarization &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.signal.polarization</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Functions for polarization analysis.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.odr</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">signal</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="k">import</span> <span class="n">fminbound</span>
+
+<span class="kn">from</span> <span class="nn">obspy.signal.invsim</span> <span class="k">import</span> <span class="n">cosine_taper</span>
+
+
+<div class="viewcode-block" id="eigval"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.polarization.eigval.html#obspy.signal.polarization.eigval">[docs]</a><span class="k">def</span> <span class="nf">eigval</span><span class="p">(</span><span class="n">datax</span><span class="p">,</span> <span class="n">datay</span><span class="p">,</span> <span class="n">dataz</span><span class="p">,</span> <span class="n">fk</span><span class="p">,</span> <span class="n">normf</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Polarization attributes of a signal.</span>
+
+<span class="sd">    Computes the rectilinearity, the planarity and the eigenvalues of the given</span>
+<span class="sd">    data which can be windowed or not.</span>
+<span class="sd">    The time derivatives are calculated by central differences and the</span>
+<span class="sd">    parameter ``fk`` describes the coefficients of the used polynomial. The</span>
+<span class="sd">    values of ``fk`` depend on the order of the derivative you want to</span>
+<span class="sd">    calculate. If you do not want to use derivatives you can simply use</span>
+<span class="sd">    [1, 1, 1, 1, 1] for ``fk``.</span>
+
+<span class="sd">    The algorithm is mainly based on the paper by [Jurkevics1988]_. The rest is</span>
+<span class="sd">    just the numerical differentiation by central differences (carried out by</span>
+<span class="sd">    the routine :func:`scipy.signal.lfilter(data, 1, fk)`).</span>
+
+<span class="sd">    :param datax: Data of x component. Note this is most useful with</span>
+<span class="sd">        windowed data, represented by a 2 dimensional array. First</span>
+<span class="sd">        dimension is the window number, second dimension is the data.</span>
+<span class="sd">    :type datax: :class:`~numpy.ndarray`</span>
+<span class="sd">    :param datay: Data of y component. See description of ``datax``.</span>
+<span class="sd">    :type datay: :class:`~numpy.ndarray`</span>
+<span class="sd">    :param dataz: Data of z component. See description of ``datax``.</span>
+<span class="sd">    :type dataz: :class:`~numpy.ndarray`</span>
+<span class="sd">    :param fk: Coefficients of polynomial used to calculate the time</span>
+<span class="sd">        derivatives.</span>
+<span class="sd">    :type fk: list</span>
+<span class="sd">    :param normf: Factor for normalization.</span>
+<span class="sd">    :type normf: float</span>
+<span class="sd">    :return: **leigenv1, leigenv2, leigenv3, rect, plan, dleigenv, drect,</span>
+<span class="sd">        dplan** - Smallest eigenvalue, Intermediate eigenvalue, Largest</span>
+<span class="sd">        eigenvalue, Rectilinearity, Planarity, Time derivative of eigenvalues,</span>
+<span class="sd">        time derivative of rectilinearity, Time derivative of planarity.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The function is made for windowed data (two dimensional input).</span>
+    <span class="c1"># However be nice and allow one dimensional input, see #919</span>
+    <span class="n">datax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">datax</span><span class="p">)</span>
+    <span class="n">datay</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">datay</span><span class="p">)</span>
+    <span class="n">dataz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">dataz</span><span class="p">)</span>
+    <span class="n">covmat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+    <span class="n">leigenv1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">datax</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">leigenv2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">datax</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">leigenv3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">datax</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">dleigenv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">datax</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">rect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">datax</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">plan</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">datax</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">datax</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">covmat</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">datax</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">rowvar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">covmat</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">covmat</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">datax</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">datay</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span>
+                                             <span class="n">rowvar</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">covmat</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">covmat</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">datax</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">dataz</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span>
+                                             <span class="n">rowvar</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">covmat</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">datay</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">rowvar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">covmat</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">covmat</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">dataz</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">datay</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span>
+                                             <span class="n">rowvar</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">covmat</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">dataz</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">rowvar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">_eigvec</span><span class="p">,</span> <span class="n">eigenval</span><span class="p">,</span> <span class="n">_v</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">covmat</span><span class="p">))</span>
+        <span class="n">eigenv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">eigenval</span><span class="p">)</span>
+        <span class="n">leigenv1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">eigenv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">leigenv2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">eigenv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">leigenv3</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">eigenv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">rect</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">((</span><span class="n">eigenv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">eigenv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">eigenv</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+        <span class="n">plan</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">eigenv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">eigenv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">eigenv</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+    <span class="n">leigenv1</span> <span class="o">=</span> <span class="n">leigenv1</span> <span class="o">/</span> <span class="n">normf</span>
+    <span class="n">leigenv2</span> <span class="o">=</span> <span class="n">leigenv2</span> <span class="o">/</span> <span class="n">normf</span>
+    <span class="n">leigenv3</span> <span class="o">=</span> <span class="n">leigenv3</span> <span class="o">/</span> <span class="n">normf</span>
+
+    <span class="n">leigenv1_add</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">leigenv1</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">),</span>
+                                       <span class="n">leigenv1</span><span class="p">),</span>
+                             <span class="p">[</span><span class="n">leigenv1</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">leigenv1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">*</span>
+                             <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">dleigenv1</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">fk</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">leigenv1_add</span><span class="p">)</span>
+    <span class="n">dleigenv</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dleigenv1</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:]</span>
+
+    <span class="n">leigenv2_add</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">leigenv2</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">),</span>
+                                       <span class="n">leigenv2</span><span class="p">),</span>
+                             <span class="p">[</span><span class="n">leigenv2</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">leigenv2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">*</span>
+                             <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">dleigenv2</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">fk</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">leigenv2_add</span><span class="p">)</span>
+    <span class="n">dleigenv</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dleigenv2</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:]</span>
+
+    <span class="n">leigenv3_add</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">leigenv3</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">),</span>
+                                       <span class="n">leigenv3</span><span class="p">),</span>
+                             <span class="p">[</span><span class="n">leigenv3</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">leigenv3</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">*</span>
+                             <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">dleigenv3</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">fk</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">leigenv3_add</span><span class="p">)</span>
+    <span class="n">dleigenv</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">dleigenv3</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:]</span>
+
+    <span class="n">rect_add</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">rect</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">),</span> <span class="n">rect</span><span class="p">),</span>
+                         <span class="p">[</span><span class="n">rect</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">drect</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">fk</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">rect_add</span><span class="p">)</span>
+    <span class="n">drect</span> <span class="o">=</span> <span class="n">drect</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:]</span>
+
+    <span class="n">plan_add</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">plan</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">),</span> <span class="n">plan</span><span class="p">),</span>
+                         <span class="p">[</span><span class="n">plan</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">plan</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">dplan</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">fk</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">plan_add</span><span class="p">)</span>
+    <span class="n">dplan</span> <span class="o">=</span> <span class="n">dplan</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:]</span>
+
+    <span class="k">return</span> <span class="n">leigenv1</span><span class="p">,</span> <span class="n">leigenv2</span><span class="p">,</span> <span class="n">leigenv3</span><span class="p">,</span> <span class="n">rect</span><span class="p">,</span> <span class="n">plan</span><span class="p">,</span> <span class="n">dleigenv</span><span class="p">,</span> <span class="n">drect</span><span class="p">,</span> <span class="n">dplan</span></div>
+
+
+<div class="viewcode-block" id="flinn"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.polarization.flinn.html#obspy.signal.polarization.flinn">[docs]</a><span class="k">def</span> <span class="nf">flinn</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">noise_thres</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the azimuth, incidence, rectilinearity and planarity after the</span>
+<span class="sd">    eigenstructure decomposition method of [Flinn1965b]_.</span>
+
+<span class="sd">    :param stream: ZNE sorted trace data</span>
+<span class="sd">    :type stream: List of ZNE sorted numpy arrays</span>
+<span class="sd">    :param noise_tresh: Variance of the noise sphere; data points are excluded</span>
+<span class="sd">        when falling within the sphere of radius sqrt(noise_thres),</span>
+<span class="sd">        default is set to 0.</span>
+<span class="sd">    :type noise_thres: float</span>
+<span class="sd">    :returns:  azimuth, incidence, rectilinearity, and planarity</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">stream</span><span class="p">[</span><span class="mi">0</span><span class="p">][:]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">stream</span><span class="p">[</span><span class="mi">1</span><span class="p">][:]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">stream</span><span class="p">[</span><span class="mi">2</span><span class="p">][:]</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="p">)</span> <span class="o">&gt;</span> <span class="n">noise_thres</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="c1"># East</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">stream</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">mask</span><span class="p">]</span>
+    <span class="c1"># North</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">stream</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">mask</span><span class="p">]</span>
+    <span class="c1"># Z</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">stream</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">mask</span><span class="p">]</span>
+
+    <span class="n">covmat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">eigvec</span><span class="p">,</span> <span class="n">eigenval</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">covmat</span><span class="p">)</span>
+    <span class="c1"># Rectilinearity defined after Montalbetti &amp; Kanasewich, 1970</span>
+    <span class="n">rect</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigenval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">eigenval</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="c1"># Planarity defined after [Jurkevics1988]_</span>
+    <span class="n">plan</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">eigenval</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">eigenval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">eigenval</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">azimuth</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="n">eigvec</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">eigvec</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">eve</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigvec</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">eigvec</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">incidence</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="n">eve</span><span class="p">,</span> <span class="n">eigvec</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="k">if</span> <span class="n">azimuth</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">azimuth</span> <span class="o">=</span> <span class="mf">360.0</span> <span class="o">+</span> <span class="n">azimuth</span>
+    <span class="k">if</span> <span class="n">incidence</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">incidence</span> <span class="o">+=</span> <span class="mf">180.0</span>
+    <span class="k">if</span> <span class="n">incidence</span> <span class="o">&gt;</span> <span class="mf">90.0</span><span class="p">:</span>
+        <span class="n">incidence</span> <span class="o">=</span> <span class="mf">180.0</span> <span class="o">-</span> <span class="n">incidence</span>
+        <span class="k">if</span> <span class="n">azimuth</span> <span class="o">&gt;</span> <span class="mf">180.0</span><span class="p">:</span>
+            <span class="n">azimuth</span> <span class="o">-=</span> <span class="mf">180.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">azimuth</span> <span class="o">+=</span> <span class="mf">180.0</span>
+    <span class="k">if</span> <span class="n">azimuth</span> <span class="o">&gt;</span> <span class="mf">180.0</span><span class="p">:</span>
+        <span class="n">azimuth</span> <span class="o">-=</span> <span class="mf">180.0</span>
+
+    <span class="k">return</span> <span class="n">azimuth</span><span class="p">,</span> <span class="n">incidence</span><span class="p">,</span> <span class="n">rect</span><span class="p">,</span> <span class="n">plan</span></div>
+
+
+<div class="viewcode-block" id="instantaneous_frequency"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.polarization.instantaneous_frequency.html#obspy.signal.polarization.instantaneous_frequency">[docs]</a><span class="k">def</span> <span class="nf">instantaneous_frequency</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simple function to estimate the instantaneous frequency based on the</span>
+<span class="sd">    derivative of the data and the analytical (hilbert) data.</span>
+
+<span class="sd">    :param data: The data array.</span>
+<span class="sd">    :type data: :class:`numpy.ndarray`</span>
+<span class="sd">    :param sampling_rate: The sampling rate in Hz.</span>
+<span class="sd">    :type sampling_rate: float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">hilbert</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">sampling_rate</span>
+
+    <span class="n">instf</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">real</span> <span class="o">*</span> <span class="n">dx</span><span class="o">.</span><span class="n">imag</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">imag</span> <span class="o">*</span> <span class="n">dx</span><span class="o">.</span><span class="n">real</span><span class="p">)</span> <span class="o">/</span> \
+            <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">instf</span></div>
+
+
+<div class="viewcode-block" id="vidale_adapt"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.polarization.vidale_adapt.html#obspy.signal.polarization.vidale_adapt">[docs]</a><span class="k">def</span> <span class="nf">vidale_adapt</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">noise_thres</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">flow</span><span class="p">,</span> <span class="n">fhigh</span><span class="p">,</span> <span class="n">spoint</span><span class="p">,</span> <span class="n">stime</span><span class="p">,</span> <span class="n">etime</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adaptive window polarization analysis after [Vidale1986]_ with the</span>
+<span class="sd">    modification of adapted analysis window estimated by estimating the</span>
+<span class="sd">    instantaneous frequency. It returns the azimuth, incidence, rectilinearity</span>
+<span class="sd">    planarity and ellipticity.</span>
+
+<span class="sd">    :param stream: ZNE containing trace data</span>
+<span class="sd">    :type stream: :class:`~obspy.core.stream.Stream`</span>
+<span class="sd">    :param noise_thres: Variance of the noise sphere; data points are excluded</span>
+<span class="sd">        when falling within the sphere of radius sqrt(noise_thres),</span>
+<span class="sd">        Default = 0</span>
+<span class="sd">    :type noise_thres: float</span>
+<span class="sd">    :param fs: sampling rate</span>
+<span class="sd">    :type fs: float</span>
+<span class="sd">    :param flow: lower frequency limit for analysis</span>
+<span class="sd">    :type flow: float</span>
+<span class="sd">    :param fhigh: upper frequency limit for analysis</span>
+<span class="sd">    :type fhigh: float</span>
+<span class="sd">    :param spoint: array with traces&#39; individual start times in samples</span>
+<span class="sd">    :type spoint: :class:`numpy.ndarray`</span>
+<span class="sd">    :param stime: start time of the analysis</span>
+<span class="sd">    :type stime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :param etime: end time for the analysis</span>
+<span class="sd">    :type etime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :returns: list of tuples containing azimuth, incidence, rectilinearity,</span>
+<span class="sd">        planarity, and ellipticity</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="mf">3.0</span>
+    <span class="c1"># sort for ZNE</span>
+    <span class="n">stream</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">stream</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">stream</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">stream</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+
+    <span class="n">zi</span> <span class="o">=</span> <span class="n">instantaneous_frequency</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">fs</span><span class="p">)</span>
+    <span class="n">za</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">hilbert</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="n">ni</span> <span class="o">=</span> <span class="n">instantaneous_frequency</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">fs</span><span class="p">)</span>
+    <span class="n">na</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">hilbert</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">ei</span> <span class="o">=</span> <span class="n">instantaneous_frequency</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">fs</span><span class="p">)</span>
+    <span class="n">ea</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">hilbert</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">fs</span> <span class="o">/</span> <span class="n">flow</span><span class="p">)</span>
+    <span class="n">covmat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">adapt</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">3.</span> <span class="o">*</span> <span class="n">w</span> <span class="o">*</span> <span class="n">fs</span> <span class="o">/</span> <span class="p">(</span><span class="n">zi</span><span class="p">[</span><span class="n">offset</span><span class="p">]</span> <span class="o">+</span> <span class="n">ni</span><span class="p">[</span><span class="n">offset</span><span class="p">]</span> <span class="o">+</span> <span class="n">ei</span><span class="p">[</span><span class="n">offset</span><span class="p">]))</span>
+        <span class="c1"># in order to account for errors in the inst freq estimation</span>
+        <span class="k">if</span> <span class="n">adapt</span> <span class="o">&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">fs</span> <span class="o">/</span> <span class="n">flow</span><span class="p">):</span>
+            <span class="n">adapt</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">fs</span> <span class="o">/</span> <span class="n">flow</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">adapt</span> <span class="o">&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">fs</span> <span class="o">/</span> <span class="n">fhigh</span><span class="p">):</span>
+            <span class="n">adapt</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">fs</span> <span class="o">/</span> <span class="n">fhigh</span><span class="p">)</span>
+        <span class="c1"># XXX: was adapt /= 2</span>
+        <span class="n">adapt</span> <span class="o">//=</span> <span class="mi">2</span>
+        <span class="n">adapt</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">adapt</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">newstart</span> <span class="o">=</span> <span class="n">stime</span> <span class="o">+</span> <span class="n">offset</span> <span class="o">/</span> <span class="n">fs</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">newstart</span> <span class="o">+</span> <span class="p">(</span><span class="n">adapt</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">fs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">etime</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="n">zx</span> <span class="o">=</span> <span class="n">za</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">spoint</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span> <span class="o">-</span> <span class="n">adapt</span> <span class="o">/</span> <span class="mi">2</span><span class="p">):</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">spoint</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span> <span class="o">+</span> <span class="n">adapt</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)]</span>
+        <span class="n">nx</span> <span class="o">=</span> <span class="n">na</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">spoint</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span> <span class="o">-</span> <span class="n">adapt</span> <span class="o">/</span> <span class="mi">2</span><span class="p">):</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">spoint</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span> <span class="o">+</span> <span class="n">adapt</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)]</span>
+        <span class="n">ex</span> <span class="o">=</span> <span class="n">ea</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">spoint</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span> <span class="o">-</span> <span class="n">adapt</span> <span class="o">/</span> <span class="mi">2</span><span class="p">):</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">spoint</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span> <span class="o">+</span> <span class="n">adapt</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)]</span>
+        <span class="n">zx</span> <span class="o">-=</span> <span class="n">zx</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">nx</span> <span class="o">-=</span> <span class="n">nx</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">ex</span> <span class="o">-=</span> <span class="n">ex</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="n">covmat</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="n">ex</span><span class="o">.</span><span class="n">conjugate</span><span class="p">())</span>
+        <span class="n">covmat</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="n">nx</span><span class="o">.</span><span class="n">conjugate</span><span class="p">())</span>
+        <span class="n">covmat</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">covmat</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span>
+        <span class="n">covmat</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="n">zx</span><span class="o">.</span><span class="n">conjugate</span><span class="p">())</span>
+        <span class="n">covmat</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">covmat</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span>
+        <span class="n">covmat</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">nx</span><span class="o">.</span><span class="n">conjugate</span><span class="p">())</span>
+        <span class="n">covmat</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">zx</span><span class="p">,</span> <span class="n">nx</span><span class="o">.</span><span class="n">conjugate</span><span class="p">())</span>
+        <span class="n">covmat</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">covmat</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span>
+        <span class="n">covmat</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">zx</span><span class="p">,</span> <span class="n">zx</span><span class="o">.</span><span class="n">conjugate</span><span class="p">())</span>
+
+        <span class="n">eigvec</span><span class="p">,</span> <span class="n">eigenval</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">covmat</span><span class="p">)</span>
+
+        <span class="c1"># very similar to function flinn, possible could be unified</span>
+        <span class="k">def</span> <span class="nf">fun</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mf">1.</span> <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+                <span class="p">((</span><span class="n">eigvec</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span><span class="n">j</span><span class="p">))</span><span class="o">.</span><span class="n">real</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span>
+                <span class="p">((</span><span class="n">eigvec</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span><span class="n">j</span><span class="p">))</span><span class="o">.</span><span class="n">real</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span>
+                <span class="p">((</span><span class="n">eigvec</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span><span class="n">j</span><span class="p">))</span><span class="o">.</span><span class="n">real</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">final</span> <span class="o">=</span> <span class="n">fminbound</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">full_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">-</span> <span class="n">final</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">ellip</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">x</span>
+        <span class="c1"># rectilinearity defined after Montalbetti &amp; Kanasewich, 1970</span>
+        <span class="n">rect</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigenval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">eigenval</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="c1"># planarity defined after [Jurkevics1988]_</span>
+        <span class="n">plan</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">-</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">eigenval</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">eigenval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">eigenval</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+        <span class="n">azimuth</span> <span class="o">=</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="n">eigvec</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">eigvec</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="p">)</span> <span class="o">/</span> \
+            <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+        <span class="n">eve</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigvec</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">eigvec</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">incidence</span> <span class="o">=</span> <span class="mi">180</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="n">eve</span><span class="p">,</span> <span class="n">eigvec</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+        <span class="k">if</span> <span class="n">azimuth</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="n">azimuth</span> <span class="o">=</span> <span class="mf">360.0</span> <span class="o">+</span> <span class="n">azimuth</span>
+        <span class="k">if</span> <span class="n">incidence</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="n">incidence</span> <span class="o">+=</span> <span class="mf">180.0</span>
+        <span class="k">if</span> <span class="n">incidence</span> <span class="o">&gt;</span> <span class="mf">90.0</span><span class="p">:</span>
+            <span class="n">incidence</span> <span class="o">=</span> <span class="mf">180.0</span> <span class="o">-</span> <span class="n">incidence</span>
+            <span class="k">if</span> <span class="n">azimuth</span> <span class="o">&gt;</span> <span class="mf">180.0</span><span class="p">:</span>
+                <span class="n">azimuth</span> <span class="o">-=</span> <span class="mf">180.0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">azimuth</span> <span class="o">+=</span> <span class="mf">180.0</span>
+        <span class="k">if</span> <span class="n">azimuth</span> <span class="o">&gt;</span> <span class="mf">180.0</span><span class="p">:</span>
+            <span class="n">azimuth</span> <span class="o">-=</span> <span class="mf">180.0</span>
+
+        <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">newstart</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">azimuth</span><span class="p">,</span> <span class="n">incidence</span><span class="p">,</span> <span class="n">rect</span><span class="p">,</span> <span class="n">plan</span><span class="p">,</span> <span class="n">ellip</span><span class="p">))</span>
+        <span class="n">offset</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">res</span></div>
+
+
+<div class="viewcode-block" id="particle_motion_odr"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.polarization.particle_motion_odr.html#obspy.signal.polarization.particle_motion_odr">[docs]</a><span class="k">def</span> <span class="nf">particle_motion_odr</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">noise_thres</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the orientation of the particle motion vector based on an</span>
+<span class="sd">    orthogonal regression algorithm.</span>
+
+<span class="sd">    :param stream: ZNE sorted trace data</span>
+<span class="sd">    :type stream: :class:`~obspy.core.stream.Stream`</span>
+<span class="sd">    :param noise_tres: variance of the noise sphere; data points are excluded</span>
+<span class="sd">        when falling within the sphere of radius sqrt(noise_thres)</span>
+<span class="sd">    :type noise_thres: float</span>
+<span class="sd">    :returns: azimuth, incidence, error of azimuth, error of incidence</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">comp</span><span class="p">,</span> <span class="n">npts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">npts</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">stream</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">stream</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">stream</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> \
+                <span class="o">&gt;</span> <span class="n">noise_thres</span><span class="p">:</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stream</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">n</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stream</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">e</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stream</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">fit_func</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># XXX: Eventually this is correct: return beta[0] * x + beta[1]</span>
+        <span class="k">return</span> <span class="n">beta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">odr</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">odr</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">fit_func</span><span class="p">)</span>
+    <span class="n">odr</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">odr</span><span class="o">.</span><span class="n">ODR</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">beta0</span><span class="o">=</span><span class="p">[</span><span class="mf">1.</span><span class="p">])</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">odr</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="n">az_slope</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">beta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">az_error</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">sd_beta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">e</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">odr</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">odr</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">fit_func</span><span class="p">)</span>
+    <span class="n">odr</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">odr</span><span class="o">.</span><span class="n">ODR</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">beta0</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">])</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">odr</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="n">in_slope</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">beta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">in_error</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">sd_beta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">azimuth</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">az_slope</span><span class="p">)</span>
+    <span class="n">incidence</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">in_slope</span><span class="p">)</span>
+
+    <span class="n">az_error</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">((</span><span class="mf">1.0</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">az_slope</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">azimuth</span><span class="p">)</span> <span class="o">*</span> <span class="n">az_error</span>
+    <span class="c1"># az_error = math.degrees(az_error)</span>
+    <span class="n">in_error</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">((</span><span class="mf">1.0</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">in_slope</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">incidence</span><span class="p">)</span> <span class="o">*</span> <span class="n">in_error</span>
+    <span class="c1"># in_error = math.degrees(in_error)</span>
+
+    <span class="n">azimuth</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">azimuth</span><span class="p">)</span>
+    <span class="n">incidence</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">incidence</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">azimuth</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">azimuth</span> <span class="o">=</span> <span class="mf">360.0</span> <span class="o">+</span> <span class="n">azimuth</span>
+    <span class="k">if</span> <span class="n">incidence</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">incidence</span> <span class="o">+=</span> <span class="mf">180.0</span>
+    <span class="k">if</span> <span class="n">incidence</span> <span class="o">&gt;</span> <span class="mf">90.0</span><span class="p">:</span>
+        <span class="n">incidence</span> <span class="o">=</span> <span class="mf">180.0</span> <span class="o">-</span> <span class="n">incidence</span>
+        <span class="k">if</span> <span class="n">azimuth</span> <span class="o">&gt;</span> <span class="mf">180.0</span><span class="p">:</span>
+            <span class="n">azimuth</span> <span class="o">-=</span> <span class="mf">180.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">azimuth</span> <span class="o">+=</span> <span class="mf">180.0</span>
+    <span class="k">if</span> <span class="n">azimuth</span> <span class="o">&gt;</span> <span class="mf">180.0</span><span class="p">:</span>
+        <span class="n">azimuth</span> <span class="o">-=</span> <span class="mf">180.0</span>
+
+    <span class="k">return</span> <span class="n">azimuth</span><span class="p">,</span> <span class="n">incidence</span><span class="p">,</span> <span class="n">az_error</span><span class="p">,</span> <span class="n">in_error</span></div>
+
+
+<div class="viewcode-block" id="_get_s_point"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.polarization._get_s_point.html#obspy.signal.polarization._get_s_point">[docs]</a><span class="k">def</span> <span class="nf">_get_s_point</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">stime</span><span class="p">,</span> <span class="n">etime</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function for computing the trace dependent start time in samples</span>
+
+<span class="sd">    :param stime: time to start</span>
+<span class="sd">    :type stime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :param etime: time to end</span>
+<span class="sd">    :type etime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :returns: spoint, epoint</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">slatest</span> <span class="o">=</span> <span class="n">stream</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span>
+    <span class="n">eearliest</span> <span class="o">=</span> <span class="n">stream</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">endtime</span>
+    <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="n">stream</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span> <span class="o">&gt;=</span> <span class="n">slatest</span><span class="p">:</span>
+            <span class="n">slatest</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span>
+        <span class="k">if</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">endtime</span> <span class="o">&lt;=</span> <span class="n">eearliest</span><span class="p">:</span>
+            <span class="n">eearliest</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">endtime</span>
+
+    <span class="n">nostat</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+    <span class="n">spoint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">nostat</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+    <span class="n">epoint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">nostat</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+    <span class="c1"># now we have to adjust to the beginning of real start time</span>
+    <span class="k">if</span> <span class="n">slatest</span> <span class="o">&gt;</span> <span class="n">stime</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Specified start time is before latest start time in stream&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">eearliest</span> <span class="o">&lt;</span> <span class="n">etime</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Specified end time is after earliest end time in stream&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nostat</span><span class="p">):</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(((</span><span class="n">stime</span> <span class="o">-</span> <span class="n">slatest</span><span class="p">)</span> <span class="o">/</span> <span class="n">stream</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">delta</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">))</span>
+        <span class="n">negoffset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(((</span><span class="n">eearliest</span> <span class="o">-</span> <span class="n">etime</span><span class="p">)</span> <span class="o">/</span> <span class="n">stream</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">delta</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">))</span>
+        <span class="n">diffstart</span> <span class="o">=</span> <span class="n">slatest</span> <span class="o">-</span> <span class="n">stream</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span>
+        <span class="n">frac</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">modf</span><span class="p">(</span><span class="n">diffstart</span><span class="p">)</span>
+        <span class="n">spoint</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">diffstart</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">frac</span> <span class="o">&gt;</span> <span class="n">stream</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">delta</span> <span class="o">*</span> <span class="mf">0.25</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Difference in start times exceeds 25</span><span class="si">% o</span><span class="s2">f sampling rate&quot;</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">spoint</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">offset</span>
+        <span class="n">diffend</span> <span class="o">=</span> <span class="n">stream</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">endtime</span> <span class="o">-</span> <span class="n">eearliest</span>
+        <span class="n">frac</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">modf</span><span class="p">(</span><span class="n">diffend</span><span class="p">)</span>
+        <span class="n">epoint</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">diffend</span><span class="p">)</span>
+        <span class="n">epoint</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">negoffset</span>
+
+    <span class="k">return</span> <span class="n">spoint</span><span class="p">,</span> <span class="n">epoint</span></div>
+
+
+<div class="viewcode-block" id="polarization_analysis"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.polarization.polarization_analysis.html#obspy.signal.polarization.polarization_analysis">[docs]</a><span class="k">def</span> <span class="nf">polarization_analysis</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">win_len</span><span class="p">,</span> <span class="n">win_frac</span><span class="p">,</span> <span class="n">frqlow</span><span class="p">,</span> <span class="n">frqhigh</span><span class="p">,</span> <span class="n">stime</span><span class="p">,</span>
+                          <span class="n">etime</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;pm&quot;</span><span class="p">,</span> <span class="n">var_noise</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method carrying out polarization analysis with the [Flinn1965b]_,</span>
+<span class="sd">    [Jurkevics1988]_, ParticleMotion, or [Vidale1986]_ algorithm.</span>
+
+<span class="sd">    :param stream: 3 component input data.</span>
+<span class="sd">    :type stream: :class:`~obspy.core.stream.Stream`</span>
+<span class="sd">    :param win_len: Sliding window length in seconds.</span>
+<span class="sd">    :type win_len: float</span>
+<span class="sd">    :param win_frac: Fraction of sliding window to use for step.</span>
+<span class="sd">    :type win_frac: float</span>
+<span class="sd">    :param var_noise: resembles a sphere of noise in PM where the 3C is</span>
+<span class="sd">        excluded</span>
+<span class="sd">    :type var_noise: float</span>
+<span class="sd">    :param frqlow: lower frequency for PM</span>
+<span class="sd">    :type frqlow: float</span>
+<span class="sd">    :param frqhigh: higher frequency for PM</span>
+<span class="sd">    :type frqhigh: float</span>
+<span class="sd">    :param stime: Start time of interest</span>
+<span class="sd">    :type stime: :class:`obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :param etime: End time of interest</span>
+<span class="sd">    :type etime: :class:`obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :param method: the method to use. one of ``&quot;pm&quot;``, ``&quot;flinn&quot;`` or</span>
+<span class="sd">        ``&quot;vidale&quot;``.</span>
+<span class="sd">    :type method: str</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    :returns: Dictionary with keys ``&quot;timestamp&quot;`` (POSIX timestamp, can be</span>
+<span class="sd">        used to initialize :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        objects), ``&quot;azimuth&quot;``, ``&quot;incidence&quot;`` (incidence angle) and</span>
+<span class="sd">        additional keys depending on used method: ``&quot;azimuth_error&quot;`` and</span>
+<span class="sd">        ``&quot;incidence_error&quot;`` (for method ``&quot;pm&quot;``), ``&quot;rectilinearity&quot;`` and</span>
+<span class="sd">        ``&quot;planarity&quot;`` (for methods ``&quot;flinn&quot;`` and ``&quot;vidale&quot;``) and</span>
+<span class="sd">        ``&quot;ellipticity&quot;`` (for method ``&quot;flinn&quot;``). Under each key a</span>
+<span class="sd">        :class:`~numpy.ndarray` is stored, giving the respective values</span>
+<span class="sd">        corresponding to the ``&quot;timestamp&quot;`` :class:`~numpy.ndarray`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;pm&quot;</span><span class="p">,</span> <span class="s2">&quot;flinn&quot;</span><span class="p">,</span> <span class="s2">&quot;vidale&quot;</span><span class="p">]:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid method (&#39;</span><span class="si">%s</span><span class="s2">&#39;)&quot;</span> <span class="o">%</span> <span class="n">method</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># check that sampling rates do not vary</span>
+    <span class="n">fs</span> <span class="o">=</span> <span class="n">stream</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sampling_rate</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">stream</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">sampling_rate</span><span class="o">=</span><span class="n">fs</span><span class="p">)):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;sampling rates of traces in stream are not equal&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;stream contains following traces:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;stime = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">stime</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;, etime = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">etime</span><span class="p">))</span>
+
+    <span class="n">spoint</span><span class="p">,</span> <span class="n">_epoint</span> <span class="o">=</span> <span class="n">_get_s_point</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">stime</span><span class="p">,</span> <span class="n">etime</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;vidale&quot;</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">vidale_adapt</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">var_noise</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">frqlow</span><span class="p">,</span> <span class="n">frqhigh</span><span class="p">,</span> <span class="n">spoint</span><span class="p">,</span>
+                           <span class="n">stime</span><span class="p">,</span> <span class="n">etime</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">nsamp</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">win_len</span> <span class="o">*</span> <span class="n">fs</span><span class="p">)</span>
+        <span class="n">nstep</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nsamp</span> <span class="o">*</span> <span class="n">win_frac</span><span class="p">)</span>
+        <span class="n">newstart</span> <span class="o">=</span> <span class="n">stime</span>
+        <span class="n">tap</span> <span class="o">=</span> <span class="n">cosine_taper</span><span class="p">(</span><span class="n">nsamp</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.22</span><span class="p">)</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">newstart</span> <span class="o">+</span> <span class="p">(</span><span class="n">nsamp</span> <span class="o">+</span> <span class="n">nstep</span><span class="p">)</span> <span class="o">/</span> <span class="n">fs</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">etime</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">z</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">e</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tr</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">stream</span><span class="p">):</span>
+                    <span class="n">dat</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">spoint</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span><span class="p">:</span>
+                                  <span class="n">spoint</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span> <span class="o">+</span> <span class="n">nsamp</span><span class="p">]</span>
+                    <span class="n">dat</span> <span class="o">=</span> <span class="p">(</span><span class="n">dat</span> <span class="o">-</span> <span class="n">dat</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">*</span> <span class="n">tap</span>
+                    <span class="k">if</span> <span class="s2">&quot;Z&quot;</span> <span class="ow">in</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">channel</span><span class="p">:</span>
+                        <span class="n">z</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="s2">&quot;N&quot;</span> <span class="ow">in</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">channel</span><span class="p">:</span>
+                        <span class="n">n</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="s2">&quot;E&quot;</span> <span class="ow">in</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">channel</span><span class="p">:</span>
+                        <span class="n">e</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="k">break</span>
+
+            <span class="c1"># we plot against the centre of the sliding window</span>
+            <span class="k">if</span> <span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;pm&quot;</span><span class="p">:</span>
+                <span class="n">azimuth</span><span class="p">,</span> <span class="n">incidence</span><span class="p">,</span> <span class="n">error_az</span><span class="p">,</span> <span class="n">error_inc</span> <span class="o">=</span> \
+                    <span class="n">particle_motion_odr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">var_noise</span><span class="p">)</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">newstart</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">nstep</span><span class="p">)</span> <span class="o">/</span> <span class="n">fs</span><span class="p">,</span>
+                           <span class="n">azimuth</span><span class="p">,</span> <span class="n">incidence</span><span class="p">,</span> <span class="n">error_az</span><span class="p">,</span> <span class="n">error_inc</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;flinn&quot;</span><span class="p">:</span>
+                <span class="n">azimuth</span><span class="p">,</span> <span class="n">incidence</span><span class="p">,</span> <span class="n">reclin</span><span class="p">,</span> <span class="n">plan</span> <span class="o">=</span> <span class="n">flinn</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">var_noise</span><span class="p">)</span>
+                <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">newstart</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">nstep</span><span class="p">)</span> <span class="o">/</span> <span class="n">fs</span><span class="p">,</span>
+                                    <span class="n">azimuth</span><span class="p">,</span> <span class="n">incidence</span><span class="p">,</span> <span class="n">reclin</span><span class="p">,</span> <span class="n">plan</span><span class="p">]))</span>
+
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">newstart</span><span class="p">,</span> <span class="n">newstart</span> <span class="o">+</span> <span class="n">nsamp</span> <span class="o">/</span> <span class="n">fs</span><span class="p">,</span> <span class="n">res</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:])</span>
+            <span class="n">offset</span> <span class="o">+=</span> <span class="n">nstep</span>
+
+            <span class="n">newstart</span> <span class="o">+=</span> <span class="nb">float</span><span class="p">(</span><span class="n">nstep</span><span class="p">)</span> <span class="o">/</span> <span class="n">fs</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+
+    <span class="n">result_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">res</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+                   <span class="s2">&quot;azimuth&quot;</span><span class="p">:</span> <span class="n">res</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+                   <span class="s2">&quot;incidence&quot;</span><span class="p">:</span> <span class="n">res</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]}</span>
+    <span class="k">if</span> <span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;pm&quot;</span><span class="p">:</span>
+        <span class="n">result_dict</span><span class="p">[</span><span class="s2">&quot;azimuth_error&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span>
+        <span class="n">result_dict</span><span class="p">[</span><span class="s2">&quot;incidence_error&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;vidale&quot;</span><span class="p">:</span>
+        <span class="n">result_dict</span><span class="p">[</span><span class="s2">&quot;rectilinearity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span>
+        <span class="n">result_dict</span><span class="p">[</span><span class="s2">&quot;planarity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">]</span>
+        <span class="n">result_dict</span><span class="p">[</span><span class="s2">&quot;ellipticity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[:,</span> <span class="mi">5</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;flinn&quot;</span><span class="p">:</span>
+        <span class="n">result_dict</span><span class="p">[</span><span class="s2">&quot;rectilinearity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span>
+        <span class="n">result_dict</span><span class="p">[</span><span class="s2">&quot;planarity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">result_dict</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

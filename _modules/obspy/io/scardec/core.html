@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.io.scardec.core &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.io.scardec.core</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">SCARDEC file format support for ObsPy.</span>
+<span class="sd">These files contain source solutions calculated at IPGP using the</span>
+<span class="sd">SCARDEC method [Vallee2011]_. These solutions contain a focal mechanism</span>
+<span class="sd">and a source time function in form of a regularly sampled moment rate.</span>
+<span class="sd">An equivalent moment tensor is automatically calculated. Writing of SCARDEC</span>
+<span class="sd">files is only possible, if the event contains a moment rate function.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA @UnusedWildImport</span>
+
+<span class="kn">import</span> <span class="nn">uuid</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">UTCDateTime</span>
+<span class="kn">from</span> <span class="nn">obspy.core.event</span> <span class="k">import</span> <span class="p">(</span><span class="n">Catalog</span><span class="p">,</span> <span class="n">Comment</span><span class="p">,</span> <span class="n">Event</span><span class="p">,</span> <span class="n">EventDescription</span><span class="p">,</span>
+                              <span class="n">Origin</span><span class="p">,</span> <span class="n">Magnitude</span><span class="p">,</span> <span class="n">FocalMechanism</span><span class="p">,</span> <span class="n">MomentTensor</span><span class="p">,</span>
+                              <span class="n">Tensor</span><span class="p">,</span> <span class="n">SourceTimeFunction</span><span class="p">,</span> <span class="n">NodalPlane</span><span class="p">,</span>
+                              <span class="n">NodalPlanes</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">obspy.geodetics</span> <span class="k">import</span> <span class="n">FlinnEngdahl</span>
+
+
+<span class="n">_fe</span> <span class="o">=</span> <span class="n">FlinnEngdahl</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="_get_resource_id"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.scardec.core._get_resource_id.html#obspy.io.scardec.core._get_resource_id">[docs]</a><span class="k">def</span> <span class="nf">_get_resource_id</span><span class="p">(</span><span class="n">scardecname</span><span class="p">,</span> <span class="n">res_type</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function to create consistent resource ids.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">res_id</span> <span class="o">=</span> <span class="s2">&quot;smi:local/scardec/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">scardecname</span><span class="p">,</span> <span class="n">res_type</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tag</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">res_id</span> <span class="o">+=</span> <span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="n">tag</span>
+    <span class="k">return</span> <span class="n">res_id</span></div>
+
+
+<div class="viewcode-block" id="_buffer_proxy"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.scardec.core._buffer_proxy.html#obspy.io.scardec.core._buffer_proxy">[docs]</a><span class="k">def</span> <span class="nf">_buffer_proxy</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">reset_fp</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">file_mode</span><span class="o">=</span><span class="s2">&quot;rb&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calls a function with an open file or file-like object as the first</span>
+<span class="sd">    argument. If the file originally was a filename, the file will be</span>
+<span class="sd">    opened, otherwise it will just be passed to the underlying function.</span>
+
+<span class="sd">    :param filename_or_buf: File to pass.</span>
+<span class="sd">    :type filename_or_buf: str, open file, or file-like object.</span>
+<span class="sd">    :param function: The function to call.</span>
+<span class="sd">    :param reset_fp: If True, the file pointer will be set to the initial</span>
+<span class="sd">        position after the function has been called.</span>
+<span class="sd">    :type reset_fp: bool</span>
+<span class="sd">    :param file_mode: Mode to open file in if necessary.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="n">filename_or_buf</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+        <span class="n">is_buffer</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="n">is_buffer</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="n">is_buffer</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">ret_val</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">reset_fp</span><span class="p">:</span>
+            <span class="n">filename_or_buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret_val</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="n">file_mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">function</span><span class="p">(</span><span class="n">fh</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_is_scardec"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.scardec.core._is_scardec.html#obspy.io.scardec.core._is_scardec">[docs]</a><span class="k">def</span> <span class="nf">_is_scardec</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks if the file is a SCARDEC file.</span>
+
+<span class="sd">    :param filename_or_buf: File to test.</span>
+<span class="sd">    :type filename_or_buf: str or file-like object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_buffer_proxy</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="n">_internal_is_scardec</span><span class="p">,</span>
+                             <span class="n">reset_fp</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Happens for example when passing the data as a string which would be</span>
+    <span class="c1"># interpreted as a filename.</span>
+    <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="_internal_is_scardec"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.scardec.core._internal_is_scardec.html#obspy.io.scardec.core._internal_is_scardec">[docs]</a><span class="k">def</span> <span class="nf">_internal_is_scardec</span><span class="p">(</span><span class="n">buf</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks if the file is a SCARDEC file.</span>
+
+<span class="sd">    :param buf: File to check.</span>
+<span class="sd">    :type buf: Open file or open file like object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The file format is so simple. Just attempt to read the first event. If</span>
+    <span class="c1"># it passes it will be read again but that has really no</span>
+    <span class="c1"># significant performance impact.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">_internal_read_single_scardec</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="_read_scardec"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.scardec.core._read_scardec.html#obspy.io.scardec.core._read_scardec">[docs]</a><span class="k">def</span> <span class="nf">_read_scardec</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads a SCARDEC file to a :class:`~obspy.core.event.Catalog` object.</span>
+
+<span class="sd">    :param filename_or_buf: File to read.</span>
+<span class="sd">    :type filename_or_buf: str or file-like object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_buffer_proxy</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="n">_internal_read_scardec</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_internal_read_scardec"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.scardec.core._internal_read_scardec.html#obspy.io.scardec.core._internal_read_scardec">[docs]</a><span class="k">def</span> <span class="nf">_internal_read_scardec</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads a SCARDEC file to a :class:`~obspy.core.event.Catalog` object.</span>
+
+<span class="sd">    :param buf: File to read.</span>
+<span class="sd">    :type buf: Open file or open file like object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cur_pos</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+
+    <span class="c1"># This also works with BytesIO and what not.</span>
+    <span class="n">buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+    <span class="n">buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">cur_pos</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># This is pretty inefficient due to all the file pointer jumping but</span>
+    <span class="c1"># performance is really the least of our concerns. Also most performance</span>
+    <span class="c1"># is still lost initializing the large ObsPy event objects.</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">buf</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">size</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="c1"># If there is something, jump back to the beginning of the line and</span>
+        <span class="c1"># read the next event.</span>
+        <span class="k">if</span> <span class="n">line</span><span class="p">:</span>
+            <span class="n">buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">cur_pos</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_internal_read_single_scardec</span><span class="p">(</span><span class="n">buf</span><span class="p">))</span>
+        <span class="n">cur_pos</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">Catalog</span><span class="p">(</span><span class="n">resource_id</span><span class="o">=</span><span class="n">_get_resource_id</span><span class="p">(</span><span class="s2">&quot;catalog&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())),</span>
+                   <span class="n">events</span><span class="o">=</span><span class="n">events</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_internal_read_single_scardec"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.scardec.core._internal_read_single_scardec.html#obspy.io.scardec.core._internal_read_single_scardec">[docs]</a><span class="k">def</span> <span class="nf">_internal_read_single_scardec</span><span class="p">(</span><span class="n">buf</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads a single SCARDEC file to a :class:`~obspy.core.event.Catalog`</span>
+<span class="sd">    object.</span>
+
+<span class="sd">    :param buf: File to read.</span>
+<span class="sd">    :type buf: Open file or open file like object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The first line encodes the origin time and epicenter</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+
+    <span class="n">origin_time</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()[:</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">origin_time</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span> <span class="o">+</span> \
+        <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">origin_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">origin_time</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Could not determine origin time from line: </span><span class="si">%s</span><span class="s2">. Will &quot;</span>
+                      <span class="s2">&quot;be set to zero.&quot;</span> <span class="o">%</span> <span class="n">line</span><span class="p">)</span>
+        <span class="n">origin_time</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">6</span><span class="p">:]</span>
+    <span class="n">latitude</span><span class="p">,</span> <span class="n">longitude</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">line</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+
+    <span class="c1"># The second line encodes depth and the two focal mechanisms</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+    <span class="c1"># First three values are depth, scalar moment (in Nm) and moment magnitude</span>
+    <span class="n">depth</span><span class="p">,</span> <span class="n">scalar_moment</span><span class="p">,</span> <span class="n">moment_mag</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
+
+    <span class="c1"># depth is in km in SCARDEC files</span>
+    <span class="n">depth</span> <span class="o">*=</span> <span class="mf">1e3</span>
+
+    <span class="c1"># Next six values are strike, dip, rake for both planes</span>
+    <span class="n">strike1</span><span class="p">,</span> <span class="n">dip1</span><span class="p">,</span> <span class="n">rake1</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span>
+    <span class="n">strike2</span><span class="p">,</span> <span class="n">dip2</span><span class="p">,</span> <span class="n">rake2</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">9</span><span class="p">])</span>
+
+    <span class="c1"># The rest of the file is the moment rate function</span>
+    <span class="c1"># In each line: time (sec), moment rate (Nm/sec)</span>
+    <span class="n">stf_time</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">stf_mr</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">buf</span><span class="p">:</span>
+        <span class="n">stf_time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">stf_mr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]))</span>
+
+    <span class="c1"># Normalize the source time function</span>
+    <span class="n">stf_mr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">stf_mr</span><span class="p">)</span>
+    <span class="n">stf_mr</span> <span class="o">/=</span> <span class="n">scalar_moment</span>
+
+    <span class="c1"># Calculate the time step</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">stf_time</span><span class="p">))</span>
+
+    <span class="c1"># Calculate the stf offset (time of first sample wrt to origin time)</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="n">stf_time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># event name is set to generic value for now</span>
+    <span class="n">event_name</span> <span class="o">=</span> <span class="s1">&#39;SCARDEC_event&#39;</span>
+
+    <span class="n">cmt_origin</span> <span class="o">=</span> <span class="n">Origin</span><span class="p">(</span>
+        <span class="n">resource_id</span><span class="o">=</span><span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;origin&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;cmt&quot;</span><span class="p">),</span>
+        <span class="n">time</span><span class="o">=</span><span class="n">origin_time</span><span class="p">,</span>
+        <span class="n">longitude</span><span class="o">=</span><span class="n">longitude</span><span class="p">,</span>
+        <span class="n">latitude</span><span class="o">=</span><span class="n">latitude</span><span class="p">,</span>
+        <span class="n">depth</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span>
+        <span class="n">origin_type</span><span class="o">=</span><span class="s2">&quot;centroid&quot;</span><span class="p">,</span>
+        <span class="n">region</span><span class="o">=</span><span class="n">_fe</span><span class="o">.</span><span class="n">get_region</span><span class="p">(</span><span class="n">longitude</span><span class="o">=</span><span class="n">longitude</span><span class="p">,</span>
+                              <span class="n">latitude</span><span class="o">=</span><span class="n">latitude</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">cmt_mag</span> <span class="o">=</span> <span class="n">Magnitude</span><span class="p">(</span>
+        <span class="n">resource_id</span><span class="o">=</span><span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;magnitude&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;mw&quot;</span><span class="p">),</span>
+        <span class="n">mag</span><span class="o">=</span><span class="n">moment_mag</span><span class="p">,</span>
+        <span class="n">magnitude_type</span><span class="o">=</span><span class="s2">&quot;mw&quot;</span><span class="p">,</span>
+        <span class="n">origin_id</span><span class="o">=</span><span class="n">cmt_origin</span><span class="o">.</span><span class="n">resource_id</span>
+    <span class="p">)</span>
+
+    <span class="n">nod1</span> <span class="o">=</span> <span class="n">NodalPlane</span><span class="p">(</span><span class="n">strike</span><span class="o">=</span><span class="n">strike1</span><span class="p">,</span> <span class="n">dip</span><span class="o">=</span><span class="n">dip1</span><span class="p">,</span> <span class="n">rake</span><span class="o">=</span><span class="n">rake1</span><span class="p">)</span>
+    <span class="n">nod2</span> <span class="o">=</span> <span class="n">NodalPlane</span><span class="p">(</span><span class="n">strike</span><span class="o">=</span><span class="n">strike2</span><span class="p">,</span> <span class="n">dip</span><span class="o">=</span><span class="n">dip2</span><span class="p">,</span> <span class="n">rake</span><span class="o">=</span><span class="n">rake2</span><span class="p">)</span>
+    <span class="n">nod</span> <span class="o">=</span> <span class="n">NodalPlanes</span><span class="p">(</span><span class="n">nodal_plane_1</span><span class="o">=</span><span class="n">nod1</span><span class="p">,</span> <span class="n">nodal_plane_2</span><span class="o">=</span><span class="n">nod2</span><span class="p">)</span>
+
+    <span class="n">foc_mec</span> <span class="o">=</span> <span class="n">FocalMechanism</span><span class="p">(</span>
+        <span class="n">resource_id</span><span class="o">=</span><span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;focal_mechanism&quot;</span><span class="p">),</span>
+        <span class="n">nodal_planes</span><span class="o">=</span><span class="n">nod</span>
+    <span class="p">)</span>
+
+    <span class="n">dip1</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">180.</span>
+    <span class="n">rake1</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">180.</span>
+    <span class="n">strike1</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">180.</span>
+
+    <span class="n">mxx</span> <span class="o">=</span> <span class="o">-</span> <span class="n">scalar_moment</span> <span class="o">*</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dip1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">rake1</span><span class="p">)</span> <span class="o">*</span>
+                              <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">strike1</span><span class="p">))</span> <span class="o">+</span>
+                             <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dip1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">rake1</span><span class="p">)</span> <span class="o">*</span>
+                              <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">strike1</span><span class="p">)))</span>
+    <span class="n">mxy</span> <span class="o">=</span> <span class="n">scalar_moment</span> <span class="o">*</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dip1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">rake1</span><span class="p">)</span> <span class="o">*</span>
+                            <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">strike1</span><span class="p">))</span> <span class="o">+</span>
+                           <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dip1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">rake1</span><span class="p">)</span> <span class="o">*</span>
+                            <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">strike1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">))</span>
+    <span class="n">myy</span> <span class="o">=</span> <span class="n">scalar_moment</span> <span class="o">*</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dip1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">rake1</span><span class="p">)</span> <span class="o">*</span>
+                            <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">strike1</span><span class="p">))</span> <span class="o">-</span>
+                           <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dip1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">rake1</span><span class="p">)</span> <span class="o">*</span>
+                            <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">strike1</span><span class="p">)))</span>
+    <span class="n">mxz</span> <span class="o">=</span> <span class="o">-</span> <span class="n">scalar_moment</span> <span class="o">*</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dip1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">rake1</span><span class="p">)</span> <span class="o">*</span>
+                              <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">strike1</span><span class="p">))</span> <span class="o">+</span>
+                             <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dip1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">rake1</span><span class="p">)</span> <span class="o">*</span>
+                              <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">strike1</span><span class="p">)))</span>
+    <span class="n">myz</span> <span class="o">=</span> <span class="o">-</span> <span class="n">scalar_moment</span> <span class="o">*</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">dip1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">rake1</span><span class="p">)</span> <span class="o">*</span>
+                             <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">strike1</span><span class="p">))</span> <span class="o">-</span>
+                             <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dip1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">rake1</span><span class="p">)</span> <span class="o">*</span>
+                              <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">strike1</span><span class="p">)))</span>
+    <span class="n">mzz</span> <span class="o">=</span> <span class="n">scalar_moment</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dip1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">rake1</span><span class="p">))</span>
+
+    <span class="n">tensor</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">m_rr</span><span class="o">=</span><span class="n">mxx</span><span class="p">,</span> <span class="n">m_tt</span><span class="o">=</span><span class="n">myy</span><span class="p">,</span> <span class="n">m_pp</span><span class="o">=</span><span class="n">mzz</span><span class="p">,</span> <span class="n">m_rt</span><span class="o">=</span><span class="n">mxy</span><span class="p">,</span> <span class="n">m_rp</span><span class="o">=</span><span class="n">mxz</span><span class="p">,</span> <span class="n">m_tp</span><span class="o">=</span><span class="n">myz</span><span class="p">)</span>
+
+    <span class="n">cm</span> <span class="o">=</span> <span class="p">[</span><span class="n">Comment</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Basis system: North,East,Down </span><span class="se">\</span>
+<span class="s2">                        (Jost and Herrmann 1989)&quot;</span><span class="p">)]</span>
+    <span class="n">cm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="s1">&#39;comment&#39;</span><span class="p">,</span> <span class="s1">&#39;mt&#39;</span><span class="p">)</span>
+    <span class="n">cm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Comment</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;MT derived from focal mechanism, therefore </span><span class="se">\</span>
+<span class="s2">                            constrained to pure double couple.&quot;</span><span class="p">,</span>
+                      <span class="n">force_resource_id</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+    <span class="c1"># Write moment rate function</span>
+    <span class="n">extra</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;moment_rate&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">stf_mr</span><span class="p">,</span>
+                             <span class="s1">&#39;namespace&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s2">&quot;http://test.org/xmlns/0.1&quot;</span><span class="p">},</span>
+             <span class="s1">&#39;dt&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">dt</span><span class="p">,</span>
+                    <span class="s1">&#39;namespace&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s2">&quot;http://test.org/xmlns/0.1&quot;</span><span class="p">},</span>
+             <span class="s1">&#39;offset&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">offset</span><span class="p">,</span>
+                        <span class="s1">&#39;namespace&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s2">&quot;http://test.org/xmlns/0.1&quot;</span><span class="p">}</span>
+             <span class="p">}</span>
+
+    <span class="c1"># Source time function</span>
+    <span class="n">stf</span> <span class="o">=</span> <span class="n">SourceTimeFunction</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
+    <span class="n">stf</span><span class="o">.</span><span class="n">extra</span> <span class="o">=</span> <span class="n">extra</span>
+
+    <span class="n">mt</span> <span class="o">=</span> <span class="n">MomentTensor</span><span class="p">(</span>
+        <span class="n">resource_id</span><span class="o">=</span><span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;moment_tensor&quot;</span><span class="p">),</span>
+        <span class="n">derived_origin_id</span><span class="o">=</span><span class="n">cmt_origin</span><span class="o">.</span><span class="n">resource_id</span><span class="p">,</span>
+        <span class="n">moment_magnitude_id</span><span class="o">=</span><span class="n">cmt_mag</span><span class="o">.</span><span class="n">resource_id</span><span class="p">,</span>
+        <span class="n">scalar_moment</span><span class="o">=</span><span class="n">scalar_moment</span><span class="p">,</span>
+        <span class="n">tensor</span><span class="o">=</span><span class="n">tensor</span><span class="p">,</span>
+        <span class="n">source_time_function</span><span class="o">=</span><span class="n">stf</span><span class="p">,</span>
+        <span class="n">comments</span><span class="o">=</span><span class="n">cm</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Assemble everything.</span>
+    <span class="n">foc_mec</span><span class="o">.</span><span class="n">moment_tensor</span> <span class="o">=</span> <span class="n">mt</span>
+
+    <span class="n">ev</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span><span class="n">resource_id</span><span class="o">=</span><span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;event&quot;</span><span class="p">),</span>
+               <span class="n">event_type</span><span class="o">=</span><span class="s2">&quot;earthquake&quot;</span><span class="p">)</span>
+    <span class="n">ev</span><span class="o">.</span><span class="n">event_descriptions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EventDescription</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">event_name</span><span class="p">,</span>
+                                                  <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;earthquake name&quot;</span><span class="p">))</span>
+    <span class="n">ev</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Comment</span><span class="p">(</span>
+        <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hypocenter catalog: SCARDEC&quot;</span><span class="p">,</span>
+        <span class="n">force_resource_id</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+    <span class="n">ev</span><span class="o">.</span><span class="n">origins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmt_origin</span><span class="p">)</span>
+    <span class="n">ev</span><span class="o">.</span><span class="n">magnitudes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmt_mag</span><span class="p">)</span>
+    <span class="n">ev</span><span class="o">.</span><span class="n">focal_mechanisms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">foc_mec</span><span class="p">)</span>
+
+    <span class="c1"># Set the preferred items.</span>
+    <span class="n">ev</span><span class="o">.</span><span class="n">preferred_origin_id</span> <span class="o">=</span> <span class="n">cmt_origin</span><span class="o">.</span><span class="n">resource_id</span><span class="o">.</span><span class="n">id</span>
+    <span class="n">ev</span><span class="o">.</span><span class="n">preferred_magnitude_id</span> <span class="o">=</span> <span class="n">cmt_mag</span><span class="o">.</span><span class="n">resource_id</span><span class="o">.</span><span class="n">id</span>
+    <span class="n">ev</span><span class="o">.</span><span class="n">preferred_focal_mechanism_id</span> <span class="o">=</span> <span class="n">foc_mec</span><span class="o">.</span><span class="n">resource_id</span><span class="o">.</span><span class="n">id</span>
+
+    <span class="k">return</span> <span class="n">ev</span></div>
+
+
+<div class="viewcode-block" id="_write_scardec"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.scardec.core._write_scardec.html#obspy.io.scardec.core._write_scardec">[docs]</a><span class="k">def</span> <span class="nf">_write_scardec</span><span class="p">(</span><span class="n">catalog</span><span class="p">,</span> <span class="n">filename_or_buf</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write an event to a file.</span>
+
+<span class="sd">    :param catalog: The catalog to write. Can only contain one event.</span>
+<span class="sd">    :type catalog: :class:`~obspy.core.event.Catalog`</span>
+<span class="sd">    :param filename_or_buf: Filename or file-like object to write to.</span>
+<span class="sd">    :type filename_or_buf: str, open file, or file-like object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_buffer_proxy</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="n">_internal_write_scardec</span><span class="p">,</span>
+                         <span class="n">file_mode</span><span class="o">=</span><span class="s2">&quot;wb&quot;</span><span class="p">,</span> <span class="n">catalog</span><span class="o">=</span><span class="n">catalog</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_internal_write_scardec"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.scardec.core._internal_write_scardec.html#obspy.io.scardec.core._internal_write_scardec">[docs]</a><span class="k">def</span> <span class="nf">_internal_write_scardec</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write events to a file.</span>
+
+<span class="sd">    :param buf: File to write to.</span>
+<span class="sd">    :type buf: Open file or file-like object.</span>
+<span class="sd">    :param catalog: The catalog to write.</span>
+<span class="sd">    :type catalog: :class:`~obspy.core.event.Catalog`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Some sanity checks.</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">catalog</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Catalog must contain at least one event&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">catalog</span><span class="p">:</span>
+        <span class="n">_internal_write_single_scardec</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+        <span class="c1"># Add an empty line between events.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">catalog</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">buf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_internal_write_single_scardec"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.scardec.core._internal_write_single_scardec.html#obspy.io.scardec.core._internal_write_single_scardec">[docs]</a><span class="k">def</span> <span class="nf">_internal_write_single_scardec</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write an event to a file.</span>
+
+<span class="sd">    :param buf: File to write to.</span>
+<span class="sd">    :type buf: Open file or file-like object.</span>
+<span class="sd">    :param event: The event to write.</span>
+<span class="sd">    :type event: :class:`~obspy.core.event.Event`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">focal_mechanisms</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Event must contain a focal mechanism.&quot;</span><span class="p">)</span>
+    <span class="n">foc_mec</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">preferred_focal_mechanism</span><span class="p">()</span> <span class="ow">or</span> <span class="n">event</span><span class="o">.</span><span class="n">focal_mechanisms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">origins</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Event must have at least one origin.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Event must have at least one magnitude.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Attempt to get a moment magnitude</span>
+    <span class="n">mw_candidates</span> <span class="o">=</span> \
+        <span class="p">[</span><span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span> <span class="k">if</span> <span class="n">_i</span><span class="o">.</span><span class="n">magnitude_type</span> <span class="o">==</span> <span class="s2">&quot;Mw&quot;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">mw_candidates</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No moment wave magnitude found. Will be replaced by the&quot;</span>
+                      <span class="s2">&quot; first magnitude in the event object.&quot;</span><span class="p">)</span>
+        <span class="n">mw_mag</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mw_mag</span> <span class="o">=</span> <span class="n">mw_candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Now find the cmt origin. Try to find the first one that is CMT</span>
+    <span class="n">candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">origins</span>
+                  <span class="k">if</span> <span class="n">_i</span><span class="o">.</span><span class="n">origin_type</span> <span class="o">==</span> <span class="s2">&quot;centroid&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">candidates</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No derived origin attached to the moment tensor. &quot;</span>
+                      <span class="s2">&quot;Will instead use another centroid origin to be &quot;</span>
+                      <span class="s2">&quot;written to the file.&quot;</span><span class="p">)</span>
+        <span class="n">cmt_origin</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># Otherwise just take the preferred or first one.</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Could not find a centroid origin. Will instead &quot;</span>
+                      <span class="s2">&quot;assume that the preferred or first origin is the &quot;</span>
+                      <span class="s2">&quot;centroid origin.&quot;</span><span class="p">)</span>
+        <span class="n">cmt_origin</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">preferred_origin</span><span class="p">()</span> <span class="ow">or</span> <span class="n">event</span><span class="o">.</span><span class="n">origins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="s2">&quot;extra&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">foc_mec</span><span class="o">.</span><span class="n">moment_tensor</span><span class="o">.</span><span class="n">source_time_function</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Event moment tensor must contain a source time </span><span class="se">\</span>
+<span class="s1">                          function to be written in SCARDEC format&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Now attempt to retrieve the event name. Otherwise just get a random one.</span>
+    <span class="n">event_name</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">event_descriptions</span><span class="p">:</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">event_descriptions</span>
+                      <span class="k">if</span> <span class="n">_i</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;earthquake name&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">candidates</span><span class="p">:</span>
+            <span class="n">event_name</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">if</span> <span class="n">event_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">event_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())[:</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+    <span class="n">template</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;</span><span class="si">{year:4d}</span><span class="s2"> </span><span class="si">{month:02d}</span><span class="s2"> </span><span class="si">{day:02d}</span><span class="s2"> </span><span class="si">{hour:02d}</span><span class="s2"> &quot;</span>
+        <span class="s2">&quot;</span><span class="si">{minute:02d}</span><span class="s2"> </span><span class="si">{second:04.1f}</span><span class="s2"> &quot;</span>
+        <span class="s2">&quot;</span><span class="si">{latitude:9.4f}</span><span class="s2"> </span><span class="si">{longitude:9.4f}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;</span><span class="si">{depth:5.1f}</span><span class="s2"> </span><span class="si">{scalmom:9.3E}</span><span class="s2"> </span><span class="si">{mw:5.3f}</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;</span><span class="si">{strike1:4d}</span><span class="s2"> </span><span class="si">{dip1:4d}</span><span class="s2"> </span><span class="si">{rake1:4d}</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;</span><span class="si">{strike2:4d}</span><span class="s2"> </span><span class="si">{dip2:4d}</span><span class="s2"> </span><span class="si">{rake2:4d}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">np1</span> <span class="o">=</span> <span class="n">foc_mec</span><span class="o">.</span><span class="n">nodal_planes</span><span class="o">.</span><span class="n">nodal_plane_1</span>
+    <span class="n">np2</span> <span class="o">=</span> <span class="n">foc_mec</span><span class="o">.</span><span class="n">nodal_planes</span><span class="o">.</span><span class="n">nodal_plane_2</span>
+
+    <span class="n">template</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">year</span><span class="o">=</span><span class="n">cmt_origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">year</span><span class="p">,</span>
+        <span class="n">month</span><span class="o">=</span><span class="n">cmt_origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">month</span><span class="p">,</span>
+        <span class="n">day</span><span class="o">=</span><span class="n">cmt_origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">day</span><span class="p">,</span>
+        <span class="n">hour</span><span class="o">=</span><span class="n">cmt_origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span>
+        <span class="n">minute</span><span class="o">=</span><span class="n">cmt_origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span>
+        <span class="n">second</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">cmt_origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">second</span><span class="p">)</span> <span class="o">+</span>
+        <span class="n">cmt_origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">/</span> <span class="mf">1E6</span><span class="p">,</span>
+        <span class="n">latitude</span><span class="o">=</span><span class="n">cmt_origin</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span>
+        <span class="n">longitude</span><span class="o">=</span><span class="n">cmt_origin</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span>
+        <span class="n">depth</span><span class="o">=</span><span class="n">cmt_origin</span><span class="o">.</span><span class="n">depth</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">,</span>
+        <span class="n">scalmom</span><span class="o">=</span><span class="n">foc_mec</span><span class="o">.</span><span class="n">moment_tensor</span><span class="o">.</span><span class="n">scalar_moment</span><span class="p">,</span>
+        <span class="n">mw</span><span class="o">=</span><span class="n">mw_mag</span><span class="o">.</span><span class="n">mag</span><span class="p">,</span>
+        <span class="n">strike1</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">np1</span><span class="o">.</span><span class="n">strike</span><span class="p">),</span>
+        <span class="n">dip1</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">np1</span><span class="o">.</span><span class="n">dip</span><span class="p">),</span>
+        <span class="n">rake1</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">np1</span><span class="o">.</span><span class="n">rake</span><span class="p">),</span>
+        <span class="n">strike2</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">np2</span><span class="o">.</span><span class="n">strike</span><span class="p">),</span>
+        <span class="n">dip2</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">np2</span><span class="o">.</span><span class="n">dip</span><span class="p">),</span>
+        <span class="n">rake2</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">np2</span><span class="o">.</span><span class="n">rake</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">buf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">))</span>
+
+    <span class="c1"># Write to a buffer/file opened in binary mode.</span>
+
+    <span class="n">stf</span> <span class="o">=</span> <span class="n">foc_mec</span><span class="o">.</span><span class="n">moment_tensor</span><span class="o">.</span><span class="n">source_time_function</span><span class="o">.</span><span class="n">extra</span>
+    <span class="n">t_offset</span> <span class="o">=</span> <span class="n">stf</span><span class="p">[</span><span class="s1">&#39;offset&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+    <span class="n">scalmom</span> <span class="o">=</span> <span class="n">foc_mec</span><span class="o">.</span><span class="n">moment_tensor</span><span class="o">.</span><span class="n">scalar_moment</span>
+
+    <span class="n">nsamples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">stf</span><span class="p">[</span><span class="s1">&#39;moment_rate&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">])</span>
+
+    <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nsamples</span><span class="p">)</span> <span class="o">*</span> <span class="n">stf</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">t_offset</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="n">stf</span><span class="p">[</span><span class="s1">&#39;moment_rate&#39;</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">scalmom</span>
+
+    <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">times</span><span class="p">,</span> <span class="n">samples</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+               <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39; </span><span class="si">%16.9E</span><span class="s1"> </span><span class="si">%16.9E</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">))</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

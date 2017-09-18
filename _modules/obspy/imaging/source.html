@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.imaging.source &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.imaging.source</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># -------------------------------------------------------------------</span>
+<span class="c1"># Filename: source.py</span>
+<span class="c1">#  Purpose: Computes and plots radiation patterns</span>
+<span class="c1"># ---------------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Functions to compute and plot radiation patterns</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (http://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA @UnusedWildImport</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="k">import</span> <span class="n">Axes3D</span>  <span class="c1"># NOQA</span>
+<span class="kn">from</span> <span class="nn">matplotlib.cm</span> <span class="k">import</span> <span class="n">get_cmap</span>
+
+<span class="kn">from</span> <span class="nn">obspy.core.util.base</span> <span class="k">import</span> <span class="n">get_matplotlib_version</span>
+<span class="kn">from</span> <span class="nn">obspy.core.event.source</span> <span class="k">import</span> <span class="n">farfield</span>
+<span class="kn">from</span> <span class="nn">obspy.imaging.scripts.mopad</span> <span class="k">import</span> <span class="n">MomentTensor</span><span class="p">,</span> <span class="n">BeachBall</span>
+<span class="kn">from</span> <span class="nn">obspy.imaging.mopad_wrapper</span> <span class="k">import</span> <span class="n">beach</span>
+
+
+<span class="n">MATPLOTLIB_VERSION</span> <span class="o">=</span> <span class="n">get_matplotlib_version</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="_setup_figure_and_axes"><a class="viewcode-back" href="../../../packages/autogen/obspy.imaging.source._setup_figure_and_axes.html#obspy.imaging.source._setup_figure_and_axes">[docs]</a><span class="k">def</span> <span class="nf">_setup_figure_and_axes</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subplot_size</span><span class="o">=</span><span class="mf">4.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Setup figure for Event plot.</span>
+
+<span class="sd">    :param kind: A list of strings or nested list of strings, see</span>
+<span class="sd">        :meth:`obspy.core.event.event.Event.plot`.</span>
+<span class="sd">    :type subplot_size: float</span>
+<span class="sd">    :param subplot_size: Width/height of one single subplot cell in inches.</span>
+<span class="sd">    :rtype: tuple</span>
+<span class="sd">    :returns: A 3-tuple with a :class:`~matplotlib.figure.Figure`, a list of</span>
+<span class="sd">        :class:`~matplotlib.axes.Axes` and a list of strings with corresponding</span>
+<span class="sd">        plotting options for each axes (see</span>
+<span class="sd">        :meth:`obspy.core.event.event.Event.plot`, parameter `kind`).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+    <span class="c1"># make 2d layout of kind parameter</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kind</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="n">nrows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span>
+        <span class="n">ncols</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kind</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span>
+        <span class="n">kind</span> <span class="o">=</span> <span class="p">[</span><span class="n">kind</span><span class="p">]</span>
+    <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="n">ncols</span> <span class="o">*</span> <span class="n">subplot_size</span><span class="p">,</span> <span class="n">nrows</span> <span class="o">*</span> <span class="n">subplot_size</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">fig</span><span class="p">:</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+    <span class="c1"># get tuple of &quot;kind&quot; options and corresponding axes</span>
+    <span class="n">kind_</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">kind</span><span class="p">):</span>
+        <span class="n">ncols_</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">kind__</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+            <span class="n">kind_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kind__</span><span class="p">)</span>
+            <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;aspect&quot;</span><span class="p">:</span> <span class="s2">&quot;equal&quot;</span><span class="p">,</span> <span class="s2">&quot;adjustable&quot;</span><span class="p">:</span> <span class="s2">&quot;datalim&quot;</span><span class="p">}</span>
+            <span class="k">if</span> <span class="n">kind__</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;p_quiver&quot;</span><span class="p">,</span> <span class="s2">&quot;p_sphere&quot;</span><span class="p">,</span> <span class="s2">&quot;s_quiver&quot;</span><span class="p">,</span> <span class="s2">&quot;s_sphere&quot;</span><span class="p">):</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;projection&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;3d&quot;</span>
+            <span class="n">axes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span>
+                <span class="n">nrows</span><span class="p">,</span> <span class="n">ncols_</span><span class="p">,</span> <span class="n">i</span> <span class="o">*</span> <span class="n">ncols_</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">kind_</span></div>
+
+
+<div class="viewcode-block" id="plot_radiation_pattern"><a class="viewcode-back" href="../../../packages/autogen/obspy.imaging.source.plot_radiation_pattern.html#obspy.imaging.source.plot_radiation_pattern">[docs]</a><span class="k">def</span> <span class="nf">plot_radiation_pattern</span><span class="p">(</span>
+        <span class="n">mt</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;p_sphere&#39;</span><span class="p">,</span> <span class="s1">&#39;beachball&#39;</span><span class="p">],</span> <span class="n">coordinate_system</span><span class="o">=</span><span class="s1">&#39;RTP&#39;</span><span class="p">,</span>
+        <span class="n">p_sphere_direction</span><span class="o">=</span><span class="s1">&#39;inwards&#39;</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot the P/S farfield radiation pattern on a unit sphere grid.</span>
+
+<span class="sd">    The calculations are based on [Aki1980]_ eq. 4.29.</span>
+
+<span class="sd">    :param mt: Focal mechanism NM x 6 (M11, M22, M33, M12, M13, M23 - the</span>
+<span class="sd">        six independent components of the moment tensor, where the coordinate</span>
+<span class="sd">        system is 1,2,3 = Up,South,East which equals r,theta,phi -</span>
+<span class="sd">        Harvard/Global CMT convention). The relation to [Aki1980]_</span>
+<span class="sd">        x,y,z equals North,East,Down convention is as follows: Mrr=Mzz,</span>
+<span class="sd">        Mtt=Mxx, Mpp=Myy, Mrt=Mxz, Mrp=-Myz, Mtp=-Mxy.</span>
+
+<span class="sd">    :param kind: One of the following three options:</span>
+<span class="sd">        * A list of strings or nested list of strings for a matplotlib plot</span>
+<span class="sd">          (for details see :meth:`obspy.core.event.event.Event.plot`)</span>
+<span class="sd">        * &#39;mayavi&#39;: uses the mayavi library (not yet available under Python 3</span>
+<span class="sd">          and problematic with anaconda)</span>
+<span class="sd">        * &#39;vtk&#39;: This vtk option writes two vtk files to the current working</span>
+<span class="sd">          directory. rpattern.vtk contains the p and s wave farfield vector</span>
+<span class="sd">          field. beachlines.vtk contains the nodal lines of the radiation</span>
+<span class="sd">          pattern. A vtk glyph filter should be applied to the vector field</span>
+<span class="sd">          (e.g. in ParaView) to visualize it.</span>
+
+<span class="sd">    :param coordinate_system: the only implemented option so far is &#39;RTP&#39; (also</span>
+<span class="sd">        called &#39;USE&#39;). Should be extended to support NED, DSE, NED in the</span>
+<span class="sd">        future.</span>
+<span class="sd">    :type fig: :class:`matplotlib.figure.Figure`</span>
+<span class="sd">    :param fig: Figure instance to use.</span>
+<span class="sd">    :type show: bool</span>
+<span class="sd">    :param show: Whether to show the figure after plotting or not. Can be</span>
+<span class="sd">        used to do further customization of the plot before showing it.</span>
+<span class="sd">    :returns: Matplotlib figure or None (if `kind` is &quot;mayavi&quot; or &quot;vtk&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+    <span class="c1"># reoorder all moment tensors to NED and RTP convention</span>
+    <span class="c1"># name : COMPONENT              : NED sign and index</span>
+    <span class="c1"># NED  : NN, EE, DD, NE, ND, ED : [0, 1, 2, 3, 4, 5]</span>
+    <span class="c1"># USE  : UU, SS, EE, US, UE, SE : [1, 2, 0, -5, 3, -4]</span>
+    <span class="c1"># RTP  : RR, TT, PP, RT, RP, TP : [1, 2, 0, -5, 3, -4]</span>
+    <span class="c1"># DSE  : DD, SS, EE, DS, DE, SE : [1, 2, 0, -5, -3, 4]</span>
+    <span class="k">if</span> <span class="n">coordinate_system</span> <span class="o">==</span> <span class="s1">&#39;RTP&#39;</span> <span class="ow">or</span> <span class="n">coordinate_system</span> <span class="o">==</span> <span class="s1">&#39;USE&#39;</span><span class="p">:</span>
+        <span class="n">signs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+        <span class="n">ned_mt</span> <span class="o">=</span> <span class="p">[</span><span class="n">sign</span> <span class="o">*</span> <span class="n">mt</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="k">for</span> <span class="n">sign</span><span class="p">,</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">signs</span><span class="p">,</span> <span class="n">indices</span><span class="p">)]</span>
+        <span class="n">rtp_mt</span> <span class="o">=</span> <span class="n">mt</span>
+    <span class="c1"># the moment tensor has to be converted to</span>
+    <span class="c1"># RTP/USE coordinates as well because the beachball routine relies</span>
+    <span class="c1"># on it.</span>
+    <span class="c1"># elif coordinate_system == &#39;DSE&#39;:</span>
+    <span class="c1">#     signs = [1, 1, 1, -1, -1, 1]</span>
+    <span class="c1">#     indices = [1, 2, 0, 5, 3, 4]</span>
+    <span class="c1">#     ned_mt = [sign * mt[ind] for sign, ind in zip(signs, indices)]</span>
+    <span class="c1"># elif coordinate_system == &#39;NED&#39;:</span>
+    <span class="c1">#     ned_mt = mt</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;moment tensor in </span><span class="si">{:s}</span><span class="s1"> coordinates not implemented yet&#39;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">coordinate_system</span><span class="p">))</span>
+
+    <span class="c1"># matplotlib plotting is triggered when kind is a list of strings</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">kind</span> <span class="o">=</span> <span class="n">_setup_figure_and_axes</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">kind_</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">kind_</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">elif</span> <span class="n">kind_</span> <span class="o">==</span> <span class="s1">&#39;p_quiver&#39;</span><span class="p">:</span>
+                <span class="n">_plot_radiation_pattern_quiver</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ned_mt</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;P&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">kind_</span> <span class="o">==</span> <span class="s1">&#39;p_sphere&#39;</span><span class="p">:</span>
+                <span class="n">_plot_radiation_pattern_sphere</span><span class="p">(</span>
+                    <span class="n">ax</span><span class="p">,</span> <span class="n">ned_mt</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;P&quot;</span><span class="p">,</span>
+                    <span class="n">p_sphere_direction</span><span class="o">=</span><span class="n">p_sphere_direction</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">kind_</span> <span class="o">==</span> <span class="s1">&#39;s_quiver&#39;</span><span class="p">:</span>
+                <span class="n">_plot_radiation_pattern_quiver</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ned_mt</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;S&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">kind_</span> <span class="o">==</span> <span class="s1">&#39;s_sphere&#39;</span><span class="p">:</span>
+                <span class="n">_plot_radiation_pattern_sphere</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ned_mt</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;S&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">kind_</span> <span class="o">==</span> <span class="s1">&#39;beachball&#39;</span><span class="p">:</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">(</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;bottom&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">(</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+                <span class="n">_plot_beachball</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">rtp_mt</span><span class="p">)</span>
+
+        <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">fig</span>
+
+    <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;mayavi&#39;</span><span class="p">:</span>
+        <span class="n">_plot_radiation_pattern_mayavi</span><span class="p">(</span><span class="n">ned_mt</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;vtk&#39;</span><span class="p">:</span>
+        <span class="c1"># this saves two files, one with the vector field and one</span>
+        <span class="c1"># with the nodal lines of the beachball</span>
+        <span class="n">fname_rpattern</span> <span class="o">=</span> <span class="s1">&#39;rpattern.vtk&#39;</span>
+        <span class="n">fname_beachlines</span> <span class="o">=</span> <span class="s1">&#39;beachlines.vtk&#39;</span>
+        <span class="n">_write_radiation_pattern_vtk</span><span class="p">(</span>
+            <span class="n">ned_mt</span><span class="p">,</span> <span class="n">fname_rpattern</span><span class="o">=</span><span class="n">fname_rpattern</span><span class="p">,</span>
+            <span class="n">fname_beachlines</span><span class="o">=</span><span class="n">fname_beachlines</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:s}</span><span class="s1"> not implemented yet&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kind</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="_plot_radiation_pattern_sphere"><a class="viewcode-back" href="../../../packages/autogen/obspy.imaging.source._plot_radiation_pattern_sphere.html#obspy.imaging.source._plot_radiation_pattern_sphere">[docs]</a><span class="k">def</span> <span class="nf">_plot_radiation_pattern_sphere</span><span class="p">(</span>
+        <span class="n">ax3d</span><span class="p">,</span> <span class="n">ned_mt</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">p_sphere_direction</span><span class="o">=</span><span class="s1">&#39;inwards&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Private function that plots a radiation pattern sphere into an</span>
+<span class="sd">    :class:`~mpl_toolkits.mplot3d.axes3d.Axes3D`.</span>
+
+<span class="sd">    :type ax3d: :class:`mpl_toolkits.mplot3d.axes3d.Axes3D`</span>
+<span class="sd">    :param ax3d: matplotlib Axes3D object</span>
+<span class="sd">    :param ned_mt: moment tensor in NED convention</span>
+<span class="sd">    :param p_sphere_direction: If this is &#39;inwards&#39;, the tension regions of the</span>
+<span class="sd">        beachball deform the radiation sphere inwards. If &#39;outwards&#39; it deforms</span>
+<span class="sd">        outwards.</span>
+<span class="sd">    :param type: &#39;P&#39; or &#39;S&#39; (P or S wave).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="nb">type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;type must be &#39;P&#39; or &#39;S&#39;&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">is_p_wave</span> <span class="o">=</span> <span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;P&quot;</span>
+
+    <span class="c1"># generate spherical mesh that is aligned with the moment tensor null</span>
+    <span class="c1"># axis. MOPAD should use NED coordinate system to avoid internal</span>
+    <span class="c1"># coordinate transformations</span>
+    <span class="n">mtensor</span> <span class="o">=</span> <span class="n">MomentTensor</span><span class="p">(</span><span class="n">ned_mt</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="s1">&#39;NED&#39;</span><span class="p">)</span>
+
+    <span class="c1"># use the most isolated eigenvector as axis of symmetry</span>
+    <span class="n">evecs</span> <span class="o">=</span> <span class="n">mtensor</span><span class="o">.</span><span class="n">get_eigvecs</span><span class="p">()</span>
+    <span class="n">evals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mtensor</span><span class="o">.</span><span class="n">get_eigvals</span><span class="p">())</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">evals_dev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">evals</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">evals</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">is_p_wave</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">p_sphere_direction</span> <span class="o">==</span> <span class="s1">&#39;outwards&#39;</span><span class="p">:</span>
+            <span class="n">evec_max</span> <span class="o">=</span> <span class="n">evecs</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">evals_dev</span><span class="p">)]</span>
+        <span class="k">elif</span> <span class="n">p_sphere_direction</span> <span class="o">==</span> <span class="s1">&#39;inwards&#39;</span><span class="p">:</span>
+            <span class="n">evec_max</span> <span class="o">=</span> <span class="n">evecs</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">evals</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">evec_max</span> <span class="o">=</span> <span class="n">evecs</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">evals_dev</span><span class="p">)]</span>
+    <span class="n">orientation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">evec_max</span><span class="p">)</span>
+
+    <span class="c1"># get a uv sphere that is oriented along the moment tensor axes</span>
+    <span class="n">ntheta</span><span class="p">,</span> <span class="n">nphi</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">_oriented_uv_sphere</span><span class="p">(</span><span class="n">ntheta</span><span class="o">=</span><span class="n">ntheta</span><span class="p">,</span> <span class="n">nphi</span><span class="o">=</span><span class="n">nphi</span><span class="p">,</span>
+                                 <span class="n">orientation</span><span class="o">=</span><span class="n">orientation</span><span class="p">)</span>
+    <span class="n">sshape</span> <span class="o">=</span> <span class="p">(</span><span class="n">ntheta</span><span class="p">,</span> <span class="n">nphi</span><span class="p">)</span>
+
+    <span class="c1"># get radiation pattern</span>
+    <span class="k">if</span> <span class="n">is_p_wave</span><span class="p">:</span>
+        <span class="n">disp</span> <span class="o">=</span> <span class="n">farfield</span><span class="p">(</span><span class="n">ned_mt</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;P&quot;</span><span class="p">)</span>
+        <span class="n">magn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">disp</span> <span class="o">*</span> <span class="n">points</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">cmap</span> <span class="o">=</span> <span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;bwr&#39;</span><span class="p">)</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">disp</span> <span class="o">=</span> <span class="n">farfield</span><span class="p">(</span><span class="n">ned_mt</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;S&quot;</span><span class="p">)</span>
+        <span class="n">magn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">disp</span> <span class="o">*</span> <span class="n">disp</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">cmap</span> <span class="o">=</span> <span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;Greens&#39;</span><span class="p">)</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">magn</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">magn</span><span class="p">))</span>
+
+    <span class="c1"># compute colours and displace points along normal</span>
+    <span class="k">if</span> <span class="n">is_p_wave</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">p_sphere_direction</span> <span class="o">==</span> <span class="s1">&#39;outwards&#39;</span><span class="p">:</span>
+            <span class="n">points</span> <span class="o">*=</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">magn</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">p_sphere_direction</span> <span class="o">==</span> <span class="s1">&#39;inwards&#39;</span><span class="p">:</span>
+            <span class="n">points</span> <span class="o">*=</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="n">magn</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">points</span> <span class="o">*=</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="n">magn</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">val</span><span class="p">))</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">magn</span><span class="p">])</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">colors</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">ntheta</span><span class="p">,</span> <span class="n">nphi</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">sshape</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">sshape</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">sshape</span><span class="p">)</span>
+
+    <span class="c1"># plot 3d radiation pattern</span>
+    <span class="n">ax3d</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">facecolors</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
+    <span class="n">ax3d</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span> <span class="n">zlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span>
+             <span class="n">xticks</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">zticks</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+             <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;South&#39;</span><span class="p">,</span> <span class="s1">&#39;North&#39;</span><span class="p">],</span>
+             <span class="n">yticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;West&#39;</span><span class="p">,</span> <span class="s1">&#39;East&#39;</span><span class="p">],</span>
+             <span class="n">zticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Up&#39;</span><span class="p">,</span> <span class="s1">&#39;Down&#39;</span><span class="p">],</span>
+             <span class="n">title</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> wave farfield&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">))</span>
+    <span class="n">ax3d</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=-</span><span class="mf">110.</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mf">0.</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_plot_radiation_pattern_quiver"><a class="viewcode-back" href="../../../packages/autogen/obspy.imaging.source._plot_radiation_pattern_quiver.html#obspy.imaging.source._plot_radiation_pattern_quiver">[docs]</a><span class="k">def</span> <span class="nf">_plot_radiation_pattern_quiver</span><span class="p">(</span><span class="n">ax3d</span><span class="p">,</span> <span class="n">ned_mt</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Private routine that plots the wave farfield into an</span>
+<span class="sd">    :class:`~mpl_toolkits.mplot3d.axes3d.Axes3D` object</span>
+
+<span class="sd">    :type ax3d: :class:`mpl_toolkits.mplot3d.axes3d.Axes3D`</span>
+<span class="sd">    :param ax3d: matplotlib Axes3D object</span>
+<span class="sd">    :param ned_mt: the 6 comp moment tensor in NED orientation</span>
+<span class="sd">    :type type: str</span>
+<span class="sd">    :param type: &#39;P&#39; or &#39;S&#39; (P or S wave).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+    <span class="k">if</span> <span class="n">MATPLOTLIB_VERSION</span> <span class="o">&lt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">]:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Matplotlib 3D quiver plot needs matplotlib version &gt;= 1.4.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="nb">type</span> <span class="o">=</span> <span class="nb">type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;type must be &#39;P&#39; or &#39;S&#39;&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">is_p_wave</span> <span class="o">=</span> <span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;P&quot;</span>
+
+    <span class="c1"># precompute even spherical grid and directional cosine array</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">_equalarea_spherical_grid</span><span class="p">(</span><span class="n">nlat</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">is_p_wave</span><span class="p">:</span>
+        <span class="c1"># get radiation pattern</span>
+        <span class="n">disp</span> <span class="o">=</span> <span class="n">farfield</span><span class="p">(</span><span class="n">ned_mt</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;P&quot;</span><span class="p">)</span>
+        <span class="c1"># normalized magnitude:</span>
+        <span class="n">magn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">disp</span> <span class="o">*</span> <span class="n">points</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">magn</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">magn</span><span class="p">))</span>
+        <span class="n">cmap</span> <span class="o">=</span> <span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;bwr&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># get radiation pattern</span>
+        <span class="n">disp</span> <span class="o">=</span> <span class="n">farfield</span><span class="p">(</span><span class="n">ned_mt</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;S&quot;</span><span class="p">)</span>
+        <span class="c1"># normalized magnitude (positive only):</span>
+        <span class="n">magn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">disp</span> <span class="o">*</span> <span class="n">disp</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">magn</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">magn</span><span class="p">))</span>
+        <span class="n">cmap</span> <span class="o">=</span> <span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;Greens&#39;</span><span class="p">)</span>
+
+    <span class="c1"># plot</span>
+    <span class="c1"># there is a mlab3d bug that quiver vector colors and lengths</span>
+    <span class="c1"># can only be changed if we plot each arrow independently</span>
+    <span class="k">for</span> <span class="n">loc</span><span class="p">,</span> <span class="n">vec</span><span class="p">,</span> <span class="n">mag</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">disp</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">magn</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">mag</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">is_p_wave</span><span class="p">:</span>
+            <span class="n">loc</span> <span class="o">*=</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="n">mag</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">mag</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">mag</span><span class="p">)</span> <span class="o">/</span> <span class="mf">5.0</span>
+        <span class="n">ax3d</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">loc</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">vec</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vec</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">vec</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                    <span class="n">length</span><span class="o">=</span><span class="n">length</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+    <span class="n">ax3d</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span> <span class="n">zlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span>
+             <span class="n">xticks</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">zticks</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+             <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;South&#39;</span><span class="p">,</span> <span class="s1">&#39;North&#39;</span><span class="p">],</span>
+             <span class="n">yticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;West&#39;</span><span class="p">,</span> <span class="s1">&#39;East&#39;</span><span class="p">],</span>
+             <span class="n">zticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Up&#39;</span><span class="p">,</span> <span class="s1">&#39;Down&#39;</span><span class="p">],</span>
+             <span class="n">title</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> wave farfield&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">))</span>
+    <span class="n">ax3d</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=-</span><span class="mf">110.</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mf">0.</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_plot_beachball"><a class="viewcode-back" href="../../../packages/autogen/obspy.imaging.source._plot_beachball.html#obspy.imaging.source._plot_beachball">[docs]</a><span class="k">def</span> <span class="nf">_plot_beachball</span><span class="p">(</span><span class="n">ax2d</span><span class="p">,</span> <span class="n">rtp_mt</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Private function that plots a beachball into a 2d matplotlib</span>
+<span class="sd">    :class:`~matplotlib.axes.Axes`.</span>
+
+<span class="sd">    :type ax2d: :class:`matplotlib.axes.Axes`</span>
+<span class="sd">    :param ax2d: 2d matplotlib Axes</span>
+<span class="sd">    :param ax2d: matplotlib Axes3D object</span>
+<span class="sd">    :param rtp_mt: moment tensor in RTP convention</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+    <span class="n">norm</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+    <span class="n">cmap</span> <span class="o">=</span> <span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;bwr&#39;</span><span class="p">)</span>
+    <span class="n">bball</span> <span class="o">=</span> <span class="n">beach</span><span class="p">(</span><span class="n">rtp_mt</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="mf">0.7</span><span class="p">)),</span>
+                  <span class="n">bgcolor</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="o">-</span><span class="mf">0.7</span><span class="p">)))</span>
+
+    <span class="n">ax2d</span><span class="o">.</span><span class="n">add_collection</span><span class="p">(</span><span class="n">bball</span><span class="p">)</span>
+    <span class="n">ax2d</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
+             <span class="n">xticks</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">yticks</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span>
+             <span class="n">xticklabels</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;West&#39;</span><span class="p">,</span> <span class="s1">&#39;East&#39;</span><span class="p">),</span>
+             <span class="n">yticklabels</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;South&#39;</span><span class="p">,</span> <span class="s1">&#39;North&#39;</span><span class="p">),</span>
+             <span class="n">title</span><span class="o">=</span><span class="s1">&#39;lower hemisphere stereographical projection&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_plot_radiation_pattern_mayavi"><a class="viewcode-back" href="../../../packages/autogen/obspy.imaging.source._plot_radiation_pattern_mayavi.html#obspy.imaging.source._plot_radiation_pattern_mayavi">[docs]</a><span class="k">def</span> <span class="nf">_plot_radiation_pattern_mayavi</span><span class="p">(</span><span class="n">ned_mt</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot the radiation pattern using MayaVi.</span>
+
+<span class="sd">    This private function uses the mayavi (vtk) library to plot the radiation</span>
+<span class="sd">    pattern to screen. Note that you might have to set the QT_API environmental</span>
+<span class="sd">    variable to e.g. export QT_API=pyqt that mayavi works properly.</span>
+
+<span class="sd">    :param ned_mt: moment tensor in NED convention</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># use mayavi if possible.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">mayavi</span> <span class="k">import</span> <span class="n">mlab</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;ObsPy failed to import MayaVi. &quot;</span>
+               <span class="s2">&quot;You need to install the mayavi module &quot;</span>
+               <span class="s2">&quot;(e.g. &#39;conda install mayavi&#39;, &#39;pip install mayavi&#39;). &quot;</span>
+               <span class="s2">&quot;If it is installed and still doesn&#39;t work, &quot;</span>
+               <span class="s2">&quot;try setting the environmental variable QT_API to &quot;</span>
+               <span class="s2">&quot;pyqt (e.g. export QT_API=pyqt) before running the &quot;</span>
+               <span class="s2">&quot;code. Another option is to avoid mayavi and &quot;</span>
+               <span class="s2">&quot;directly use kind=&#39;vtk&#39; for vtk file output of the &quot;</span>
+               <span class="s2">&quot;radiation pattern that can be used by external &quot;</span>
+               <span class="s2">&quot;software like ParaView&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="c1"># get mopad moment tensor</span>
+    <span class="n">mopad_mt</span> <span class="o">=</span> <span class="n">MomentTensor</span><span class="p">(</span><span class="n">ned_mt</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="s1">&#39;NED&#39;</span><span class="p">)</span>
+    <span class="n">bb</span> <span class="o">=</span> <span class="n">BeachBall</span><span class="p">(</span><span class="n">mopad_mt</span><span class="p">,</span> <span class="n">npoints</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">bb</span><span class="o">.</span><span class="n">_setup_BB</span><span class="p">(</span><span class="n">unit_circle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># extract the coordinates of the nodal lines</span>
+    <span class="n">neg_nodalline</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">_nodalline_negative</span>
+    <span class="n">pos_nodalline</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">_nodalline_positive</span>
+
+    <span class="c1"># add the first point to the end to close the nodal line</span>
+    <span class="n">neg_nodalline</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">neg_nodalline</span><span class="p">,</span> <span class="n">neg_nodalline</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">][:,</span> <span class="kc">None</span><span class="p">]))</span>
+    <span class="n">pos_nodalline</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">pos_nodalline</span><span class="p">,</span> <span class="n">pos_nodalline</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">][:,</span> <span class="kc">None</span><span class="p">]))</span>
+
+    <span class="c1"># plot radiation pattern and nodal lines</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">_equalarea_spherical_grid</span><span class="p">(</span><span class="n">nlat</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">dispp</span> <span class="o">=</span> <span class="n">farfield</span><span class="p">(</span><span class="n">ned_mt</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;P&quot;</span><span class="p">)</span>
+    <span class="n">disps</span> <span class="o">=</span> <span class="n">farfield</span><span class="p">(</span><span class="n">ned_mt</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;S&quot;</span><span class="p">)</span>
+
+    <span class="c1"># get vector lengths</span>
+    <span class="n">normp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dispp</span> <span class="o">*</span> <span class="n">points</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">normp</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">normp</span><span class="p">))</span>
+
+    <span class="n">norms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">disps</span> <span class="o">*</span> <span class="n">disps</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">norms</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">norms</span><span class="p">))</span>
+
+    <span class="c1"># make sphere to block view to the other side of the beachball</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="mf">0.8</span>
+    <span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+    <span class="n">cos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span>
+    <span class="n">sin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span>
+    <span class="n">phi</span><span class="p">,</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">pi</span><span class="p">:</span><span class="mi">101</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span><span class="p">:</span><span class="mi">101</span><span class="n">j</span><span class="p">]</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">rad</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">rad</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">rad</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+
+    <span class="c1"># p wave radiation pattern</span>
+    <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">800</span><span class="p">),</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">pts1</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">quiver3d</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">points</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                         <span class="n">dispp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dispp</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dispp</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                         <span class="n">scalars</span><span class="o">=</span><span class="n">normp</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+    <span class="n">pts1</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="s1">&#39;color_by_scalar&#39;</span>
+    <span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="o">*</span><span class="n">neg_nodalline</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="o">*</span><span class="n">pos_nodalline</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">mlab</span><span class="o">.</span><span class="n">mesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+    <span class="c1"># s wave radiation pattern</span>
+    <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">800</span><span class="p">),</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">pts2</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">quiver3d</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">points</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                         <span class="n">disps</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">disps</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">disps</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">scalars</span><span class="o">=</span><span class="n">norms</span><span class="p">,</span>
+                         <span class="n">vmin</span><span class="o">=-</span><span class="mf">0.</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+    <span class="n">pts2</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="s1">&#39;color_by_scalar&#39;</span>
+    <span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="o">*</span><span class="n">neg_nodalline</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="o">*</span><span class="n">pos_nodalline</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">mlab</span><span class="o">.</span><span class="n">mesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+    <span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="_write_radiation_pattern_vtk"><a class="viewcode-back" href="../../../packages/autogen/obspy.imaging.source._write_radiation_pattern_vtk.html#obspy.imaging.source._write_radiation_pattern_vtk">[docs]</a><span class="k">def</span> <span class="nf">_write_radiation_pattern_vtk</span><span class="p">(</span>
+        <span class="n">ned_mt</span><span class="p">,</span> <span class="n">fname_rpattern</span><span class="o">=</span><span class="s1">&#39;rpattern.vtk&#39;</span><span class="p">,</span>
+        <span class="n">fname_beachlines</span><span class="o">=</span><span class="s1">&#39;beachlines.vtk&#39;</span><span class="p">):</span>
+    <span class="c1"># output a vtkfile that can for exampled be displayed by ParaView</span>
+    <span class="n">mtensor</span> <span class="o">=</span> <span class="n">MomentTensor</span><span class="p">(</span><span class="n">ned_mt</span><span class="p">,</span> <span class="n">system</span><span class="o">=</span><span class="s1">&#39;NED&#39;</span><span class="p">)</span>
+    <span class="n">bb</span> <span class="o">=</span> <span class="n">BeachBall</span><span class="p">(</span><span class="n">mtensor</span><span class="p">,</span> <span class="n">npoints</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">bb</span><span class="o">.</span><span class="n">_setup_BB</span><span class="p">(</span><span class="n">unit_circle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># extract the coordinates of the nodal lines</span>
+    <span class="n">neg_nodalline</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">_nodalline_negative</span>
+    <span class="n">pos_nodalline</span> <span class="o">=</span> <span class="n">bb</span><span class="o">.</span><span class="n">_nodalline_positive</span>
+
+    <span class="c1"># plot radiation pattern and nodal lines</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">_equalarea_spherical_grid</span><span class="p">()</span>
+    <span class="n">ndim</span><span class="p">,</span> <span class="n">npoints</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">dispp</span> <span class="o">=</span> <span class="n">farfield</span><span class="p">(</span><span class="n">ned_mt</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;P&quot;</span><span class="p">)</span>
+    <span class="n">disps</span> <span class="o">=</span> <span class="n">farfield</span><span class="p">(</span><span class="n">ned_mt</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;S&quot;</span><span class="p">)</span>
+
+    <span class="c1"># write vector field</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname_rpattern</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">vtk_file</span><span class="p">:</span>
+        <span class="n">vtk_header</span> <span class="o">=</span> <span class="s1">&#39;# vtk DataFile Version 2.0</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> \
+                     <span class="s1">&#39;radiation pattern vector field</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> \
+                     <span class="s1">&#39;ASCII</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> \
+                     <span class="s1">&#39;DATASET UNSTRUCTURED_GRID</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> \
+                     <span class="s1">&#39;POINTS </span><span class="si">{:d}</span><span class="s1"> float</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">npoints</span><span class="p">)</span>
+
+        <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">vtk_header</span><span class="p">)</span>
+        <span class="c1"># write point locations</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
+            <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.3e}</span><span class="s1"> </span><span class="si">{:.3e}</span><span class="s1"> </span><span class="si">{:.3e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span>
+        <span class="c1"># write vector field</span>
+        <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;POINT_DATA </span><span class="si">{:d}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">npoints</span><span class="p">))</span>
+        <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;VECTORS s_radiation float</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">disps</span><span class="p">):</span>
+            <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.3e}</span><span class="s1"> </span><span class="si">{:.3e}</span><span class="s1"> </span><span class="si">{:.3e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span>
+        <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;VECTORS p_radiation float</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">npoints</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">dispp</span><span class="p">):</span>
+            <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.3e}</span><span class="s1"> </span><span class="si">{:.3e}</span><span class="s1"> </span><span class="si">{:.3e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span>
+
+    <span class="c1"># write nodal lines</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname_beachlines</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">vtk_file</span><span class="p">:</span>
+        <span class="n">npts_neg</span> <span class="o">=</span> <span class="n">neg_nodalline</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">npts_pos</span> <span class="o">=</span> <span class="n">pos_nodalline</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">npts_tot</span> <span class="o">=</span> <span class="n">npts_neg</span> <span class="o">+</span> <span class="n">npts_pos</span>
+        <span class="n">vtk_header</span> <span class="o">=</span> <span class="s1">&#39;# vtk DataFile Version 2.0</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> \
+                     <span class="s1">&#39;beachball nodal lines</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> \
+                     <span class="s1">&#39;ASCII</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> \
+                     <span class="s1">&#39;DATASET UNSTRUCTURED_GRID</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> \
+                     <span class="s1">&#39;POINTS </span><span class="si">{:d}</span><span class="s1"> float</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">npts_tot</span><span class="p">)</span>
+
+        <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">vtk_header</span><span class="p">)</span>
+        <span class="c1"># write point locations</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">neg_nodalline</span><span class="p">):</span>
+            <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.3e}</span><span class="s1"> </span><span class="si">{:.3e}</span><span class="s1"> </span><span class="si">{:.3e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">pos_nodalline</span><span class="p">):</span>
+            <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.3e}</span><span class="s1"> </span><span class="si">{:.3e}</span><span class="s1"> </span><span class="si">{:.3e}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span>
+
+        <span class="c1"># write line segments</span>
+        <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">CELLS 2 </span><span class="si">{:d}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">npts_tot</span> <span class="o">+</span> <span class="mi">4</span><span class="p">))</span>
+
+        <span class="n">ipoints</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">npts_neg</span><span class="p">))</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:d}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">npts_neg</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">ipoint</span> <span class="ow">in</span> <span class="n">ipoints</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ipoint</span> <span class="o">%</span> <span class="mi">30</span> <span class="o">==</span> <span class="mi">29</span><span class="p">:</span>
+                <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:d}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ipoint</span><span class="p">))</span>
+        <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">ipoints</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">npts_pos</span><span class="p">))</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:d}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">npts_pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">ipoint</span> <span class="ow">in</span> <span class="n">ipoints</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ipoint</span> <span class="o">%</span> <span class="mi">30</span> <span class="o">==</span> <span class="mi">29</span><span class="p">:</span>
+                <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:d}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ipoint</span> <span class="o">+</span> <span class="n">npts_neg</span><span class="p">))</span>
+        <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># cell types. 4 means cell type is a poly_line</span>
+        <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">CELL_TYPES 2</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">vtk_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;4</span><span class="se">\n</span><span class="s1">4&#39;</span><span class="p">)</span></div>
+
+
+<span class="c1"># ===== SUPPORT FUNCTIONS FOR SPHERICAL MESHES ETC STARTING HERE:</span>
+<div class="viewcode-block" id="_oriented_uv_sphere"><a class="viewcode-back" href="../../../packages/autogen/obspy.imaging.source._oriented_uv_sphere.html#obspy.imaging.source._oriented_uv_sphere">[docs]</a><span class="k">def</span> <span class="nf">_oriented_uv_sphere</span><span class="p">(</span><span class="n">ntheta</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">nphi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a uv sphere (equidistant lat/lon grid) with its north-pole rotated</span>
+<span class="sd">    to the input axis. It returns the spherical grid points that can be used to</span>
+<span class="sd">    generate a QuadMesh on the sphere for surface plotting.</span>
+
+<span class="sd">    :param nlat: number of latitudinal grid points (default = 100)</span>
+<span class="sd">    :param nphi: number of longitudinal grid points (default = 100)</span>
+<span class="sd">    :param orientation: axis of the north-pole of the sphere</span>
+<span class="sd">                        (default = [0, 0, 1])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># make rotation matrix (after numpy mailing list)</span>
+    <span class="n">zaxis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">])</span>
+    <span class="n">raxis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">orientation</span><span class="p">,</span> <span class="n">zaxis</span><span class="p">)</span>  <span class="c1"># rotate z axis to null</span>
+    <span class="n">raxis_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">raxis</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">raxis_norm</span> <span class="o">&lt;</span> <span class="mf">1e-10</span><span class="p">:</span>  <span class="c1"># check for zero or 180 degree rotation</span>
+        <span class="n">rotmtx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">raxis</span> <span class="o">/=</span> <span class="n">raxis_norm</span>
+
+        <span class="c1"># angle between z and null</span>
+        <span class="n">angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">zaxis</span><span class="p">,</span> <span class="n">orientation</span><span class="p">))</span>
+
+        <span class="n">eye</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="n">raxis2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">raxis</span><span class="p">,</span> <span class="n">raxis</span><span class="p">)</span>
+        <span class="n">skew</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="n">raxis</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="o">-</span><span class="n">raxis</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+                         <span class="p">[</span><span class="o">-</span><span class="n">raxis</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="n">raxis</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+                         <span class="p">[</span><span class="n">raxis</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">raxis</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">]])</span>
+
+        <span class="n">rotmtx</span> <span class="o">=</span> <span class="p">(</span><span class="n">raxis2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">eye</span> <span class="o">-</span> <span class="n">raxis2</span><span class="p">)</span> <span class="o">+</span>
+                  <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="o">*</span> <span class="n">skew</span><span class="p">)</span>
+
+    <span class="c1"># make uv sphere that is aligned with z-axis</span>
+    <span class="n">ntheta</span><span class="p">,</span> <span class="n">nphi</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">nphi</span><span class="p">)</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">ntheta</span><span class="p">)</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">u</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+
+    <span class="c1"># ravel point array and rotate them to the null axis</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">z</span><span class="o">.</span><span class="n">flatten</span><span class="p">()))</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rotmtx</span><span class="p">,</span> <span class="n">points</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">points</span></div>
+
+
+<div class="viewcode-block" id="_equalarea_spherical_grid"><a class="viewcode-back" href="../../../packages/autogen/obspy.imaging.source._equalarea_spherical_grid.html#obspy.imaging.source._equalarea_spherical_grid">[docs]</a><span class="k">def</span> <span class="nf">_equalarea_spherical_grid</span><span class="p">(</span><span class="n">nlat</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates a simple spherical equalarea grid that adjust the number of</span>
+<span class="sd">    longitude samples to the latitude. This grid is useful to plot vectors on</span>
+<span class="sd">    the sphere but not surfaces.</span>
+
+<span class="sd">    :param nlat: number of nodes in lat direction. The number of</span>
+<span class="sd">                 nodes in lon direction is 2*nlat+1 at the equator</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">ndim</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">colats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">nlat</span><span class="p">)</span>
+    <span class="n">norms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">colats</span><span class="p">)</span>
+    <span class="c1"># Scale number of point with latitude.</span>
+    <span class="n">nlons</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">nlat</span> <span class="o">*</span> <span class="n">norms</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int_</span><span class="p">)</span>
+
+    <span class="c1"># make colat/lon grid</span>
+    <span class="n">colatgrid</span><span class="p">,</span> <span class="n">longrid</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ilat</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nlat</span><span class="p">):</span>
+        <span class="n">nlon</span> <span class="o">=</span> <span class="n">nlons</span><span class="p">[</span><span class="n">ilat</span><span class="p">]</span>
+        <span class="n">dlon</span> <span class="o">=</span> <span class="mf">2.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">nlon</span>
+        <span class="n">lons</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.</span> <span class="o">+</span> <span class="n">dlon</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">-</span> <span class="n">dlon</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">,</span> <span class="n">nlon</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ilon</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nlon</span><span class="p">):</span>
+            <span class="n">colatgrid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">colats</span><span class="p">[</span><span class="n">ilat</span><span class="p">])</span>
+            <span class="n">longrid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lons</span><span class="p">[</span><span class="n">ilon</span><span class="p">])</span>
+    <span class="n">npoints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">longrid</span><span class="p">)</span>
+
+    <span class="c1"># get cartesian coordinates of spherical grid</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">ndim</span><span class="p">,</span> <span class="n">npoints</span><span class="p">))</span>
+    <span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">colatgrid</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">longrid</span><span class="p">)</span>
+    <span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">colatgrid</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">longrid</span><span class="p">)</span>
+    <span class="n">points</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">colatgrid</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">points</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

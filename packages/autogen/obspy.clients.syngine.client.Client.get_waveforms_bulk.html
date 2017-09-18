@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.clients.syngine.client.Client.get_waveforms_bulk &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../contents.html">ObsPy Documentation (1.0.3)</a></li> 
+    </ol>
+  
+  <div class="section" id="obspy-clients-syngine-client-client-get-waveforms-bulk">
+<h1>obspy.clients.syngine.client.Client.get_waveforms_bulk<a class="headerlink" href="#obspy-clients-syngine-client-client-get-waveforms-bulk" title="Permalink to this headline">¶</a></h1>
+<dl class="method">
+<dt id="obspy.clients.syngine.client.Client.get_waveforms_bulk">
+<code class="descclassname">Client.</code><code class="descname">get_waveforms_bulk</code><span class="sig-paren">(</span><em>model</em>, <em>bulk</em>, <em>eventid=None</em>, <em>sourcelatitude=None</em>, <em>sourcelongitude=None</em>, <em>sourcedepthinmeters=None</em>, <em>sourcemomenttensor=None</em>, <em>sourcedoublecouple=None</em>, <em>sourceforce=None</em>, <em>origintime=None</em>, <em>starttime=None</em>, <em>endtime=None</em>, <em>label=None</em>, <em>components=None</em>, <em>units=None</em>, <em>scale=None</em>, <em>dt=None</em>, <em>kernelwidth=None</em>, <em>format='miniseed'</em>, <em>filename=None</em>, <em>data=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/obspy/clients/syngine/client.html#Client.get_waveforms_bulk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#obspy.clients.syngine.client.Client.get_waveforms_bulk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request waveforms for multiple receivers simultaneously.</p>
+<p>This method is strongly tied to the actual implementation on the
+server side. The default values and all the exception handling are
+deferred to the service. Please see the <a class="reference external" href="https://ds.iris.edu/ds/products/syngine/">Syngine documentation</a> for more details and the
+default values of all parameters.</p>
+<p>This method uses the POST functionalities of the Syngine service.</p>
+<p class="rubric">Example</p>
+<p>The <cite>bulk</cite> parameter is a list of either other lists/tuples or
+dictionaries. Each item specifies one receiver. Items can be
+specified in a number of different ways:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy.clients.syngine</span> <span class="k">import</span> <span class="n">Client</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bulk</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;IU&quot;</span><span class="p">,</span> <span class="s2">&quot;station&quot;</span><span class="p">:</span> <span class="s2">&quot;ANMO&quot;</span><span class="p">},</span>  <span class="c1"># net/sta codes</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s2">&quot;latitude&quot;</span><span class="p">:</span> <span class="mf">47.0</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">:</span> <span class="mf">12.1</span><span class="p">},</span> <span class="c1"># coordinates</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s2">&quot;latitude&quot;</span><span class="p">:</span> <span class="mf">47.0</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">:</span> <span class="mf">12.1</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="s2">&quot;networkcode&quot;</span><span class="p">:</span> <span class="s2">&quot;AA&quot;</span><span class="p">,</span> <span class="s2">&quot;stationcode&quot;</span><span class="p">:</span> <span class="s2">&quot;BB&quot;</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="s2">&quot;locationcode&quot;</span><span class="p">:</span> <span class="s2">&quot;CC&quot;</span><span class="p">},</span>   <span class="c1"># optional net/sta/loc</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="s2">&quot;IU&quot;</span><span class="p">,</span> <span class="s2">&quot;ANTO&quot;</span><span class="p">],</span>           <span class="c1"># net/sta as list</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="mf">33.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">123.5</span><span class="p">]</span>            <span class="c1"># lat/lon as list/tuple</span>
+<span class="gp">... </span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Just pass that on to the bulk waveform method and retrieve the data.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">get_waveforms_bulk</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;ak135f_5s&quot;</span><span class="p">,</span> <span class="n">bulk</span><span class="o">=</span><span class="n">bulk</span><span class="p">,</span> <span class="n">sourcelatitude</span><span class="o">=</span><span class="mf">12.3</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">sourcelongitude</span><span class="o">=</span><span class="mf">75.3</span><span class="p">,</span> <span class="n">sourcedepthinmeters</span><span class="o">=</span><span class="mi">54321</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">sourcemomenttensor</span><span class="o">=</span><span class="p">[</span><span class="mf">1E19</span><span class="p">,</span> <span class="mf">1E19</span><span class="p">,</span> <span class="mf">1E19</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">components</span><span class="o">=</span><span class="s2">&quot;Z&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">sort</span><span class="p">())</span>  
+<span class="go">5 Trace(s) in Stream:</span>
+<span class="go">AA.BB.CC.MXZ    | 1900-01-01T00:00:00... - ... | 4.0 Hz, 15520 samples</span>
+<span class="go">IU.ANMO.SE.MXZ  | 1900-01-01T00:00:00... - ... | 4.0 Hz, 15520 samples</span>
+<span class="go">IU.ANTO.SE.MXZ  | 1900-01-01T00:00:00... - ... | 4.0 Hz, 15520 samples</span>
+<span class="go">XX.S0001.SE.MXZ | 1900-01-01T00:00:00... - ... | 4.0 Hz, 15520 samples</span>
+<span class="go">XX.S0002.SE.MXZ | 1900-01-01T00:00:00... - ... | 4.0 Hz, 15520 samples</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>model</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Specify the model.</li>
+<li><strong>bulk</strong> (<em>list of lists</em><em>, </em><em>tuples</em><em>, or </em><em>dictionaries</em>) – Specify the receivers to download in bulk.</li>
+<li><strong>eventid</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Specify an event identifier in the form
+[catalog]:[eventid]. The centroid time and location and moment
+tensor of the solution will be used as the source.</li>
+<li><strong>sourcelatitude</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a>) – Specify the source latitude.</li>
+<li><strong>sourcelongitude</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a>) – Specify the source longitude.</li>
+<li><strong>sourcedepthinmeters</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a>) – Specify the source depth in meters.</li>
+<li><strong>sourcemomenttensor</strong> (<em>list of floats</em>) – Specify a source in moment tensor
+components as a list: <code class="docutils literal"><span class="pre">Mrr</span></code>, <code class="docutils literal"><span class="pre">Mtt</span></code>, <code class="docutils literal"><span class="pre">Mpp</span></code>, <code class="docutils literal"><span class="pre">Mrt</span></code>, <code class="docutils literal"><span class="pre">Mrp</span></code>,
+<code class="docutils literal"><span class="pre">Mtp</span></code> with values in Newton meters (<em>Nm</em>).</li>
+<li><strong>sourcedoublecouple</strong> (<em>list of floats</em>) – Specify a source as a double couple. The
+list of values are <code class="docutils literal"><span class="pre">strike</span></code>, <code class="docutils literal"><span class="pre">dip</span></code>, <code class="docutils literal"><span class="pre">rake</span></code> [, <code class="docutils literal"><span class="pre">M0</span></code> ],
+where strike, dip and rake are in degrees and M0 is the scalar
+seismic moment in Newton meters (Nm). If not specified, a value
+of <em>1e19</em> will be used as the scalar moment.</li>
+<li><strong>sourceforce</strong> (<em>list of floats</em>) – Specify a force source as a list of <code class="docutils literal"><span class="pre">Fr</span></code>, <code class="docutils literal"><span class="pre">Ft</span></code>,
+<code class="docutils literal"><span class="pre">Fp</span></code> in units of Newtons (N).</li>
+<li><strong>origintime</strong> (<a class="reference internal" href="obspy.core.utcdatetime.UTCDateTime.html#obspy.core.utcdatetime.UTCDateTime" title="obspy.core.utcdatetime.UTCDateTime"><code class="xref py py-class docutils literal"><span class="pre">UTCDateTime</span></code></a>) – Specify the source origin time. This must be
+specified as an absolute date and time.</li>
+<li><strong>starttime</strong> (<a class="reference internal" href="obspy.core.utcdatetime.UTCDateTime.html#obspy.core.utcdatetime.UTCDateTime" title="obspy.core.utcdatetime.UTCDateTime"><code class="xref py py-class docutils literal"><span class="pre">UTCDateTime</span></code></a>, str,
+or float) – <p>Specifies the desired start time for the synthetic
+trace(s). This may be specified as either:</p>
+<ul>
+<li>an absolute date and time</li>
+<li>a phase-relative offset</li>
+<li>an offset from origin time in seconds</li>
+</ul>
+<p>If the value is recognized as a date and time, it is interpreted
+as an absolute time. If the value is in the form
+<code class="docutils literal"><span class="pre">phase[+-]offset</span></code> it is interpreted as a phase-relative time,
+for example <code class="docutils literal"><span class="pre">P-10</span></code> (meaning P wave arrival time minus 10
+seconds). If the value is a numerical value it is interpreted as an
+offset, in seconds, from the <code class="docutils literal"><span class="pre">origintime</span></code>.</p>
+</li>
+<li><strong>endtime</strong> (<a class="reference internal" href="obspy.core.utcdatetime.UTCDateTime.html#obspy.core.utcdatetime.UTCDateTime" title="obspy.core.utcdatetime.UTCDateTime"><code class="xref py py-class docutils literal"><span class="pre">UTCDateTime</span></code></a>, str,
+or float) – <p>Specifies the desired end time for the synthetic
+trace(s). This may be specified as either:</p>
+<ul>
+<li>an absolute date and time</li>
+<li>a phase-relative offset</li>
+<li>an offset from start time in seconds</li>
+</ul>
+<p>If the value is recognized as a date and time, it is interpreted
+as an absolute time. If the value is in the form
+<code class="docutils literal"><span class="pre">phase[+-]offset</span></code> it is interpreted as a phase-relative time,
+for example <code class="docutils literal"><span class="pre">P+10</span></code> (meaning P wave arrival time plus 10
+seconds). If the value is a numerical value it is interpreted as an
+offset, in seconds, from the <code class="docutils literal"><span class="pre">starttime</span></code>.</p>
+</li>
+<li><strong>label</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Specify a label to be included in file names and HTTP
+file name suggestions.</li>
+<li><strong>components</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em> or </em><em>list of strings.</em>) – Specify the orientation of the synthetic
+seismograms as a list of any combination of <code class="docutils literal"><span class="pre">Z</span></code> (vertical),
+<code class="docutils literal"><span class="pre">N</span></code> (north), <code class="docutils literal"><span class="pre">E</span></code> (east), <code class="docutils literal"><span class="pre">R</span></code> (radial), <code class="docutils literal"><span class="pre">T</span></code> (transverse)</li>
+<li><strong>units</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Specify either <code class="docutils literal"><span class="pre">displacement</span></code>, <code class="docutils literal"><span class="pre">velocity</span></code> or
+<code class="docutils literal"><span class="pre">acceleration</span></code> for the synthetics. The length unit is meters.</li>
+<li><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a>) – Specify an amplitude scaling factor. The default
+amplitude length unit is meters.</li>
+<li><strong>dt</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a>) – Specify the sampling interval in seconds. Only upsampling
+is allowed so this value must be larger than the intrinsic interval
+of the model database.</li>
+<li><strong>kernelwidth</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Specify the width of the sinc kernel used for
+resampling to requested sample interval (<code class="docutils literal"><span class="pre">dt</span></code>), relative to the
+original sampling rate.</li>
+<li><strong>format</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Specify output file to be either miniSEED or a ZIP
+archive of SAC files, either <code class="docutils literal"><span class="pre">miniseed</span></code> or <code class="docutils literal"><span class="pre">saczip</span></code>.</li>
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em> or </em><em>file-like object</em>) – Will download directly to the specified file. If
+given, this method will return nothing.</li>
+<li><strong>data</strong> (<em>dictionary</em><em>, </em><em>bytes</em><em>, or </em><em>file-like object</em>) – If specified this will be sent directly sent to the
+Syngine service as a POST payload. All other parameters except the
+<code class="docutils literal"><span class="pre">filename</span></code> parameter will be silently ignored. Likely not that
+useful for most people.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

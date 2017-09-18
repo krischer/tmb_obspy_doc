@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.io.seiscomp.inventory &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.io.seiscomp.inventory</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">ObsPy implementation for parsing the sc3ml format to an Inventory object.</span>
+
+<span class="sd">This is a modified version of obspy.io.stationxml.</span>
+
+<span class="sd">:author:</span>
+<span class="sd">    Mathijs Koymans (koymans@knmi.nl), 11.2015 - [Jollyfant@GitHub]</span>
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (http://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">obspy</span>
+
+<span class="kn">from</span> <span class="nn">lxml</span> <span class="k">import</span> <span class="n">etree</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.obspy_types</span> <span class="k">import</span> <span class="p">(</span><span class="n">ComplexWithUncertainties</span><span class="p">,</span>
+                                         <span class="n">FloatWithUncertaintiesAndUnit</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">obspy.core.inventory</span> <span class="k">import</span> <span class="p">(</span><span class="n">Azimuth</span><span class="p">,</span> <span class="n">ClockDrift</span><span class="p">,</span> <span class="n">Dip</span><span class="p">,</span>
+                                  <span class="n">Distance</span><span class="p">,</span> <span class="n">Frequency</span><span class="p">,</span> <span class="n">Latitude</span><span class="p">,</span>
+                                  <span class="n">Longitude</span><span class="p">,</span> <span class="n">SampleRate</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">obspy.core.inventory</span> <span class="k">import</span> <span class="p">(</span><span class="n">CoefficientsTypeResponseStage</span><span class="p">,</span>
+                                  <span class="n">FilterCoefficient</span><span class="p">,</span> <span class="n">FIRResponseStage</span><span class="p">,</span>
+                                  <span class="n">PolesZerosResponseStage</span><span class="p">,</span>
+                                  <span class="n">PolynomialResponseStage</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">obspy.io.stationxml.core</span> <span class="k">import</span> <span class="n">_read_floattype</span>
+<span class="kn">from</span> <span class="nn">obspy.io.seiscomp.core</span> <span class="k">import</span> <span class="n">_is_sc3ml</span> <span class="k">as</span> <span class="n">_is_sc3ml_version</span>
+
+
+<span class="n">SOFTWARE_MODULE</span> <span class="o">=</span> <span class="s2">&quot;ObsPy </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">obspy</span><span class="o">.</span><span class="n">__version__</span>
+<span class="n">SOFTWARE_URI</span> <span class="o">=</span> <span class="s2">&quot;http://www.obspy.org&quot;</span>
+<span class="n">SCHEMA_VERSION</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;0.7&quot;</span><span class="p">,</span> <span class="s2">&quot;0.8&quot;</span><span class="p">,</span> <span class="s2">&quot;0.9&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="_is_sc3ml"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seiscomp.inventory._is_sc3ml.html#obspy.io.seiscomp.inventory._is_sc3ml">[docs]</a><span class="k">def</span> <span class="nf">_is_sc3ml</span><span class="p">(</span><span class="n">path_or_file_object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simple function checking if the passed object contains a valid sc3ml file.</span>
+<span class="sd">    Returns True of False.</span>
+
+<span class="sd">    The test is not exhaustive - it only checks the root tag but that should</span>
+<span class="sd">    be good enough for most real world use cases. If the schema is used to</span>
+<span class="sd">    test for a StationXML file, many real world files are false negatives as</span>
+<span class="sd">    they don&#39;t adhere to the standard.</span>
+
+<span class="sd">    :type path_or_file_object: str</span>
+<span class="sd">    :param path_or_file_object: File name or file like object.</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    :return: ``True`` if SC3ML file is valid.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_is_sc3ml_version</span><span class="p">(</span><span class="n">path_or_file_object</span><span class="p">,</span> <span class="n">SCHEMA_VERSION</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_read_sc3ml"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seiscomp.inventory._read_sc3ml.html#obspy.io.seiscomp.inventory._read_sc3ml">[docs]</a><span class="k">def</span> <span class="nf">_read_sc3ml</span><span class="p">(</span><span class="n">path_or_file_object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function for reading a stationXML file.</span>
+
+<span class="sd">    :param path_or_file_object: File name or file like object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">path_or_file_object</span><span class="p">)</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+
+    <span class="c1"># Code can be used for version 0.7, 0.8, and 0.9</span>
+    <span class="n">basespace</span> <span class="o">=</span> <span class="s2">&quot;http://geofon.gfz-potsdam.de/ns/seiscomp3-schema&quot;</span>
+    <span class="k">for</span> <span class="n">version</span> <span class="ow">in</span> <span class="n">SCHEMA_VERSION</span><span class="p">:</span>
+        <span class="n">namespace</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">basespace</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;{</span><span class="si">%s</span><span class="s2">}</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">namespace</span><span class="p">,</span> <span class="s2">&quot;Inventory&quot;</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Schema version not supported.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_ns</span><span class="p">(</span><span class="n">tagname</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;{</span><span class="si">%s</span><span class="s2">}</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">namespace</span><span class="p">,</span> <span class="n">tagname</span><span class="p">)</span>
+
+    <span class="c1"># This needs to be tested, did not find an inventory</span>
+    <span class="c1"># with the journal entry.</span>
+    <span class="n">journal</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;Journaling&quot;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">journal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">entry</span> <span class="o">=</span> <span class="n">journal</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;entry&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">entry</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">created</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;created&quot;</span><span class="p">),</span> <span class="n">obspy</span><span class="o">.</span><span class="n">UTCDateTime</span><span class="p">)</span>
+            <span class="n">sender</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;sender&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">created</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">sender</span> <span class="o">=</span> <span class="s2">&quot;ObsPy Inventory&quot;</span>
+
+    <span class="c1"># Set source to this script</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="s2">&quot;sc3ml import&quot;</span>
+    <span class="n">module</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">module_uri</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Collect all networks from the sc3ml inventory</span>
+    <span class="n">networks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">inv_element</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;Inventory&quot;</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">net_element</span> <span class="ow">in</span> <span class="n">inv_element</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;network&quot;</span><span class="p">)):</span>
+        <span class="n">networks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_read_network</span><span class="p">(</span><span class="n">inv_element</span><span class="p">,</span> <span class="n">net_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">obspy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">inventory</span><span class="o">.</span><span class="n">Inventory</span><span class="p">(</span><span class="n">networks</span><span class="o">=</span><span class="n">networks</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
+                                          <span class="n">sender</span><span class="o">=</span><span class="n">sender</span><span class="p">,</span> <span class="n">created</span><span class="o">=</span><span class="n">created</span><span class="p">,</span>
+                                          <span class="n">module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span> <span class="n">module_uri</span><span class="o">=</span><span class="n">module_uri</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_tag2obj"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seiscomp.inventory._tag2obj.html#obspy.io.seiscomp.inventory._tag2obj">[docs]</a><span class="k">def</span> <span class="nf">_tag2obj</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">convert</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads text from tag in element</span>
+
+<span class="sd">    :param element: etree element</span>
+<span class="sd">    :param tag: name of tag to be read</span>
+<span class="sd">    :param convert: intrinsic function (e.g. int, str, float)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Single closing tags e.g. &lt;analogueFilterChain/&gt;.text return None</span>
+        <span class="c1"># and will be converted to a string &#39;None&#39; when convert is str</span>
+        <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">convert</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="_read_network"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seiscomp.inventory._read_network.html#obspy.io.seiscomp.inventory._read_network">[docs]</a><span class="k">def</span> <span class="nf">_read_network</span><span class="p">(</span><span class="n">inventory_root</span><span class="p">,</span> <span class="n">net_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads the network structure</span>
+
+<span class="sd">    :param inventory_root: base inventory element of sc3ml</span>
+<span class="sd">    :param net_element: network element to be read</span>
+<span class="sd">    :param _ns: namespace</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Get the network code as attribute (e.g. &lt;network code=&quot;GB&quot;&gt;)</span>
+    <span class="n">network</span> <span class="o">=</span> <span class="n">obspy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">inventory</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">net_element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;code&quot;</span><span class="p">))</span>
+
+    <span class="c1"># There is no further information in the attributes of &lt;network&gt;</span>
+    <span class="c1"># Start and end date are included as tags</span>
+    <span class="n">network</span><span class="o">.</span><span class="n">start_date</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">net_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;start&quot;</span><span class="p">),</span> <span class="n">obspy</span><span class="o">.</span><span class="n">UTCDateTime</span><span class="p">)</span>
+    <span class="n">network</span><span class="o">.</span><span class="n">end_date</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">net_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;end&quot;</span><span class="p">),</span> <span class="n">obspy</span><span class="o">.</span><span class="n">UTCDateTime</span><span class="p">)</span>
+    <span class="n">network</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">net_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+
+    <span class="c1"># get the restricted_status (boolean)</span>
+    <span class="c1"># true is evaluated to &#39;open&#39;; false to &#39;closed&#39;</span>
+    <span class="c1"># to match stationXML format</span>
+    <span class="n">network</span><span class="o">.</span><span class="n">restricted_status</span> <span class="o">=</span> <span class="n">_get_restricted_status</span><span class="p">(</span><span class="n">net_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">)</span>
+
+    <span class="c1"># Collect the stations</span>
+    <span class="n">stations</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">sta_element</span> <span class="ow">in</span> <span class="n">net_element</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;station&quot;</span><span class="p">)):</span>
+        <span class="n">stations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_read_station</span><span class="p">(</span><span class="n">inventory_root</span><span class="p">,</span> <span class="n">sta_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">))</span>
+    <span class="n">network</span><span class="o">.</span><span class="n">stations</span> <span class="o">=</span> <span class="n">stations</span>
+
+    <span class="k">return</span> <span class="n">network</span></div>
+
+
+<div class="viewcode-block" id="_get_restricted_status"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seiscomp.inventory._get_restricted_status.html#obspy.io.seiscomp.inventory._get_restricted_status">[docs]</a><span class="k">def</span> <span class="nf">_get_restricted_status</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    get the restricted_status (boolean)</span>
+<span class="sd">    true is evaluated to &#39;open&#39; and false to &#39;closed&#39;</span>
+<span class="sd">    to match stationXML formatting</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">restricted_status</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;restricted&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">restricted_status</span> <span class="o">==</span> <span class="s1">&#39;false&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;open&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;closed&#39;</span></div>
+
+
+<div class="viewcode-block" id="_read_station"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seiscomp.inventory._read_station.html#obspy.io.seiscomp.inventory._read_station">[docs]</a><span class="k">def</span> <span class="nf">_read_station</span><span class="p">(</span><span class="n">inventory_root</span><span class="p">,</span> <span class="n">sta_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads the station structure</span>
+
+<span class="sd">    :param inventory_root: base inventory element of sc3ml</span>
+<span class="sd">    :param sta_element: station element to be read</span>
+<span class="sd">    :param _ns: name space</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Read location tags</span>
+    <span class="n">longitude</span> <span class="o">=</span> <span class="n">_read_floattype</span><span class="p">(</span><span class="n">sta_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;longitude&quot;</span><span class="p">),</span> <span class="n">Longitude</span><span class="p">,</span>
+                                <span class="n">datum</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">latitude</span> <span class="o">=</span> <span class="n">_read_floattype</span><span class="p">(</span><span class="n">sta_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;latitude&quot;</span><span class="p">),</span> <span class="n">Latitude</span><span class="p">,</span>
+                               <span class="n">datum</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">elevation</span> <span class="o">=</span> <span class="n">_read_floattype</span><span class="p">(</span><span class="n">sta_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;elevation&quot;</span><span class="p">),</span> <span class="n">Distance</span><span class="p">,</span>
+                                <span class="n">unit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">station</span> <span class="o">=</span> <span class="n">obspy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">inventory</span><span class="o">.</span><span class="n">Station</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="n">sta_element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;code&quot;</span><span class="p">),</span>
+                                           <span class="n">latitude</span><span class="o">=</span><span class="n">latitude</span><span class="p">,</span>
+                                           <span class="n">longitude</span><span class="o">=</span><span class="n">longitude</span><span class="p">,</span>
+                                           <span class="n">elevation</span><span class="o">=</span><span class="n">elevation</span><span class="p">)</span>
+    <span class="n">station</span><span class="o">.</span><span class="n">site</span> <span class="o">=</span> <span class="n">_read_site</span><span class="p">(</span><span class="n">sta_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">)</span>
+
+    <span class="c1"># There is no relevant info in the base node</span>
+    <span class="c1"># Read the start and end date (creation, termination) from tags</span>
+    <span class="c1"># &quot;Vault&quot; and &quot;Geology&quot; are not defined in sc3ml ?</span>
+    <span class="n">station</span><span class="o">.</span><span class="n">start_date</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">sta_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;start&quot;</span><span class="p">),</span> <span class="n">obspy</span><span class="o">.</span><span class="n">UTCDateTime</span><span class="p">)</span>
+    <span class="n">station</span><span class="o">.</span><span class="n">end_date</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">sta_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;end&quot;</span><span class="p">),</span> <span class="n">obspy</span><span class="o">.</span><span class="n">UTCDateTime</span><span class="p">)</span>
+    <span class="n">station</span><span class="o">.</span><span class="n">creation_date</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">sta_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;start&quot;</span><span class="p">),</span>
+                                     <span class="n">obspy</span><span class="o">.</span><span class="n">UTCDateTime</span><span class="p">)</span>
+    <span class="n">station</span><span class="o">.</span><span class="n">termination_date</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">sta_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;end&quot;</span><span class="p">),</span>
+                                        <span class="n">obspy</span><span class="o">.</span><span class="n">UTCDateTime</span><span class="p">)</span>
+
+    <span class="c1"># get the restricted_status (boolean)</span>
+    <span class="c1"># true is evaluated to &#39;open&#39;; false to &#39;closed&#39;</span>
+    <span class="n">station</span><span class="o">.</span><span class="n">restricted_status</span> <span class="o">=</span> <span class="n">_get_restricted_status</span><span class="p">(</span><span class="n">sta_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">)</span>
+
+    <span class="c1"># Get all the channels, sc3ml keeps these in &lt;sensorLocation&gt; tags in the</span>
+    <span class="c1"># station element. Individual channels are contained within &lt;stream&gt; tags</span>
+    <span class="n">channels</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">sen_loc_element</span> <span class="ow">in</span> <span class="n">sta_element</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;sensorLocation&quot;</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">sen_loc_element</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;stream&quot;</span><span class="p">)):</span>
+            <span class="n">channels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_read_channel</span><span class="p">(</span><span class="n">inventory_root</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">_ns</span><span class="p">))</span>
+
+    <span class="n">station</span><span class="o">.</span><span class="n">channels</span> <span class="o">=</span> <span class="n">channels</span>
+
+    <span class="k">return</span> <span class="n">station</span></div>
+
+
+<div class="viewcode-block" id="_read_site"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seiscomp.inventory._read_site.html#obspy.io.seiscomp.inventory._read_site">[docs]</a><span class="k">def</span> <span class="nf">_read_site</span><span class="p">(</span><span class="n">sta_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads site information from the station element tags</span>
+<span class="sd">    and region from network element</span>
+
+<span class="sd">    In sc3ml, site information are included as</span>
+<span class="sd">    tags in the station_element</span>
+
+<span class="sd">    :param sta_element: station element</span>
+<span class="sd">    :param _ns: namespace</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># The region is defined in the parent network element</span>
+    <span class="n">net_element</span> <span class="o">=</span> <span class="n">sta_element</span><span class="o">.</span><span class="n">getparent</span><span class="p">()</span>
+    <span class="n">region</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">net_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;region&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+
+    <span class="c1"># The country, place, description are given in the</span>
+    <span class="c1"># station element</span>
+    <span class="n">country</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">sta_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;country&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">sta_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;place&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">sta_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+
+    <span class="c1"># The name is usually the description</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">description</span>
+
+    <span class="k">return</span> <span class="n">obspy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">inventory</span><span class="o">.</span><span class="n">Site</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                     <span class="n">town</span><span class="o">=</span><span class="n">place</span><span class="p">,</span> <span class="n">county</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
+                                     <span class="n">country</span><span class="o">=</span><span class="n">country</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_read_datalogger"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seiscomp.inventory._read_datalogger.html#obspy.io.seiscomp.inventory._read_datalogger">[docs]</a><span class="k">def</span> <span class="nf">_read_datalogger</span><span class="p">(</span><span class="n">equip_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads equipment information from datalogger</span>
+<span class="sd">    Some information is not present &gt; to None</span>
+
+<span class="sd">    :param data_log_element: element to be parsed</span>
+<span class="sd">    :param _ns: name space</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">resource_id</span> <span class="o">=</span> <span class="n">equip_element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;publicID&quot;</span><span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">equip_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="n">manufacturer</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">equip_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;digitizerManufacturer&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">equip_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;digitizerModel&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">obspy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">inventory</span><span class="o">.</span><span class="n">Equipment</span><span class="p">(</span>
+        <span class="n">resource_id</span><span class="o">=</span><span class="n">resource_id</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span>
+        <span class="n">manufacturer</span><span class="o">=</span><span class="n">manufacturer</span><span class="p">,</span> <span class="n">vendor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+        <span class="n">serial_number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">installation_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">removal_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">calibration_dates</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_read_sensor"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seiscomp.inventory._read_sensor.html#obspy.io.seiscomp.inventory._read_sensor">[docs]</a><span class="k">def</span> <span class="nf">_read_sensor</span><span class="p">(</span><span class="n">equip_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads equipment information from element</span>
+<span class="sd">    Some information is not present &gt; to None</span>
+
+<span class="sd">    :param equip_element: element to be parsed</span>
+<span class="sd">    :param _ns: name space</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># try to read some element tags, most are missing anyway</span>
+    <span class="n">resource_id</span> <span class="o">=</span> <span class="n">equip_element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;publicID&quot;</span><span class="p">)</span>
+    <span class="n">equipment_type</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">equip_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">equip_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="n">manufacturer</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">equip_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;manufacturer&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">equip_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;model&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">obspy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">inventory</span><span class="o">.</span><span class="n">Equipment</span><span class="p">(</span>
+        <span class="n">resource_id</span><span class="o">=</span><span class="n">resource_id</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">equipment_type</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span>
+        <span class="n">manufacturer</span><span class="o">=</span><span class="n">manufacturer</span><span class="p">,</span> <span class="n">vendor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+        <span class="n">serial_number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">installation_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">removal_date</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">calibration_dates</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_read_channel"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seiscomp.inventory._read_channel.html#obspy.io.seiscomp.inventory._read_channel">[docs]</a><span class="k">def</span> <span class="nf">_read_channel</span><span class="p">(</span><span class="n">inventory_root</span><span class="p">,</span> <span class="n">cha_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    reads channel element from sc3ml format</span>
+
+<span class="sd">    :param sta_element: channel element</span>
+<span class="sd">    :param _ns: namespace</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">code</span> <span class="o">=</span> <span class="n">cha_element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;code&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Information is also kept within the parent &lt;sensorLocation&gt; element</span>
+    <span class="n">sen_loc_element</span> <span class="o">=</span> <span class="n">cha_element</span><span class="o">.</span><span class="n">getparent</span><span class="p">()</span>
+    <span class="n">location_code</span> <span class="o">=</span> <span class="n">sen_loc_element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;code&quot;</span><span class="p">)</span>
+
+    <span class="c1"># get site info from the &lt;sensorLocation&gt; element</span>
+    <span class="n">longitude</span> <span class="o">=</span> <span class="n">_read_floattype</span><span class="p">(</span><span class="n">sen_loc_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;longitude&quot;</span><span class="p">),</span> <span class="n">Longitude</span><span class="p">,</span>
+                                <span class="n">datum</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">latitude</span> <span class="o">=</span> <span class="n">_read_floattype</span><span class="p">(</span><span class="n">sen_loc_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;latitude&quot;</span><span class="p">),</span> <span class="n">Latitude</span><span class="p">,</span>
+                               <span class="n">datum</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">elevation</span> <span class="o">=</span> <span class="n">_read_floattype</span><span class="p">(</span><span class="n">sen_loc_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;elevation&quot;</span><span class="p">),</span> <span class="n">Distance</span><span class="p">,</span>
+                                <span class="n">unit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">depth</span> <span class="o">=</span> <span class="n">_read_floattype</span><span class="p">(</span><span class="n">cha_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;depth&quot;</span><span class="p">),</span> <span class="n">Distance</span><span class="p">,</span>
+                            <span class="n">unit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Set values to 0 if they are is missing (see #1816)</span>
+    <span class="k">if</span> <span class="n">longitude</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Sensor is missing longitude information, using 0.0&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">longitude</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">latitude</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Sensor is missing latitude information, using 0.0&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">latitude</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">elevation</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Sensor is missing elevation information, using 0.0&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">elevation</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">depth</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Channel is missing depth information, using 0.0&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">depth</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">channel</span> <span class="o">=</span> <span class="n">obspy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">inventory</span><span class="o">.</span><span class="n">Channel</span><span class="p">(</span>
+        <span class="n">code</span><span class="o">=</span><span class="n">code</span><span class="p">,</span> <span class="n">location_code</span><span class="o">=</span><span class="n">location_code</span><span class="p">,</span> <span class="n">latitude</span><span class="o">=</span><span class="n">latitude</span><span class="p">,</span>
+        <span class="n">longitude</span><span class="o">=</span><span class="n">longitude</span><span class="p">,</span> <span class="n">elevation</span><span class="o">=</span><span class="n">elevation</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">depth</span><span class="p">)</span>
+
+    <span class="c1"># obtain the sensorID and link to particular publicID &lt;sensor&gt; element</span>
+    <span class="c1"># in the inventory base node</span>
+    <span class="n">sensor_id</span> <span class="o">=</span> <span class="n">cha_element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sensor&quot;</span><span class="p">)</span>
+    <span class="n">sensor_element</span> <span class="o">=</span> <span class="n">inventory_root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;sensor[@publicID=&#39;&quot;</span> <span class="o">+</span> <span class="n">sensor_id</span> <span class="o">+</span>
+                                             <span class="s2">&quot;&#39;]&quot;</span><span class="p">))</span>
+    <span class="c1"># obtain the poles and zeros responseID and link to particular</span>
+    <span class="c1"># &lt;responsePAZ&gt; publicID element in the inventory base node</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">sensor_element</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span>
+       <span class="n">sensor_element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;response&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+
+        <span class="n">response_id</span> <span class="o">=</span> <span class="n">sensor_element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;response&quot;</span><span class="p">)</span>
+        <span class="n">response_elements</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">resp_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;responsePAZ&#39;</span><span class="p">,</span> <span class="s1">&#39;responsePolynomial&#39;</span><span class="p">]:</span>
+            <span class="n">search</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">[@publicID=&#39;</span><span class="si">{}</span><span class="s2">&#39;]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">resp_type</span><span class="p">,</span> <span class="n">response_id</span><span class="p">)</span>
+            <span class="n">response_elements</span> <span class="o">+=</span> <span class="n">inventory_root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">_ns</span><span class="p">(</span><span class="n">search</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">response_elements</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Could not find response tag with public ID &quot;</span>
+                   <span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39;.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">response_id</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">obspy</span><span class="o">.</span><span class="n">ObsPyException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">response_elements</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Found multiple matching response tags with the same &quot;</span>
+                   <span class="s2">&quot;public ID &#39;</span><span class="si">{}</span><span class="s2">&#39;.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">response_id</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">obspy</span><span class="o">.</span><span class="n">ObsPyException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">response_element</span> <span class="o">=</span> <span class="n">response_elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">response_element</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># obtain the dataloggerID and link to particular &lt;responsePAZ&gt; publicID</span>
+    <span class="c1"># element in the inventory base node</span>
+    <span class="n">datalogger_id</span> <span class="o">=</span> <span class="n">cha_element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;datalogger&quot;</span><span class="p">)</span>
+    <span class="n">search</span> <span class="o">=</span> <span class="s2">&quot;datalogger[@publicID=&#39;&quot;</span> <span class="o">+</span> <span class="n">datalogger_id</span> <span class="o">+</span> <span class="s2">&quot;&#39;]&quot;</span>
+    <span class="n">data_log_element</span> <span class="o">=</span> <span class="n">inventory_root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">_ns</span><span class="p">(</span><span class="n">search</span><span class="p">))</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="n">restricted_status</span> <span class="o">=</span> <span class="n">_get_restricted_status</span><span class="p">(</span><span class="n">cha_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">)</span>
+
+    <span class="c1"># There is no further information in the attributes of &lt;stream&gt;</span>
+    <span class="c1"># Start and end date are included as tags instead</span>
+    <span class="n">channel</span><span class="o">.</span><span class="n">start_date</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">cha_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;start&quot;</span><span class="p">),</span> <span class="n">obspy</span><span class="o">.</span><span class="n">UTCDateTime</span><span class="p">)</span>
+    <span class="n">channel</span><span class="o">.</span><span class="n">end_date</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">cha_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;end&quot;</span><span class="p">),</span> <span class="n">obspy</span><span class="o">.</span><span class="n">UTCDateTime</span><span class="p">)</span>
+
+    <span class="c1"># Determine sample rate (given is a numerator, denominator)</span>
+    <span class="c1"># Assuming numerator is # samples and denominator is # seconds</span>
+    <span class="n">numerator</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">cha_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;sampleRateNumerator&quot;</span><span class="p">),</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="n">denominator</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">cha_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;sampleRateDenominator&quot;</span><span class="p">),</span> <span class="nb">int</span><span class="p">)</span>
+
+    <span class="n">rate</span> <span class="o">=</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="n">sample_rate_ratio_number_samples</span> <span class="o">=</span> <span class="n">numerator</span>
+    <span class="n">channel</span><span class="o">.</span><span class="n">sample_rate_ratio_number_seconds</span> <span class="o">=</span> <span class="n">denominator</span>
+    <span class="n">channel</span><span class="o">.</span><span class="n">sample_rate</span> <span class="o">=</span> <span class="n">_read_float_var</span><span class="p">(</span><span class="n">rate</span><span class="p">,</span> <span class="n">SampleRate</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">sensor_element</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">channel</span><span class="o">.</span><span class="n">sensor</span> <span class="o">=</span> <span class="n">_read_sensor</span><span class="p">(</span><span class="n">sensor_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">data_log_element</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">channel</span><span class="o">.</span><span class="n">data_logger</span> <span class="o">=</span> <span class="n">_read_datalogger</span><span class="p">(</span><span class="n">data_log_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">)</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">_read_floattype</span><span class="p">(</span><span class="n">data_log_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;maxClockDrift&quot;</span><span class="p">),</span>
+                               <span class="n">ClockDrift</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">channel</span><span class="o">.</span><span class="n">sample_rate</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="n">channel</span><span class="o">.</span><span class="n">clock_drift_in_seconds_per_sample</span> <span class="o">=</span> \
+                <span class="n">_read_float_var</span><span class="p">(</span><span class="n">temp</span> <span class="o">/</span> <span class="n">channel</span><span class="o">.</span><span class="n">sample_rate</span><span class="p">,</span> <span class="n">ClockDrift</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Clock drift division by sample rate of 0: using sec/sample&quot;</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="n">channel</span><span class="o">.</span><span class="n">sample_rate</span> <span class="o">=</span> <span class="n">temp</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="n">azimuth</span> <span class="o">=</span> <span class="n">_read_floattype</span><span class="p">(</span><span class="n">cha_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;azimuth&quot;</span><span class="p">),</span> <span class="n">Azimuth</span><span class="p">)</span>
+    <span class="n">channel</span><span class="o">.</span><span class="n">dip</span> <span class="o">=</span> <span class="n">_read_floattype</span><span class="p">(</span><span class="n">cha_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;dip&quot;</span><span class="p">),</span> <span class="n">Dip</span><span class="p">)</span>
+    <span class="n">channel</span><span class="o">.</span><span class="n">storage_format</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">cha_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;format&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">channel</span><span class="o">.</span><span class="n">sample_rate</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Something went hopelessly wrong, found sampling-rate of 0!&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="c1"># Begin to collect digital/analogue filter chains</span>
+    <span class="c1"># This information is stored as an array in the datalogger element</span>
+    <span class="n">response_fir_id</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">response_paz_id</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">data_log_element</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Find the decimation element with a particular num/denom</span>
+        <span class="n">decim_element</span> <span class="o">=</span> <span class="n">data_log_element</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">_ns</span><span class="p">(</span>
+            <span class="s2">&quot;decimation[@sampleRateDenominator=&#39;&quot;</span> <span class="o">+</span>
+            <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">denominator</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;&#39;][@sampleRateNumerator=&#39;&quot;</span> <span class="o">+</span>
+            <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">numerator</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;&#39;]&quot;</span><span class="p">))</span>
+        <span class="n">analogue_filter_chain</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">decim_element</span><span class="p">,</span>
+                                         <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;analogueFilterChain&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">analogue_filter_chain</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">response_paz_id</span> <span class="o">=</span> <span class="n">analogue_filter_chain</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="n">digital_filter_chain</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">decim_element</span><span class="p">,</span>
+                                        <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;digitalFilterChain&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">digital_filter_chain</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">response_fir_id</span> <span class="o">=</span> <span class="n">digital_filter_chain</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="n">response</span> <span class="o">=</span> <span class="n">_read_response</span><span class="p">(</span><span class="n">inventory_root</span><span class="p">,</span> <span class="n">sensor_element</span><span class="p">,</span>
+                                      <span class="n">response_element</span><span class="p">,</span> <span class="n">cha_element</span><span class="p">,</span>
+                                      <span class="n">data_log_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">,</span>
+                                      <span class="n">channel</span><span class="o">.</span><span class="n">sample_rate</span><span class="p">,</span>
+                                      <span class="n">response_fir_id</span><span class="p">,</span> <span class="n">response_paz_id</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">channel</span></div>
+
+
+<div class="viewcode-block" id="_read_instrument_sensitivity"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seiscomp.inventory._read_instrument_sensitivity.html#obspy.io.seiscomp.inventory._read_instrument_sensitivity">[docs]</a><span class="k">def</span> <span class="nf">_read_instrument_sensitivity</span><span class="p">(</span><span class="n">sen_element</span><span class="p">,</span> <span class="n">cha_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    reads the instrument sensitivity (gain) from the sensor and channel element</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">gain</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">cha_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;gain&quot;</span><span class="p">),</span> <span class="nb">float</span><span class="p">)</span>
+    <span class="n">frequency</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">cha_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;gainFrequency&quot;</span><span class="p">),</span> <span class="nb">float</span><span class="p">)</span>
+
+    <span class="n">input_units_name</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">sen_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;unit&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="n">output_units_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="n">sensitivity</span> <span class="o">=</span> <span class="n">obspy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">inventory</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">InstrumentSensitivity</span><span class="p">(</span>
+        <span class="n">value</span><span class="o">=</span><span class="n">gain</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="n">frequency</span><span class="p">,</span>
+        <span class="n">input_units</span><span class="o">=</span><span class="n">input_units_name</span><span class="p">,</span>
+        <span class="n">output_units</span><span class="o">=</span><span class="n">output_units_name</span><span class="p">)</span>
+
+    <span class="c1"># assuming these are equal to frequencyStart/frequencyEnd</span>
+    <span class="n">sensitivity</span><span class="o">.</span><span class="n">frequency_range_start</span> <span class="o">=</span> \
+        <span class="n">_tag2obj</span><span class="p">(</span><span class="n">sen_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;lowFrequency&quot;</span><span class="p">),</span> <span class="nb">float</span><span class="p">)</span>
+    <span class="n">sensitivity</span><span class="o">.</span><span class="n">frequency_range_end</span> <span class="o">=</span> \
+        <span class="n">_tag2obj</span><span class="p">(</span><span class="n">sen_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;highFrequency&quot;</span><span class="p">),</span> <span class="nb">float</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">sensitivity</span></div>
+
+
+<div class="viewcode-block" id="_read_response"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seiscomp.inventory._read_response.html#obspy.io.seiscomp.inventory._read_response">[docs]</a><span class="k">def</span> <span class="nf">_read_response</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">sen_element</span><span class="p">,</span> <span class="n">resp_element</span><span class="p">,</span> <span class="n">cha_element</span><span class="p">,</span>
+                   <span class="n">data_log_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">,</span> <span class="n">samp_rate</span><span class="p">,</span> <span class="n">fir</span><span class="p">,</span> <span class="n">analogue</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    reads response from sc3ml format</span>
+
+<span class="sd">    :param</span>
+<span class="sd">    :param _ns: namespace</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">obspy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">inventory</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">Response</span><span class="p">()</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">instrument_sensitivity</span> <span class="o">=</span> <span class="n">_read_instrument_sensitivity</span><span class="p">(</span>
+        <span class="n">sen_element</span><span class="p">,</span> <span class="n">cha_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">resp_element</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">response</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    uncomment to include resource id for response (not shown in stationXML)</span>
+
+<span class="sd">    response.resource_id = resp_element.attrib.get(&#39;publicID&#39;)</span>
+<span class="sd">    if response.resource_id is not None:</span>
+<span class="sd">        response.resource_id = str(response.resource_id)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># The sampling rate is not given per fir filter as in stationXML</span>
+    <span class="c1"># We are only given a decimation factor per stage, therefore we are</span>
+    <span class="c1"># required to reconstruct the sampling rates at a given stage from</span>
+    <span class="c1"># this chain of factors</span>
+
+    <span class="c1"># start with the final sampling_rate after all stages are applied</span>
+    <span class="c1"># invert the fir stages to reverse engineer (backwards) the sample rate</span>
+    <span class="c1"># during any fir stage</span>
+
+    <span class="n">samp_rate</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">samp_rate</span><span class="p">)</span>
+    <span class="n">fir_stage_rates</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">fir</span><span class="p">):</span>
+        <span class="n">fir</span> <span class="o">=</span> <span class="n">fir</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">fir_id</span> <span class="ow">in</span> <span class="n">fir</span><span class="p">:</span>
+            <span class="c1"># get the particular fir stage decimation factor</span>
+            <span class="c1"># multiply the decimated sample rate by this factor</span>
+            <span class="n">search</span> <span class="o">=</span> <span class="s2">&quot;responseFIR[@publicID=&#39;&quot;</span> <span class="o">+</span> <span class="n">fir_id</span> <span class="o">+</span> <span class="s2">&quot;&#39;]&quot;</span>
+            <span class="n">fir_element</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">_ns</span><span class="p">(</span><span class="n">search</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">fir_element</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">dec_fac</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">fir_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;decimationFactor&quot;</span><span class="p">),</span> <span class="nb">int</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">dec_fac</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">dec_fac</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">samp_rate</span> <span class="o">*=</span> <span class="n">dec_fac</span>
+            <span class="n">fir_stage_rates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">samp_rate</span><span class="p">))</span>
+
+    <span class="c1"># Return filter chain to original and also revert the rates</span>
+    <span class="n">fir</span> <span class="o">=</span> <span class="n">fir</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">fir_stage_rates</span> <span class="o">=</span> <span class="n">fir_stage_rates</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Attempt to read stages in the proper order</span>
+    <span class="c1"># sc3ml does not group stages by an ID</span>
+    <span class="c1"># We are required to do stage counting ourselves</span>
+
+    <span class="n">stage</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="c1"># Get the sensor units, default to M/S</span>
+    <span class="n">sensor_units</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">sen_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;unit&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">sensor_units</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Sensor unit not set, assuming M/S&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">sensor_units</span> <span class="o">=</span> <span class="s2">&quot;M/S&quot;</span>
+
+    <span class="c1"># Get the first PAZ stage</span>
+    <span class="c1"># Input unit: M/S or M/S**2</span>
+    <span class="c1"># Output unit: V</span>
+    <span class="k">if</span> <span class="n">resp_element</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">paz_response</span> <span class="o">=</span> <span class="n">_read_response_stage</span><span class="p">(</span><span class="n">resp_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">,</span> <span class="n">samp_rate</span><span class="p">,</span>
+                                            <span class="n">stage</span><span class="p">,</span> <span class="n">sensor_units</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">paz_response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">response_stages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">paz_response</span><span class="p">)</span>
+            <span class="n">stage</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1"># Apply analogue filter stages (if any)</span>
+    <span class="c1"># Input unit: V</span>
+    <span class="c1"># Output unit: V</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">analogue</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">analogue_id</span> <span class="ow">in</span> <span class="n">analogue</span><span class="p">:</span>
+            <span class="n">search</span> <span class="o">=</span> <span class="s2">&quot;responsePAZ[@publicID=&#39;&quot;</span> <span class="o">+</span> <span class="n">analogue_id</span> <span class="o">+</span> <span class="s2">&quot;&#39;]&quot;</span>
+            <span class="n">analogue_element</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">_ns</span><span class="p">(</span><span class="n">search</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">analogue_element</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Analogue responsePAZ not in inventory:&#39;</span>
+                       <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">, stopping before stage </span><span class="si">%i</span><span class="s1">&#39;</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="n">analogue_id</span><span class="p">,</span> <span class="n">stage</span><span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">response</span>
+            <span class="n">analogue_response</span> <span class="o">=</span> <span class="n">_read_response_stage</span><span class="p">(</span><span class="n">analogue_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">,</span>
+                                                     <span class="n">samp_rate</span><span class="p">,</span> <span class="n">stage</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;V&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">analogue_response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">response</span><span class="o">.</span><span class="n">response_stages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">analogue_response</span><span class="p">)</span>
+                <span class="n">stage</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1"># Apply datalogger (digitizer)</span>
+    <span class="c1"># Input unit: V</span>
+    <span class="c1"># Output unit: COUNTS</span>
+    <span class="k">if</span> <span class="n">data_log_element</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">coeff_response</span> <span class="o">=</span> <span class="n">_read_response_stage</span><span class="p">(</span><span class="n">data_log_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">,</span>
+                                              <span class="n">samp_rate</span><span class="p">,</span> <span class="n">stage</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">,</span>
+                                              <span class="s1">&#39;COUNTS&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">coeff_response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">response_stages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coeff_response</span><span class="p">)</span>
+            <span class="n">stage</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1"># Apply final digital filter stages</span>
+    <span class="c1"># Input unit: COUNTS</span>
+    <span class="c1"># Output unit: COUNTS</span>
+    <span class="k">for</span> <span class="n">fir_id</span><span class="p">,</span> <span class="n">rate</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">fir</span><span class="p">,</span> <span class="n">fir_stage_rates</span><span class="p">):</span>
+        <span class="n">search</span> <span class="o">=</span> <span class="s2">&quot;responseFIR[@publicID=&#39;&quot;</span> <span class="o">+</span> <span class="n">fir_id</span> <span class="o">+</span> <span class="s2">&quot;&#39;]&quot;</span>
+        <span class="n">stage_element</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">_ns</span><span class="p">(</span><span class="n">search</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">stage_element</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;fir response not in inventory: </span><span class="si">%s</span><span class="s2">, stopping correction&quot;</span>
+                   <span class="s2">&quot;before stage </span><span class="si">%i</span><span class="s2">&quot;</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="n">fir_id</span><span class="p">,</span> <span class="n">stage</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">response</span>
+        <span class="n">fir_response</span> <span class="o">=</span> <span class="n">_read_response_stage</span><span class="p">(</span><span class="n">stage_element</span><span class="p">,</span> <span class="n">_ns</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">stage</span><span class="p">,</span>
+                                            <span class="s1">&#39;COUNTS&#39;</span><span class="p">,</span> <span class="s1">&#39;COUNTS&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fir_response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">response_stages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fir_response</span><span class="p">)</span>
+            <span class="n">stage</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+<div class="viewcode-block" id="_read_response_stage"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seiscomp.inventory._read_response_stage.html#obspy.io.seiscomp.inventory._read_response_stage">[docs]</a><span class="k">def</span> <span class="nf">_read_response_stage</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">_ns</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">stage_number</span><span class="p">,</span> <span class="n">input_units</span><span class="p">,</span>
+                         <span class="n">output_units</span><span class="p">):</span>
+
+    <span class="n">elem_type</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">stage_sequence_number</span> <span class="o">=</span> <span class="n">stage_number</span>
+
+    <span class="c1"># Obtain the stage gain and frequency</span>
+    <span class="c1"># Default to a gain of 0 and frequency of 0 if missing</span>
+    <span class="n">stage_gain</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;gain&quot;</span><span class="p">),</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span>
+    <span class="n">stage_gain_frequency</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;gainFrequency&quot;</span><span class="p">),</span>
+                                    <span class="nb">float</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">float</span><span class="p">(</span><span class="mf">0.00</span><span class="p">)</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">resource_id</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;publicID&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">resource_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">resource_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">resource_id</span><span class="p">)</span>
+
+    <span class="c1"># Determine the decimation parameters</span>
+    <span class="c1"># This is dependent on the type of stage</span>
+    <span class="c1"># Decimation delay/correction need to be normalized</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">elem_type</span> <span class="o">==</span> <span class="s2">&quot;responseFIR&quot;</span><span class="p">):</span>
+        <span class="n">decimation_factor</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;decimationFactor&quot;</span><span class="p">),</span> <span class="nb">int</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">rate</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;delay&quot;</span><span class="p">),</span> <span class="nb">float</span><span class="p">)</span> <span class="o">/</span> <span class="n">rate</span>
+            <span class="n">decimation_delay</span> <span class="o">=</span> <span class="n">_read_float_var</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span>
+                                               <span class="n">FloatWithUncertaintiesAndUnit</span><span class="p">,</span>
+                                               <span class="n">unit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;correction&quot;</span><span class="p">),</span> <span class="nb">float</span><span class="p">)</span> <span class="o">/</span> <span class="n">rate</span>
+            <span class="n">decimation_corr</span> <span class="o">=</span> <span class="n">_read_float_var</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span>
+                                              <span class="n">FloatWithUncertaintiesAndUnit</span><span class="p">,</span>
+                                              <span class="n">unit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">decimation_delay</span> <span class="o">=</span> <span class="n">_read_float_var</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">,</span>
+                                               <span class="n">FloatWithUncertaintiesAndUnit</span><span class="p">,</span>
+                                               <span class="n">unit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">decimation_corr</span> <span class="o">=</span> <span class="n">_read_float_var</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">,</span>
+                                              <span class="n">FloatWithUncertaintiesAndUnit</span><span class="p">,</span>
+                                              <span class="n">unit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">decimation_input_sample_rate</span> <span class="o">=</span> \
+            <span class="n">_read_float_var</span><span class="p">(</span><span class="n">rate</span><span class="p">,</span> <span class="n">Frequency</span><span class="p">)</span>
+        <span class="n">decimation_offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">elif</span><span class="p">(</span><span class="n">elem_type</span> <span class="o">==</span> <span class="s2">&quot;datalogger&quot;</span><span class="p">):</span>
+        <span class="n">decimation_factor</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">decimation_delay</span> <span class="o">=</span> <span class="n">_read_float_var</span><span class="p">(</span><span class="mf">0.00</span><span class="p">,</span>
+                                           <span class="n">FloatWithUncertaintiesAndUnit</span><span class="p">,</span>
+                                           <span class="n">unit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">decimation_corr</span> <span class="o">=</span> <span class="n">_read_float_var</span><span class="p">(</span><span class="mf">0.00</span><span class="p">,</span>
+                                          <span class="n">FloatWithUncertaintiesAndUnit</span><span class="p">,</span>
+                                          <span class="n">unit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">decimation_input_sample_rate</span> <span class="o">=</span> \
+            <span class="n">_read_float_var</span><span class="p">(</span><span class="n">rate</span><span class="p">,</span> <span class="n">Frequency</span><span class="p">)</span>
+        <span class="n">decimation_offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">elif</span><span class="p">(</span><span class="n">elem_type</span> <span class="o">==</span> <span class="s2">&quot;responsePAZ&quot;</span> <span class="ow">or</span> <span class="n">elem_type</span> <span class="o">==</span> <span class="s2">&quot;responsePolynomial&quot;</span><span class="p">):</span>
+        <span class="n">decimation_factor</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">decimation_delay</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">decimation_corr</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">decimation_input_sample_rate</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">decimation_offset</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unknown type of response: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">elem_type</span><span class="p">))</span>
+
+    <span class="c1"># set up list of for this stage arguments</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;stage_sequence_number&quot;</span><span class="p">:</span> <span class="n">stage_sequence_number</span><span class="p">,</span>
+        <span class="s2">&quot;input_units&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">input_units</span><span class="p">),</span>
+        <span class="s2">&quot;output_units&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">output_units</span><span class="p">),</span>
+        <span class="s2">&quot;input_units_description&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;output_units_description&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;resource_id&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;resource_id2&quot;</span><span class="p">:</span> <span class="n">resource_id</span><span class="p">,</span>
+        <span class="s2">&quot;stage_gain&quot;</span><span class="p">:</span> <span class="n">stage_gain</span><span class="p">,</span>
+        <span class="s2">&quot;stage_gain_frequency&quot;</span><span class="p">:</span> <span class="n">stage_gain_frequency</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;decimation_input_sample_rate&quot;</span><span class="p">:</span> <span class="n">decimation_input_sample_rate</span><span class="p">,</span>
+        <span class="s2">&quot;decimation_factor&quot;</span><span class="p">:</span> <span class="n">decimation_factor</span><span class="p">,</span>
+        <span class="s2">&quot;decimation_offset&quot;</span><span class="p">:</span> <span class="n">decimation_offset</span><span class="p">,</span>
+        <span class="s2">&quot;decimation_delay&quot;</span><span class="p">:</span> <span class="n">decimation_delay</span><span class="p">,</span>
+        <span class="s2">&quot;decimation_correction&quot;</span><span class="p">:</span> <span class="n">decimation_corr</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Different processing for different types of responses</span>
+    <span class="c1"># currently supported:</span>
+    <span class="c1"># PAZ</span>
+    <span class="c1"># COEFF</span>
+    <span class="c1"># FIR</span>
+    <span class="c1"># Polynomial response is not supported, could not find example</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">elem_type</span> <span class="o">==</span> <span class="s1">&#39;responsePAZ&#39;</span><span class="p">):</span>
+
+        <span class="c1"># read normalization params</span>
+        <span class="n">normalization_freq</span> <span class="o">=</span> <span class="n">_read_floattype</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span>
+                                             <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;normalizationFrequency&quot;</span><span class="p">),</span>
+                                             <span class="n">Frequency</span><span class="p">)</span>
+        <span class="n">normalization_factor</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;normalizationFactor&quot;</span><span class="p">),</span>
+                                        <span class="nb">float</span><span class="p">)</span>
+
+        <span class="c1"># Parse the type of the transfer function</span>
+        <span class="c1"># A: Laplace (rad)</span>
+        <span class="c1"># B: Laplace (Hz)</span>
+        <span class="c1"># D: digital (z-transform)</span>
+        <span class="n">pz_transfer_function_type</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pz_transfer_function_type</span> <span class="o">==</span> <span class="s1">&#39;A&#39;</span><span class="p">:</span>
+            <span class="n">pz_transfer_function_type</span> <span class="o">=</span> <span class="s1">&#39;LAPLACE (RADIANS/SECOND)&#39;</span>
+        <span class="k">elif</span> <span class="n">pz_transfer_function_type</span> <span class="o">==</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span>
+            <span class="n">pz_transfer_function_type</span> <span class="o">=</span> <span class="s1">&#39;LAPLACE (HERTZ)&#39;</span>
+        <span class="k">elif</span> <span class="n">pz_transfer_function_type</span> <span class="o">==</span> <span class="s1">&#39;D&#39;</span><span class="p">:</span>
+            <span class="n">pz_transfer_function_type</span> <span class="o">=</span> <span class="s1">&#39;DIGITAL (Z-TRANSFORM)&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Unknown transfer function code </span><span class="si">%s</span><span class="s2">. Defaulting to Laplace&quot;</span>
+                   <span class="s2">&quot;(rad)&quot;</span><span class="p">)</span> <span class="o">%</span> <span class="n">pz_transfer_function_type</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="n">pz_transfer_function_type</span> <span class="o">=</span> <span class="s1">&#39;LAPLACE (RADIANS/SECOND)&#39;</span>
+
+        <span class="c1"># Parse string of poles and zeros</span>
+        <span class="c1"># paz are stored as a string in sc3ml</span>
+        <span class="c1"># e.g. (-0.01234,0.01234) (-0.01234,-0.01234)</span>
+        <span class="n">zeros_array</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;zeros&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">poles_array</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;poles&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">if</span> <span class="n">zeros_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">zeros_array</span> <span class="o">=</span> <span class="n">zeros_array</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">zeros_array</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">poles_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">poles_array</span> <span class="o">=</span> <span class="n">poles_array</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">poles_array</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Keep counter for pole/zero number</span>
+        <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">poles</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">zeros</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">poles_array</span><span class="p">:</span>
+            <span class="n">poles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_tag2pole_or_zero</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="n">cnt</span><span class="p">))</span>
+            <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">zeros_array</span><span class="p">:</span>
+            <span class="n">zeros</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_tag2pole_or_zero</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="n">cnt</span><span class="p">))</span>
+            <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># Return the paz response</span>
+        <span class="k">return</span> <span class="n">PolesZerosResponseStage</span><span class="p">(</span>
+            <span class="n">pz_transfer_function_type</span><span class="o">=</span><span class="n">pz_transfer_function_type</span><span class="p">,</span>
+            <span class="n">normalization_frequency</span><span class="o">=</span><span class="n">normalization_freq</span><span class="p">,</span>
+            <span class="n">normalization_factor</span><span class="o">=</span><span class="n">normalization_factor</span><span class="p">,</span> <span class="n">zeros</span><span class="o">=</span><span class="n">zeros</span><span class="p">,</span>
+            <span class="n">poles</span><span class="o">=</span><span class="n">poles</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">elif</span><span class="p">(</span><span class="n">elem_type</span> <span class="o">==</span> <span class="s1">&#39;datalogger&#39;</span><span class="p">):</span>
+        <span class="n">cf_transfer_function_type</span> <span class="o">=</span> <span class="s2">&quot;DIGITAL&quot;</span>
+        <span class="n">numerator</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">denominator</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="n">CoefficientsTypeResponseStage</span><span class="p">(</span>
+            <span class="n">cf_transfer_function_type</span><span class="o">=</span><span class="n">cf_transfer_function_type</span><span class="p">,</span>
+            <span class="n">numerator</span><span class="o">=</span><span class="n">numerator</span><span class="p">,</span> <span class="n">denominator</span><span class="o">=</span><span class="n">denominator</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">elif</span><span class="p">(</span><span class="n">elem_type</span> <span class="o">==</span> <span class="s1">&#39;responsePolynomial&#39;</span><span class="p">):</span>
+        <span class="c1"># Polynomial response (UNTESTED)</span>
+        <span class="c1"># Currently not implemented in ObsPy (20-11-2015)</span>
+        <span class="n">f_low</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">f_high</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">max_err</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">appr_type</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;approximationType&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="n">appr_low</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;approximationLowerBound&quot;</span><span class="p">),</span> <span class="nb">float</span><span class="p">)</span>
+        <span class="n">appr_high</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;approximationUpperBound&quot;</span><span class="p">),</span> <span class="nb">float</span><span class="p">)</span>
+        <span class="n">coeffs_str</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;coefficients&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">coeffs_str</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">coeffs</span> <span class="o">=</span> <span class="n">coeffs_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+            <span class="n">coeffs_float</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="c1"># pass additional mapping of coefficient counter</span>
+            <span class="c1"># so that a proper stationXML can be formatted</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coeffs</span><span class="p">:</span>
+                <span class="n">temp</span> <span class="o">=</span> <span class="n">_read_float_var</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">FilterCoefficient</span><span class="p">,</span>
+                                       <span class="n">additional_mapping</span><span class="o">=</span><span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="s2">&quot;number&quot;</span><span class="p">):</span> <span class="n">i</span><span class="p">})</span>
+                <span class="n">coeffs_float</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">PolynomialResponseStage</span><span class="p">(</span>
+            <span class="n">approximation_type</span><span class="o">=</span><span class="n">appr_type</span><span class="p">,</span> <span class="n">frequency_lower_bound</span><span class="o">=</span><span class="n">f_low</span><span class="p">,</span>
+            <span class="n">frequency_upper_bound</span><span class="o">=</span><span class="n">f_high</span><span class="p">,</span> <span class="n">approximation_lower_bound</span><span class="o">=</span><span class="n">appr_low</span><span class="p">,</span>
+            <span class="n">approximation_upper_bound</span><span class="o">=</span><span class="n">appr_high</span><span class="p">,</span> <span class="n">maximum_error</span><span class="o">=</span><span class="n">max_err</span><span class="p">,</span>
+            <span class="n">coefficients</span><span class="o">=</span><span class="n">coeffs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">elif</span><span class="p">(</span><span class="n">elem_type</span> <span class="o">==</span> <span class="s1">&#39;responseFIR&#39;</span><span class="p">):</span>
+        <span class="c1"># For the responseFIR obtain the symmetry and</span>
+        <span class="c1"># list of coefficients</span>
+
+        <span class="n">coeffs_str</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;coefficients&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="n">coeffs_float</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">coeffs_str</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">coeffs_str</span> <span class="o">!=</span> <span class="s1">&#39;None&#39;</span><span class="p">:</span>
+            <span class="n">coeffs</span> <span class="o">=</span> <span class="n">coeffs_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="c1"># pass additional mapping of coefficient counter</span>
+            <span class="c1"># so that a proper stationXML can be formatted</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coeffs</span><span class="p">:</span>
+                <span class="n">temp</span> <span class="o">=</span> <span class="n">_read_float_var</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">FilterCoefficient</span><span class="p">,</span>
+                                       <span class="n">additional_mapping</span><span class="o">=</span><span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="s2">&quot;number&quot;</span><span class="p">):</span> <span class="n">i</span><span class="p">})</span>
+                <span class="n">coeffs_float</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># Write the FIR symmetry to what ObsPy expects</span>
+        <span class="c1"># A: NONE,</span>
+        <span class="c1"># B: ODD,</span>
+        <span class="c1"># C: EVEN</span>
+        <span class="n">symmetry</span> <span class="o">=</span> <span class="n">_tag2obj</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">_ns</span><span class="p">(</span><span class="s2">&quot;symmetry&quot;</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">symmetry</span> <span class="o">==</span> <span class="s1">&#39;A&#39;</span><span class="p">):</span>
+            <span class="n">symmetry</span> <span class="o">=</span> <span class="s1">&#39;NONE&#39;</span>
+        <span class="k">elif</span><span class="p">(</span><span class="n">symmetry</span> <span class="o">==</span> <span class="s1">&#39;B&#39;</span><span class="p">):</span>
+            <span class="n">symmetry</span> <span class="o">=</span> <span class="s1">&#39;ODD&#39;</span>
+        <span class="k">elif</span><span class="p">(</span><span class="n">symmetry</span> <span class="o">==</span> <span class="s1">&#39;C&#39;</span><span class="p">):</span>
+            <span class="n">symmetry</span> <span class="o">=</span> <span class="s1">&#39;EVEN&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unknown symmetry metric; expected A, B, or C&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">FIRResponseStage</span><span class="p">(</span>
+            <span class="n">coefficients</span><span class="o">=</span><span class="n">coeffs_float</span><span class="p">,</span> <span class="n">symmetry</span><span class="o">=</span><span class="n">symmetry</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_tag2pole_or_zero"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seiscomp.inventory._tag2pole_or_zero.html#obspy.io.seiscomp.inventory._tag2pole_or_zero">[docs]</a><span class="k">def</span> <span class="nf">_tag2pole_or_zero</span><span class="p">(</span><span class="n">paz_element</span><span class="p">,</span> <span class="n">count</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parses sc3ml paz format</span>
+<span class="sd">    Uncertainties on poles removed, not present in sc3ml.xsd?</span>
+<span class="sd">    Always put to None so no internal conflict</span>
+<span class="sd">    The sanitization removes the first/last parenthesis</span>
+<span class="sd">    and split by comma, real part is 1st, imaginary 2nd</span>
+
+<span class="sd">    :param paz_element: string of poles or zeros e.g. (12320, 23020)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">paz_element</span> <span class="o">=</span> <span class="n">paz_element</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">paz_element</span> <span class="o">=</span> <span class="n">paz_element</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+
+    <span class="n">real</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">paz_element</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">imag</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">paz_element</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">real</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">imag</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">real</span> <span class="o">=</span> <span class="n">real</span> <span class="ow">or</span> <span class="mi">0</span>
+        <span class="n">imag</span> <span class="o">=</span> <span class="n">imag</span> <span class="ow">or</span> <span class="mi">0</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">ComplexWithUncertainties</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">imag</span><span class="p">)</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">upper_uncertainty</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">upper_uncertainty</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="n">count</span>
+
+    <span class="k">return</span> <span class="n">x</span></div>
+
+
+<div class="viewcode-block" id="_read_float_var"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.seiscomp.inventory._read_float_var.html#obspy.io.seiscomp.inventory._read_float_var">[docs]</a><span class="k">def</span> <span class="nf">_read_float_var</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">datum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">additional_mapping</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    function to read floattype to cls object (based on _read_floattype)</span>
+<span class="sd">    normally ObsPy would read this directly from a tag, but with different</span>
+<span class="sd">    tag names this is no longer possible; instead we just pass the value</span>
+<span class="sd">    and not the tag name. We always set the unit/datum/uncertainties to None</span>
+<span class="sd">    because they are not provided by sc3ml ?</span>
+
+<span class="sd">    :param elem: float value to be converted</span>
+<span class="sd">    :param cls: obspy.core.inventory class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">convert</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;Encountered a value &#39;</span><span class="si">%s</span><span class="s2">&#39; which could not be converted to a &quot;</span>
+            <span class="s2">&quot;float. Will be skipped. Please contact to report this &quot;</span>
+            <span class="s2">&quot;issue.&quot;</span> <span class="o">%</span> <span class="n">elem</span><span class="p">,</span>
+            <span class="ne">UserWarning</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">convert</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">%s</span><span class="s2">&#39; has a value of NaN. It will be skipped.&quot;</span> <span class="o">%</span>
+                      <span class="n">elem</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">obj</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">convert</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">unit</span><span class="p">:</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">datum</span><span class="p">:</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">datum</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">lower_uncertainty</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">upper_uncertainty</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">key1</span><span class="p">,</span> <span class="n">key2</span> <span class="ow">in</span> <span class="n">additional_mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">key1</span><span class="p">,</span> <span class="n">key2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">obj</span></div>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

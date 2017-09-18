@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.core.util.testing &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.core.util.testing</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Testing utilities for ObsPy.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+<span class="kn">from</span> <span class="nn">future.utils</span> <span class="k">import</span> <span class="n">native_str</span>
+
+<span class="kn">import</span> <span class="nn">difflib</span>
+<span class="kn">import</span> <span class="nn">doctest</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">from</span> <span class="nn">lxml</span> <span class="k">import</span> <span class="n">etree</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">obspy.core.util.base</span> <span class="k">import</span> <span class="n">NamedTemporaryFile</span><span class="p">,</span> <span class="n">get_matplotlib_version</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.misc</span> <span class="k">import</span> <span class="n">MatplotlibBackend</span>
+
+
+<span class="n">MATPLOTLIB_VERSION</span> <span class="o">=</span> <span class="n">get_matplotlib_version</span><span class="p">()</span>
+<span class="c1"># this dictionary contains the locations of checker routines that determine</span>
+<span class="c1"># whether the module&#39;s tests can be executed or not (e.g. because test server</span>
+<span class="c1"># is unreachable, necessary ports are blocked, etc.).</span>
+<span class="c1"># A checker routine should return either an empty string (tests can and will</span>
+<span class="c1"># be executed) or a message explaining why tests can not be executed (all</span>
+<span class="c1"># tests of corresponding module will be skipped).</span>
+<span class="n">MODULE_TEST_SKIP_CHECKS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;clients.seishub&#39;</span><span class="p">:</span>
+        <span class="s1">&#39;obspy.clients.seishub.tests.test_client._check_server_availability&#39;</span><span class="p">}</span>
+
+
+<div class="viewcode-block" id="add_unittests"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.testing.add_unittests.html#obspy.core.util.testing.add_unittests">[docs]</a><span class="k">def</span> <span class="nf">add_unittests</span><span class="p">(</span><span class="n">testsuite</span><span class="p">,</span> <span class="n">module_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to add all available unittests of the module with given name</span>
+<span class="sd">    (e.g. &quot;obspy.core&quot;) to the given unittest TestSuite.</span>
+<span class="sd">    All submodules in the &quot;tests&quot; directory whose names are starting with</span>
+<span class="sd">    ``test_`` are added.</span>
+
+<span class="sd">    :type testsuite: unittest.TestSuite</span>
+<span class="sd">    :param testsuite: testsuite to which the tests should be added</span>
+<span class="sd">    :type module_name: str</span>
+<span class="sd">    :param module_name: name of the module of which the tests should be added</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    &gt;&gt;&gt; import unittest</span>
+<span class="sd">    &gt;&gt;&gt; suite = unittest.TestSuite()</span>
+<span class="sd">    &gt;&gt;&gt; add_unittests(suite, &quot;obspy.core&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">module_tests</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">module_name</span> <span class="o">+</span> <span class="s2">&quot;.tests&quot;</span><span class="p">,</span>
+                              <span class="n">fromlist</span><span class="o">=</span><span class="p">[</span><span class="n">native_str</span><span class="p">(</span><span class="s2">&quot;obspy&quot;</span><span class="p">)])</span>
+    <span class="n">filename_pattern</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">module_tests</span><span class="o">.</span><span class="n">__path__</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;test_*.py&quot;</span><span class="p">)</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">filename_pattern</span><span class="p">)</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">)</span>
+    <span class="n">module_names</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">module_name</span><span class="p">,</span> <span class="s2">&quot;tests&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">])</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_module_name</span> <span class="ow">in</span> <span class="n">module_names</span><span class="p">:</span>
+        <span class="n">_module</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">_module_name</span><span class="p">,</span>
+                             <span class="n">fromlist</span><span class="o">=</span><span class="p">[</span><span class="n">native_str</span><span class="p">(</span><span class="s2">&quot;obspy&quot;</span><span class="p">)])</span>
+        <span class="n">testsuite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">_module</span><span class="o">.</span><span class="n">suite</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="add_doctests"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.testing.add_doctests.html#obspy.core.util.testing.add_doctests">[docs]</a><span class="k">def</span> <span class="nf">add_doctests</span><span class="p">(</span><span class="n">testsuite</span><span class="p">,</span> <span class="n">module_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to add all available doctests of the module with given name</span>
+<span class="sd">    (e.g. &quot;obspy.core&quot;) to the given unittest TestSuite.</span>
+<span class="sd">    All submodules in the module&#39;s root directory are added.</span>
+<span class="sd">    Occurring errors are shown as warnings.</span>
+
+<span class="sd">    :type testsuite: unittest.TestSuite</span>
+<span class="sd">    :param testsuite: testsuite to which the tests should be added</span>
+<span class="sd">    :type module_name: str</span>
+<span class="sd">    :param module_name: name of the module of which the tests should be added</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    &gt;&gt;&gt; import unittest</span>
+<span class="sd">    &gt;&gt;&gt; suite = unittest.TestSuite()</span>
+<span class="sd">    &gt;&gt;&gt; add_doctests(suite, &quot;obspy.core&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">module</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">module_name</span><span class="p">,</span> <span class="n">fromlist</span><span class="o">=</span><span class="p">[</span><span class="n">native_str</span><span class="p">(</span><span class="s2">&quot;obspy&quot;</span><span class="p">)])</span>
+    <span class="n">module_path</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">__path__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">module_path_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">module_path</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">_dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">module_path</span><span class="p">):</span>
+        <span class="c1"># skip directories without __init__.py</span>
+        <span class="k">if</span> <span class="s1">&#39;__init__.py&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="c1"># skip tests directories</span>
+        <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;tests&#39;</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="c1"># skip scripts directories</span>
+        <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;scripts&#39;</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="c1"># skip lib directories</span>
+        <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;lib&#39;</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="c1"># loop over all files</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="c1"># skip if not python source file</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="c1"># get module name</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">root</span><span class="p">[</span><span class="n">module_path_len</span><span class="p">:]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="n">_module_name</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">module_name</span><span class="p">]</span> <span class="o">+</span> <span class="n">parts</span> <span class="o">+</span> <span class="p">[</span><span class="n">file</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]])</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">_module</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">_module_name</span><span class="p">,</span>
+                                     <span class="n">fromlist</span><span class="o">=</span><span class="p">[</span><span class="n">native_str</span><span class="p">(</span><span class="s2">&quot;obspy&quot;</span><span class="p">)])</span>
+                <span class="n">testsuite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">doctest</span><span class="o">.</span><span class="n">DocTestSuite</span><span class="p">(</span><span class="n">_module</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="write_png"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.testing.write_png.html#obspy.core.util.testing.write_png">[docs]</a><span class="k">def</span> <span class="nf">write_png</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Custom write_png() function. matplotlib &lt; 1.3 cannot write RGBA png files.</span>
+
+<span class="sd">    Modified from https://stackoverflow.com/a/19174800</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">zlib</span>
+    <span class="kn">import</span> <span class="nn">struct</span>
+
+    <span class="n">buf</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">tostring</span><span class="p">()</span>
+    <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="c1"># reverse the vertical line order and add null bytes at the start</span>
+    <span class="n">width_byte_4</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="mi">4</span>
+    <span class="n">raw_data</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">buf</span><span class="p">[</span><span class="n">span</span><span class="p">:</span><span class="n">span</span> <span class="o">+</span> <span class="n">width_byte_4</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">span</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">((</span><span class="n">height</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span> <span class="n">width_byte_4</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">png_pack</span><span class="p">(</span><span class="n">png_tag</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="n">chunk_head</span> <span class="o">=</span> <span class="n">png_tag</span> <span class="o">+</span> <span class="n">data</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s2">&quot;!I&quot;</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="o">+</span>
+                <span class="n">chunk_head</span> <span class="o">+</span>
+                <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s2">&quot;!I&quot;</span><span class="p">),</span>
+                            <span class="mh">0xFFFFFFFF</span> <span class="o">&amp;</span> <span class="n">zlib</span><span class="o">.</span><span class="n">crc32</span><span class="p">(</span><span class="n">chunk_head</span><span class="p">)))</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+            <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x89</span><span class="s1">PNG</span><span class="se">\r\n\x1a\n</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="n">png_pack</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;IHDR&#39;</span><span class="p">,</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s2">&quot;!2I5B&quot;</span><span class="p">),</span>
+                     <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+            <span class="n">png_pack</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;IDAT&#39;</span><span class="p">,</span> <span class="n">zlib</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">raw_data</span><span class="p">,</span> <span class="mi">9</span><span class="p">)),</span>
+            <span class="n">png_pack</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;IEND&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">)]))</span></div>
+
+
+<div class="viewcode-block" id="compare_images"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.testing.compare_images.html#obspy.core.util.testing.compare_images">[docs]</a><span class="k">def</span> <span class="nf">compare_images</span><span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="n">actual</span><span class="p">,</span> <span class="n">tol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Custom version of :func:`matplotlib.testing.compare.compare_images`.</span>
+<span class="sd">    This enable ObsPy to have the same image comparison metric across</span>
+<span class="sd">    matplotlib versions. Furthermore nose is no longer a test dependency of</span>
+<span class="sd">    ObsPy.</span>
+
+<span class="sd">    In contrast to the matplotlib version this one only works with png</span>
+<span class="sd">    files. Fully transparent pixels will have their color set to white as</span>
+<span class="sd">    the RGB values of fully transparent pixels change depending on the</span>
+<span class="sd">    matplotlib version.</span>
+
+<span class="sd">    Additionally this version uses a straight RMSE definition instead of the</span>
+<span class="sd">    binned one of matplotlib.</span>
+
+<span class="sd">    :param expected: The filename of the expected png file.</span>
+<span class="sd">    :type expected: str</span>
+<span class="sd">    :param actual: The filename of the actual png file.</span>
+<span class="sd">    :type actual: str</span>
+<span class="sd">    :param tol: The tolerance (a color value difference, where 255 is the</span>
+<span class="sd">        maximal difference). The test fails if the average pixel difference</span>
+<span class="sd">        is greater than this value.</span>
+<span class="sd">    :type tol: float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.image</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">actual</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Output image </span><span class="si">%s</span><span class="s2"> does not exist.&quot;</span> <span class="o">%</span> <span class="n">actual</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">actual</span><span class="p">)</span><span class="o">.</span><span class="n">st_size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Output image file </span><span class="si">%s</span><span class="s2"> is empty.&quot;</span> <span class="o">%</span> <span class="n">actual</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">expected</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s1">&#39;Baseline image </span><span class="si">%r</span><span class="s1"> does not exist.&#39;</span> <span class="o">%</span> <span class="n">expected</span><span class="p">)</span>
+
+    <span class="c1"># Open the images. Will be opened as RGBA as float32 ranging from 0 to 1.</span>
+    <span class="n">expected_image</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="n">expected</span><span class="p">))</span>
+    <span class="n">actual_image</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="n">actual</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">expected_image</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">actual_image</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ImageComparisonException</span><span class="p">(</span>
+            <span class="s2">&quot;The shape of the received image </span><span class="si">%s</span><span class="s2"> is not equal to the expected &quot;</span>
+            <span class="s2">&quot;shape </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">actual_image</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
+                           <span class="nb">str</span><span class="p">(</span><span class="n">expected_image</span><span class="o">.</span><span class="n">shape</span><span class="p">)))</span>
+
+    <span class="c1"># Set the &quot;color&quot; of fully transparent pixels to white. This avoids the</span>
+    <span class="c1"># issue of different &quot;colors&quot; for transparent pixels.</span>
+    <span class="n">expected_image</span><span class="p">[</span><span class="n">expected_image</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.0035</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
+    <span class="n">actual_image</span><span class="p">[</span><span class="n">actual_image</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.0035</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
+
+    <span class="c1"># This deviates a bit from the matplotlib version and just calculates</span>
+    <span class="c1"># the root mean square error of all pixel values without any other fancy</span>
+    <span class="c1"># considerations. It also uses the alpha channel of the images. Scaled</span>
+    <span class="c1"># by 255.</span>
+    <span class="n">rms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="mf">255.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">expected_image</span> <span class="o">-</span> <span class="n">actual_image</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span>
+                  <span class="nb">float</span><span class="p">(</span><span class="n">expected_image</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+
+    <span class="n">base</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">actual</span><span class="p">)</span>
+    <span class="n">diff_image</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">-</span><span class="si">%s%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="s1">&#39;failed-diff&#39;</span><span class="p">,</span> <span class="n">ext</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">rms</span> <span class="o">&lt;=</span> <span class="n">tol</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">diff_image</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">diff_image</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># Save diff image, expand differences in luminance domain</span>
+    <span class="n">abs_diff_image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">expected_image</span> <span class="o">-</span> <span class="n">actual_image</span><span class="p">)</span>
+    <span class="n">abs_diff_image</span> <span class="o">*=</span> <span class="mf">10.0</span>
+    <span class="n">save_image_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">abs_diff_image</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="c1"># Hard-code the alpha channel to fully solid</span>
+    <span class="n">save_image_np</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="n">write_png</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">(</span><span class="n">save_image_np</span> <span class="o">*</span> <span class="mf">255.0</span><span class="p">),</span> <span class="n">diff_image</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">rms</span><span class="o">=</span><span class="n">rms</span><span class="p">,</span> <span class="n">expected</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">expected</span><span class="p">),</span> <span class="n">actual</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">actual</span><span class="p">),</span>
+                <span class="n">diff</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">diff_image</span><span class="p">),</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ImageComparisonException"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.testing.ImageComparisonException.html#obspy.core.util.testing.ImageComparisonException">[docs]</a><span class="k">class</span> <span class="nc">ImageComparisonException</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="o">.</span><span class="n">failureException</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="ImageComparison"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.testing.ImageComparison.html#obspy.core.util.testing.ImageComparison">[docs]</a><span class="k">class</span> <span class="nc">ImageComparison</span><span class="p">(</span><span class="n">NamedTemporaryFile</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles the comparison against a baseline image in an image test.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        Baseline images are created using matplotlib version `1.3.1`.</span>
+
+<span class="sd">    :type image_path: str</span>
+<span class="sd">    :param image_path: Path to directory where the baseline image is located</span>
+<span class="sd">    :type image_name: str</span>
+<span class="sd">    :param image_name: Filename (with suffix, without directory path) of the</span>
+<span class="sd">        baseline image</span>
+<span class="sd">    :type reltol: float, optional</span>
+<span class="sd">    :param reltol: Multiplier that is applied to the default tolerance</span>
+<span class="sd">        value (i.e. 10 means a 10 times harder to pass test tolerance).</span>
+<span class="sd">    :type adjust_tolerance: bool, optional</span>
+<span class="sd">    :param adjust_tolerance: Adjust the tolerance based on the matplotlib</span>
+<span class="sd">        version. Can optionally be turned off to simply compare two images.</span>
+<span class="sd">    :type plt_close_all_enter: bool</span>
+<span class="sd">    :param plt_close_all_enter: Whether to close all open figures when entering</span>
+<span class="sd">        context (:func:`matplotlib.pyplot.close` with &quot;all&quot; as first argument.</span>
+<span class="sd">    :type plt_close_all_exit: bool</span>
+<span class="sd">    :param plt_close_all_exit: Whether to call :func:`matplotlib.pyplot.close`</span>
+<span class="sd">        with &quot;all&quot; as first argument (close all figures) or no arguments (close</span>
+<span class="sd">        active figure). Has no effect if ``plt_close=False``.</span>
+
+<span class="sd">    The class should be used with Python&#39;s &quot;with&quot; statement. When setting up,</span>
+<span class="sd">    the matplotlib rcdefaults are set to ensure consistent image testing.</span>
+<span class="sd">    After the plotting is completed, the :meth:`ImageComparison.compare`</span>
+<span class="sd">    method is called automatically at the end of the &quot;with&quot; block, comparing</span>
+<span class="sd">    against the previously specified baseline image. This raises an exception</span>
+<span class="sd">    (if the test fails) with the message string from</span>
+<span class="sd">    :func:`matplotlib.testing.compare.compare_images`. Afterwards all</span>
+<span class="sd">    temporary files are deleted automatically.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        If images created during the testrun should be kept after the test, set</span>
+<span class="sd">        environment variable `OBSPY_KEEP_IMAGES` to any value before executing</span>
+<span class="sd">        the test (e.g. with `$ OBSPY_KEEP_IMAGES= obspy-runtests` or `$</span>
+<span class="sd">        OBSPY_KEEP_IMAGES= python test_sometest.py`). For `obspy-runtests` the</span>
+<span class="sd">        option &quot;--keep-images&quot; can also be used instead of setting an</span>
+<span class="sd">        environment variable. Created images and diffs for failing tests are</span>
+<span class="sd">        then stored in a subfolder &quot;testrun&quot; under the baseline image&#39;s</span>
+<span class="sd">        directory.</span>
+<span class="sd">        To only keep failed images and the corresponding diff image,</span>
+<span class="sd">        additionally set environment variable `OBSPY_KEEP_ONLY_FAILED_IMAGES`</span>
+<span class="sd">        to any value before executing the test.</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    &gt;&gt;&gt; from obspy import read</span>
+<span class="sd">    &gt;&gt;&gt; with ImageComparison(&quot;/my/baseline/folder&quot;, &#39;plot.png&#39;) as ic:</span>
+<span class="sd">    ...     st = read()  # doctest: +SKIP</span>
+<span class="sd">    ...     st.plot(outfile=ic.name)  # doctest: +SKIP</span>
+<span class="sd">    ...     # image is compared against baseline image automatically</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ImageComparison.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.testing.ImageComparison.__init__.html#obspy.core.util.testing.ImageComparison.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_path</span><span class="p">,</span> <span class="n">image_name</span><span class="p">,</span> <span class="n">reltol</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                 <span class="n">adjust_tolerance</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plt_close_all_enter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">plt_close_all_exit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">image_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ImageComparison</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">suffix</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+                                              <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_name</span> <span class="o">=</span> <span class="n">image_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">baseline_image</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">image_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">keep_output</span> <span class="o">=</span> <span class="s2">&quot;OBSPY_KEEP_IMAGES&quot;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">keep_only_failed</span> <span class="o">=</span> <span class="s2">&quot;OBSPY_KEEP_ONLY_FAILED_IMAGES&quot;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="s2">&quot;testrun&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">diff_filename</span> <span class="o">=</span> <span class="s2">&quot;-failed-diff.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">reltol</span> <span class="o">*</span> <span class="mf">3.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plt_close_all_enter</span> <span class="o">=</span> <span class="n">plt_close_all_enter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plt_close_all_exit</span> <span class="o">=</span> <span class="n">plt_close_all_exit</span>
+
+        <span class="c1"># Higher tolerance for older matplotlib versions. This is pretty</span>
+        <span class="c1"># high but the pictures are at least guaranteed to be generated and</span>
+        <span class="c1"># look (roughly!) similar. Otherwise testing is just a pain and</span>
+        <span class="c1"># frankly not worth the effort!</span>
+        <span class="k">if</span> <span class="n">adjust_tolerance</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">MATPLOTLIB_VERSION</span> <span class="o">&lt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">*=</span> <span class="mi">30</span>
+            <span class="c1"># Matplotlib 1.5 changes the text positioning a bit. This</span>
+            <span class="c1"># results in many tests failing. Instead of changing all baseline</span>
+            <span class="c1"># images (which we&#39;ll have to do for mpl 2.0 in any case) we</span>
+            <span class="c1"># just up the tolerance a bit.</span>
+            <span class="k">elif</span> <span class="n">MATPLOTLIB_VERSION</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">*=</span> <span class="mi">17</span></div>
+
+<div class="viewcode-block" id="ImageComparison.__enter__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.testing.ImageComparison.__enter__.html#obspy.core.util.testing.ImageComparison.__enter__">[docs]</a>    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set matplotlib defaults.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">MatplotlibBackend</span><span class="o">.</span><span class="n">switch_backend</span><span class="p">(</span><span class="s2">&quot;AGG&quot;</span><span class="p">,</span> <span class="n">sloppy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">font_manager</span><span class="p">,</span> <span class="n">rcParams</span><span class="p">,</span> <span class="n">rcdefaults</span>
+        <span class="kn">import</span> <span class="nn">locale</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">LC_ALL</span><span class="p">,</span> <span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;en_US.UTF-8&#39;</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">LC_ALL</span><span class="p">,</span>
+                                 <span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;English_United States.1252&#39;</span><span class="p">))</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Could not set locale to English/United States. &quot;</span> <span class="o">+</span> \
+                      <span class="s2">&quot;Some date-related tests may fail&quot;</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="c1"># set matplotlib builtin default settings for testing</span>
+        <span class="n">rcdefaults</span><span class="p">()</span>
+        <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Bitstream Vera Sans&#39;</span>
+        <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">w</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;always&#39;</span><span class="p">,</span> <span class="s1">&#39;findfont:.*&#39;</span><span class="p">)</span>
+            <span class="n">font_manager</span><span class="o">.</span><span class="n">findfont</span><span class="p">(</span><span class="s1">&#39;Bitstream Vera Sans&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">w</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Unable to find the Bitstream Vera Sans font. &#39;</span>
+                          <span class="s1">&#39;Plotting tests will likely fail.&#39;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;text.hinting&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;could not set rcParams[&#39;text.hinting&#39;]&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;text.hinting_factor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">8</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;could not set rcParams[&#39;text.hinting_factor&#39;]&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plt_close_all_enter</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="ImageComparison.__exit__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.testing.ImageComparison.__exit__.html#obspy.core.util.testing.ImageComparison.__exit__">[docs]</a>    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>  <span class="c1"># @UnusedVariable</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove tempfiles and store created images if OBSPY_KEEP_IMAGES</span>
+<span class="sd">        environment variable is set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># only compare images if no exception occurred in the with</span>
+            <span class="c1"># statement. this avoids masking previously occurred exceptions (as</span>
+            <span class="c1"># an exception may occur in compare()). otherwise we only clean up</span>
+            <span class="c1"># and the exception gets re-raised at the end of __exit__.</span>
+            <span class="k">if</span> <span class="n">exc_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compare</span><span class="p">()</span>
+        <span class="c1"># we can still upload images if comparison fails on two different sized</span>
+        <span class="c1"># images</span>
+        <span class="k">except</span> <span class="n">ImageComparisonException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">failed</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="s2">&quot;is not equal to the expected shape&quot;</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="n">upload_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_upload_images</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">upload_result</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="n">msg</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">File:      </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                            <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Expected:  </span><span class="si">{expected}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                            <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Actual:    </span><span class="si">{actual}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                            <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Diff:      </span><span class="si">{diff}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="p">,</span>
+                                                            <span class="o">**</span><span class="n">upload_result</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">+=</span> <span class="n">upload_result</span>
+                <span class="k">raise</span> <span class="n">ImageComparisonException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span>
+        <span class="c1"># we can still upload actual image if baseline image does not exist</span>
+        <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">failed</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="s2">&quot;Baseline image&quot;</span> <span class="ow">in</span> <span class="n">msg</span> <span class="ow">and</span> <span class="s2">&quot;does not exist.&quot;</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="n">upload_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_upload_images</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">upload_result</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="n">msg</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">File:      </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                            <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Expected:  ---</span><span class="se">\n</span><span class="s2">&quot;</span>
+                            <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Actual:    </span><span class="si">{actual}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                            <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Diff:      ---</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="p">,</span>
+                                                         <span class="o">**</span><span class="n">upload_result</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">+=</span> <span class="n">upload_result</span>
+                <span class="k">raise</span> <span class="n">ImageComparisonException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">raise</span>
+        <span class="c1"># simply reraise on any other unhandled exceptions</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">failed</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">raise</span>
+        <span class="c1"># if image comparison not raises by itself, the test failed if we get a</span>
+        <span class="c1"># message back or the test passed if we get an empty message</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">msg</span><span class="p">:</span>
+                <span class="n">failed</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">failed</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">failed</span><span class="p">:</span>
+                <span class="c1"># base message on deviation of baseline and actual image</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Image comparison failed.</span><span class="se">\n</span><span class="s2">&quot;</span>
+                       <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">File:      </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                       <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">RMS:       </span><span class="si">{rms}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                       <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Tolerance: </span><span class="si">{tol}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="p">,</span> <span class="o">**</span><span class="n">msg</span><span class="p">)</span>
+                <span class="c1"># optionally, copy failed images from /tmp and append</span>
+                <span class="c1"># the local paths</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keep_output</span><span class="p">:</span>
+                    <span class="n">ff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_final_filenames</span><span class="p">()</span>
+                    <span class="n">msg</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Expected:  </span><span class="si">{expected}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                            <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Actual:    </span><span class="si">{actual}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                            <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Diff:      </span><span class="si">{diff}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">ff</span><span class="p">)</span>
+                <span class="c1"># try to upload to imgur, if successful append links to message</span>
+                <span class="n">upload_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_upload_images</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">upload_result</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="n">msg</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Expected:  </span><span class="si">{expected}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                            <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Actual:    </span><span class="si">{actual}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                            <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Diff:      </span><span class="si">{diff}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">upload_result</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">+=</span> <span class="n">upload_result</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+                <span class="k">raise</span> <span class="n">ImageComparisonException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="c1"># finally clean up after the image test, whether failed or not.</span>
+        <span class="c1"># if specified move generated output to source tree</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># flush internal buffer</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fileobj</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plt_close_all_exit</span><span class="p">:</span>
+                <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">pass</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keep_output</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">failed</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">keep_only_failed</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_copy_tempfiles</span><span class="p">()</span>
+            <span class="c1"># delete temporary files</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diff_filename</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diff_filename</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ImageComparison.compare"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.testing.ImageComparison.compare.html#obspy.core.util.testing.ImageComparison.compare">[docs]</a>    <span class="k">def</span> <span class="nf">compare</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run a custom version</span>
+<span class="sd">        of :func:`matplotlib.testing.compare.compare_images` and raise an</span>
+<span class="sd">        unittest.TestCase.failureException with the message string given by</span>
+<span class="sd">        matplotlib if the comparison exceeds the allowed tolerance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">st_size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Empty output image file.&quot;</span>
+            <span class="k">raise</span> <span class="n">ImageComparisonException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">compare_images</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">baseline_image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ImageComparison._get_final_filenames"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.testing.ImageComparison._get_final_filenames.html#obspy.core.util.testing.ImageComparison._get_final_filenames">[docs]</a>    <span class="k">def</span> <span class="nf">_get_final_filenames</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Helper function returning the</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">directory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_path</span>
+        <span class="n">filename_new</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="p">)</span>
+        <span class="n">diff_filename_new</span> <span class="o">=</span> <span class="s2">&quot;-failed-diff.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">diff_filename_new</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">diff_filename_new</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;actual&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">filename_new</span><span class="p">),</span>
+                <span class="s2">&quot;expected&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">baseline_image</span><span class="p">),</span>
+                <span class="s2">&quot;diff&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">diff_filename_new</span><span class="p">)}</span></div>
+
+<div class="viewcode-block" id="ImageComparison._copy_tempfiles"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.testing.ImageComparison._copy_tempfiles.html#obspy.core.util.testing.ImageComparison._copy_tempfiles">[docs]</a>    <span class="k">def</span> <span class="nf">_copy_tempfiles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Copies created images from tempfiles to a subfolder of baseline images.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">filenames</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_final_filenames</span><span class="p">()</span>
+            <span class="n">directory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_path</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Could not keep output image, target directory &quot;</span>
+                           <span class="s2">&quot;exists but is no directory: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">)</span> <span class="o">%</span> <span class="n">directory</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                    <span class="k">return</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diff_filename</span><span class="p">):</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diff_filename</span><span class="p">,</span> <span class="n">filenames</span><span class="p">[</span><span class="s2">&quot;diff&quot;</span><span class="p">])</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">filenames</span><span class="p">[</span><span class="s2">&quot;actual&quot;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Failed to copy images from temporary directory &quot;</span>
+                   <span class="s2">&quot;(caught </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">).&quot;</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ImageComparison._upload_images"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.testing.ImageComparison._upload_images.html#obspy.core.util.testing.ImageComparison._upload_images">[docs]</a>    <span class="k">def</span> <span class="nf">_upload_images</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Uploads images to imgur.</span>
+
+<span class="sd">        :returns: ``dict`` with links to uploaded images or ``str`` with</span>
+<span class="sd">            message if upload failed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">pyimgur</span>
+            <span class="c1"># try to get imgur client id from environment</span>
+            <span class="n">imgur_clientid</span> <span class="o">=</span> \
+                <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;OBSPY_IMGUR_CLIENTID&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;53b182544dc5d89&quot;</span>
+            <span class="c1"># upload images and return urls</span>
+            <span class="n">links</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">imgur</span> <span class="o">=</span> <span class="n">pyimgur</span><span class="o">.</span><span class="n">Imgur</span><span class="p">(</span><span class="n">imgur_clientid</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">baseline_image</span><span class="p">):</span>
+                <span class="n">up</span> <span class="o">=</span> <span class="n">imgur</span><span class="o">.</span><span class="n">upload_image</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">baseline_image</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">links</span><span class="p">[</span><span class="s1">&#39;expected&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">up</span><span class="o">.</span><span class="n">link</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+                <span class="n">up</span> <span class="o">=</span> <span class="n">imgur</span><span class="o">.</span><span class="n">upload_image</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">links</span><span class="p">[</span><span class="s1">&#39;actual&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">up</span><span class="o">.</span><span class="n">link</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diff_filename</span><span class="p">):</span>
+                <span class="n">up</span> <span class="o">=</span> <span class="n">imgur</span><span class="o">.</span><span class="n">upload_image</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diff_filename</span><span class="p">,</span>
+                                        <span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">diff_filename</span><span class="p">)</span>
+                <span class="n">links</span><span class="p">[</span><span class="s1">&#39;diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">up</span><span class="o">.</span><span class="n">link</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Upload to imgur failed (caught </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">).&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">links</span></div></div>
+
+
+<div class="viewcode-block" id="compare_xml_strings"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.testing.compare_xml_strings.html#obspy.core.util.testing.compare_xml_strings">[docs]</a><span class="k">def</span> <span class="nf">compare_xml_strings</span><span class="p">(</span><span class="n">doc1</span><span class="p">,</span> <span class="n">doc2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simple helper function to compare two XML strings.</span>
+
+<span class="sd">    :type doc1: str</span>
+<span class="sd">    :type doc2: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Compat py2k and py3k</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">doc1</span> <span class="o">=</span> <span class="n">doc1</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+        <span class="n">doc2</span> <span class="o">=</span> <span class="n">doc2</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="n">obj1</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">doc1</span><span class="p">)</span><span class="o">.</span><span class="n">getroottree</span><span class="p">()</span>
+    <span class="n">obj2</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">doc2</span><span class="p">)</span><span class="o">.</span><span class="n">getroottree</span><span class="p">()</span>
+
+    <span class="n">buf</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+    <span class="n">obj1</span><span class="o">.</span><span class="n">write_c14n</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+    <span class="n">buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">str1</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+    <span class="n">str1</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">str1</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()]</span>
+
+    <span class="n">buf</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+    <span class="n">obj2</span><span class="o">.</span><span class="n">write_c14n</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+    <span class="n">buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">str2</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+    <span class="n">str2</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">str2</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()]</span>
+
+    <span class="n">unified_diff</span> <span class="o">=</span> <span class="n">difflib</span><span class="o">.</span><span class="n">unified_diff</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">)</span>
+
+    <span class="n">err_msg</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">unified_diff</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">err_msg</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Strings are not equal.</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">err_msg</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="remove_unique_ids"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.testing.remove_unique_ids.html#obspy.core.util.testing.remove_unique_ids">[docs]</a><span class="k">def</span> <span class="nf">remove_unique_ids</span><span class="p">(</span><span class="n">xml_string</span><span class="p">,</span> <span class="n">remove_creation_time</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Removes unique ID parts of e.g. &#39;publicID=&quot;...&quot;&#39; attributes from xml</span>
+<span class="sd">    strings.</span>
+
+<span class="sd">    :type xml_string: str</span>
+<span class="sd">    :param xml_string: xml string to process</span>
+<span class="sd">    :type remove_creation_time: bool</span>
+<span class="sd">    :param xml_string: controls whether to remove &#39;creationTime&#39; tags or not.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">prefixes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;publicID&quot;</span><span class="p">,</span> <span class="s2">&quot;pickID&quot;</span><span class="p">,</span> <span class="s2">&quot;originID&quot;</span><span class="p">,</span> <span class="s2">&quot;preferredOriginID&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;preferredMagnitudeID&quot;</span><span class="p">,</span> <span class="s2">&quot;preferredFocalMechanismID&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;referenceSystemID&quot;</span><span class="p">,</span> <span class="s2">&quot;methodID&quot;</span><span class="p">,</span> <span class="s2">&quot;earthModelID&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;triggeringOriginID&quot;</span><span class="p">,</span> <span class="s2">&quot;derivedOriginID&quot;</span><span class="p">,</span> <span class="s2">&quot;momentMagnitudeID&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;greensFunctionID&quot;</span><span class="p">,</span> <span class="s2">&quot;filterID&quot;</span><span class="p">,</span> <span class="s2">&quot;amplitudeID&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;stationMagnitudeID&quot;</span><span class="p">,</span> <span class="s2">&quot;earthModelID&quot;</span><span class="p">,</span> <span class="s2">&quot;slownessMethodID&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;pickReference&quot;</span><span class="p">,</span> <span class="s2">&quot;amplitudeReference&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">remove_creation_time</span><span class="p">:</span>
+        <span class="n">prefixes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;creationTime&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="n">prefixes</span><span class="p">:</span>
+        <span class="n">xml_string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">=&#39;.*?&#39;&quot;</span> <span class="o">%</span> <span class="n">prefix</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=&quot;&quot;&#39;</span> <span class="o">%</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">xml_string</span><span class="p">)</span>
+        <span class="n">xml_string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=&quot;.*?&quot;&#39;</span> <span class="o">%</span> <span class="n">prefix</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=&quot;&quot;&#39;</span> <span class="o">%</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">xml_string</span><span class="p">)</span>
+        <span class="n">xml_string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;&lt;</span><span class="si">%s</span><span class="s2">&gt;.*?&lt;/</span><span class="si">%s</span><span class="s2">&gt;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">prefix</span><span class="p">),</span>
+                            <span class="s1">&#39;&lt;</span><span class="si">%s</span><span class="s1">/&gt;&#39;</span> <span class="o">%</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">xml_string</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">xml_string</span></div>
+
+
+<div class="viewcode-block" id="get_all_py_files"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.util.testing.get_all_py_files.html#obspy.core.util.testing.get_all_py_files">[docs]</a><span class="k">def</span> <span class="nf">get_all_py_files</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a list with full absolute paths to all .py files in ObsPy file tree.</span>
+
+<span class="sd">    :rtype: list of str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">util_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getfile</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()))</span>
+    <span class="n">obspy_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">util_dir</span><span class="p">)))</span>
+    <span class="n">py_files</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="c1"># Walk the obspy directory structure</span>
+    <span class="k">for</span> <span class="n">dirpath</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">filenames</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">obspy_dir</span><span class="p">):</span>
+        <span class="n">py_files</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span>
+                         <span class="n">filenames</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.py&quot;</span><span class="p">)])</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">py_files</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

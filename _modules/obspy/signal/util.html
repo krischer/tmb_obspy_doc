@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.signal.util &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.signal.util</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Various additional utilities for obspy.signal.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+<span class="kn">from</span> <span class="nn">future.utils</span> <span class="k">import</span> <span class="n">native</span>
+
+<span class="kn">import</span> <span class="nn">ctypes</span> <span class="k">as</span> <span class="nn">C</span>
+<span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">M</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">fftpack</span><span class="p">,</span> <span class="n">fix</span><span class="p">,</span> <span class="n">signal</span>
+
+<span class="kn">from</span> <span class="nn">obspy.core.util.decorator</span> <span class="k">import</span> <span class="n">deprecated</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.deprecation_helpers</span> <span class="k">import</span> \
+    <span class="n">DynamicAttributeImportRerouteModule</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.misc</span> <span class="k">import</span> <span class="n">factorize_int</span>
+<span class="kn">from</span> <span class="nn">obspy.signal.headers</span> <span class="k">import</span> <span class="n">clibsignal</span>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;utlGeoKm&#39; has been renamed to &#39;util_geo_km&#39;. Use that instead.&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">utlGeoKm</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># noqa</span>
+    <span class="k">return</span> <span class="n">util_geo_km</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="util_geo_km"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.util.util_geo_km.html#obspy.signal.util.util_geo_km">[docs]</a><span class="k">def</span> <span class="nf">util_geo_km</span><span class="p">(</span><span class="n">orig_lon</span><span class="p">,</span> <span class="n">orig_lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Transform lon, lat to km with reference to orig_lon and orig_lat on the</span>
+<span class="sd">    elliptic Earth.</span>
+
+<span class="sd">    &gt;&gt;&gt; util_geo_km(12.0, 48.0, 12.0, 48.0)</span>
+<span class="sd">    (0.0, 0.0)</span>
+<span class="sd">    &gt;&gt;&gt; x, y = util_geo_km(12.0, 48.0, 13.0, 49.0)</span>
+<span class="sd">    &gt;&gt;&gt; print(round(x,7))</span>
+<span class="sd">    73.9041417</span>
+<span class="sd">    &gt;&gt;&gt; print(round(y,7))</span>
+<span class="sd">    111.1908262</span>
+
+<span class="sd">    :param orig_lon: Longitude of reference origin</span>
+<span class="sd">    :param orig_lat: Latitude of reference origin</span>
+<span class="sd">    :param lat: Latitude to calculate relative coordinate in km</span>
+<span class="sd">    :param lon: Longitude to calculate relative coordinate in km</span>
+<span class="sd">    :return: x, y coordinate in km (in reference to origin)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 2009-10-11 Moritz</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_double</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_double</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span>
+
+    <span class="n">clibsignal</span><span class="o">.</span><span class="n">utl_geo_km</span><span class="p">(</span><span class="n">orig_lon</span><span class="p">,</span> <span class="n">orig_lat</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">C</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">value</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;utlLonLat&#39; has been renamed to &#39;util_lon_lat&#39;.&quot;</span>
+            <span class="s2">&quot;Use that instead.&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span>
+<span class="k">def</span> <span class="nf">utlLonLat</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">util_lon_lat</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="util_lon_lat"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.util.util_lon_lat.html#obspy.signal.util.util_lon_lat">[docs]</a><span class="k">def</span> <span class="nf">util_lon_lat</span><span class="p">(</span><span class="n">orig_lon</span><span class="p">,</span> <span class="n">orig_lat</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Transform x, y [km] to decimal degree in reference to orig_lon and orig_lat</span>
+
+<span class="sd">    &gt;&gt;&gt; util_lon_lat(12.0, 48.0, 0.0, 0.0)</span>
+<span class="sd">    (12.0, 48.0)</span>
+<span class="sd">    &gt;&gt;&gt; lon, lat = util_lon_lat(12.0, 48.0, 73.9041, 111.1908)</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;%.4f, %.4f&quot; % (lon, lat))</span>
+<span class="sd">    13.0000, 49.0000</span>
+
+<span class="sd">    :param orig_lon: Longitude of reference origin</span>
+<span class="sd">    :param orig_lat: Latitude of reference origin</span>
+<span class="sd">    :param x: value [km] to calculate relative coordinate in degree</span>
+<span class="sd">    :param y: value [km] to calculate relative coordinate in degree</span>
+<span class="sd">    :return: lon, lat coordinate in degree (absolute)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 2009-10-11 Moritz</span>
+
+    <span class="n">clibsignal</span><span class="o">.</span><span class="n">utl_lonlat</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">C</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+                                      <span class="n">C</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">c_double</span><span class="p">),</span>
+                                      <span class="n">C</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">c_double</span><span class="p">)]</span>
+    <span class="n">clibsignal</span><span class="o">.</span><span class="n">utl_lonlat</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_void_p</span>
+
+    <span class="n">lon</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_double</span><span class="p">()</span>
+    <span class="n">lat</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_double</span><span class="p">()</span>
+
+    <span class="n">clibsignal</span><span class="o">.</span><span class="n">utl_lonlat</span><span class="p">(</span><span class="n">orig_lon</span><span class="p">,</span> <span class="n">orig_lat</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">lon</span><span class="p">),</span> <span class="n">C</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">lat</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">lon</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">lat</span><span class="o">.</span><span class="n">value</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;nextpow2&#39; has been renamed to &#39;next_pow_2&#39;. Use that instead.&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">nextpow2</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">next_pow_2</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="next_pow_2"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.util.next_pow_2.html#obspy.signal.util.next_pow_2">[docs]</a><span class="k">def</span> <span class="nf">next_pow_2</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find the next power of two</span>
+
+<span class="sd">    &gt;&gt;&gt; int(next_pow_2(5))</span>
+<span class="sd">    8</span>
+<span class="sd">    &gt;&gt;&gt; int(next_pow_2(250))</span>
+<span class="sd">    256</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># do not use NumPy here, math is much faster for single values</span>
+    <span class="n">buf</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="n">M</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">native</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">buf</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="prev_pow_2"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.util.prev_pow_2.html#obspy.signal.util.prev_pow_2">[docs]</a><span class="k">def</span> <span class="nf">prev_pow_2</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find the previous power of two</span>
+
+<span class="sd">    &gt;&gt;&gt; prev_pow_2(5)</span>
+<span class="sd">    4</span>
+<span class="sd">    &gt;&gt;&gt; prev_pow_2(250)</span>
+<span class="sd">    128</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># do not use NumPy here, math is much faster for single values</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">M</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">))))</span></div>
+
+
+<div class="viewcode-block" id="nearest_pow_2"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.util.nearest_pow_2.html#obspy.signal.util.nearest_pow_2">[docs]</a><span class="k">def</span> <span class="nf">nearest_pow_2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Finds the nearest integer that is a power of 2.</span>
+<span class="sd">    In contrast to :func:`next_pow_2` also searches for numbers smaller than</span>
+<span class="sd">    the input and returns them if they are closer than the next bigger power</span>
+<span class="sd">    of 2.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">M</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">M</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">b</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="enframe"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.util.enframe.html#obspy.signal.util.enframe">[docs]</a><span class="k">def</span> <span class="nf">enframe</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">win</span><span class="p">,</span> <span class="n">inc</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Splits the vector up into (overlapping) frames beginning at increments</span>
+<span class="sd">    of inc. Each frame is multiplied by the window win().</span>
+<span class="sd">    The length of the frames is given by the length of the window win().</span>
+<span class="sd">    The centre of frame I is x((I-1)*inc+(length(win)+1)/2) for I=1,2,...</span>
+
+<span class="sd">    :param x: signal to split in frames</span>
+<span class="sd">    :param win: window multiplied to each frame, length determines frame length</span>
+<span class="sd">    :param inc: increment to shift frames, in samples</span>
+<span class="sd">    :return f: output matrix, each frame occupies one row</span>
+<span class="sd">    :return length, no_win: length of each frame in samples, number of frames</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">nwin</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">win</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">nwin</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="n">win</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># length = next_pow_2(nwin)</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="n">nwin</span>
+    <span class="n">nf</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fix</span><span class="p">((</span><span class="n">nx</span> <span class="o">-</span> <span class="n">length</span> <span class="o">+</span> <span class="n">inc</span><span class="p">)</span> <span class="o">//</span> <span class="n">inc</span><span class="p">))</span>
+    <span class="c1"># f = np.zeros((nf, length))</span>
+    <span class="n">indf</span> <span class="o">=</span> <span class="n">inc</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nf</span><span class="p">)</span>
+    <span class="n">inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">length</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">x</span><span class="p">[(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">indf</span><span class="p">]</span> <span class="o">*</span> <span class="n">length</span><span class="p">))</span> <span class="o">+</span>
+           <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">inds</span><span class="p">]</span> <span class="o">*</span> <span class="n">nf</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">nwin</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">win</span><span class="p">)</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">f</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">w</span><span class="p">]</span> <span class="o">*</span> <span class="n">nf</span><span class="p">)</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">detrend</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">)</span>
+    <span class="n">no_win</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">return</span> <span class="n">f</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">no_win</span></div>
+
+
+<div class="viewcode-block" id="smooth"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.util.smooth.html#obspy.signal.util.smooth">[docs]</a><span class="k">def</span> <span class="nf">smooth</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">smoothie</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Smooths a given signal by computing a central moving average.</span>
+
+<span class="sd">    :param x: signal to smooth</span>
+<span class="sd">    :param smoothie: number of past/future values to calculate moving average</span>
+<span class="sd">    :return out: smoothed signal</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">size_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">smoothie</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">size_x</span><span class="p">):</span>
+            <span class="c1"># out_add = append(append([x[0,:]]*smoothie,x,axis=0),</span>
+            <span class="c1">#                     [x[(len(x)-1),:]]*smoothie,axis=0)</span>
+            <span class="c1"># out_add = (np.append([x[0, :]]*int(smoothie), x, axis=0))</span>
+            <span class="n">out_add</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]]</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">smoothie</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span>
+                                 <span class="p">[</span><span class="n">x</span><span class="p">[(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="p">:]]</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">smoothie</span><span class="p">)))</span>
+            <span class="n">help</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">out_add</span><span class="p">)</span>
+            <span class="c1"># out = signal.lfilter(np.ones(smoothie) / smoothie, 1, help)</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">smoothie</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">smoothie</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span>
+                          <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">smoothie</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">smoothie</span><span class="p">))),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">help</span><span class="p">)</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+            <span class="c1"># out = out[smoothie:len(out), :]</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">smoothie</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">),</span> <span class="p">:]</span>
+            <span class="c1"># out = filter(ones(1,smoothie)/smoothie,1,out_add)</span>
+            <span class="c1"># out[1:smoothie,:] = []</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># out_add = np.append(np.append([x[0]] * smoothie, x),</span>
+            <span class="c1">#                   [x[size_x - 1]] * smoothie)</span>
+            <span class="n">out_add</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">smoothie</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span>
+                                 <span class="p">[</span><span class="n">x</span><span class="p">[(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]]</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">smoothie</span><span class="p">)))</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">smoothie</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">smoothie</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">smoothie</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">smoothie</span><span class="p">))),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">out_add</span><span class="p">)</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">smoothie</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">)]</span>
+            <span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">smoothie</span><span class="p">]</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="n">smoothie</span><span class="p">]</span>
+            <span class="n">out</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">-</span> <span class="n">smoothie</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">)]</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">-</span> <span class="n">smoothie</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="c1"># for i in xrange(smoothie, len(x) + smoothie):</span>
+            <span class="c1">#    sum = 0</span>
+            <span class="c1">#    for k in xrange(-smoothie, smoothie):</span>
+            <span class="c1">#        sum = sum + out_add[i + k]</span>
+            <span class="c1">#        suma[i - smoothie] = float(sum) / (2 * smoothie)</span>
+            <span class="c1">#        out = suma</span>
+            <span class="c1">#        out[0:smoothie] = out[smoothie]</span>
+            <span class="c1">#        out[size_x - 1 - smoothie:size_x] = \</span>
+            <span class="c1">#            out[size_x - 1 - smoothie]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="rdct"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.util.rdct.html#obspy.signal.util.rdct">[docs]</a><span class="k">def</span> <span class="nf">rdct</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes discrete cosine transform of given signal.</span>
+<span class="sd">    Signal is truncated/padded to length n.</span>
+
+<span class="sd">    :params x: signal to compute discrete cosine transform</span>
+<span class="sd">    :params n: window length (default: signal length)</span>
+<span class="sd">    :return y: discrete cosine transform</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">m</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">n</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]],</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="n">n</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)):</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]],</span>
+                      <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.</span><span class="p">),</span> <span class="mf">2.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="o">-</span><span class="mf">0.5</span><span class="n">j</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">n</span><span class="p">))</span> <span class="o">*</span>
+                      <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)))</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">fftpack</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">))),</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">z</span><span class="p">]))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">k</span><span class="p">)))</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">y</span></div>
+
+
+<div class="viewcode-block" id="az2baz2az"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.util.az2baz2az.html#obspy.signal.util.az2baz2az">[docs]</a><span class="k">def</span> <span class="nf">az2baz2az</span><span class="p">(</span><span class="n">angle</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function to convert from azimuth to backazimuth or from backazimuth</span>
+<span class="sd">    to azimuth.</span>
+
+<span class="sd">    :type angle: float or int</span>
+<span class="sd">    :param angle: azimuth or backazimuth value in degrees between 0 and 360.</span>
+<span class="sd">    :return: corresponding backazimuth or azimuth value in degrees.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">angle</span> <span class="o">&lt;=</span> <span class="mi">180</span><span class="p">:</span>
+        <span class="n">new_angle</span> <span class="o">=</span> <span class="n">angle</span> <span class="o">+</span> <span class="mi">180</span>
+    <span class="k">elif</span> <span class="mi">180</span> <span class="o">&lt;</span> <span class="n">angle</span> <span class="o">&lt;=</span> <span class="mi">360</span><span class="p">:</span>
+        <span class="n">new_angle</span> <span class="o">=</span> <span class="n">angle</span> <span class="o">-</span> <span class="mi">180</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input (back)azimuth out of bounds: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">angle</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_angle</span></div>
+
+
+<div class="viewcode-block" id="_npts2nfft"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.util._npts2nfft.html#obspy.signal.util._npts2nfft">[docs]</a><span class="k">def</span> <span class="nf">_npts2nfft</span><span class="p">(</span><span class="n">npts</span><span class="p">,</span> <span class="n">smart</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates number of points for fft from number of samples in trace.</span>
+<span class="sd">    When encountering bad values with prime factors involved (that can take</span>
+<span class="sd">    forever to compute) we try a few slightly larger numbers for a good</span>
+<span class="sd">    factorization (computation time for factorization is negligible compared to</span>
+<span class="sd">    fft/evalsresp/ifft) and if that fails we use the next power of 2 which is</span>
+<span class="sd">    not fastest but robust.</span>
+
+<span class="sd">    &gt;&gt;&gt; _npts2nfft(1800028)  # good nfft with minimum points</span>
+<span class="sd">    3600056</span>
+<span class="sd">    &gt;&gt;&gt; int(_npts2nfft(1800029))  # falls back to next power of 2</span>
+<span class="sd">    4194304</span>
+<span class="sd">    &gt;&gt;&gt; _npts2nfft(1800031)  # finds suitable nfft close to minimum npts</span>
+<span class="sd">    3600082</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The number of points for the FFT has to be at least 2 * ndat (in</span>
+    <span class="c1"># order to prohibit wrap around effects during convolution) cf.</span>
+    <span class="c1"># Numerical Recipes p. 429 calculate next power of 2.</span>
+    <span class="c1"># evalresp scales directly with nfft, therefor taking the next power of</span>
+    <span class="c1"># two has a greater negative performance impact than the slow down of a</span>
+    <span class="c1"># not power of two in the FFT</span>
+    <span class="k">if</span> <span class="n">npts</span> <span class="o">&amp;</span> <span class="mh">0x1</span><span class="p">:</span>  <span class="c1"># check if uneven</span>
+        <span class="n">nfft</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">npts</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">nfft</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">npts</span>
+
+    <span class="k">def</span> <span class="nf">_good_factorization</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">max</span><span class="p">(</span><span class="n">factorize_int</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">500</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="c1"># check if we have a bad factorization with large primes</span>
+    <span class="k">if</span> <span class="n">smart</span> <span class="ow">and</span> <span class="n">nfft</span> <span class="o">&gt;</span> <span class="mi">5000</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">_good_factorization</span><span class="p">(</span><span class="n">nfft</span><span class="p">):</span>
+        <span class="c1"># try a few numbers slightly larger for a suitable factorization</span>
+        <span class="c1"># in most cases after less than 10 tries a suitable nfft number with</span>
+        <span class="c1"># good factorization is found</span>
+        <span class="k">for</span> <span class="n">i_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
+            <span class="n">trial</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nfft</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">i_</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">_good_factorization</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+                <span class="n">nfft</span> <span class="o">=</span> <span class="n">trial</span>
+                <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">nfft</span> <span class="o">=</span> <span class="n">next_pow_2</span><span class="p">(</span><span class="n">nfft</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">nfft</span></div>
+
+
+<span class="c1"># Remove once 0.11 has been released.</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">DynamicAttributeImportRerouteModule</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="vm">__doc__</span><span class="p">,</span> <span class="n">locs</span><span class="o">=</span><span class="nb">locals</span><span class="p">(),</span>
+    <span class="n">original_module</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">],</span>
+    <span class="n">import_map</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">function_map</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;nearestPow2&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.util.nearest_pow_2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;prevpow2&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.util.prev_pow_2&quot;</span><span class="p">})</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.core.inventory.inventory &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.core.inventory.inventory</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Provides the Inventory class.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    Lion Krischer (krischer@geophysik.uni-muenchen.de), 2013</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+<span class="kn">from</span> <span class="nn">future.utils</span> <span class="k">import</span> <span class="n">python_2_unicode_compatible</span><span class="p">,</span> <span class="n">native_str</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">fnmatch</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="k">import</span> <span class="n">load_entry_point</span>
+<span class="kn">import</span> <span class="nn">textwrap</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">obspy</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.base</span> <span class="k">import</span> <span class="p">(</span><span class="n">ENTRY_POINTS</span><span class="p">,</span> <span class="n">ComparingObject</span><span class="p">,</span>
+                                  <span class="n">_read_from_plugin</span><span class="p">,</span> <span class="n">NamedTemporaryFile</span><span class="p">,</span>
+                                  <span class="n">download_to_file</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.decorator</span> <span class="k">import</span> <span class="n">map_example_filename</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.obspy_types</span> <span class="k">import</span> <span class="n">ObsPyException</span><span class="p">,</span> <span class="n">ZeroSamplingRate</span>
+
+<span class="kn">from</span> <span class="nn">.network</span> <span class="k">import</span> <span class="n">Network</span>
+
+<span class="c1"># Make sure this is consistent with obspy.io.stationxml! Importing it</span>
+<span class="c1"># from there results in hard to resolve cyclic imports.</span>
+<span class="n">SOFTWARE_MODULE</span> <span class="o">=</span> <span class="s2">&quot;ObsPy </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">obspy</span><span class="o">.</span><span class="n">__version__</span>
+<span class="n">SOFTWARE_URI</span> <span class="o">=</span> <span class="s2">&quot;https://www.obspy.org&quot;</span>
+
+
+<div class="viewcode-block" id="_create_example_inventory"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.inventory._create_example_inventory.html#obspy.core.inventory.inventory._create_example_inventory">[docs]</a><span class="k">def</span> <span class="nf">_create_example_inventory</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create an example inventory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">&quot;BW_GR_misc.xml&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">read_inventory</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;STATIONXML&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="read_inventory"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.inventory.read_inventory.html#obspy.core.inventory.inventory.read_inventory">[docs]</a><span class="nd">@map_example_filename</span><span class="p">(</span><span class="s2">&quot;path_or_file_object&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">read_inventory</span><span class="p">(</span><span class="n">path_or_file_object</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to read inventory files.</span>
+
+<span class="sd">    :param path_or_file_object: File name or file like object. If this</span>
+<span class="sd">        attribute is omitted, an example :class:`Inventory`</span>
+<span class="sd">        object will be returned.</span>
+<span class="sd">    :type format: str, optional</span>
+<span class="sd">    :param format: Format of the file to read (e.g. ``&quot;STATIONXML&quot;``).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">path_or_file_object</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># if no pathname or URL specified, return example catalog</span>
+        <span class="k">return</span> <span class="n">_create_example_inventory</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path_or_file_object</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">native_str</span><span class="p">))</span> <span class="ow">and</span> \
+            <span class="s2">&quot;://&quot;</span> <span class="ow">in</span> <span class="n">path_or_file_object</span><span class="p">:</span>
+        <span class="c1"># some URL</span>
+        <span class="c1"># extract extension if any</span>
+        <span class="n">suffix</span> <span class="o">=</span> \
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path_or_file_object</span><span class="p">)</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">&#39;.tmp&#39;</span>
+        <span class="k">with</span> <span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="n">download_to_file</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">path_or_file_object</span><span class="p">,</span> <span class="n">filename_or_buffer</span><span class="o">=</span><span class="n">fh</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">read_inventory</span><span class="p">(</span><span class="n">fh</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_read_from_plugin</span><span class="p">(</span><span class="s2">&quot;inventory&quot;</span><span class="p">,</span> <span class="n">path_or_file_object</span><span class="p">,</span>
+                             <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Inventory"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.inventory.Inventory.html#obspy.core.inventory.inventory.Inventory">[docs]</a><span class="nd">@python_2_unicode_compatible</span>
+<span class="k">class</span> <span class="nc">Inventory</span><span class="p">(</span><span class="n">ComparingObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The root object of the Inventory-&gt;Network-&gt;Station-&gt;Channel hierarchy.</span>
+
+<span class="sd">    In essence just a container for one or more networks.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Inventory.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.inventory.Inventory.__init__.html#obspy.core.inventory.inventory.Inventory.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">networks</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">sender</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">created</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">module</span><span class="o">=</span><span class="n">SOFTWARE_MODULE</span><span class="p">,</span> <span class="n">module_uri</span><span class="o">=</span><span class="n">SOFTWARE_URI</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :type networks: list of</span>
+<span class="sd">            :class:`~obspy.core.inventory.network.Network`</span>
+<span class="sd">        :param networks: A list of networks part of this inventory.</span>
+<span class="sd">        :type source: str</span>
+<span class="sd">        :param source: Network ID of the institution sending the message.</span>
+<span class="sd">        :type sender: str, optional</span>
+<span class="sd">        :param sender: Name of the institution sending this message.</span>
+<span class="sd">        :type created: :class:`~obspy.core.utcdatetime.UTCDateTime`, optional</span>
+<span class="sd">        :param created: The time when the document was created. Will be set to</span>
+<span class="sd">            the current time if not given.</span>
+<span class="sd">        :type module: str</span>
+<span class="sd">        :param module: Name of the software module that generated this</span>
+<span class="sd">            document, defaults to ObsPy related information.</span>
+<span class="sd">        :type module_uri: str</span>
+<span class="sd">        :param module_uri: This is the address of the query that generated the</span>
+<span class="sd">            document, or, if applicable, the address of the software that</span>
+<span class="sd">            generated this document, defaults to ObsPy related information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">networks</span> <span class="o">=</span> <span class="n">networks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">source</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sender</span> <span class="o">=</span> <span class="n">sender</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">module</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">module_uri</span> <span class="o">=</span> <span class="n">module_uri</span>
+        <span class="c1"># Set the created field to the current time if not given otherwise.</span>
+        <span class="k">if</span> <span class="n">created</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">created</span> <span class="o">=</span> <span class="n">obspy</span><span class="o">.</span><span class="n">UTCDateTime</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">created</span> <span class="o">=</span> <span class="n">created</span></div>
+
+<div class="viewcode-block" id="Inventory.__add__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.inventory.Inventory.__add__.html#obspy.core.inventory.inventory.Inventory.__add__">[docs]</a>    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">new</span> <span class="o">+=</span> <span class="n">other</span>
+        <span class="k">return</span> <span class="n">new</span></div>
+
+<div class="viewcode-block" id="Inventory.__iadd__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.inventory.Inventory.__iadd__.html#obspy.core.inventory.inventory.Inventory.__iadd__">[docs]</a>    <span class="k">def</span> <span class="nf">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Inventory</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">networks</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">networks</span><span class="p">)</span>
+            <span class="c1"># This is a straight inventory merge.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__copy_inventory_metadata</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Network</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">networks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Only Inventory and Network objects can be added to &quot;</span>
+                   <span class="s2">&quot;an Inventory.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Inventory.__len__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.inventory.Inventory.__len__.html#obspy.core.inventory.inventory.Inventory.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">networks</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Inventory.__getitem__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.inventory.Inventory.__getitem__.html#obspy.core.inventory.inventory.Inventory.__getitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">networks</span><span class="p">[</span><span class="n">index</span><span class="p">]</span></div>
+
+    <span class="k">def</span> <span class="nf">__copy_inventory_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Will be called after two inventory objects have been merged. It</span>
+<span class="sd">        attempts to assure that inventory meta information is somewhat</span>
+<span class="sd">        correct after the merging.</span>
+
+<span class="sd">        The networks in other will have been moved to self.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The creation time is naturally adjusted to the current time.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">created</span> <span class="o">=</span> <span class="n">obspy</span><span class="o">.</span><span class="n">UTCDateTime</span><span class="p">()</span>
+
+        <span class="c1"># Merge the source.</span>
+        <span class="n">srcs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">source</span><span class="p">]</span>
+        <span class="n">srcs</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">srcs</span> <span class="k">if</span> <span class="n">_i</span><span class="p">]</span>
+        <span class="n">all_srcs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">src</span> <span class="ow">in</span> <span class="n">srcs</span><span class="p">:</span>
+            <span class="n">all_srcs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">all_srcs</span><span class="p">:</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">all_srcs</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Do the same with the sender.</span>
+        <span class="n">sndrs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sender</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">sender</span><span class="p">]</span>
+        <span class="n">sndrs</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">sndrs</span> <span class="k">if</span> <span class="n">_i</span><span class="p">]</span>
+        <span class="n">all_sndrs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">sndr</span> <span class="ow">in</span> <span class="n">sndrs</span><span class="p">:</span>
+            <span class="n">all_sndrs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">sndr</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">all_sndrs</span><span class="p">:</span>
+            <span class="n">sndr</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">all_sndrs</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sender</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sndr</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sender</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># The module and URI strings will be changed to ObsPy as it did the</span>
+        <span class="c1"># modification.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">SOFTWARE_MODULE</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">module_uri</span> <span class="o">=</span> <span class="n">SOFTWARE_URI</span>
+
+<div class="viewcode-block" id="Inventory.get_contents"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.inventory.Inventory.get_contents.html#obspy.core.inventory.inventory.Inventory.get_contents">[docs]</a>    <span class="k">def</span> <span class="nf">get_contents</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary containing the contents of the object.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; example_filename = &quot;/path/to/IRIS_single_channel_with_response.xml&quot;</span>
+<span class="sd">        &gt;&gt;&gt; inventory = read_inventory(example_filename)</span>
+<span class="sd">        &gt;&gt;&gt; inventory.get_contents()  \</span>
+<span class="sd">                # doctest: +NORMALIZE_WHITESPACE +ELLIPSIS</span>
+<span class="sd">        {...}</span>
+<span class="sd">        &gt;&gt;&gt; for k, v in sorted(inventory.get_contents().items()):  \</span>
+<span class="sd">                    # doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">        ...     print(k, v[0])</span>
+<span class="sd">        channels IU.ANMO.10.BHZ</span>
+<span class="sd">        networks IU</span>
+<span class="sd">        stations IU.ANMO (Albuquerque, New Mexico, USA)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">content_dict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;networks&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;stations&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+        <span class="k">for</span> <span class="n">network</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">networks</span><span class="p">:</span>
+            <span class="n">content_dict</span><span class="p">[</span><span class="s1">&#39;networks&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">code</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">network</span><span class="o">.</span><span class="n">get_contents</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">content_dict</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="p">[])</span>
+                <span class="n">content_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="n">content_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">content_dict</span></div>
+
+<div class="viewcode-block" id="Inventory.__str__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.inventory.Inventory.__str__.html#obspy.core.inventory.inventory.Inventory.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ret_str</span> <span class="o">=</span> <span class="s2">&quot;Inventory created at </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">created</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">:</span>
+            <span class="n">module_uri</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">module_uri</span>
+            <span class="k">if</span> <span class="n">module_uri</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">module_uri</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">70</span><span class="p">:</span>
+                <span class="n">module_uri</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">module_uri</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">67</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;...&quot;</span>
+            <span class="n">ret_str</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Created by: </span><span class="si">%s%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span>
+                <span class="s2">&quot;</span><span class="se">\n\t\t</span><span class="s2">    </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">module_uri</span> <span class="k">if</span> <span class="n">module_uri</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)))</span>
+        <span class="n">ret_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Sending institution: </span><span class="si">%s%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="s2">&quot; (</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">sender</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sender</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_contents</span><span class="p">()</span>
+        <span class="n">ret_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Contains:</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">ret_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2">Networks (</span><span class="si">%i</span><span class="s2">):</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">contents</span><span class="p">[</span><span class="s2">&quot;networks&quot;</span><span class="p">])</span>
+        <span class="n">ret_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="se">\t\t\t</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">contents</span><span class="p">[</span><span class="s2">&quot;networks&quot;</span><span class="p">]])</span>
+        <span class="n">ret_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">ret_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2">Stations (</span><span class="si">%i</span><span class="s2">):</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">contents</span><span class="p">[</span><span class="s2">&quot;stations&quot;</span><span class="p">])</span>
+        <span class="n">ret_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="se">\t\t\t</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">contents</span><span class="p">[</span><span class="s2">&quot;stations&quot;</span><span class="p">]])</span>
+        <span class="n">ret_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">ret_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2">Channels (</span><span class="si">%i</span><span class="s2">):</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">contents</span><span class="p">[</span><span class="s2">&quot;channels&quot;</span><span class="p">])</span>
+        <span class="n">ret_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">textwrap</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span>
+            <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">contents</span><span class="p">[</span><span class="s2">&quot;channels&quot;</span><span class="p">]),</span> <span class="n">initial_indent</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t\t\t</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">subsequent_indent</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t\t\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">expand_tabs</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">ret_str</span></div>
+
+<div class="viewcode-block" id="Inventory._repr_pretty_"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.inventory.Inventory._repr_pretty_.html#obspy.core.inventory.inventory.Inventory._repr_pretty_">[docs]</a>    <span class="k">def</span> <span class="nf">_repr_pretty_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cycle</span><span class="p">):</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Inventory.write"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.inventory.Inventory.write.html#obspy.core.inventory.inventory.Inventory.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_or_file_object</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes the inventory object to a file or file-like object in</span>
+<span class="sd">        the specified format.</span>
+
+<span class="sd">        :param path_or_file_object: File name or file-like object to be written</span>
+<span class="sd">            to.</span>
+<span class="sd">        :param format: The format of the written file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">format</span> <span class="o">=</span> <span class="nb">format</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># get format specific entry point</span>
+            <span class="n">format_ep</span> <span class="o">=</span> <span class="n">ENTRY_POINTS</span><span class="p">[</span><span class="s1">&#39;inventory_write&#39;</span><span class="p">][</span><span class="nb">format</span><span class="p">]</span>
+            <span class="c1"># search writeFormat method for given entry point</span>
+            <span class="n">write_format</span> <span class="o">=</span> <span class="n">load_entry_point</span><span class="p">(</span>
+                <span class="n">format_ep</span><span class="o">.</span><span class="n">dist</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
+                <span class="s1">&#39;obspy.plugin.inventory.</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">format_ep</span><span class="o">.</span><span class="n">name</span><span class="p">),</span> <span class="s1">&#39;writeFormat&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="ne">ImportError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Writing format </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> is not supported. Supported types: </span><span class="si">%s</span><span class="s2">&quot;</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="nb">format</span><span class="p">,</span>
+                                   <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ENTRY_POINTS</span><span class="p">[</span><span class="s1">&#39;inventory_write&#39;</span><span class="p">])))</span>
+        <span class="k">return</span> <span class="n">write_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_or_file_object</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">networks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_networks</span>
+
+    <span class="nd">@networks</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">networks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;__iter__&quot;</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;networks needs to be iterable, e.g. a list.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Network</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">value</span><span class="p">]):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;networks can only contain Network objects.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_networks</span> <span class="o">=</span> <span class="n">value</span>
+
+<div class="viewcode-block" id="Inventory.get_response"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.inventory.Inventory.get_response.html#obspy.core.inventory.inventory.Inventory.get_response">[docs]</a>    <span class="k">def</span> <span class="nf">get_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed_id</span><span class="p">,</span> <span class="n">datetime</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Find response for a given channel at given time.</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy import read_inventory, UTCDateTime</span>
+<span class="sd">        &gt;&gt;&gt; inventory = read_inventory(&quot;/path/to/IU_ANMO_BH.xml&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; datetime = UTCDateTime(&quot;2012-08-24T00:00:00&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; response = inventory.get_response(&quot;IU.ANMO.00.BHZ&quot;, datetime)</span>
+<span class="sd">        &gt;&gt;&gt; print(response)  # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE</span>
+<span class="sd">        Channel Response</span>
+<span class="sd">          From M/S (Velocity in Meters Per Second) to COUNTS (Digital Counts)</span>
+<span class="sd">          Overall Sensitivity: 3.27508e+09 defined at 0.020 Hz</span>
+<span class="sd">          3 stages:</span>
+<span class="sd">            Stage 1: PolesZerosResponseStage from M/S to V, gain: 1952.1</span>
+<span class="sd">            Stage 2: CoefficientsTypeResponseStage from V to COUNTS, gain: ...</span>
+<span class="sd">            Stage 3: CoefficientsTypeResponseStage from COUNTS to COUNTS, ...</span>
+
+<span class="sd">        :type seed_id: str</span>
+<span class="sd">        :param seed_id: SEED ID string of channel to get response for.</span>
+<span class="sd">        :type datetime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param datetime: Time to get response for.</span>
+<span class="sd">        :rtype: :class:`~obspy.core.inventory.response.Response`</span>
+<span class="sd">        :returns: Response for time series specified by input arguments.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">network</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">seed_id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+
+        <span class="n">responses</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">networks</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">net</span><span class="o">.</span><span class="n">code</span> <span class="o">!=</span> <span class="n">network</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">responses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">get_response</span><span class="p">(</span><span class="n">seed_id</span><span class="p">,</span> <span class="n">datetime</span><span class="p">))</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">responses</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Found more than one matching response. Returning first.&quot;</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">responses</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No matching response information found.&quot;</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">responses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Inventory.get_coordinates"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.inventory.Inventory.get_coordinates.html#obspy.core.inventory.inventory.Inventory.get_coordinates">[docs]</a>    <span class="k">def</span> <span class="nf">get_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed_id</span><span class="p">,</span> <span class="n">datetime</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return coordinates for a given channel.</span>
+
+<span class="sd">        :type seed_id: str</span>
+<span class="sd">        :param seed_id: SEED ID string of channel to get coordinates for.</span>
+<span class="sd">        :type datetime: :class:`~obspy.core.utcdatetime.UTCDateTime`, optional</span>
+<span class="sd">        :param datetime: Time to get coordinates for.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        :return: Dictionary containing coordinates (latitude, longitude,</span>
+<span class="sd">            elevation)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">network</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">seed_id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">networks</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">net</span><span class="o">.</span><span class="n">code</span> <span class="o">!=</span> <span class="n">network</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">coordinates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">(</span><span class="n">seed_id</span><span class="p">,</span> <span class="n">datetime</span><span class="p">))</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">coordinates</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Found more than one matching coordinates. Returning first.&quot;</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">coordinates</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No matching coordinates found.&quot;</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">coordinates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Inventory.select"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.inventory.Inventory.select.html#obspy.core.inventory.inventory.Inventory.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">network</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">station</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">starttime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">keep_empty</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the :class:`Inventory` object with only the</span>
+<span class="sd">        :class:`~obspy.core.inventory.network.Network`\ s /</span>
+<span class="sd">        :class:`~obspy.core.inventory.station.Station`\ s /</span>
+<span class="sd">        :class:`~obspy.core.inventory.channel.Channel`\ s that match the given</span>
+<span class="sd">        criteria (e.g. all channels with ``channel=&quot;EHZ&quot;``).</span>
+
+<span class="sd">        .. warning::</span>
+<span class="sd">            The returned object is based on a shallow copy of the original</span>
+<span class="sd">            object. That means that modifying any mutable child elements will</span>
+<span class="sd">            also modify the original object</span>
+<span class="sd">            (see https://docs.python.org/2/library/copy.html).</span>
+<span class="sd">            Use :meth:`copy()` afterwards to make a new copy of the data in</span>
+<span class="sd">            memory.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy import read_inventory, UTCDateTime</span>
+<span class="sd">        &gt;&gt;&gt; inv = read_inventory()</span>
+<span class="sd">        &gt;&gt;&gt; t = UTCDateTime(2007, 7, 1, 12)</span>
+<span class="sd">        &gt;&gt;&gt; inv = inv.select(channel=&quot;*Z&quot;, station=&quot;[RW]*&quot;, time=t)</span>
+<span class="sd">        &gt;&gt;&gt; print(inv)  # doctest: +NORMALIZE_WHITESPACE</span>
+<span class="sd">        Inventory created at 2014-03-03T11:07:06.198000Z</span>
+<span class="sd">            Created by: fdsn-stationxml-converter/1.0.0</span>
+<span class="sd">                    http://www.iris.edu/fdsnstationconverter</span>
+<span class="sd">            Sending institution: Erdbebendienst Bayern</span>
+<span class="sd">            Contains:</span>
+<span class="sd">                Networks (2):</span>
+<span class="sd">                    GR</span>
+<span class="sd">                    BW</span>
+<span class="sd">                Stations (2):</span>
+<span class="sd">                    BW.RJOB (Jochberg, Bavaria, BW-Net)</span>
+<span class="sd">                    GR.WET (Wettzell, Bavaria, GR-Net)</span>
+<span class="sd">                Channels (4):</span>
+<span class="sd">                    BW.RJOB..EHZ, GR.WET..BHZ, GR.WET..HHZ, GR.WET..LHZ</span>
+
+<span class="sd">        The `network`, `station`, `location` and `channel` selection criteria</span>
+<span class="sd">        may also contain UNIX style wildcards (e.g. ``*``, ``?``, ...; see</span>
+<span class="sd">        :func:`~fnmatch.fnmatch`).</span>
+
+<span class="sd">        :type network: str</span>
+<span class="sd">        :param network: Potentially wildcarded network code. If not given,</span>
+<span class="sd">            all network codes will be accepted.</span>
+<span class="sd">        :type station: str</span>
+<span class="sd">        :param station: Potentially wildcarded station code. If not given,</span>
+<span class="sd">            all station codes will be accepted.</span>
+<span class="sd">        :type location: str</span>
+<span class="sd">        :param location: Potentially wildcarded location code. If not given,</span>
+<span class="sd">            all location codes will be accepted.</span>
+<span class="sd">        :type channel: str</span>
+<span class="sd">        :param channel: Potentially wildcarded channel code. If not given,</span>
+<span class="sd">            all channel codes will be accepted.</span>
+<span class="sd">        :type time: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param time: Only include networks/stations/channels active at given</span>
+<span class="sd">            point in time.</span>
+<span class="sd">        :type starttime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param starttime: Only include networks/stations/channels active at or</span>
+<span class="sd">            after given point in time (i.e. channels ending before given time</span>
+<span class="sd">            will not be shown).</span>
+<span class="sd">        :type endtime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param endtime: Only include networks/stations/channels active before</span>
+<span class="sd">            or at given point in time (i.e. channels starting after given time</span>
+<span class="sd">            will not be shown).</span>
+<span class="sd">        :type sampling_rate: float</span>
+<span class="sd">        :type keep_empty: bool</span>
+<span class="sd">        :param keep_empty: If set to `True`, networks/stations that match</span>
+<span class="sd">            themselves but have no matching child elements (stations/channels)</span>
+<span class="sd">            will be included in the result.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">networks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">networks</span><span class="p">:</span>
+            <span class="c1"># skip if any given criterion is not matched</span>
+            <span class="k">if</span> <span class="n">network</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">fnmatch</span><span class="o">.</span><span class="n">fnmatch</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">code</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span>
+                                       <span class="n">network</span><span class="o">.</span><span class="n">upper</span><span class="p">()):</span>
+                    <span class="k">continue</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="n">t</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">starttime</span><span class="p">,</span> <span class="n">endtime</span><span class="p">)]):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">net</span><span class="o">.</span><span class="n">is_active</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">starttime</span><span class="o">=</span><span class="n">starttime</span><span class="p">,</span>
+                                     <span class="n">endtime</span><span class="o">=</span><span class="n">endtime</span><span class="p">):</span>
+                    <span class="k">continue</span>
+
+            <span class="n">has_stations</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">stations</span><span class="p">)</span>
+
+            <span class="n">net_</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
+                <span class="n">station</span><span class="o">=</span><span class="n">station</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
+                <span class="n">starttime</span><span class="o">=</span><span class="n">starttime</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="n">endtime</span><span class="p">,</span>
+                <span class="n">sampling_rate</span><span class="o">=</span><span class="n">sampling_rate</span><span class="p">,</span> <span class="n">keep_empty</span><span class="o">=</span><span class="n">keep_empty</span><span class="p">)</span>
+
+            <span class="c1"># If the network previously had stations but no longer has any</span>
+            <span class="c1"># and keep_empty is False: Skip the network.</span>
+            <span class="k">if</span> <span class="n">has_stations</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">keep_empty</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">net_</span><span class="o">.</span><span class="n">stations</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">networks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net_</span><span class="p">)</span>
+        <span class="n">inv</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">inv</span><span class="o">.</span><span class="n">networks</span> <span class="o">=</span> <span class="n">networks</span>
+        <span class="k">return</span> <span class="n">inv</span></div>
+
+<div class="viewcode-block" id="Inventory.plot"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.inventory.Inventory.plot.html#obspy.core.inventory.inventory.Inventory.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;global&#39;</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;l&#39;</span><span class="p">,</span>
+             <span class="n">continent_fill_color</span><span class="o">=</span><span class="s1">&#39;0.9&#39;</span><span class="p">,</span> <span class="n">water_fill_color</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;v&quot;</span><span class="p">,</span>
+             <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#b15928&#39;</span><span class="p">,</span> <span class="n">color_per_network</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+             <span class="n">colormap</span><span class="o">=</span><span class="s2">&quot;Paired&quot;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+             <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># @UnusedVariable</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a preview map of all networks/stations in current inventory</span>
+<span class="sd">        object.</span>
+
+<span class="sd">        :type projection: str, optional</span>
+<span class="sd">        :param projection: The map projection. Currently supported are:</span>
+
+<span class="sd">            * ``&quot;global&quot;`` (Will plot the whole world.)</span>
+<span class="sd">            * ``&quot;ortho&quot;`` (Will center around the mean lat/long.)</span>
+<span class="sd">            * ``&quot;local&quot;`` (Will plot around local events)</span>
+
+<span class="sd">            Defaults to ``&quot;global&quot;``</span>
+<span class="sd">        :type resolution: str, optional</span>
+<span class="sd">        :param resolution: Resolution of the boundary database to use. Will be</span>
+<span class="sd">            based directly to the basemap module. Possible values are:</span>
+
+<span class="sd">            * ``&quot;c&quot;`` (crude)</span>
+<span class="sd">            * ``&quot;l&quot;`` (low)</span>
+<span class="sd">            * ``&quot;i&quot;`` (intermediate)</span>
+<span class="sd">            * ``&quot;h&quot;`` (high)</span>
+<span class="sd">            * ``&quot;f&quot;`` (full)</span>
+
+<span class="sd">            Defaults to ``&quot;l&quot;``</span>
+<span class="sd">        :type continent_fill_color: Valid matplotlib color, optional</span>
+<span class="sd">        :param continent_fill_color:  Color of the continents. Defaults to</span>
+<span class="sd">            ``&quot;0.9&quot;`` which is a light gray.</span>
+<span class="sd">        :type water_fill_color: Valid matplotlib color, optional</span>
+<span class="sd">        :param water_fill_color: Color of all water bodies.</span>
+<span class="sd">            Defaults to ``&quot;white&quot;``.</span>
+<span class="sd">        :type marker: str</span>
+<span class="sd">        :param marker: Marker symbol (see :func:`matplotlib.pyplot.scatter`).</span>
+<span class="sd">        :type size: float</span>
+<span class="sd">        :param size: Marker size (see :func:`matplotlib.pyplot.scatter`).</span>
+<span class="sd">        :type label: bool</span>
+<span class="sd">        :param label: Whether to label stations with &quot;network.station&quot; or not.</span>
+<span class="sd">        :type color: str</span>
+<span class="sd">        :param color: Face color of marker symbol (see</span>
+<span class="sd">            :func:`matplotlib.pyplot.scatter`). Defaults to the first color</span>
+<span class="sd">            from the single-element &quot;Paired&quot; color map.</span>
+<span class="sd">        :type color_per_network: bool or dict</span>
+<span class="sd">        :param color_per_network: If set to ``True``, each network will be</span>
+<span class="sd">            drawn in a different color. A dictionary can be provided that maps</span>
+<span class="sd">            network codes to color values (e.g.</span>
+<span class="sd">            ``color_per_network={&quot;GR&quot;: &quot;black&quot;, &quot;II&quot;: &quot;green&quot;}``).</span>
+<span class="sd">        :type colormap: str, any matplotlib colormap, optional</span>
+<span class="sd">        :param colormap: Only used if ``color_per_network=True``. Specifies</span>
+<span class="sd">            which colormap is used to draw the colors for the individual</span>
+<span class="sd">            networks. Defaults to the &quot;Paired&quot; color map.</span>
+<span class="sd">        :type legend: str or None</span>
+<span class="sd">        :param legend: Location string for legend, if networks are plotted in</span>
+<span class="sd">            different colors (i.e. option ``color_per_network`` in use). See</span>
+<span class="sd">            :func:`matplotlib.pyplot.legend` for possible values for</span>
+<span class="sd">            legend location string. To disable legend set to ``None``.</span>
+<span class="sd">        :type time: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param time: Only plot stations available at given point in time.</span>
+<span class="sd">        :type show: bool</span>
+<span class="sd">        :param show: Whether to show the figure after plotting or not. Can be</span>
+<span class="sd">            used to do further customization of the plot before showing it.</span>
+<span class="sd">        :type outfile: str</span>
+<span class="sd">        :param outfile: Output file path to directly save the resulting image</span>
+<span class="sd">            (e.g. ``&quot;/tmp/image.png&quot;``). Overrides the ``show`` option, image</span>
+<span class="sd">            will not be displayed interactively. The given path/file name is</span>
+<span class="sd">            also used to automatically determine the output format. Supported</span>
+<span class="sd">            file formats depend on your matplotlib backend.  Most backends</span>
+<span class="sd">            support png, pdf, ps, eps and svg. Defaults to ``None``.</span>
+<span class="sd">        :type method: str</span>
+<span class="sd">        :param method: Method to use for plotting. Possible values are:</span>
+
+<span class="sd">            * ``&#39;basemap&#39;`` to use the Basemap library</span>
+<span class="sd">            * ``&#39;cartopy&#39;`` to use the Cartopy library</span>
+<span class="sd">            * ``None`` to use the best available library</span>
+
+<span class="sd">            Defaults to ``None``.</span>
+<span class="sd">        :type fig: :class:`matplotlib.figure.Figure`</span>
+<span class="sd">        :param fig: Figure instance to reuse, returned from a previous</span>
+<span class="sd">            inventory/catalog plot call with `method=basemap`.</span>
+<span class="sd">            If a previous basemap plot is reused, any kwargs regarding the</span>
+<span class="sd">            basemap plot setup will be ignored (i.e.  `projection`,</span>
+<span class="sd">            `resolution`, `continent_fill_color`, `water_fill_color`). Note</span>
+<span class="sd">            that multiple plots using colorbars likely are problematic, but</span>
+<span class="sd">            e.g. one station plot (without colorbar) and one event plot (with</span>
+<span class="sd">            colorbar) together should work well.</span>
+<span class="sd">        :returns: Figure instance with the plot.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        Mollweide projection for global overview:</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy import read_inventory</span>
+<span class="sd">        &gt;&gt;&gt; inv = read_inventory()</span>
+<span class="sd">        &gt;&gt;&gt; inv.plot(label=False)  # doctest:+SKIP</span>
+
+<span class="sd">        .. plot::</span>
+
+<span class="sd">            from obspy import read_inventory</span>
+<span class="sd">            inv = read_inventory()</span>
+<span class="sd">            inv.plot(label=False)</span>
+
+<span class="sd">        Orthographic projection, automatic colors per network:</span>
+
+<span class="sd">        &gt;&gt;&gt; inv.plot(projection=&quot;ortho&quot;, label=False,</span>
+<span class="sd">        ...          color_per_network=True)  # doctest:+SKIP</span>
+
+<span class="sd">        .. plot::</span>
+
+<span class="sd">            from obspy import read_inventory</span>
+<span class="sd">            inv = read_inventory()</span>
+<span class="sd">            inv.plot(projection=&quot;ortho&quot;, label=False, color_per_network=True)</span>
+
+<span class="sd">        Local (Albers equal area) projection, with custom colors:</span>
+
+<span class="sd">        &gt;&gt;&gt; colors = {&#39;GR&#39;: &#39;blue&#39;, &#39;BW&#39;: &#39;green&#39;}</span>
+<span class="sd">        &gt;&gt;&gt; inv.plot(projection=&quot;local&quot;,</span>
+<span class="sd">        ...          color_per_network=colors)  # doctest:+SKIP</span>
+
+<span class="sd">        .. plot::</span>
+
+<span class="sd">            from obspy import read_inventory</span>
+<span class="sd">            inv = read_inventory()</span>
+<span class="sd">            inv.plot(projection=&quot;local&quot;,</span>
+<span class="sd">                     color_per_network={&#39;GR&#39;: &#39;blue&#39;,</span>
+<span class="sd">                                        &#39;BW&#39;: &#39;green&#39;})</span>
+
+<span class="sd">        Combining a station and event plot (uses basemap):</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy import read_inventory, read_events</span>
+<span class="sd">        &gt;&gt;&gt; inv = read_inventory()</span>
+<span class="sd">        &gt;&gt;&gt; cat = read_events()</span>
+<span class="sd">        &gt;&gt;&gt; fig = inv.plot(method=&quot;basemap&quot;, show=False)  # doctest:+SKIP</span>
+<span class="sd">        &gt;&gt;&gt; cat.plot(method=&quot;basemap&quot;, fig=fig)  # doctest:+SKIP</span>
+
+<span class="sd">        .. plot::</span>
+
+<span class="sd">            from obspy import read_inventory, read_events</span>
+<span class="sd">            inv = read_inventory()</span>
+<span class="sd">            cat = read_events()</span>
+<span class="sd">            fig = inv.plot(show=False)</span>
+<span class="sd">            cat.plot(fig=fig)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">obspy.imaging.maps</span> <span class="k">import</span> <span class="n">plot_map</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+        <span class="c1"># The empty ones must be kept as otherwise inventory files without</span>
+        <span class="c1"># channels will end up with nothing.</span>
+        <span class="n">inv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">keep_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># lat/lon coordinates, magnitudes, dates</span>
+        <span class="n">lats</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">lons</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="n">color_per_network</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color_per_network</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="kn">from</span> <span class="nn">matplotlib.cm</span> <span class="k">import</span> <span class="n">get_cmap</span>
+            <span class="n">codes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">n</span><span class="o">.</span><span class="n">code</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">inv</span><span class="p">])</span>
+            <span class="n">cmap</span> <span class="o">=</span> <span class="n">get_cmap</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">colormap</span><span class="p">,</span> <span class="n">lut</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">codes</span><span class="p">))</span>
+            <span class="n">color_per_network</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">code</span><span class="p">,</span> <span class="n">cmap</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                                      <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">code</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">codes</span><span class="p">))])</span>
+
+        <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">inv</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">sta</span> <span class="ow">in</span> <span class="n">net</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">sta</span><span class="o">.</span><span class="n">latitude</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">sta</span><span class="o">.</span><span class="n">longitude</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Station &#39;</span><span class="si">%s</span><span class="s2">&#39; does not have latitude/longitude &quot;</span>
+                           <span class="s2">&quot;information and will not be plotted.&quot;</span> <span class="o">%</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="n">color_per_network</span><span class="p">:</span>
+                    <span class="n">label_</span> <span class="o">=</span> <span class="s2">&quot;   </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">sta</span><span class="o">.</span><span class="n">code</span>
+                    <span class="n">color_</span> <span class="o">=</span> <span class="n">color_per_network</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">label_</span> <span class="o">=</span> <span class="s2">&quot;   &quot;</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">net</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">sta</span><span class="o">.</span><span class="n">code</span><span class="p">))</span>
+                    <span class="n">color_</span> <span class="o">=</span> <span class="n">color</span>
+                <span class="n">lats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sta</span><span class="o">.</span><span class="n">latitude</span><span class="p">)</span>
+                <span class="n">lons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sta</span><span class="o">.</span><span class="n">longitude</span><span class="p">)</span>
+                <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label_</span><span class="p">)</span>
+                <span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">color_</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">label</span><span class="p">:</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plot_map</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span>
+                       <span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span>
+                       <span class="n">continent_fill_color</span><span class="o">=</span><span class="n">continent_fill_color</span><span class="p">,</span>
+                       <span class="n">water_fill_color</span><span class="o">=</span><span class="n">water_fill_color</span><span class="p">,</span>
+                       <span class="n">colormap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span>
+                       <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">legend</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">color_per_network</span><span class="p">:</span>
+            <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">collections</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">code</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">color_per_network</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">code</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">)</span>
+            <span class="c1"># workaround for older matplotlib versions</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">legend</span><span class="p">,</span> <span class="n">fancybox</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">scatterpoints</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                          <span class="n">fontsize</span><span class="o">=</span><span class="s2">&quot;medium&quot;</span><span class="p">,</span> <span class="n">markerscale</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+                          <span class="n">handletextpad</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                <span class="n">leg_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">legend</span><span class="p">,</span> <span class="n">fancybox</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">scatterpoints</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                 <span class="n">markerscale</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">handletextpad</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+                <span class="n">leg_</span><span class="o">.</span><span class="n">prop</span><span class="o">.</span><span class="n">set_size</span><span class="p">(</span><span class="s2">&quot;medium&quot;</span><span class="p">)</span>
+            <span class="c1"># remove collections again solely created for legend handles</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">collections</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">collections</span><span class="p">[:</span><span class="n">count</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">outfile</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">fig</span></div>
+
+<div class="viewcode-block" id="Inventory.plot_response"><a class="viewcode-back" href="../../../../packages/autogen/obspy.core.inventory.inventory.Inventory.plot_response.html#obspy.core.inventory.inventory.Inventory.plot_response">[docs]</a>    <span class="k">def</span> <span class="nf">plot_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">min_freq</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;VEL&quot;</span><span class="p">,</span> <span class="n">network</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">station</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
+                      <span class="n">location</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">starttime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">endtime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unwrap_phase</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                      <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Show bode plot of instrument response of all (or a subset of) the</span>
+<span class="sd">        inventory&#39;s channels.</span>
+
+<span class="sd">        :type min_freq: float</span>
+<span class="sd">        :param min_freq: Lowest frequency to plot.</span>
+<span class="sd">        :type output: str</span>
+<span class="sd">        :param output: Output units. One of:</span>
+
+<span class="sd">                * ``&quot;DISP&quot;`` -- displacement, output unit is meters;</span>
+<span class="sd">                * ``&quot;VEL&quot;`` -- velocity, output unit is meters/second; or,</span>
+<span class="sd">                * ``&quot;ACC&quot;`` -- acceleration, output unit is meters/second**2.</span>
+
+<span class="sd">        :type network: str</span>
+<span class="sd">        :param network: Only plot matching networks. Accepts UNIX style</span>
+<span class="sd">            patterns and wildcards (e.g. ``&quot;G*&quot;``, ``&quot;*[ER]&quot;``; see</span>
+<span class="sd">            :func:`~fnmatch.fnmatch`)</span>
+<span class="sd">        :type station: str</span>
+<span class="sd">        :param station: Only plot matching stations. Accepts UNIX style</span>
+<span class="sd">            patterns and wildcards (e.g. ``&quot;L44*&quot;``, ``&quot;L4?A&quot;``,</span>
+<span class="sd">            ``&quot;[LM]44A&quot;``; see :func:`~fnmatch.fnmatch`)</span>
+<span class="sd">        :type location: str</span>
+<span class="sd">        :param location: Only plot matching channels. Accepts UNIX style</span>
+<span class="sd">            patterns and wildcards (e.g. ``&quot;BH*&quot;``, ``&quot;BH?&quot;``, ``&quot;*Z&quot;``,</span>
+<span class="sd">            ``&quot;[LB]HZ&quot;``; see :func:`~fnmatch.fnmatch`)</span>
+<span class="sd">        :type channel: str</span>
+<span class="sd">        :param channel: Only plot matching channels. Accepts UNIX style</span>
+<span class="sd">            patterns and wildcards (e.g. ``&quot;BH*&quot;``, ``&quot;BH?&quot;``, ``&quot;*Z&quot;``,</span>
+<span class="sd">            ``&quot;[LB]HZ&quot;``; see :func:`~fnmatch.fnmatch`)</span>
+<span class="sd">        :type time: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param time: Only regard networks/stations/channels active at given</span>
+<span class="sd">            point in time.</span>
+<span class="sd">        :type starttime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param starttime: Only regard networks/stations/channels active at or</span>
+<span class="sd">            after given point in time (i.e. networks ending before given time</span>
+<span class="sd">            will not be shown).</span>
+<span class="sd">        :type endtime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param endtime: Only regard networks/stations/channels active before or</span>
+<span class="sd">            at given point in time (i.e. networks starting after given time</span>
+<span class="sd">            will not be shown).</span>
+<span class="sd">        :type axes: list of 2 :class:`matplotlib.axes.Axes`</span>
+<span class="sd">        :param axes: List/tuple of two axes instances to plot the</span>
+<span class="sd">            amplitude/phase spectrum into. If not specified, a new figure is</span>
+<span class="sd">            opened.</span>
+<span class="sd">        :type unwrap_phase: bool</span>
+<span class="sd">        :param unwrap_phase: Set optional phase unwrapping using NumPy.</span>
+<span class="sd">        :type show: bool</span>
+<span class="sd">        :param show: Whether to show the figure after plotting or not. Can be</span>
+<span class="sd">            used to do further customization of the plot before showing it.</span>
+<span class="sd">        :type outfile: str</span>
+<span class="sd">        :param outfile: Output file path to directly save the resulting image</span>
+<span class="sd">            (e.g. ``&quot;/tmp/image.png&quot;``). Overrides the ``show`` option, image</span>
+<span class="sd">            will not be displayed interactively. The given path/file name is</span>
+<span class="sd">            also used to automatically determine the output format. Supported</span>
+<span class="sd">            file formats depend on your matplotlib backend.  Most backends</span>
+<span class="sd">            support png, pdf, ps, eps and svg. Defaults to ``None``.</span>
+
+<span class="sd">        .. rubric:: Basic Usage</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy import read_inventory</span>
+<span class="sd">        &gt;&gt;&gt; inv = read_inventory()</span>
+<span class="sd">        &gt;&gt;&gt; inv.plot_response(0.001, station=&quot;RJOB&quot;)  # doctest: +SKIP</span>
+
+<span class="sd">        .. plot::</span>
+
+<span class="sd">            from obspy import read_inventory</span>
+<span class="sd">            inv = read_inventory()</span>
+<span class="sd">            inv.plot_response(0.001, station=&quot;RJOB&quot;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+        <span class="k">if</span> <span class="n">axes</span><span class="p">:</span>
+            <span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="n">axes</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">figure</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+            <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+            <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+
+        <span class="n">matching</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">network</span><span class="o">=</span><span class="n">network</span><span class="p">,</span> <span class="n">station</span><span class="o">=</span><span class="n">station</span><span class="p">,</span>
+                               <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
+                               <span class="n">starttime</span><span class="o">=</span><span class="n">starttime</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="n">endtime</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">matching</span><span class="o">.</span><span class="n">networks</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">sta</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">stations</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">cha</span> <span class="ow">in</span> <span class="n">sta</span><span class="o">.</span><span class="n">channels</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">cha</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">min_freq</span><span class="o">=</span><span class="n">min_freq</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">,</span>
+                                 <span class="n">axes</span><span class="o">=</span><span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">),</span>
+                                 <span class="n">label</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">net</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">sta</span><span class="o">.</span><span class="n">code</span><span class="p">,</span>
+                                                 <span class="n">cha</span><span class="o">.</span><span class="n">location_code</span><span class="p">,</span> <span class="n">cha</span><span class="o">.</span><span class="n">code</span><span class="p">)),</span>
+                                 <span class="n">unwrap_phase</span><span class="o">=</span><span class="n">unwrap_phase</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                 <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="n">ZeroSamplingRate</span><span class="p">:</span>
+                        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Skipping plot of channel with zero &quot;</span>
+                               <span class="s2">&quot;sampling rate:</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">cha</span><span class="p">),</span> <span class="ne">UserWarning</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="n">ObsPyException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Skipping plot of channel (</span><span class="si">%s</span><span class="s2">):</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span>
+                        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">cha</span><span class="p">)),</span> <span class="ne">UserWarning</span><span class="p">)</span>
+
+        <span class="c1"># final adjustments to plot if we created the figure in here</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">axes</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">obspy.core.inventory.response</span> <span class="k">import</span> <span class="n">_adjust_bode_plot_figure</span>
+            <span class="n">_adjust_bode_plot_figure</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">outfile</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">outfile</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">fig</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

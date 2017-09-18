@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.taup.velocity_model &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.taup.velocity_model</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Velocity model class.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">obspy.core.util.decorator</span> <span class="k">import</span> <span class="n">deprecated</span>
+<span class="kn">from</span> <span class="nn">.velocity_layer</span> <span class="k">import</span> <span class="n">VelocityLayer</span><span class="p">,</span> <span class="n">evaluate_velocity_at</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">_DEFAULT_VALUES</span>
+
+
+<div class="viewcode-block" id="VelocityModel"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.velocity_model.VelocityModel.html#obspy.taup.velocity_model.VelocityModel">[docs]</a><span class="k">class</span> <span class="nc">VelocityModel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="VelocityModel.__init__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.velocity_model.VelocityModel.__init__.html#obspy.taup.velocity_model.VelocityModel.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">radius_of_planet</span><span class="p">,</span> <span class="n">min_radius</span><span class="p">,</span> <span class="n">max_radius</span><span class="p">,</span>
+                 <span class="n">moho_depth</span><span class="p">,</span> <span class="n">cmb_depth</span><span class="p">,</span> <span class="n">iocb_depth</span><span class="p">,</span> <span class="n">is_spherical</span><span class="p">,</span>
+                 <span class="n">layers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Object for storing a seismic planet model.</span>
+
+<span class="sd">        :type model_name: str</span>
+<span class="sd">        :param model_name: name of the velocity model.</span>
+<span class="sd">        :type radius_of_planet: float</span>
+<span class="sd">        :param radius_of_planet: reference radius (km), usually radius of the</span>
+<span class="sd">            planet.</span>
+<span class="sd">        :type min_radius: float</span>
+<span class="sd">        :param min_radius: Minimum radius of the model (km).</span>
+<span class="sd">        :type max_radius: float</span>
+<span class="sd">        :param max_radius: Maximum radius of the model (km).</span>
+<span class="sd">        :type moho_depth: float</span>
+<span class="sd">        :param moho_depth: Depth (km) of the Moho. It can be input from</span>
+<span class="sd">            velocity model (``*.nd``) or should be explicitly set. For phase</span>
+<span class="sd">            naming, the tau model will choose the closest first order</span>
+<span class="sd">            discontinuity.</span>
+<span class="sd">        :type cmb_depth: float</span>
+<span class="sd">        :param cmb_depth: Depth (km) of the CMB (core mantle boundary). It can</span>
+<span class="sd">            be input from velocity model (``*.nd``) or should be explicitly</span>
+<span class="sd">            set.</span>
+<span class="sd">        :type iocb_depth: float</span>
+<span class="sd">        :param iocb_depth: Depth (km) of the IOCB (inner core-outer core</span>
+<span class="sd">            boundary). It can be input from velocity model (``*.nd``) or should</span>
+<span class="sd">            be explicitly set.</span>
+<span class="sd">        :type is_spherical: bool</span>
+<span class="sd">        :param is_spherical: Is this a spherical model? Defaults to true.</span>
+<span class="sd">        :type layers: list</span>
+<span class="sd">        :param layers: The layers of the model.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_name</span> <span class="o">=</span> <span class="n">model_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius_of_planet</span> <span class="o">=</span> <span class="n">radius_of_planet</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moho_depth</span> <span class="o">=</span> <span class="n">moho_depth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cmb_depth</span> <span class="o">=</span> <span class="n">cmb_depth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iocb_depth</span> <span class="o">=</span> <span class="n">iocb_depth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_radius</span> <span class="o">=</span> <span class="n">min_radius</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_radius</span> <span class="o">=</span> <span class="n">max_radius</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_spherical</span> <span class="o">=</span> <span class="n">is_spherical</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">layers</span> <span class="k">if</span> <span class="n">layers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[],</span>
+                               <span class="n">dtype</span><span class="o">=</span><span class="n">VelocityLayer</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VelocityModel.__len__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.velocity_model.VelocityModel.__len__.html#obspy.taup.velocity_model.VelocityModel.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VelocityModel.is_discontinuity"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.velocity_model.VelocityModel.is_discontinuity.html#obspy.taup.velocity_model.VelocityModel.is_discontinuity">[docs]</a>    <span class="k">def</span> <span class="nf">is_discontinuity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_discontinuity_depths</span><span class="p">()</span> <span class="o">==</span> <span class="n">depth</span><span class="p">)</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;getDisconDepths&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;get_discontinuity_depths&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">getDisconDepths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;getDisconDepths&#39; has been renamed to</span>
+<span class="sd">        &#39;get_discontinuity_depths&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_discontinuity_depths</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VelocityModel.get_discontinuity_depths"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.velocity_model.VelocityModel.get_discontinuity_depths.html#obspy.taup.velocity_model.VelocityModel.get_discontinuity_depths">[docs]</a>    <span class="k">def</span> <span class="nf">get_discontinuity_depths</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the depths of discontinuities within the velocity model.</span>
+
+<span class="sd">        :rtype: :class:`~numpy.ndarray`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">above</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">below</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span>
+            <span class="n">above</span><span class="p">[</span><span class="s1">&#39;bot_p_velocity&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">below</span><span class="p">[</span><span class="s1">&#39;top_p_velocity&#39;</span><span class="p">],</span>
+            <span class="n">above</span><span class="p">[</span><span class="s1">&#39;bot_s_velocity&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">below</span><span class="p">[</span><span class="s1">&#39;top_s_velocity&#39;</span><span class="p">])</span>
+
+        <span class="n">discontinuities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">mask</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">discontinuities</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span>
+        <span class="n">discontinuities</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">above</span><span class="p">[</span><span class="n">mask</span><span class="p">][</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span>
+        <span class="n">discontinuities</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">discontinuities</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;layerNumberAbove&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;layer_number_above&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">layerNumberAbove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;layerNumberAbove&#39; has been renamed to</span>
+<span class="sd">        &#39;layer_number_above&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_number_above</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VelocityModel.layer_number_above"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.velocity_model.VelocityModel.layer_number_above.html#obspy.taup.velocity_model.VelocityModel.layer_number_above">[docs]</a>    <span class="k">def</span> <span class="nf">layer_number_above</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Find the layer containing the given depth(s).</span>
+
+<span class="sd">        Note this returns the upper layer if the depth happens to be at a layer</span>
+<span class="sd">        boundary.</span>
+
+<span class="sd">        .. seealso:: :meth:`layer_number_below`</span>
+
+<span class="sd">        :param depth: The depth to find, in km.</span>
+<span class="sd">        :type depth: :class:`float` or :class:`~numpy.ndarray`</span>
+
+<span class="sd">        :returns: The layer number for the specified depth.</span>
+<span class="sd">        :rtype: :class:`int` or :class:`~numpy.ndarray` (dtype = :class:`int`,</span>
+<span class="sd">            shape equivalent to ``depth``)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">depth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span> <span class="o">&lt;</span> <span class="n">depth</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span>
+            <span class="n">depth</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:])</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">layer</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">layer</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span><span class="s2">&quot;No such layer.&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;layerNumberBelow&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;layer_number_below&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">layerNumberBelow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;layerNumberBelow&#39; has been renamed to</span>
+<span class="sd">        &#39;layer_number_below&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_number_below</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VelocityModel.layer_number_below"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.velocity_model.VelocityModel.layer_number_below.html#obspy.taup.velocity_model.VelocityModel.layer_number_below">[docs]</a>    <span class="k">def</span> <span class="nf">layer_number_below</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Find the layer containing the given depth(s).</span>
+
+<span class="sd">        Note this returns the lower layer if the depth happens to be at a layer</span>
+<span class="sd">        boundary.</span>
+
+<span class="sd">        .. seealso:: :meth:`layer_number_above`</span>
+
+<span class="sd">        :param depth: The depth to find, in km.</span>
+<span class="sd">        :type depth: :class:`float` or :class:`~numpy.ndarray`</span>
+
+<span class="sd">        :returns: The layer number for the specified depth.</span>
+<span class="sd">        :rtype: :class:`int` or :class:`~numpy.ndarray` (dtype = :class:`int`,</span>
+<span class="sd">            shape equivalent to ``depth``)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">depth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span> <span class="o">&lt;=</span> <span class="n">depth</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span>
+            <span class="n">depth</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:])</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">layer</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">layer</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span><span class="s2">&quot;No such layer.&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;evaluateAbove&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;evaluate_above&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">evaluateAbove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;evaluateAbove&#39; has been renamed to</span>
+<span class="sd">        &#39;evaluate_above&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_above</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;evaluateBelow&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;evaluate_below&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">evaluateBelow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;evaluateBelow&#39; has been renamed to</span>
+<span class="sd">        &#39;evaluate_below&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_below</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VelocityModel.evaluate_above"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.velocity_model.VelocityModel.evaluate_above.html#obspy.taup.velocity_model.VelocityModel.evaluate_above">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_above</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">prop</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the value of the given material property at the given depth(s).</span>
+
+<span class="sd">        Note this returns the value at the bottom of the upper layer if the</span>
+<span class="sd">        depth happens to be at a layer boundary.</span>
+
+<span class="sd">        .. seealso:: :meth:`evaluate_below`</span>
+
+<span class="sd">        :param depth: The depth to find, in km.</span>
+<span class="sd">        :type depth: :class:`float` or :class:`~numpy.ndarray`</span>
+<span class="sd">        :param prop: The material property to evaluate. One of:</span>
+
+<span class="sd">            * ``p``</span>
+<span class="sd">                Compressional (P) velocity (km/s)</span>
+<span class="sd">            * ``s``</span>
+<span class="sd">                Shear (S) velocity (km/s)</span>
+<span class="sd">            * ``r`` or ``d``</span>
+<span class="sd">                Density (in g/cm^3)</span>
+<span class="sd">        :type prop: str</span>
+
+<span class="sd">        :returns: The value of the given material property</span>
+<span class="sd">        :rtype: :class:`float` or :class:`~numpy.ndarray` (dtype =</span>
+<span class="sd">            :class:`float`, shape equivalent to ``depth``)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_number_above</span><span class="p">(</span><span class="n">depth</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">evaluate_velocity_at</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">prop</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VelocityModel.evaluate_below"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.velocity_model.VelocityModel.evaluate_below.html#obspy.taup.velocity_model.VelocityModel.evaluate_below">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_below</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">prop</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the value of the given material property at the given depth(s).</span>
+
+<span class="sd">        Note this returns the value at the top of the lower layer if the depth</span>
+<span class="sd">        happens to be at a layer boundary.</span>
+
+<span class="sd">        .. seealso:: :meth:`evaluate_below`</span>
+
+<span class="sd">        :param depth: The depth to find, in km.</span>
+<span class="sd">        :type depth: :class:`float` or :class:`~numpy.ndarray`</span>
+<span class="sd">        :param prop: The material property to evaluate. One of:</span>
+
+<span class="sd">            * ``p``</span>
+<span class="sd">                Compressional (P) velocity (km/s)</span>
+<span class="sd">            * ``s``</span>
+<span class="sd">                Shear (S) velocity (km/s)</span>
+<span class="sd">            * ``r`` or ``d``</span>
+<span class="sd">                Density (in g/cm^3)</span>
+<span class="sd">        :type prop: str</span>
+
+<span class="sd">        :returns: the value of the given material property</span>
+<span class="sd">        :rtype: :class:`float` or :class:`~numpy.ndarray` (dtype =</span>
+<span class="sd">            :class:`float`, shape equivalent to ``depth``)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_number_below</span><span class="p">(</span><span class="n">depth</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">evaluate_velocity_at</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">prop</span><span class="p">)</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;depthAtTop&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;depth_at_top&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">depthAtTop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;depthAtTop&#39; has been renamed to</span>
+<span class="sd">        &#39;depth_at_top&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">depth_at_top</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VelocityModel.depth_at_top"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.velocity_model.VelocityModel.depth_at_top.html#obspy.taup.velocity_model.VelocityModel.depth_at_top">[docs]</a>    <span class="k">def</span> <span class="nf">depth_at_top</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the depth at the top of the given layer.</span>
+
+<span class="sd">        .. seealso:: :meth:`depth_at_bottom`</span>
+
+<span class="sd">        :param layer: The layer number</span>
+<span class="sd">        :type layer: :class:`int` or :class:`~numpy.ndarray`</span>
+
+<span class="sd">        :returns: The depth of the top, in km.</span>
+<span class="sd">        :rtype: :class:`float` or :class:`~numpy.ndarray` (dtype =</span>
+<span class="sd">            :class:`float`, shape equivalent to ``layer``)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">layer</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;depthAtBottom&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;depth_at_bottom&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">depthAtBottom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;depthAtBottom&#39; has been renamed to</span>
+<span class="sd">        &#39;depth_at_bottom&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">depth_at_bottom</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VelocityModel.depth_at_bottom"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.velocity_model.VelocityModel.depth_at_bottom.html#obspy.taup.velocity_model.VelocityModel.depth_at_bottom">[docs]</a>    <span class="k">def</span> <span class="nf">depth_at_bottom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the depth at the bottom of the given layer.</span>
+
+<span class="sd">        .. seealso:: :meth:`depth_at_top`</span>
+
+<span class="sd">        :param layer: The layer number</span>
+<span class="sd">        :type layer: :class:`int` or :class:`~numpy.ndarray`</span>
+
+<span class="sd">        :returns: The depth of the bottom, in km.</span>
+<span class="sd">        :rtype: :class:`float` or :class:`~numpy.ndarray` (dtype =</span>
+<span class="sd">            :class:`float`, shape equivalent to ``layer``)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">layer</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="VelocityModel.validate"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.velocity_model.VelocityModel.validate.html#obspy.taup.velocity_model.VelocityModel.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform internal consistency checks on the velocity model.</span>
+
+<span class="sd">        :returns: True if the model is consistent.</span>
+<span class="sd">        :raises ValueError: If the model is inconsistent.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Is radius_of_planet positive?</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius_of_planet</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Radius of the planet is not positive: </span><span class="si">%f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">radius_of_planet</span><span class="p">,</span> <span class="p">))</span>
+
+        <span class="c1"># Is moho_depth non-negative?</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moho_depth</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;moho_depth is not non-negative: </span><span class="si">%f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">moho_depth</span><span class="p">,</span> <span class="p">))</span>
+
+        <span class="c1"># Is cmb_depth &gt;= moho_depth?</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmb_depth</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">moho_depth</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cmb_depth (</span><span class="si">%f</span><span class="s2">) &lt; moho_depth (</span><span class="si">%f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cmb_depth</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">moho_depth</span><span class="p">))</span>
+
+        <span class="c1"># Is cmb_depth positive?</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmb_depth</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cmb_depth is not positive: </span><span class="si">%f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cmb_depth</span><span class="p">,</span> <span class="p">))</span>
+
+        <span class="c1"># Is iocb_depth &gt;= cmb_depth?</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iocb_depth</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmb_depth</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;iocb_depth (</span><span class="si">%f</span><span class="s2">) &lt; cmb_depth (</span><span class="si">%f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">iocb_depth</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cmb_depth</span><span class="p">))</span>
+
+        <span class="c1"># Is iocb_depth positive?</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iocb_depth</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;iocb_depth is not positive: </span><span class="si">%f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">iocb_depth</span><span class="p">,</span> <span class="p">))</span>
+
+        <span class="c1"># Is min_radius non-negative?</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_radius</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;min_radius is not non-negative: </span><span class="si">%f</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">min_radius</span><span class="p">,</span> <span class="p">))</span>
+
+        <span class="c1"># Is max_radius non-negative?</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_radius</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;max_radius is not positive: </span><span class="si">%f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">max_radius</span><span class="p">,</span> <span class="p">))</span>
+
+        <span class="c1"># Is max_radius &gt; min_radius?</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_radius</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_radius</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;max_radius (</span><span class="si">%f</span><span class="s2">) &lt;= min_radius (</span><span class="si">%f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">max_radius</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">min_radius</span><span class="p">))</span>
+
+        <span class="c1"># Check for gaps</span>
+        <span class="n">gaps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">1</span><span class="p">:][</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span>
+        <span class="n">gaps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">gaps</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">gaps</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;There is a gap in the velocity model between layer(s) </span><span class="si">%s</span><span class="s2"> &quot;</span>
+                   <span class="s2">&quot;and </span><span class="si">%s</span><span class="s2">.</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">gaps</span><span class="p">,</span> <span class="n">gaps</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">gaps</span><span class="p">]))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="c1"># Check for zero thickness</span>
+        <span class="n">probs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span>
+        <span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">probs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">probs</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;There is a zero thickness layer in the velocity model at &quot;</span>
+                   <span class="s2">&quot;layer(s) </span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">probs</span><span class="p">]))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="c1"># Check for negative P velocity</span>
+        <span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_p_velocity&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">,</span>
+                              <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_p_velocity&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">probs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">probs</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;There is a negative P velocity layer in the velocity &quot;</span>
+                   <span class="s2">&quot;model at layer(s) </span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">probs</span><span class="p">]))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="c1"># Check for negative S velocity</span>
+        <span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_s_velocity&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">,</span>
+                              <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_s_velocity&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">probs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">probs</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;There is a negative S velocity layer in the velocity &quot;</span>
+                   <span class="s2">&quot;model at layer(s) </span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">probs</span><span class="p">]))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="c1"># Check for zero P velocity</span>
+        <span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_p_velocity&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">,</span>
+                           <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_p_velocity&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_p_velocity&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">,</span>
+                           <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_p_velocity&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">))</span>
+        <span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">probs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">probs</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;There is a layer that goes to zero P velocity (top or &quot;</span>
+                   <span class="s2">&quot;bottom) without a discontinuity in the velocity model at &quot;</span>
+                   <span class="s2">&quot;layer(s) </span><span class="si">%s</span><span class="se">\n</span><span class="s2">This would cause a divide by zero within &quot;</span>
+                   <span class="s2">&quot;this depth range. Try making the velocity small, followed &quot;</span>
+                   <span class="s2">&quot;by a discontinuity to zero velocity.</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">probs</span><span class="p">]))</span>
+
+        <span class="c1"># Check for negative S velocity</span>
+        <span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_s_velocity&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">,</span>
+                           <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_s_velocity&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_s_velocity&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">,</span>
+                           <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_s_velocity&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">))</span>
+        <span class="c1"># This warning will always pop up for the top layer even</span>
+        <span class="c1">#  in IASP91, therefore ignore it.</span>
+        <span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">probs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">probs</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;There is a layer that goes to zero S velocity (top or &quot;</span>
+                   <span class="s2">&quot;bottom) without a discontinuity in the velocity model at &quot;</span>
+                   <span class="s2">&quot;layer(s) </span><span class="si">%s</span><span class="se">\n</span><span class="s2">This would cause a divide by zero within &quot;</span>
+                   <span class="s2">&quot;this depth range. Try making the velocity small, followed &quot;</span>
+                   <span class="s2">&quot;by a discontinuity to zero velocity.</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">probs</span><span class="p">]))</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="VelocityModel.__str__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.velocity_model.VelocityModel.__str__.html#obspy.taup.velocity_model.VelocityModel.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="s2">&quot;model_name=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> \
+               <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> radius_of_planet=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">radius_of_planet</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> moho_depth=&quot;</span> <span class="o">+</span> \
+            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">moho_depth</span><span class="p">)</span> <span class="o">+</span> \
+            <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> cmb_depth=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cmb_depth</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> iocb_depth=&quot;</span> <span class="o">+</span> \
+            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iocb_depth</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> min_radius=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">min_radius</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> max_radius=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_radius</span><span class="p">)</span> <span class="o">+</span> \
+            <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> spherical=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">is_spherical</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">desc</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;readVelocityFile&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;read_velocity_file&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">readVelocityFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;readVelocityFile&#39; has been renamed to</span>
+<span class="sd">        &#39;read_velocity_file&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_velocity_file</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VelocityModel.read_velocity_file"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.velocity_model.VelocityModel.read_velocity_file.html#obspy.taup.velocity_model.VelocityModel.read_velocity_file">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">read_velocity_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read in a velocity file.</span>
+
+<span class="sd">        The type of file is determined from the file name (changed from the</span>
+<span class="sd">        Java!).</span>
+
+<span class="sd">        :param filename: The name of the file to read.</span>
+<span class="sd">        :type filename: str</span>
+
+<span class="sd">        :raises NotImplementedError: If the file extension is ``.nd``.</span>
+<span class="sd">        :raises ValueError: If the file extension is not ``.tvel``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.nd&quot;</span><span class="p">):</span>
+            <span class="n">v_mod</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">read_nd_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.tvel&quot;</span><span class="p">):</span>
+            <span class="n">v_mod</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">read_tvel_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;File type could not be determined, please &quot;</span>
+                             <span class="s2">&quot;rename your file to end with .tvel or .nd&quot;</span><span class="p">)</span>
+
+        <span class="n">v_mod</span><span class="o">.</span><span class="n">fix_discontinuity_depths</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">v_mod</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;readTVelFile&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;read_tvel_file&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">readTVelFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;readTVelFile&#39; has been renamed to</span>
+<span class="sd">        &#39;read_tvel_file&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_tvel_file</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VelocityModel.read_tvel_file"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.velocity_model.VelocityModel.read_tvel_file.html#obspy.taup.velocity_model.VelocityModel.read_tvel_file">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">read_tvel_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read in a velocity model from a &quot;tvel&quot; ASCII text file.</span>
+
+<span class="sd">        The name of the model file for model &quot;modelname&quot; should be</span>
+<span class="sd">        &quot;modelname.tvel&quot;.  The format of the file is::</span>
+
+<span class="sd">            comment line - generally info about the P velocity model</span>
+<span class="sd">            comment line - generally info about the S velocity model</span>
+<span class="sd">            depth pVel sVel Density</span>
+<span class="sd">            depth pVel sVel Density</span>
+
+<span class="sd">        The velocities are assumed to be linear between sample points. Because</span>
+<span class="sd">        this type of model file doesn&#39;t give complete information we make the</span>
+<span class="sd">        following assumptions:</span>
+
+<span class="sd">        * ``modelname`` - from the filename, with &quot;.tvel&quot; dropped if present</span>
+<span class="sd">        * ``radius_of_planet`` - the largest depth in the model</span>
+<span class="sd">        * ``meanDensity`` - 5517.0</span>
+<span class="sd">        * ``G`` - 6.67e-11</span>
+
+<span class="sd">        Comments using ``#`` are also allowed.</span>
+
+<span class="sd">        :param filename: The name of the file to read.</span>
+<span class="sd">        :type filename: str</span>
+
+<span class="sd">        :raises ValueError: If model file is in error.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Read all lines in the file. Each Layer needs top and bottom values,</span>
+        <span class="c1"># i.e. info from two lines.</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">skip_header</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="s1">&#39;#&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Check if density is present.</span>
+        <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Top density not specified.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Check that relative speed are sane.</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">mask</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;S velocity is greater than the P velocity</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
+                <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">mask</span><span class="p">]))</span>
+
+        <span class="n">layers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">VelocityLayer</span><span class="p">)</span>
+
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_p_velocity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_p_velocity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_s_velocity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_s_velocity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">2</span><span class="p">]</span>
+
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_density&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_density&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">3</span><span class="p">]</span>
+
+        <span class="c1"># We do not at present support varying attenuation</span>
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_qp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">_DEFAULT_VALUES</span><span class="p">[</span><span class="s2">&quot;qp&quot;</span><span class="p">])</span>
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_qp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">_DEFAULT_VALUES</span><span class="p">[</span><span class="s2">&quot;qp&quot;</span><span class="p">])</span>
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_qs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">_DEFAULT_VALUES</span><span class="p">[</span><span class="s2">&quot;qs&quot;</span><span class="p">])</span>
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_qs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">_DEFAULT_VALUES</span><span class="p">[</span><span class="s2">&quot;qs&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Don&#39;t use zero thickness layers; first order discontinuities are</span>
+        <span class="c1"># taken care of by storing top and bottom depths.</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span>
+        <span class="n">layers</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">]</span>
+
+        <span class="c1"># tvel files cannot have named discontinuities so it is really only</span>
+        <span class="c1"># useful for Earth models. The exact radius is derived from the tvel</span>
+        <span class="c1"># file, the depth of discontinuities are fixed.</span>
+        <span class="n">min_radius</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">max_radius</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">radius_of_planet</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">model_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">VelocityModel</span><span class="p">(</span>
+            <span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
+            <span class="n">radius_of_planet</span><span class="o">=</span><span class="n">radius_of_planet</span><span class="p">,</span>
+            <span class="n">min_radius</span><span class="o">=</span><span class="n">min_radius</span><span class="p">,</span>
+            <span class="n">max_radius</span><span class="o">=</span><span class="n">max_radius</span><span class="p">,</span>
+            <span class="n">moho_depth</span><span class="o">=</span><span class="n">_DEFAULT_VALUES</span><span class="p">[</span><span class="s2">&quot;default_moho&quot;</span><span class="p">],</span>
+            <span class="n">cmb_depth</span><span class="o">=</span><span class="n">_DEFAULT_VALUES</span><span class="p">[</span><span class="s2">&quot;default_cmb&quot;</span><span class="p">],</span>
+            <span class="n">iocb_depth</span><span class="o">=</span><span class="n">_DEFAULT_VALUES</span><span class="p">[</span><span class="s2">&quot;default_iocb&quot;</span><span class="p">],</span>
+            <span class="n">is_spherical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">layers</span><span class="o">=</span><span class="n">layers</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VelocityModel.read_nd_file"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.velocity_model.VelocityModel.read_nd_file.html#obspy.taup.velocity_model.VelocityModel.read_nd_file">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">read_nd_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read in a velocity model from a &quot;nd&quot; ASCII text file.</span>
+
+<span class="sd">        This method reads in a velocity model from a &quot;nd&quot; ASCII text file, the</span>
+<span class="sd">        format used by Xgbm. The name of the model file for model &quot;modelname&quot;</span>
+<span class="sd">        should be &quot;modelname.nd&quot;.</span>
+
+<span class="sd">        The format of the file is:</span>
+
+<span class="sd">        depth pVel sVel Density Qp Qs</span>
+
+<span class="sd">        depth pVel sVel Density Qp Qs</span>
+
+<span class="sd">        . . . with each major boundary separated with a line with &quot;mantle&quot;,</span>
+<span class="sd">        &quot;outer-core&quot; or &quot;inner-core&quot;. &quot;moho&quot;, &quot;cmb&quot; and &quot;icocb&quot; are allowed</span>
+<span class="sd">        as synonyms respectively.</span>
+
+<span class="sd">        This feature makes phase interpretation much easier to</span>
+<span class="sd">        code. Also, as they are not needed for travel time calculations, the</span>
+<span class="sd">        density, Qp and Qs may be omitted.</span>
+
+<span class="sd">        The velocities are assumed to be linear between sample points. Because</span>
+<span class="sd">        this type of model file doesn&#39;t give complete information we make the</span>
+<span class="sd">        following assumptions:</span>
+
+<span class="sd">        modelname - from the filename, with &quot;.nd&quot; dropped, if present</span>
+
+<span class="sd">        radius_of_planet - the largest depth in the model</span>
+
+<span class="sd">        Comments are allowed. # signifies that the rest of the</span>
+<span class="sd">        line is a comment.  If # is the first character in a line, the line is</span>
+<span class="sd">        ignored</span>
+
+<span class="sd">        :param filename: The name of the file to read.</span>
+<span class="sd">        :type filename: str</span>
+
+<span class="sd">        :raises ValueError: If model file is in error.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">moho_depth</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">cmb_depth</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">iocb_depth</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Read all lines from file to enable identifying top and bottom values</span>
+        <span class="c1"># for each layer and find named discontinuities if present</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">modfile</span><span class="p">:</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">modfile</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+
+        <span class="c1"># Loop through to fill data array and locate named discontinuities</span>
+        <span class="n">ii</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="c1"># Strip off anything after &#39;#&#39;</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="p">:</span>  <span class="c1"># Skip empty or comment lines</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">ii</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                    <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="n">ii</span> <span class="o">=</span> <span class="n">ii</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># Named discontinuity</span>
+                    <span class="n">dc_name</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">dc_name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;mantle&quot;</span><span class="p">,</span> <span class="s2">&quot;moho&quot;</span><span class="p">):</span>
+                        <span class="n">moho_depth</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">ii</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+                    <span class="k">elif</span> <span class="n">dc_name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;outer-core&quot;</span><span class="p">,</span> <span class="s2">&quot;cmb&quot;</span><span class="p">):</span>
+                        <span class="n">cmb_depth</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">ii</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+                    <span class="k">elif</span> <span class="n">dc_name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;inner-core&quot;</span><span class="p">,</span> <span class="s2">&quot;iocb&quot;</span><span class="p">):</span>
+                        <span class="n">iocb_depth</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">ii</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unrecognized discontinuity name: &quot;</span> <span class="o">+</span>
+                                         <span class="nb">str</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                        <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">row</span><span class="p">)))</span>
+                    <span class="n">ii</span> <span class="o">=</span> <span class="n">ii</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">moho_depth</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Moho depth is not specified in model file!&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cmb_depth</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;CMB depth is not specified in model file!&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">iocb_depth</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;IOCB depth is not specified in model file!&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Check if density is present.</span>
+        <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Top density not specified.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Check that relative speed are sane.</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">mask</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;S velocity is greater than the P velocity</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
+                <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">mask</span><span class="p">]))</span>
+
+        <span class="n">layers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">VelocityLayer</span><span class="p">)</span>
+
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_p_velocity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_p_velocity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_s_velocity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_s_velocity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">2</span><span class="p">]</span>
+
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_density&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_density&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">3</span><span class="p">]</span>
+
+        <span class="c1"># We do not at present support varying attenuation</span>
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_qp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">_DEFAULT_VALUES</span><span class="p">[</span><span class="s2">&quot;qp&quot;</span><span class="p">])</span>
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_qp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">_DEFAULT_VALUES</span><span class="p">[</span><span class="s2">&quot;qp&quot;</span><span class="p">])</span>
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_qs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">_DEFAULT_VALUES</span><span class="p">[</span><span class="s2">&quot;qs&quot;</span><span class="p">])</span>
+        <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_qs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">_DEFAULT_VALUES</span><span class="p">[</span><span class="s2">&quot;qs&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Don&#39;t use zero thickness layers; first order discontinuities are</span>
+        <span class="c1"># taken care of by storing top and bottom depths.</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;top_depth&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span>
+        <span class="n">layers</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">]</span>
+
+        <span class="n">radius_of_planet</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">max_radius</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">model_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># I assume that this is a whole planet model</span>
+        <span class="c1"># so the maximum depth ==  maximum radius == planet radius.</span>
+        <span class="k">return</span> <span class="n">VelocityModel</span><span class="p">(</span>
+            <span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
+            <span class="n">radius_of_planet</span><span class="o">=</span><span class="n">radius_of_planet</span><span class="p">,</span>
+            <span class="n">min_radius</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_radius</span><span class="o">=</span><span class="n">max_radius</span><span class="p">,</span>
+            <span class="n">moho_depth</span><span class="o">=</span><span class="n">moho_depth</span><span class="p">,</span> <span class="n">cmb_depth</span><span class="o">=</span><span class="n">cmb_depth</span><span class="p">,</span> <span class="n">iocb_depth</span><span class="o">=</span><span class="n">iocb_depth</span><span class="p">,</span>
+            <span class="n">is_spherical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layers</span><span class="o">=</span><span class="n">layers</span><span class="p">)</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;fixDisconDepths&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;fix_discontinuity_depths&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">fixDisconDepths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;fixDisconDepths&#39; has been renamed to</span>
+<span class="sd">        &#39;fix_discontinuity_depths&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fix_discontinuity_depths</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VelocityModel.fix_discontinuity_depths"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.velocity_model.VelocityModel.fix_discontinuity_depths.html#obspy.taup.velocity_model.VelocityModel.fix_discontinuity_depths">[docs]</a>    <span class="k">def</span> <span class="nf">fix_discontinuity_depths</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reset depths of major discontinuities.</span>
+
+<span class="sd">        The depths are set to match those existing in the input velocity model.</span>
+<span class="sd">        The initial values are set such that if there is no discontinuity</span>
+<span class="sd">        within the top 100 km then the Moho is set to 0.0. Similarly, if there</span>
+<span class="sd">        are no discontinuities at all then the CMB is set to the radius of the</span>
+<span class="sd">        planet. Similarly for the IOCB, except it must be a fluid to solid</span>
+<span class="sd">        boundary and deeper than 100 km to avoid problems with shallower fluid</span>
+<span class="sd">        layers, e.g., oceans.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">moho_min</span> <span class="o">=</span> <span class="mf">65.0</span>
+        <span class="n">cmb_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius_of_planet</span>
+        <span class="n">iocb_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius_of_planet</span> <span class="o">-</span> <span class="mf">100.0</span>
+
+        <span class="n">change_made</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">temp_moho_depth</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">temp_cmb_depth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius_of_planet</span>
+        <span class="n">temp_iocb_depth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius_of_planet</span>
+
+        <span class="n">above</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">below</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="c1"># Only look for discontinuities:</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span>
+            <span class="n">above</span><span class="p">[</span><span class="s1">&#39;bot_p_velocity&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">below</span><span class="p">[</span><span class="s1">&#39;top_p_velocity&#39;</span><span class="p">],</span>
+            <span class="n">above</span><span class="p">[</span><span class="s1">&#39;bot_s_velocity&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">below</span><span class="p">[</span><span class="s1">&#39;top_s_velocity&#39;</span><span class="p">])</span>
+
+        <span class="c1"># Find discontinuity closest to current Moho</span>
+        <span class="n">moho_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">moho_depth</span> <span class="o">-</span> <span class="n">above</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">])</span>
+        <span class="n">moho_diff</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">moho_min</span>
+        <span class="n">moho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">moho_diff</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">moho_diff</span><span class="p">[</span><span class="n">moho</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">moho_min</span><span class="p">:</span>
+            <span class="n">temp_moho_depth</span> <span class="o">=</span> <span class="n">above</span><span class="p">[</span><span class="n">moho</span><span class="p">][</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Find discontinuity closest to current CMB</span>
+        <span class="n">cmb_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cmb_depth</span> <span class="o">-</span> <span class="n">above</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">])</span>
+        <span class="n">cmb_diff</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmb_min</span>
+        <span class="n">cmb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">cmb_diff</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cmb_diff</span><span class="p">[</span><span class="n">cmb</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">cmb_min</span><span class="p">:</span>
+            <span class="n">temp_cmb_depth</span> <span class="o">=</span> <span class="n">above</span><span class="p">[</span><span class="n">cmb</span><span class="p">][</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Find discontinuity closest to current IOCB</span>
+        <span class="n">iocb_diff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iocb_depth</span> <span class="o">-</span> <span class="n">above</span><span class="p">[</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span>
+        <span class="n">iocb_diff</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">iocb_min</span>
+        <span class="c1"># IOCB must transition from S==0 to S!=0</span>
+        <span class="n">iocb_diff</span><span class="p">[</span><span class="n">above</span><span class="p">[</span><span class="s1">&#39;bot_s_velocity&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">]</span> <span class="o">=</span> <span class="n">iocb_min</span>
+        <span class="n">iocb_diff</span><span class="p">[</span><span class="n">below</span><span class="p">[</span><span class="s1">&#39;top_s_velocity&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">]</span> <span class="o">=</span> <span class="n">iocb_min</span>
+        <span class="n">iocb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">iocb_diff</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">iocb_diff</span><span class="p">[</span><span class="n">iocb</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">iocb_min</span><span class="p">:</span>
+            <span class="n">temp_iocb_depth</span> <span class="o">=</span> <span class="n">above</span><span class="p">[</span><span class="n">iocb</span><span class="p">][</span><span class="s1">&#39;bot_depth&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moho_depth</span> <span class="o">!=</span> <span class="n">temp_moho_depth</span> \
+                <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmb_depth</span> <span class="o">!=</span> <span class="n">temp_cmb_depth</span> \
+                <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">iocb_depth</span> <span class="o">!=</span> <span class="n">temp_iocb_depth</span><span class="p">:</span>
+            <span class="n">change_made</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moho_depth</span> <span class="o">=</span> <span class="n">temp_moho_depth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cmb_depth</span> <span class="o">=</span> <span class="n">temp_cmb_depth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iocb_depth</span> <span class="o">=</span> <span class="p">(</span><span class="n">temp_iocb_depth</span>
+                           <span class="k">if</span> <span class="n">temp_cmb_depth</span> <span class="o">!=</span> <span class="n">temp_iocb_depth</span>
+                           <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius_of_planet</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">change_made</span></div></div>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

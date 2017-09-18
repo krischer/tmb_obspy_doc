@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.clients.fdsn.mass_downloader.download_helpers &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.clients.fdsn.mass_downloader.download_helpers</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Helpers for the mass downloader.</span>
+
+<span class="sd">Intended to simplify and stabilize the logic of the mass downloader and make</span>
+<span class="sd">it understandable in the first place.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    Lion Krischer (krischer@geophysik.uni-muenchen.de), 2014-2015</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">multiprocessing.pool</span> <span class="k">import</span> <span class="n">ThreadPool</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">timeit</span>
+
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">ifilterfalse</span> <span class="k">as</span> <span class="n">filterfalse</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">filterfalse</span>
+
+<span class="kn">from</span> <span class="nn">lxml.etree</span> <span class="k">import</span> <span class="n">XMLSyntaxError</span>
+
+<span class="kn">import</span> <span class="nn">obspy</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util</span> <span class="k">import</span> <span class="n">Enum</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">utils</span>
+
+<span class="c1"># The current status of an entity.</span>
+<span class="n">STATUS</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">([</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="s2">&quot;needs_downloading&quot;</span><span class="p">,</span> <span class="s2">&quot;downloaded&quot;</span><span class="p">,</span> <span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="s2">&quot;exists&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;download_failed&quot;</span><span class="p">,</span> <span class="s2">&quot;download_rejected&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;download_partially_failed&quot;</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="Station"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.Station.html#obspy.clients.fdsn.mass_downloader.download_helpers.Station">[docs]</a><span class="k">class</span> <span class="nc">Station</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Object representing a seismic station within the download helper classes.</span>
+
+<span class="sd">    It knows the coordinates of the station to perform the filtering,</span>
+<span class="sd">    its channels and the filename and status of the StationXML files.</span>
+
+<span class="sd">    :param network: The network code.</span>
+<span class="sd">    :type network: str</span>
+<span class="sd">    :param station: The station code.</span>
+<span class="sd">    :type station: str</span>
+<span class="sd">    :param latitude: The latitude of the station.</span>
+<span class="sd">    :type latitude: float</span>
+<span class="sd">    :param longitude: The longitude of the station.</span>
+<span class="sd">    :type longitude: float</span>
+<span class="sd">    :param channels: The channels of the station.</span>
+<span class="sd">    :type channels: list of :class:`~.Channel` objects</span>
+<span class="sd">    :param stationxml_filename: The filename of the StationXML file.</span>
+<span class="sd">    :type stationxml_filename: str</span>
+<span class="sd">    :param stationxml_status: The current status of the station.</span>
+<span class="sd">    :type stationxml_filename:</span>
+<span class="sd">        :class:`~.STATUS`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;network&quot;</span><span class="p">,</span> <span class="s2">&quot;station&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;channels&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;_stationxml_filename&quot;</span><span class="p">,</span> <span class="s2">&quot;want_station_information&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;miss_station_information&quot;</span><span class="p">,</span> <span class="s2">&quot;have_station_information&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;stationxml_status&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Station.__init__"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.Station.__init__.html#obspy.clients.fdsn.mass_downloader.download_helpers.Station.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">network</span><span class="p">,</span> <span class="n">station</span><span class="p">,</span> <span class="n">latitude</span><span class="p">,</span> <span class="n">longitude</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span>
+                 <span class="n">stationxml_filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stationxml_status</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Station attributes.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">network</span> <span class="o">=</span> <span class="n">network</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">station</span> <span class="o">=</span> <span class="n">station</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">latitude</span> <span class="o">=</span> <span class="n">latitude</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">longitude</span> <span class="o">=</span> <span class="n">longitude</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">channels</span> <span class="o">=</span> <span class="n">channels</span>
+        <span class="c1"># Station information settings.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stationxml_filename</span> <span class="o">=</span> <span class="n">stationxml_filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stationxml_status</span> <span class="o">=</span> <span class="n">stationxml_status</span> <span class="ow">and</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">NONE</span>
+
+        <span class="c1"># Internally keep track of which channels and time interval want</span>
+        <span class="c1"># station information, which miss station information and which</span>
+        <span class="c1"># already have some. want_station_information should always be the</span>
+        <span class="c1"># union of miss and have.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">want_station_information</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">miss_station_information</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">have_station_information</span> <span class="o">=</span> <span class="p">{}</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">has_existing_or_downloaded_time_intervals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if any of the station&#39;s time intervals have status</span>
+<span class="sd">        &quot;DOWNLOADED&quot; or &quot;EXISTS&quot;. Otherwise it returns False meaning it does</span>
+<span class="sd">        not have to be considered anymore.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">chan</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">channels</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ti</span> <span class="ow">in</span> <span class="n">chan</span><span class="o">.</span><span class="n">intervals</span><span class="p">:</span>
+                <span class="n">status</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ti</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">EXISTS</span> <span class="ow">in</span> <span class="n">status</span> <span class="ow">or</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">DOWNLOADED</span> <span class="ow">in</span> <span class="n">status</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">has_existing_time_intervals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns True if any of the station&#39;s time intervals already exist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">chan</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">channels</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ti</span> <span class="ow">in</span> <span class="n">chan</span><span class="o">.</span><span class="n">intervals</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ti</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">EXISTS</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="Station.remove_files"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.Station.remove_files.html#obspy.clients.fdsn.mass_downloader.download_helpers.Station.remove_files">[docs]</a>    <span class="k">def</span> <span class="nf">remove_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">,</span> <span class="n">reason</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete all files under it. Only delete stuff that actually has been</span>
+<span class="sd">        downloaded!</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">chan</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">channels</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ti</span> <span class="ow">in</span> <span class="n">chan</span><span class="o">.</span><span class="n">intervals</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ti</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">DOWNLOADED</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">ti</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">ti</span><span class="o">.</span><span class="n">filename</span><span class="p">):</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Deleting MiniSEED file &#39;</span><span class="si">%s</span><span class="s2">&#39;. Reason: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                        <span class="n">ti</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">reason</span><span class="p">))</span>
+                    <span class="n">utils</span><span class="o">.</span><span class="n">safe_delete</span><span class="p">(</span><span class="n">ti</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stationxml_status</span> <span class="o">==</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">DOWNLOADED</span> <span class="ow">and</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">stationxml_filename</span> <span class="ow">and</span> \
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stationxml_filename</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Deleting StationXMl file &#39;</span><span class="si">%s</span><span class="s2">&#39;. Reason: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
+                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stationxml_filename</span><span class="p">,</span> <span class="n">reason</span><span class="p">))</span>
+            <span class="n">utils</span><span class="o">.</span><span class="n">safe_delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stationxml_filename</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">stationxml_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stationxml_filename</span>
+
+    <span class="nd">@stationxml_filename</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">stationxml_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setter creating the directory for the file if it does not already</span>
+<span class="sd">        exist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stationxml_filename</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dirname</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">temporal_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the temporal bounds for the station.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">starttimes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">endtimes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">channels</span><span class="p">:</span>
+            <span class="n">s</span><span class="p">,</span> <span class="n">e</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">temporal_bounds</span>
+            <span class="n">starttimes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="n">endtimes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">starttimes</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">endtimes</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Station.__str__"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.Station.__str__.html#obspy.clients.fdsn.mass_downloader.download_helpers.Station.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">channels</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">channels</span><span class="p">)</span>
+        <span class="n">channels</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">channels</span><span class="o">.</span><span class="n">splitlines</span><span class="p">())</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="s2">&quot;Station &#39;</span><span class="si">{network}</span><span class="s2">.</span><span class="si">{station}</span><span class="s2">&#39; [Lat: </span><span class="si">{lat:.2f}</span><span class="s2">, Lng: </span><span class="si">{lng:.2f}</span><span class="s2">]</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">-&gt; Filename: </span><span class="si">{filename}</span><span class="s2"> (</span><span class="si">{status}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">-&gt; Wants station information for channels:  </span><span class="si">{want}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">-&gt; Has station information for channels:    </span><span class="si">{has}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">-&gt; Misses station information for channels: </span><span class="si">{miss}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;</span><span class="se">\t</span><span class="si">{channels}</span><span class="s2">&quot;</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">network</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">network</span><span class="p">,</span>
+            <span class="n">station</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">station</span><span class="p">,</span>
+            <span class="n">lat</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span>
+            <span class="n">lng</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span>
+            <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stationxml_filename</span><span class="p">,</span>
+            <span class="n">status</span><span class="o">=</span><span class="s2">&quot;exists&quot;</span> <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stationxml_filename</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stationxml_filename</span><span class="p">))</span> <span class="k">else</span> <span class="s2">&quot;does not yet exist&quot;</span><span class="p">,</span>
+            <span class="n">want</span><span class="o">=</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">_i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">_i</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">want_station_information</span><span class="o">.</span><span class="n">keys</span><span class="p">()]),</span>
+            <span class="n">has</span><span class="o">=</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">_i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">_i</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span>
+                          <span class="bp">self</span><span class="o">.</span><span class="n">have_station_information</span><span class="o">.</span><span class="n">keys</span><span class="p">()]),</span>
+            <span class="n">miss</span><span class="o">=</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">_i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">_i</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span>
+                           <span class="bp">self</span><span class="o">.</span><span class="n">miss_station_information</span><span class="o">.</span><span class="n">keys</span><span class="p">()]),</span>
+            <span class="n">channels</span><span class="o">=</span><span class="n">channels</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Station.prepare_stationxml_download"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.Station.prepare_stationxml_download.html#obspy.clients.fdsn.mass_downloader.download_helpers.Station.prepare_stationxml_download">[docs]</a>    <span class="k">def</span> <span class="nf">prepare_stationxml_download</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stationxml_storage</span><span class="p">,</span> <span class="n">logger</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Figure out what to download.</span>
+
+<span class="sd">        :param stationxml_storage:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Determine what channels actually want to have station information.</span>
+        <span class="c1"># This will be a tuple of location code, channel code, starttime,</span>
+        <span class="c1"># and endtime.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">want_station_information</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">channels</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">channel</span><span class="o">.</span><span class="n">needs_station_file</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">want_station_information</span><span class="p">[</span>
+                <span class="p">(</span><span class="n">channel</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="n">channel</span><span class="o">.</span><span class="n">channel</span><span class="p">)]</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">temporal_bounds</span>
+
+        <span class="c1"># No channel has any data, thus nothing will happen.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">want_station_information</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stationxml_status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">NONE</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Only those channels that now actually want station information</span>
+        <span class="c1"># will be treated in the following.</span>
+        <span class="n">s</span><span class="p">,</span> <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">temporal_bounds</span>
+        <span class="n">storage</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_stationxml_filename</span><span class="p">(</span>
+            <span class="n">stationxml_storage</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">network</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">station</span><span class="p">,</span>
+            <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">want_station_information</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
+            <span class="n">starttime</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="n">e</span><span class="p">)</span>
+
+        <span class="c1"># The simplest case. The function returns a string. Now two things</span>
+        <span class="c1"># can happen.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">storage</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">)):</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">storage</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stationxml_filename</span> <span class="o">=</span> <span class="n">filename</span>
+            <span class="c1"># 1. The file does not yet exist. Thus all channels must be</span>
+            <span class="c1"># downloaded.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">miss_station_information</span> <span class="o">=</span> \
+                    <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">want_station_information</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">have_station_information</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stationxml_status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">NEEDS_DOWNLOADING</span>
+                <span class="k">return</span>
+            <span class="c1"># 2. The file does exist. It will be parsed. If it contains ALL</span>
+            <span class="c1"># necessary information, nothing will happen. Otherwise it will</span>
+            <span class="c1"># be overwritten.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">info</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_stationxml_contents</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">c_id</span><span class="p">,</span> <span class="n">times</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">want_station_information</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="c1"># Get the temporal range of information in the file.</span>
+                    <span class="n">c_info</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">info</span> <span class="k">if</span>
+                              <span class="n">_i</span><span class="o">.</span><span class="n">network</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">network</span> <span class="ow">and</span>
+                              <span class="n">_i</span><span class="o">.</span><span class="n">station</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">station</span> <span class="ow">and</span>
+                              <span class="n">_i</span><span class="o">.</span><span class="n">location</span> <span class="o">==</span> <span class="n">c_id</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span>
+                              <span class="n">_i</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="n">c_id</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">c_info</span><span class="p">:</span>
+                        <span class="k">break</span>
+                    <span class="n">starttime</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">_i</span><span class="o">.</span><span class="n">starttime</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">c_info</span><span class="p">])</span>
+                    <span class="n">endtime</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="n">_i</span><span class="o">.</span><span class="n">endtime</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">c_info</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="n">starttime</span> <span class="o">&gt;</span> <span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span> <span class="n">endtime</span> <span class="o">&lt;</span> <span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                        <span class="k">break</span>
+                <span class="c1"># All good if no break is called.</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">have_station_information</span> <span class="o">=</span> \
+                        <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">want_station_information</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">miss_station_information</span> <span class="o">=</span> <span class="p">{}</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">stationxml_status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">EXISTS</span>
+                    <span class="k">return</span>
+                <span class="c1"># Otherwise everything will be downloaded.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">miss_station_information</span> <span class="o">=</span> \
+                    <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">want_station_information</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">have_station_information</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stationxml_status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">NEEDS_DOWNLOADING</span>
+                <span class="k">return</span>
+        <span class="c1"># The other possibility is that a dictionary is returned.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># The types are already checked by the get_stationxml_filename()</span>
+            <span class="c1"># function.</span>
+            <span class="n">missing_channels</span> <span class="o">=</span> <span class="n">storage</span><span class="p">[</span><span class="s2">&quot;missing_channels&quot;</span><span class="p">]</span>
+            <span class="n">available_channels</span> <span class="o">=</span> <span class="n">storage</span><span class="p">[</span><span class="s2">&quot;available_channels&quot;</span><span class="p">]</span>
+
+            <span class="c1"># Get the channels wanting station information and filter them.</span>
+            <span class="n">channels_wanting_station_information</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">want_station_information</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Figure out what channels are missing and will be downloaded.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">miss_station_information</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">missing_channels</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">channel</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">channels_wanting_station_information</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">miss_station_information</span><span class="p">[</span><span class="n">channel</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="n">channels_wanting_station_information</span><span class="p">[</span><span class="n">channel</span><span class="p">]</span>
+
+            <span class="c1"># Same thing but with the already available channels.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">have_station_information</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">available_channels</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">channel</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">channels_wanting_station_information</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">have_station_information</span><span class="p">[</span><span class="n">channel</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="n">channels_wanting_station_information</span><span class="p">[</span><span class="n">channel</span><span class="p">]</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">stationxml_filename</span> <span class="o">=</span> <span class="n">storage</span><span class="p">[</span><span class="s2">&quot;filename&quot;</span><span class="p">]</span>
+
+            <span class="c1"># Raise a warning if something is missing, but do not raise an</span>
+            <span class="c1"># exception or halt the program at this point.</span>
+            <span class="n">have_channels</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">have_station_information</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="n">miss_channels</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">miss_station_information</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="n">want_channels</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">want_station_information</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">have_channels</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">miss_channels</span><span class="p">)</span> <span class="o">!=</span> <span class="n">want_channels</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s2">&quot;The custom `stationxml_storage` did not return &quot;</span>
+                    <span class="s2">&quot;information about channels </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">want_channels</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">have_channels</span><span class="o">.</span><span class="n">union</span><span class="p">(</span>
+                        <span class="n">miss_channels</span><span class="p">))))</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">miss_station_information</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stationxml_status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">NEEDS_DOWNLOADING</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">miss_station_information</span> <span class="ow">and</span> \
+                    <span class="bp">self</span><span class="o">.</span><span class="n">have_station_information</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stationxml_status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">EXISTS</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stationxml_status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">IGNORE</span></div>
+
+<div class="viewcode-block" id="Station.prepare_mseed_download"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.Station.prepare_mseed_download.html#obspy.clients.fdsn.mass_downloader.download_helpers.Station.prepare_mseed_download">[docs]</a>    <span class="k">def</span> <span class="nf">prepare_mseed_download</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mseed_storage</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Loop through all channels of the station and distribute filenames</span>
+<span class="sd">        and the current status of the channel.</span>
+
+<span class="sd">        A MiniSEED interval will be ignored, if the `mseed_storage` function</span>
+<span class="sd">        returns `True`.</span>
+<span class="sd">        Possible statuses after method execution are IGNORE, EXISTS, and</span>
+<span class="sd">        NEEDS_DOWNLOADING.</span>
+
+<span class="sd">        :param mseed_storage:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">channels</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">channel</span><span class="o">.</span><span class="n">intervals</span><span class="p">:</span>
+                <span class="n">interval</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_mseed_filename</span><span class="p">(</span>
+                    <span class="n">mseed_storage</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">network</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">station</span><span class="p">,</span>
+                    <span class="n">channel</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="n">channel</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span> <span class="n">interval</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
+                    <span class="n">interval</span><span class="o">.</span><span class="n">end</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">interval</span><span class="o">.</span><span class="n">filename</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">interval</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">IGNORE</span>
+                <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">filename</span><span class="p">):</span>
+                    <span class="n">interval</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">EXISTS</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">filename</span><span class="p">)):</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">filename</span><span class="p">))</span>
+                    <span class="n">interval</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">NEEDS_DOWNLOADING</span></div>
+
+<div class="viewcode-block" id="Station.sanitize_downloads"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.Station.sanitize_downloads.html#obspy.clients.fdsn.mass_downloader.download_helpers.Station.sanitize_downloads">[docs]</a>    <span class="k">def</span> <span class="nf">sanitize_downloads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Should be run after the MiniSEED and StationXML downloads finished.</span>
+<span class="sd">        It will make sure that every MiniSEED file also has a corresponding</span>
+<span class="sd">        StationXML file.</span>
+
+<span class="sd">        It will delete MiniSEED files but never a StationXML file. The logic</span>
+<span class="sd">        of the download helpers does not allow for a StationXML file with no</span>
+<span class="sd">        data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">obspy.io.mseed.util</span> <span class="k">import</span> <span class="n">get_start_and_end_time</span>
+        <span class="c1"># All or nothing for each channel.</span>
+        <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">miss_station_information</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Station information could not be downloaded for &quot;</span>
+                           <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">. MiniSEED files outside of the &quot;</span>
+                           <span class="s2">&quot;station information period &quot;</span>
+                           <span class="s2">&quot;will be deleted!&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">network</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">station</span><span class="p">,</span> <span class="nb">id</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">id</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="n">channel</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">channels</span> <span class="k">if</span>
+                       <span class="p">(</span><span class="n">_i</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="n">_i</span><span class="o">.</span><span class="n">channel</span><span class="p">)</span> <span class="o">==</span> <span class="nb">id</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">time_interval</span> <span class="ow">in</span> <span class="n">channel</span><span class="o">.</span><span class="n">intervals</span><span class="p">:</span>
+                <span class="c1"># Check that the time_interval.start and end are correct!</span>
+                <span class="n">time_interval</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">time_interval</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> \
+                    <span class="n">get_start_and_end_time</span><span class="p">(</span><span class="n">time_interval</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+                <span class="c1"># Only delete downloaded things!</span>
+                <span class="k">if</span> <span class="n">time_interval</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">DOWNLOADED</span><span class="p">:</span>
+                    <span class="c1"># Only delete if the station data are actually missing</span>
+                    <span class="c1"># for this time</span>
+                    <span class="n">miss_start</span><span class="p">,</span> <span class="n">miss_end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">miss_station_information</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">miss_start</span> <span class="o">&lt;=</span> <span class="n">time_interval</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;=</span> <span class="n">miss_end</span> <span class="ow">and</span> \
+                       <span class="n">miss_start</span> <span class="o">&lt;=</span> <span class="n">time_interval</span><span class="o">.</span><span class="n">end</span> <span class="o">&lt;=</span> <span class="n">miss_end</span><span class="p">:</span>
+                        <span class="n">utils</span><span class="o">.</span><span class="n">safe_delete</span><span class="p">(</span><span class="n">time_interval</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+                        <span class="n">time_interval</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">DOWNLOAD_REJECTED</span></div></div>
+
+
+<div class="viewcode-block" id="Channel"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.Channel.html#obspy.clients.fdsn.mass_downloader.download_helpers.Channel">[docs]</a><span class="k">class</span> <span class="nc">Channel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Object representing a Channel. Each time interval should end up in one</span>
+<span class="sd">    MiniSEED file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">,</span> <span class="s2">&quot;channel&quot;</span><span class="p">,</span> <span class="s2">&quot;intervals&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Channel.__init__"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.Channel.__init__.html#obspy.clients.fdsn.mass_downloader.download_helpers.Channel.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">intervals</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">location</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">=</span> <span class="n">channel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">intervals</span> <span class="o">=</span> <span class="n">intervals</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">needs_station_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determine if the channel requires any station information.</span>
+
+<span class="sd">        As soon as the status of at least one interval is either</span>
+<span class="sd">        ``DOWNLOADED`` or ``EXISTS`` the whole channel will be thought of as</span>
+<span class="sd">        requiring station information. This does not yet mean that station</span>
+<span class="sd">        information will be downloaded. That is decided at a later stage.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">_i</span><span class="o">.</span><span class="n">status</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">DOWNLOADED</span> <span class="ow">in</span> <span class="n">status</span> <span class="ow">or</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">EXISTS</span> <span class="ow">in</span> <span class="n">status</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">temporal_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a tuple of the minimum start time and the maximum end time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nb">min</span><span class="p">([</span><span class="n">_i</span><span class="o">.</span><span class="n">start</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">]),</span>
+                <span class="nb">max</span><span class="p">([</span><span class="n">_i</span><span class="o">.</span><span class="n">end</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">]))</span>
+
+<div class="viewcode-block" id="Channel.__str__"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.Channel.__str__.html#obspy.clients.fdsn.mass_downloader.download_helpers.Channel.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;Channel &#39;</span><span class="si">{location}</span><span class="s2">.</span><span class="si">{channel}</span><span class="s2">&#39;:</span><span class="se">\n\t</span><span class="si">{intervals}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">location</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span>
+            <span class="n">intervals</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">]))</span></div></div>
+
+
+<div class="viewcode-block" id="TimeInterval"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.TimeInterval.html#obspy.clients.fdsn.mass_downloader.download_helpers.TimeInterval">[docs]</a><span class="k">class</span> <span class="nc">TimeInterval</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simple object representing a time interval of a channel.</span>
+
+<span class="sd">    It knows the temporal bounds of the interval, the (desired) filename,</span>
+<span class="sd">    and the current status of the interval.</span>
+
+<span class="sd">    :param start: The start of the interval.</span>
+<span class="sd">    :type start: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :param end: The end of the interval.</span>
+<span class="sd">    :type end: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">    :param filename: The filename of the interval.</span>
+<span class="sd">    :type filename: str</span>
+<span class="sd">    :param status: The status of the time interval.</span>
+<span class="sd">    :param status: :class:`~.STATUS`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="s2">&quot;filename&quot;</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="TimeInterval.__init__"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.TimeInterval.__init__.html#obspy.clients.fdsn.mass_downloader.download_helpers.TimeInterval.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">start</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="n">end</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">status</span> <span class="k">if</span> <span class="n">status</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">NONE</span></div>
+
+<div class="viewcode-block" id="TimeInterval.__repr__"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.TimeInterval.__repr__.html#obspy.clients.fdsn.mass_downloader.download_helpers.TimeInterval.__repr__">[docs]</a>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;TimeInterval(start=</span><span class="si">{start}</span><span class="s2">, end=</span><span class="si">{end}</span><span class="s2">, filename=</span><span class="si">{filename}</span><span class="s2">, &quot;</span> \
+               <span class="s2">&quot;status=&#39;</span><span class="si">{status}</span><span class="s2">&#39;)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                   <span class="n">start</span><span class="o">=</span><span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">),</span>
+                   <span class="n">end</span><span class="o">=</span><span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end</span><span class="p">),</span>
+                   <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span>
+                   <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span>
+                   <span class="n">status</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="ClientDownloadHelper"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.html#obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper">[docs]</a><span class="k">class</span> <span class="nc">ClientDownloadHelper</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :type client: :class:`obspy.fdsn.client.Client`</span>
+<span class="sd">    :param client: An initialized FDSN client.</span>
+<span class="sd">    :type client_name: str</span>
+<span class="sd">    :param client_name: The name of the client. Only used for logging.</span>
+<span class="sd">    :type restrictions: :class:`~.restrictions.Restrictions`</span>
+<span class="sd">    :param restrictions: The non-domain related restrictions for the query.</span>
+<span class="sd">    :type domain: :class:`~.domain.Domain` subclass</span>
+<span class="sd">    :param domain: The domain definition.</span>
+<span class="sd">    :param mseed_storage: The MiniSEED storage settings.</span>
+<span class="sd">    :param stationxml_storage: The StationXML storage settings.</span>
+<span class="sd">    :param logger: An active logger instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ClientDownloadHelper.__init__"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.__init__.html#obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">,</span> <span class="n">client_name</span><span class="p">,</span> <span class="n">restrictions</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span>
+                 <span class="n">mseed_storage</span><span class="p">,</span> <span class="n">stationxml_storage</span><span class="p">,</span> <span class="n">logger</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">client</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client_name</span> <span class="o">=</span> <span class="n">client_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span> <span class="o">=</span> <span class="n">restrictions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">domain</span> <span class="o">=</span> <span class="n">domain</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mseed_storage</span> <span class="o">=</span> <span class="n">mseed_storage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stationxml_storage</span> <span class="o">=</span> <span class="n">stationxml_storage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stations</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_availability_reliable</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="ClientDownloadHelper.__bool__"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.__bool__.html#obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.__bool__">[docs]</a>    <span class="k">def</span> <span class="nf">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="ClientDownloadHelper.__str__"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.__str__.html#obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">avail_map</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="kc">None</span><span class="p">:</span> <span class="s2">&quot;Unknown reliability of availability information&quot;</span><span class="p">,</span>
+            <span class="kc">True</span><span class="p">:</span> <span class="s2">&quot;Reliable availability information&quot;</span><span class="p">,</span>
+            <span class="kc">False</span><span class="p">:</span> <span class="s2">&quot;Non-reliable availability information&quot;</span>
+        <span class="p">}</span>
+        <span class="n">reliability</span> <span class="o">=</span> <span class="n">avail_map</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">is_availability_reliable</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="s2">&quot;ClientDownloadHelper object for client &#39;</span><span class="si">{client}</span><span class="s2">&#39; (</span><span class="si">{url}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;-&gt; </span><span class="si">{reliability}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;-&gt; Manages </span><span class="si">{station_count}</span><span class="s2"> stations.</span><span class="se">\n</span><span class="si">{stations}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">client</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client_name</span><span class="p">,</span>
+                <span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">base_url</span><span class="p">,</span>
+                <span class="n">reliability</span><span class="o">=</span><span class="n">reliability</span><span class="p">,</span>
+                <span class="n">station_count</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
+                <span class="n">stations</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">_i</span><span class="p">)</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stations</span><span class="o">.</span><span class="n">values</span><span class="p">()]))</span></div>
+
+<div class="viewcode-block" id="ClientDownloadHelper.__len__"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.__len__.html#obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stations</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ClientDownloadHelper.prepare_mseed_download"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.prepare_mseed_download.html#obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.prepare_mseed_download">[docs]</a>    <span class="k">def</span> <span class="nf">prepare_mseed_download</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prepare each Station for the MiniSEED downloading stage.</span>
+
+<span class="sd">        This will distribute filenames and identify files that require</span>
+<span class="sd">        downloading.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stations</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">station</span><span class="o">.</span><span class="n">prepare_mseed_download</span><span class="p">(</span><span class="n">mseed_storage</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mseed_storage</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ClientDownloadHelper.filter_stations_based_on_minimum_distance"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.filter_stations_based_on_minimum_distance.html#obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.filter_stations_based_on_minimum_distance">[docs]</a>    <span class="k">def</span> <span class="nf">filter_stations_based_on_minimum_distance</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">existing_client_dl_helpers</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes stations until all stations have a certain minimum distance to</span>
+<span class="sd">        each other.</span>
+
+<span class="sd">        Returns the rejected stations which is mainly useful for testing.</span>
+
+<span class="sd">        :param existing_client_dl_helpers: Instances of already existing</span>
+<span class="sd">            client download helpers.</span>
+<span class="sd">        :type existing_client_dl_helpers: list of</span>
+<span class="sd">            :class:`~.ClientDownloadHelper`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">minimum_interstation_distance_in_m</span><span class="p">:</span>
+            <span class="c1"># No rejected stations.</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="c1"># Create a sorted copy that will be used in the following. Make it</span>
+        <span class="c1"># more deterministic by sorting the stations based on the id.</span>
+        <span class="n">stations</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stations</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="n">stations</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">stations</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">network</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">station</span><span class="p">))</span>
+
+        <span class="n">existing_stations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">dlh</span> <span class="ow">in</span> <span class="n">existing_client_dl_helpers</span><span class="p">:</span>
+            <span class="n">existing_stations</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">dlh</span><span class="o">.</span><span class="n">stations</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+
+        <span class="n">remaining_stations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">rejected_stations</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># There are essentially two possibilities. If no station exists yet,</span>
+        <span class="c1"># it will choose the largest subset of stations satisfying the</span>
+        <span class="c1"># minimum inter-station distance constraint.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">existing_stations</span><span class="p">:</span>
+            <span class="c1"># Build k-d-tree and query for the neighbours of each point within</span>
+            <span class="c1"># the minimum distance.</span>
+            <span class="n">kd_tree</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">SphericalNearestNeighbour</span><span class="p">(</span><span class="n">stations</span><span class="p">)</span>
+            <span class="n">nns</span> <span class="o">=</span> <span class="n">kd_tree</span><span class="o">.</span><span class="n">query_pairs</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">minimum_interstation_distance_in_m</span><span class="p">)</span>
+
+            <span class="n">indexes_to_remove</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="c1"># Keep removing the station with the most pairs until no pairs are</span>
+            <span class="c1"># left.</span>
+            <span class="k">while</span> <span class="n">nns</span><span class="p">:</span>
+                <span class="n">most_common</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">(</span>
+                    <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">nns</span><span class="p">))</span><span class="o">.</span><span class="n">most_common</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">indexes_to_remove</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">most_common</span><span class="p">)</span>
+                <span class="n">nns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">filterfalse</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">most_common</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="n">nns</span><span class="p">))</span>
+
+            <span class="c1"># Remove these indices this results in a set of stations we wish to</span>
+            <span class="c1"># keep.</span>
+            <span class="n">remaining_stations</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span>
+                <span class="n">_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">stations</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">indexes_to_remove</span><span class="p">))</span>
+            <span class="n">rejected_stations</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span>
+                <span class="n">_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">stations</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">indexes_to_remove</span><span class="p">))</span>
+        <span class="c1"># Otherwise it will add new stations approximating a Poisson disk</span>
+        <span class="c1"># distribution.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">stations</span><span class="p">:</span>
+                <span class="c1"># kd-tree with all existing_stations</span>
+                <span class="n">existing_kd_tree</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">SphericalNearestNeighbour</span><span class="p">(</span>
+                    <span class="n">existing_stations</span><span class="p">)</span>
+                <span class="c1"># Now we have to get the distance to the closest existing</span>
+                <span class="c1"># station for all new stations.</span>
+                <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">existing_kd_tree</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">stations</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                    <span class="k">break</span>
+                <span class="n">distances</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="kc">False</span>
+
+                <span class="c1"># Step one is to get rid of all stations that are closer</span>
+                <span class="c1"># than the minimum distance to any existing station.</span>
+                <span class="n">remove</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                    <span class="n">distances</span> <span class="o">&lt;</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">minimum_interstation_distance_in_m</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">rejected_stations</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">stations</span><span class="p">[</span><span class="n">_i</span><span class="p">]</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">remove</span><span class="p">])</span>
+
+                <span class="n">keep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                    <span class="n">distances</span> <span class="o">&gt;=</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">minimum_interstation_distance_in_m</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">distances</span><span class="o">.</span><span class="n">mask</span><span class="p">[</span><span class="n">remove</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">keep</span><span class="p">):</span>
+                    <span class="c1"># Station with the largest distance to next closer station.</span>
+                    <span class="n">largest</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">distances</span><span class="p">)</span>
+                    <span class="n">remaining_stations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stations</span><span class="p">[</span><span class="n">largest</span><span class="p">])</span>
+                    <span class="n">existing_stations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stations</span><span class="p">[</span><span class="n">largest</span><span class="p">])</span>
+
+                    <span class="c1"># Add all rejected stations here.</span>
+                    <span class="n">stations</span> <span class="o">=</span> <span class="p">[</span><span class="n">stations</span><span class="p">[</span><span class="n">_i</span><span class="p">]</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">keep</span> <span class="k">if</span> <span class="n">_i</span> <span class="o">!=</span> <span class="n">largest</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">stations</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Now actually delete the files and everything of the rejected</span>
+        <span class="c1"># stations.</span>
+        <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="n">rejected_stations</span><span class="p">:</span>
+            <span class="n">station</span><span class="o">.</span><span class="n">remove_files</span><span class="p">(</span><span class="n">logger</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">,</span>
+                                 <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Minimum distance filtering.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stations</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="n">remaining_stations</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stations</span><span class="p">[(</span><span class="n">station</span><span class="o">.</span><span class="n">network</span><span class="p">,</span> <span class="n">station</span><span class="o">.</span><span class="n">station</span><span class="p">)]</span> <span class="o">=</span> <span class="n">station</span>
+
+        <span class="c1"># Return the rejected stations.</span>
+        <span class="k">return</span> <span class="p">{(</span><span class="n">_i</span><span class="o">.</span><span class="n">network</span><span class="p">,</span> <span class="n">_i</span><span class="o">.</span><span class="n">station</span><span class="p">):</span> <span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">rejected_stations</span><span class="p">}</span></div>
+
+<div class="viewcode-block" id="ClientDownloadHelper.prepare_stationxml_download"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.prepare_stationxml_download.html#obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.prepare_stationxml_download">[docs]</a>    <span class="k">def</span> <span class="nf">prepare_stationxml_download</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prepare each Station for the StationXML downloading stage.</span>
+
+<span class="sd">        This will distribute filenames and identify files that require</span>
+<span class="sd">        downloading.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stations</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">station</span><span class="o">.</span><span class="n">prepare_stationxml_download</span><span class="p">(</span>
+                <span class="n">stationxml_storage</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stationxml_storage</span><span class="p">,</span>
+                <span class="n">logger</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ClientDownloadHelper.download_stationxml"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.download_stationxml.html#obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.download_stationxml">[docs]</a>    <span class="k">def</span> <span class="nf">download_stationxml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Actually download the StationXML files.</span>
+
+<span class="sd">        :param threads: Limits the maximum number of threads for the client.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">star_download_station</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Maps arguments to the utils.download_stationxml() function.</span>
+
+<span class="sd">            :param args: The to-be mapped arguments.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">ret_val</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">download_stationxml</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">ERRORS</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="n">ret_val</span>
+
+        <span class="c1"># Build up everything we want to download.</span>
+        <span class="n">arguments</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stations</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">station</span><span class="o">.</span><span class="n">miss_station_information</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">s</span><span class="p">,</span> <span class="n">e</span> <span class="o">=</span> <span class="n">station</span><span class="o">.</span><span class="n">temporal_bounds</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">station_starttime</span><span class="p">:</span>
+                <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">station_starttime</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">station_endtime</span><span class="p">:</span>
+                <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">station_endtime</span>
+            <span class="n">bulk</span> <span class="o">=</span> <span class="p">[(</span><span class="n">station</span><span class="o">.</span><span class="n">network</span><span class="p">,</span> <span class="n">station</span><span class="o">.</span><span class="n">station</span><span class="p">,</span> <span class="n">channel</span><span class="o">.</span><span class="n">location</span><span class="p">,</span>
+                     <span class="n">channel</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">station</span><span class="o">.</span><span class="n">channels</span><span class="p">]</span>
+            <span class="n">arguments</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_name</span><span class="p">,</span> <span class="n">bulk</span><span class="p">,</span>
+                              <span class="n">station</span><span class="o">.</span><span class="n">stationxml_filename</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">arguments</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Client &#39;</span><span class="si">%s</span><span class="s2">&#39; - No station information to &quot;</span>
+                             <span class="s2">&quot;download.&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_name</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Download it.</span>
+        <span class="n">s_time</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span>
+        <span class="n">pool</span> <span class="o">=</span> <span class="n">ThreadPool</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">threads</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">arguments</span><span class="p">)))</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">star_download_station</span><span class="p">,</span> <span class="n">arguments</span><span class="p">)</span>
+        <span class="n">pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">e_time</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="n">_i</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+
+        <span class="c1"># Check it.</span>
+        <span class="n">filecount</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">download_size</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Update the station structures. Loop over each returned file.</span>
+        <span class="k">for</span> <span class="n">s_id</span><span class="p">,</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">filecount</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">station</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stations</span><span class="p">[</span><span class="n">s_id</span><span class="p">]</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="n">download_size</span> <span class="o">+=</span> <span class="n">size</span>
+
+            <span class="c1"># Extract information about that file.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">info</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_stationxml_contents</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="c1"># Sometimes some services choose to not return XML files - guard</span>
+            <span class="c1"># against it and just delete the file. At subsequent runs the</span>
+            <span class="c1"># mass downloader will attempt to download it again.</span>
+            <span class="k">except</span> <span class="n">XMLSyntaxError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s2">&quot;Client &#39;</span><span class="si">%s</span><span class="s2">&#39; - File </span><span class="si">%s</span><span class="s2"> is not an XML file - it will be &quot;</span>
+                    <span class="s2">&quot;deleted.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client_name</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
+                <span class="n">utils</span><span class="o">.</span><span class="n">safe_delete</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="n">still_missing</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="c1"># Make sure all missing information has been downloaded by</span>
+            <span class="c1"># looping over each channel of the station that originally</span>
+            <span class="c1"># requested to be downloaded.</span>
+            <span class="k">for</span> <span class="n">c_id</span><span class="p">,</span> <span class="n">times</span> <span class="ow">in</span> <span class="n">station</span><span class="o">.</span><span class="n">miss_station_information</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="c1"># Get the temporal range of information in the file.</span>
+                <span class="n">c_info</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">info</span> <span class="k">if</span>
+                          <span class="n">_i</span><span class="o">.</span><span class="n">network</span> <span class="o">==</span> <span class="n">station</span><span class="o">.</span><span class="n">network</span> <span class="ow">and</span>
+                          <span class="n">_i</span><span class="o">.</span><span class="n">station</span> <span class="o">==</span> <span class="n">station</span><span class="o">.</span><span class="n">station</span> <span class="ow">and</span>
+                          <span class="n">_i</span><span class="o">.</span><span class="n">location</span> <span class="o">==</span> <span class="n">c_id</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span>
+                          <span class="n">_i</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="n">c_id</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">c_info</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">starttime</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">_i</span><span class="o">.</span><span class="n">starttime</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">c_info</span><span class="p">])</span>
+                <span class="n">endtime</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="n">_i</span><span class="o">.</span><span class="n">endtime</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">c_info</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">starttime</span> <span class="o">&gt;</span> <span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span> <span class="n">endtime</span> <span class="o">&lt;</span> <span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="c1"># Cope with case that not full day of station info missing</span>
+                    <span class="k">if</span> <span class="n">starttime</span> <span class="o">&lt;</span> <span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                        <span class="n">still_missing</span><span class="p">[</span><span class="n">c_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">starttime</span><span class="p">)</span>
+                        <span class="n">station</span><span class="o">.</span><span class="n">have_station_information</span><span class="p">[</span><span class="n">c_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">starttime</span><span class="p">,</span>
+                                                                  <span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="k">elif</span> <span class="n">endtime</span> <span class="o">&gt;</span> <span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                        <span class="n">still_missing</span><span class="p">[</span><span class="n">c_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">endtime</span><span class="p">,</span> <span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="n">station</span><span class="o">.</span><span class="n">have_station_information</span><span class="p">[</span><span class="n">c_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                                                  <span class="n">endtime</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">still_missing</span><span class="p">[</span><span class="n">c_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">times</span>
+                    <span class="k">continue</span>
+                <span class="n">station</span><span class="o">.</span><span class="n">have_station_information</span><span class="p">[</span><span class="n">c_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">times</span>
+
+            <span class="n">station</span><span class="o">.</span><span class="n">miss_station_information</span> <span class="o">=</span> <span class="n">still_missing</span>
+            <span class="k">if</span> <span class="n">still_missing</span><span class="p">:</span>
+                <span class="n">station</span><span class="o">.</span><span class="n">stationxml_status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">DOWNLOAD_PARTIALLY_FAILED</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">station</span><span class="o">.</span><span class="n">stationxml_status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">DOWNLOADED</span>
+
+        <span class="c1"># Now loop over all stations and set the status of the ones that</span>
+        <span class="c1"># still need downloading to download failed.</span>
+        <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stations</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">station</span><span class="o">.</span><span class="n">stationxml_status</span> <span class="o">==</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">NEEDS_DOWNLOADING</span><span class="p">:</span>
+                <span class="n">station</span><span class="o">.</span><span class="n">stationxml_status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">DOWNLOAD_FAILED</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Client &#39;</span><span class="si">%s</span><span class="s2">&#39; - Downloaded </span><span class="si">%i</span><span class="s2"> station files [</span><span class="si">%.1f</span><span class="s2"> MB] &quot;</span>
+                         <span class="s2">&quot;in </span><span class="si">%.1f</span><span class="s2"> seconds [</span><span class="si">%.2f</span><span class="s2"> KB/sec].&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                             <span class="bp">self</span><span class="o">.</span><span class="n">client_name</span><span class="p">,</span> <span class="n">filecount</span><span class="p">,</span>
+                             <span class="n">download_size</span> <span class="o">/</span> <span class="mf">1024.0</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span>
+                             <span class="n">e_time</span> <span class="o">-</span> <span class="n">s_time</span><span class="p">,</span>
+                             <span class="p">(</span><span class="n">download_size</span> <span class="o">/</span> <span class="mf">1024.0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">e_time</span> <span class="o">-</span> <span class="n">s_time</span><span class="p">)))</span></div>
+
+<div class="viewcode-block" id="ClientDownloadHelper.download_mseed"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.download_mseed.html#obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.download_mseed">[docs]</a>    <span class="k">def</span> <span class="nf">download_mseed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chunk_size_in_mb</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">threads_per_client</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Actually download MiniSEED data.</span>
+
+<span class="sd">        :param chunk_size_in_mb: Attempt to download data in chunks of this</span>
+<span class="sd">            size.</span>
+<span class="sd">        :param threads_per_client: Threads to launch per client. 3 seems to</span>
+<span class="sd">            be a value in agreement with some data centers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Estimate the download size to have equally sized chunks.</span>
+        <span class="n">channel_sampling_rate</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;F&quot;</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">:</span> <span class="mi">250</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+            <span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="mi">250</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span> <span class="s2">&quot;M&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;V&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+            <span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="mf">0.001</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">:</span> <span class="mf">0.0001</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">:</span> <span class="mf">0.00001</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">:</span> <span class="mf">0.000001</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span>
+            <span class="s2">&quot;O&quot;</span><span class="p">:</span> <span class="mi">5000</span><span class="p">}</span>
+
+        <span class="c1"># Split into chunks of about equal size in terms of filesize.</span>
+        <span class="n">chunks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">chunks_curr</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">curr_chunks_mb</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Don&#39;t request more than 50 chunks at once to not choke the servers.</span>
+        <span class="n">max_chunk_length</span> <span class="o">=</span> <span class="mi">50</span>
+
+        <span class="n">counter</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">()</span>
+
+        <span class="c1"># Keep track of attempted downloads.</span>
+        <span class="k">for</span> <span class="n">sta</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stations</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">cha</span> <span class="ow">in</span> <span class="n">sta</span><span class="o">.</span><span class="n">channels</span><span class="p">:</span>
+                <span class="c1"># The band code is used to estimate the sampling rate of the</span>
+                <span class="c1"># data to be downloaded.</span>
+                <span class="n">band_code</span> <span class="o">=</span> <span class="n">cha</span><span class="o">.</span><span class="n">channel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sr</span> <span class="o">=</span> <span class="n">channel_sampling_rate</span><span class="p">[</span><span class="n">band_code</span><span class="p">]</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="c1"># Generic sampling rate for exotic band codes.</span>
+                    <span class="n">sr</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+                <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">cha</span><span class="o">.</span><span class="n">intervals</span><span class="p">:</span>
+                    <span class="n">counter</span><span class="p">[</span><span class="n">interval</span><span class="o">.</span><span class="n">status</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="c1"># Only take those time intervals that actually require</span>
+                    <span class="c1"># some downloading.</span>
+                    <span class="k">if</span> <span class="n">interval</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">NEEDS_DOWNLOADING</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="n">chunks_curr</span><span class="o">.</span><span class="n">append</span><span class="p">((</span>
+                        <span class="n">sta</span><span class="o">.</span><span class="n">network</span><span class="p">,</span> <span class="n">sta</span><span class="o">.</span><span class="n">station</span><span class="p">,</span> <span class="n">cha</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="n">cha</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span>
+                        <span class="n">interval</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">interval</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">interval</span><span class="o">.</span><span class="n">filename</span><span class="p">))</span>
+                    <span class="c1"># Assume that each sample needs 4 byte, STEIM</span>
+                    <span class="c1"># compression reduces size to about a third.</span>
+                    <span class="c1"># chunk size is in MB</span>
+                    <span class="n">duration</span> <span class="o">=</span> <span class="n">interval</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="n">interval</span><span class="o">.</span><span class="n">start</span>
+                    <span class="n">curr_chunks_mb</span> <span class="o">+=</span> \
+                        <span class="n">sr</span> <span class="o">*</span> <span class="n">duration</span> <span class="o">*</span> <span class="mf">4.0</span> <span class="o">/</span> <span class="mf">3.0</span> <span class="o">/</span> <span class="mf">1024.0</span> <span class="o">/</span> <span class="mf">1024.0</span>
+                    <span class="k">if</span> <span class="n">curr_chunks_mb</span> <span class="o">&gt;=</span> <span class="n">chunk_size_in_mb</span> <span class="ow">or</span> \
+                            <span class="nb">len</span><span class="p">(</span><span class="n">chunks_curr</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">max_chunk_length</span><span class="p">:</span>
+                        <span class="n">chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunks_curr</span><span class="p">)</span>
+                        <span class="n">chunks_curr</span> <span class="o">=</span> <span class="p">[]</span>
+                        <span class="n">curr_chunks_mb</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">chunks_curr</span><span class="p">:</span>
+            <span class="n">chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunks_curr</span><span class="p">)</span>
+
+        <span class="n">keys</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">counter</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;Client &#39;</span><span class="si">%s</span><span class="s2">&#39; - Status for </span><span class="si">%i</span><span class="s2"> time intervals/channels before &quot;</span>
+                <span class="s2">&quot;downloading: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client_name</span><span class="p">,</span> <span class="n">counter</span><span class="p">[</span><span class="n">key</span><span class="p">],</span>
+                                     <span class="n">key</span><span class="o">.</span><span class="n">upper</span><span class="p">()))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">chunks</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">def</span> <span class="nf">star_download_mseed</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Star maps the arguments to the</span>
+<span class="sd">            utils.download_and_split_mseed_bulk() function.</span>
+
+<span class="sd">            :param args: The arguments to be passed.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">ret_val</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">download_and_split_mseed_bulk</span><span class="p">(</span>
+                    <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">ERRORS</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Client &#39;</span><span class="si">%s</span><span class="s2">&#39; - &quot;</span> <span class="o">%</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s2">&quot;no data available&quot;</span> <span class="ow">in</span> <span class="n">msg</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;Detailed response&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="k">return</span> <span class="p">[]</span>
+            <span class="k">return</span> <span class="n">ret_val</span>
+
+        <span class="n">pool</span> <span class="o">=</span> <span class="n">ThreadPool</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">threads_per_client</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunks</span><span class="p">)))</span>
+
+        <span class="n">d_start</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span>
+        <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+            <span class="n">star_download_mseed</span><span class="p">,</span>
+            <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_name</span><span class="p">,</span> <span class="n">chunk</span><span class="p">)</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span><span class="p">])</span>
+        <span class="n">pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">d_end</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Client &#39;</span><span class="si">%s</span><span class="s2">&#39; - Launching basic QC checks...&quot;</span> <span class="o">%</span>
+                         <span class="bp">self</span><span class="o">.</span><span class="n">client_name</span><span class="p">)</span>
+        <span class="n">downloaded_bytes</span><span class="p">,</span> <span class="n">discarded_bytes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_downloaded_data</span><span class="p">()</span>
+        <span class="n">total_bytes</span> <span class="o">=</span> <span class="n">downloaded_bytes</span> <span class="o">+</span> <span class="n">discarded_bytes</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Client &#39;</span><span class="si">%s</span><span class="s2">&#39; - Downloaded </span><span class="si">%.1f</span><span class="s2"> MB [</span><span class="si">%.2f</span><span class="s2"> KB/sec] of &quot;</span>
+                         <span class="s2">&quot;data, </span><span class="si">%.1f</span><span class="s2"> MB of which were discarded afterwards.&quot;</span> <span class="o">%</span>
+                         <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client_name</span><span class="p">,</span> <span class="n">total_bytes</span> <span class="o">/</span> <span class="mf">1024.0</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span>
+                          <span class="n">total_bytes</span> <span class="o">/</span> <span class="mf">1024.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">d_end</span> <span class="o">-</span> <span class="n">d_start</span><span class="p">),</span>
+                          <span class="n">discarded_bytes</span> <span class="o">/</span> <span class="mf">1024.0</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+
+        <span class="c1"># Recount everything to be able to emit some nice statistics.</span>
+        <span class="n">counter</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">sta</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stations</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">chan</span> <span class="ow">in</span> <span class="n">sta</span><span class="o">.</span><span class="n">channels</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">chan</span><span class="o">.</span><span class="n">intervals</span><span class="p">:</span>
+                    <span class="n">counter</span><span class="p">[</span><span class="n">interval</span><span class="o">.</span><span class="n">status</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">counter</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;Client &#39;</span><span class="si">%s</span><span class="s2">&#39; - Status for </span><span class="si">%i</span><span class="s2"> time intervals/channels after &quot;</span>
+                <span class="s2">&quot;downloading: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">client_name</span><span class="p">,</span> <span class="n">counter</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">key</span><span class="o">.</span><span class="n">upper</span><span class="p">()))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_remove_failed_and_ignored_stations</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ClientDownloadHelper._remove_failed_and_ignored_stations"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper._remove_failed_and_ignored_stations.html#obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper._remove_failed_and_ignored_stations">[docs]</a>    <span class="k">def</span> <span class="nf">_remove_failed_and_ignored_stations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes all stations that have no time interval with either exists</span>
+<span class="sd">        or downloaded status.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">to_be_removed_keys</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">station</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stations</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">station</span><span class="o">.</span><span class="n">has_existing_or_downloaded_time_intervals</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">to_be_removed_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">to_be_removed_keys</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">stations</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ClientDownloadHelper.sanitize_downloads"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.sanitize_downloads.html#obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.sanitize_downloads">[docs]</a>    <span class="k">def</span> <span class="nf">sanitize_downloads</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Should be run after the MiniSEED and StationXML downloads finished.</span>
+<span class="sd">        It will make sure that every MiniSEED file also has a corresponding</span>
+<span class="sd">        StationXML file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stations</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">station</span><span class="o">.</span><span class="n">sanitize_downloads</span><span class="p">(</span><span class="n">logger</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ClientDownloadHelper._check_downloaded_data"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper._check_downloaded_data.html#obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper._check_downloaded_data">[docs]</a>    <span class="k">def</span> <span class="nf">_check_downloaded_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read the downloaded data, set the proper status flags and remove</span>
+<span class="sd">        data that does not meet the QC criteria. It just checks the</span>
+<span class="sd">        downloaded data for minimum length and gaps/overlaps.</span>
+
+<span class="sd">        Returns the downloaded_bytes and the discarded_bytes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">downloaded_bytes</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">discarded_bytes</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">sta</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stations</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">cha</span> <span class="ow">in</span> <span class="n">sta</span><span class="o">.</span><span class="n">channels</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">cha</span><span class="o">.</span><span class="n">intervals</span><span class="p">:</span>
+                    <span class="c1"># The status of the interval should not have changed if</span>
+                    <span class="c1"># it did not require downloading in the first place.</span>
+                    <span class="k">if</span> <span class="n">interval</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">NEEDS_DOWNLOADING</span><span class="p">:</span>
+                        <span class="k">continue</span>
+
+                    <span class="c1"># If the file does not exist, mark the time interval as</span>
+                    <span class="c1"># download failed.</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">filename</span><span class="p">):</span>
+                        <span class="n">interval</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">DOWNLOAD_FAILED</span>
+                        <span class="k">continue</span>
+
+                    <span class="n">size</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Zero byte file &#39;</span><span class="si">%s</span><span class="s2">&#39;. Will be &quot;</span>
+                                            <span class="s2">&quot;deleted.&quot;</span> <span class="o">%</span> <span class="n">interval</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+                        <span class="n">utils</span><span class="o">.</span><span class="n">safe_delete</span><span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+                        <span class="n">interval</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">DOWNLOAD_FAILED</span>
+                        <span class="k">continue</span>
+
+                    <span class="c1"># Guard against faulty files.</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">st</span> <span class="o">=</span> <span class="n">obspy</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                            <span class="s2">&quot;Could not read file &#39;</span><span class="si">%s</span><span class="s2">&#39; due to: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span>
+                            <span class="s2">&quot;Will be discarded.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)))</span>
+                        <span class="n">utils</span><span class="o">.</span><span class="n">safe_delete</span><span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+                        <span class="n">discarded_bytes</span> <span class="o">+=</span> <span class="n">size</span>
+                        <span class="n">interval</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">DOWNLOAD_FAILED</span>
+                        <span class="k">continue</span>
+
+                    <span class="c1"># Valid files with no data.</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">st</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                            <span class="s2">&quot;Empty file &#39;</span><span class="si">%s</span><span class="s2">&#39;. Will be deleted.&quot;</span> <span class="o">%</span>
+                            <span class="n">interval</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+                        <span class="n">utils</span><span class="o">.</span><span class="n">safe_delete</span><span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+                        <span class="n">discarded_bytes</span> <span class="o">+=</span> <span class="n">size</span>
+                        <span class="n">interval</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">DOWNLOAD_FAILED</span>
+                        <span class="k">continue</span>
+
+                    <span class="c1"># If user did not want gappy files, remove them.</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">reject_channels_with_gaps</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">and</span>\
+                            <span class="nb">len</span><span class="p">(</span><span class="n">st</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                            <span class="s2">&quot;File &#39;</span><span class="si">%s</span><span class="s2">&#39; has </span><span class="si">%i</span><span class="s2"> traces and thus contains &quot;</span>
+                            <span class="s2">&quot;gaps or overlaps. Will be deleted.&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                                <span class="n">interval</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">st</span><span class="p">)))</span>
+                        <span class="n">utils</span><span class="o">.</span><span class="n">safe_delete</span><span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+                        <span class="n">discarded_bytes</span> <span class="o">+=</span> <span class="n">size</span>
+                        <span class="n">interval</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">DOWNLOAD_REJECTED</span>
+                        <span class="k">continue</span>
+
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">minimum_length</span><span class="p">:</span>
+                        <span class="n">duration</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">endtime</span> <span class="o">-</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span>
+                                        <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="n">st</span><span class="p">])</span>
+                        <span class="n">expected_min_duration</span> <span class="o">=</span> \
+                            <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">minimum_length</span> <span class="o">*</span> \
+                            <span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="n">interval</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">duration</span> <span class="o">&lt;</span> <span class="n">expected_min_duration</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                                <span class="s2">&quot;File &#39;</span><span class="si">%s</span><span class="s2">&#39; has only </span><span class="si">%.2f</span><span class="s2"> seconds of data. &quot;</span>
+                                <span class="s2">&quot;</span><span class="si">%.2f</span><span class="s2"> are required. File will be deleted.&quot;</span> <span class="o">%</span>
+                                <span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span>
+                                 <span class="n">expected_min_duration</span><span class="p">))</span>
+                            <span class="n">utils</span><span class="o">.</span><span class="n">safe_delete</span><span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+                            <span class="n">discarded_bytes</span> <span class="o">+=</span> <span class="n">size</span>
+                            <span class="n">interval</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">DOWNLOAD_REJECTED</span>
+                            <span class="k">continue</span>
+
+                    <span class="n">downloaded_bytes</span> <span class="o">+=</span> <span class="n">size</span>
+                    <span class="n">interval</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">DOWNLOADED</span>
+        <span class="k">return</span> <span class="n">downloaded_bytes</span><span class="p">,</span> <span class="n">discarded_bytes</span></div>
+
+<div class="viewcode-block" id="ClientDownloadHelper._parse_miniseed_filenames"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper._parse_miniseed_filenames.html#obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper._parse_miniseed_filenames">[docs]</a>    <span class="k">def</span> <span class="nf">_parse_miniseed_filenames</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filenames</span><span class="p">,</span> <span class="n">restrictions</span><span class="p">):</span>
+        <span class="n">time_range</span> <span class="o">=</span> <span class="n">restrictions</span><span class="o">.</span><span class="n">minimum_length</span> <span class="o">*</span> <span class="p">(</span><span class="n">restrictions</span><span class="o">.</span><span class="n">endtime</span> <span class="o">-</span>
+                                                    <span class="n">restrictions</span><span class="o">.</span><span class="n">starttime</span><span class="p">)</span>
+        <span class="n">channel_availability</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">obspy</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;MSEED&quot;</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">restrictions</span><span class="o">.</span><span class="n">reject_channels_with_gaps</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">st</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Channel </span><span class="si">%s</span><span class="s2"> has gap or overlap. Will be &quot;</span>
+                                    <span class="s2">&quot;removed.&quot;</span> <span class="o">%</span> <span class="n">st</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="k">continue</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">st</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;MiniSEED file with no data detected. &quot;</span>
+                                  <span class="s2">&quot;Should not happen!&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">tr</span> <span class="o">=</span> <span class="n">st</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">duration</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">endtime</span> <span class="o">-</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span>
+            <span class="k">if</span> <span class="n">restrictions</span><span class="o">.</span><span class="n">minimum_length</span> <span class="ow">and</span> <span class="n">duration</span> <span class="o">&lt;</span> <span class="n">time_range</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Channel </span><span class="si">%s</span><span class="s2"> does not satisfy the minimum &quot;</span>
+                                    <span class="s2">&quot;length requirement. </span><span class="si">%.2f</span><span class="s2"> seconds instead &quot;</span>
+                                    <span class="s2">&quot;of the required </span><span class="si">%.2f</span><span class="s2"> seconds.&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                                        <span class="n">tr</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">time_range</span><span class="p">))</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="k">continue</span>
+            <span class="n">channel_availability</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">utils</span><span class="o">.</span><span class="n">ChannelAvailability</span><span class="p">(</span>
+                <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">network</span><span class="p">,</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">station</span><span class="p">,</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">location</span><span class="p">,</span>
+                <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span><span class="p">,</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">endtime</span><span class="p">,</span>
+                <span class="n">filename</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">channel_availability</span></div>
+
+<div class="viewcode-block" id="ClientDownloadHelper.discard_stations"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.discard_stations.html#obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.discard_stations">[docs]</a>    <span class="k">def</span> <span class="nf">discard_stations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">existing_client_dl_helpers</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Discard all stations part of any of the already existing client</span>
+<span class="sd">        download helper instances. The station discarding happens purely</span>
+<span class="sd">        based on station ids.</span>
+
+<span class="sd">        :param existing_client_dl_helpers: Instances of already existing</span>
+<span class="sd">            client download helpers. All stations part of this will not be</span>
+<span class="sd">            downloaded anymore.</span>
+<span class="sd">        :type existing_client_dl_helpers: list of</span>
+<span class="sd">            :class:`~.ClientDownloadHelper`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">station_ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">helper</span> <span class="ow">in</span> <span class="n">existing_client_dl_helpers</span><span class="p">:</span>
+            <span class="n">station_ids</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">helper</span><span class="o">.</span><span class="n">stations</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+        <span class="k">for</span> <span class="n">station_id</span> <span class="ow">in</span> <span class="n">station_ids</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">stations</span><span class="p">[</span><span class="n">station_id</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="ClientDownloadHelper.get_availability"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.get_availability.html#obspy.clients.fdsn.mass_downloader.download_helpers.ClientDownloadHelper.get_availability">[docs]</a>    <span class="k">def</span> <span class="nf">get_availability</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Queries the current client for information on what stations are</span>
+<span class="sd">        available given the spatial and temporal restrictions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Check if stations needs to be filtered after downloading or if the</span>
+        <span class="c1"># restrictions one can impose with the FDSN webservices queries are</span>
+        <span class="c1"># enough. This depends on the domain definition.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">is_in_domain</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">needs_filtering</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+            <span class="n">needs_filtering</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">arguments</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">network</span><span class="p">,</span>
+            <span class="s2">&quot;station&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">station</span><span class="p">,</span>
+            <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">location</span><span class="p">,</span>
+            <span class="s2">&quot;channel&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span>
+            <span class="s2">&quot;starttime&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">starttime</span><span class="p">,</span>
+            <span class="s2">&quot;endtime&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">endtime</span><span class="p">,</span>
+            <span class="c1"># Request at the channel level.</span>
+            <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;channel&quot;</span>
+        <span class="p">}</span>
+        <span class="c1"># Add the domain specific query parameters.</span>
+        <span class="n">arguments</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">get_query_parameters</span><span class="p">())</span>
+
+        <span class="c1"># Check the capabilities of the service and see what is the most</span>
+        <span class="c1"># appropriate way of acquiring availability information. Some services</span>
+        <span class="c1"># right now require manual overriding of what they claim to be</span>
+        <span class="c1"># capable of.</span>
+        <span class="k">if</span> <span class="s2">&quot;matchtimeseries&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">services</span><span class="p">[</span><span class="s2">&quot;station&quot;</span><span class="p">]:</span>
+            <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;matchtimeseries&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="s2">&quot;format&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">services</span><span class="p">[</span><span class="s2">&quot;station&quot;</span><span class="p">]:</span>
+                <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;format&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;text&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_availability_reliable</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;format&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">services</span><span class="p">[</span><span class="s2">&quot;station&quot;</span><span class="p">]:</span>
+                <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;format&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;text&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_availability_reliable</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_availability_reliable</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Client &#39;</span><span class="si">%s</span><span class="s2">&#39; - Requesting reliable &quot;</span>
+                             <span class="s2">&quot;availability.&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;Client &#39;</span><span class="si">%s</span><span class="s2">&#39; - Requesting unreliable availability.&quot;</span> <span class="o">%</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">client_name</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="n">inv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get_stations</span><span class="p">(</span><span class="o">**</span><span class="n">arguments</span><span class="p">)</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">utils</span><span class="o">.</span><span class="n">ERRORS</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;no data available&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s2">&quot;Client &#39;</span><span class="si">%s</span><span class="s2">&#39; - No data available for request.&quot;</span> <span class="o">%</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">client_name</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="s2">&quot;Client &#39;</span><span class="si">{0}</span><span class="s2">&#39; - Failed getting availability: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">client_name</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span>
+        <span class="c1"># This sometimes fires if a service returns some random stuff which</span>
+        <span class="c1"># is not a valid station file.</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="s2">&quot;Client &#39;</span><span class="si">{0}</span><span class="s2">&#39; - Failed getting availability due to &quot;</span>
+                <span class="s2">&quot;unexpected exception: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client_name</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Client &#39;</span><span class="si">%s</span><span class="s2">&#39; - Successfully requested availability &quot;</span>
+                         <span class="s2">&quot;(</span><span class="si">%.2f</span><span class="s2"> seconds)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client_name</span><span class="p">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+
+        <span class="c1"># Get the time intervals from the restrictions.</span>
+        <span class="n">intervals</span> <span class="o">=</span> <span class="p">[</span><span class="n">TimeInterval</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">_i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">end</span><span class="o">=</span><span class="n">_i</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                     <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">network</span> <span class="ow">in</span> <span class="n">inv</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="n">network</span><span class="p">:</span>
+                <span class="c1"># Skip the station if it is not in the desired domain.</span>
+                <span class="k">if</span> <span class="n">needs_filtering</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">and</span> \
+                        <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">is_in_domain</span><span class="p">(</span><span class="n">station</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span>
+                                                     <span class="n">station</span><span class="o">.</span><span class="n">longitude</span><span class="p">):</span>
+                    <span class="k">continue</span>
+
+                <span class="n">channels</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="n">station</span><span class="o">.</span><span class="n">channels</span><span class="p">:</span>
+                    <span class="c1"># Remove channels that somehow slipped past the temporal</span>
+                    <span class="c1"># constraints due to weird behaviour from the data center.</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">channel</span><span class="o">.</span><span class="n">start_date</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">endtime</span><span class="p">)</span> <span class="ow">or</span> \
+                            <span class="p">(</span><span class="n">channel</span><span class="o">.</span><span class="n">end_date</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">starttime</span><span class="p">):</span>
+                        <span class="k">continue</span>
+                    <span class="n">channels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Channel</span><span class="p">(</span>
+                        <span class="n">location</span><span class="o">=</span><span class="n">channel</span><span class="o">.</span><span class="n">location_code</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="o">.</span><span class="n">code</span><span class="p">,</span>
+                        <span class="n">intervals</span><span class="o">=</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">intervals</span><span class="p">)))</span>
+
+                <span class="c1"># Group by locations and apply the channel priority filter to</span>
+                <span class="c1"># each.</span>
+                <span class="n">filtered_channels</span> <span class="o">=</span> <span class="p">[]</span>
+
+                <span class="k">def</span> <span class="nf">get_loc</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">location</span>
+
+                <span class="k">for</span> <span class="n">location</span><span class="p">,</span> <span class="n">_channels</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
+                        <span class="nb">sorted</span><span class="p">(</span><span class="n">channels</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">get_loc</span><span class="p">),</span> <span class="n">get_loc</span><span class="p">):</span>
+                    <span class="n">filtered_channels</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">utils</span><span class="o">.</span><span class="n">filter_channel_priority</span><span class="p">(</span>
+                        <span class="nb">list</span><span class="p">(</span><span class="n">_channels</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;channel&quot;</span><span class="p">,</span>
+                        <span class="n">priorities</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">channel_priorities</span><span class="p">))</span>
+                <span class="n">channels</span> <span class="o">=</span> <span class="n">filtered_channels</span>
+
+                <span class="c1"># Filter to remove unwanted locations according to the priority</span>
+                <span class="c1"># list.</span>
+                <span class="n">channels</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">filter_channel_priority</span><span class="p">(</span>
+                    <span class="n">channels</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;location&quot;</span><span class="p">,</span>
+                    <span class="n">priorities</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">restrictions</span><span class="o">.</span><span class="n">location_priorities</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">channels</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">stations</span><span class="p">[(</span><span class="n">network</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">station</span><span class="o">.</span><span class="n">code</span><span class="p">)]</span> <span class="o">=</span> <span class="n">Station</span><span class="p">(</span>
+                    <span class="n">network</span><span class="o">=</span><span class="n">network</span><span class="o">.</span><span class="n">code</span><span class="p">,</span>
+                    <span class="n">station</span><span class="o">=</span><span class="n">station</span><span class="o">.</span><span class="n">code</span><span class="p">,</span>
+                    <span class="n">latitude</span><span class="o">=</span><span class="n">station</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span>
+                    <span class="n">longitude</span><span class="o">=</span><span class="n">station</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span>
+                    <span class="n">channels</span><span class="o">=</span><span class="n">channels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Client &#39;</span><span class="si">%s</span><span class="s2">&#39; - Found </span><span class="si">%i</span><span class="s2"> stations (</span><span class="si">%i</span><span class="s2"> channels).&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">client_name</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stations</span><span class="p">),</span>
+            <span class="nb">sum</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">_i</span><span class="o">.</span><span class="n">channels</span><span class="p">)</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stations</span><span class="o">.</span><span class="n">values</span><span class="p">()])))</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

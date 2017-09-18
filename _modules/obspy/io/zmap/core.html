@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.io.zmap.core &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.io.zmap.core</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">ZMAP read/write support.</span>
+
+<span class="sd">ZMAP is a simple 10 column CSV file (technically TSV) format for basic catalog</span>
+<span class="sd">data (see [Wiemer2001]_).</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org), Lukas Heiniger</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">obspy.core</span> <span class="k">import</span> <span class="n">UTCDateTime</span>
+<span class="kn">from</span> <span class="nn">obspy.core.event</span> <span class="k">import</span> <span class="p">(</span><span class="n">Catalog</span><span class="p">,</span> <span class="n">Event</span><span class="p">,</span> <span class="n">Magnitude</span><span class="p">,</span> <span class="n">Origin</span><span class="p">,</span>
+                              <span class="n">OriginUncertainty</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.decorator</span> <span class="k">import</span> <span class="n">map_example_filename</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.deprecation_helpers</span> <span class="k">import</span> \
+    <span class="n">DynamicAttributeImportRerouteModule</span>
+
+
+<span class="n">_STD_ZMAP_COLUMNS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;mag&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">)</span>
+<span class="n">_EXT_ZMAP_COLUMNS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;h_err&#39;</span><span class="p">,</span> <span class="s1">&#39;z_err&#39;</span><span class="p">,</span> <span class="s1">&#39;m_err&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Pickler"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.zmap.core.Pickler.html#obspy.io.zmap.core.Pickler">[docs]</a><span class="k">class</span> <span class="nc">Pickler</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Pickler.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.zmap.core.Pickler.__init__.html#obspy.io.zmap.core.Pickler.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">with_uncertainties</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="c1"># This is ZMAP column order, don&#39;t change it</span>
+        <span class="n">zmap_columns</span> <span class="o">=</span> <span class="n">_STD_ZMAP_COLUMNS</span>
+        <span class="k">if</span> <span class="n">with_uncertainties</span><span class="p">:</span>
+            <span class="n">zmap_columns</span> <span class="o">+=</span> <span class="n">_EXT_ZMAP_COLUMNS</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zmap_columns</span> <span class="o">=</span> <span class="n">zmap_columns</span></div>
+
+<div class="viewcode-block" id="Pickler.dump"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.zmap.core.Pickler.dump.html#obspy.io.zmap.core.Pickler.dump">[docs]</a>    <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes ObsPy Catalog into given file.</span>
+
+<span class="sd">        :type catalog: :class:`~obspy.core.event.Catalog`</span>
+<span class="sd">        :param catalog: ObsPy Catalog object.</span>
+<span class="sd">        :type filename: str or file</span>
+<span class="sd">        :param filename: Target file name or open file-like object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Open filehandler or use an existing file like object.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;write&quot;</span><span class="p">):</span>
+            <span class="n">file_opened</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">fh</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">file_opened</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">fh</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cat_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_serialize</span><span class="p">(</span><span class="n">catalog</span><span class="p">)</span>
+            <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">cat_string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">file_opened</span><span class="p">:</span>
+                <span class="n">fh</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Pickler.dumps"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.zmap.core.Pickler.dumps.html#obspy.io.zmap.core.Pickler.dumps">[docs]</a>    <span class="k">def</span> <span class="nf">dumps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">catalog</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns ZMAP string of given ObsPy Catalog object.</span>
+
+<span class="sd">        :type catalog: :class:`~obspy.core.event.Catalog`</span>
+<span class="sd">        :param catalog: ObsPy Catalog object.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        :returns: ZMAP formatted string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_serialize</span><span class="p">(</span><span class="n">catalog</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Pickler._hz_error"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.zmap.core.Pickler._hz_error.html#obspy.io.zmap.core.Pickler._hz_error">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_hz_error</span><span class="p">(</span><span class="n">origin</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute horizontal error of origin.</span>
+
+<span class="sd">        If the origin has an associated origin uncertainty object, we will try</span>
+<span class="sd">        to extract the horizontal uncertainty from there. Otherwise we compute</span>
+<span class="sd">        it from the individual lat/lon uncertainties stored in origin.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ou</span> <span class="o">=</span> <span class="n">origin</span><span class="o">.</span><span class="n">origin_uncertainty</span>
+        <span class="c1"># TODO: implement the other two possible descriptions</span>
+        <span class="k">if</span> <span class="n">ou</span> <span class="ow">and</span> <span class="n">ou</span><span class="o">.</span><span class="n">preferred_description</span> <span class="o">==</span> <span class="s1">&#39;horizontal uncertainty&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ou</span><span class="o">.</span><span class="n">horizontal_uncertainty</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">km_per_deg</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mf">6371.0087714</span> <span class="o">/</span> <span class="mf">180.0</span>
+            <span class="n">lat_err</span> <span class="o">=</span> <span class="n">origin</span><span class="o">.</span><span class="n">latitude_errors</span><span class="o">.</span><span class="n">uncertainty</span>
+            <span class="n">lon_err</span> <span class="o">=</span> <span class="n">origin</span><span class="o">.</span><span class="n">longitude_errors</span><span class="o">.</span><span class="n">uncertainty</span>
+            <span class="k">if</span> <span class="n">lat_err</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">lon_err</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="n">d_lat</span> <span class="o">=</span> <span class="n">lat_err</span>
+            <span class="n">d_lon</span> <span class="o">=</span> <span class="n">lon_err</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">latitude</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">180.0</span><span class="p">)</span>
+            <span class="n">h_err</span> <span class="o">=</span> <span class="n">km_per_deg</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">d_lat</span><span class="p">,</span> <span class="n">d_lon</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">h_err</span></div>
+
+<div class="viewcode-block" id="Pickler._depth_error"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.zmap.core.Pickler._depth_error.html#obspy.io.zmap.core.Pickler._depth_error">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_depth_error</span><span class="p">(</span><span class="n">origin</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the absolute depth error in km</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: add option to extract depth error from origin uncertainty</span>
+        <span class="c1"># when ellipsoid is used</span>
+        <span class="k">if</span> <span class="n">origin</span><span class="o">.</span><span class="n">depth_errors</span><span class="o">.</span><span class="n">uncertainty</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">origin</span><span class="o">.</span><span class="n">depth_errors</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">/</span> <span class="mf">1000.0</span></div>
+
+<div class="viewcode-block" id="Pickler._num2str"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.zmap.core.Pickler._num2str.html#obspy.io.zmap.core.Pickler._num2str">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_num2str</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">6</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert num into a matlab (and thus zmap) compatible string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">num</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;NaN&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;{n:.</span><span class="si">{p}</span><span class="s1">f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">precision</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">num</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Pickler._decimal_year"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.zmap.core.Pickler._decimal_year.html#obspy.io.zmap.core.Pickler._decimal_year">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_decimal_year</span><span class="p">(</span><span class="n">time</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return (floating point) decimal year representation of UTCDateTime</span>
+<span class="sd">        input value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">start_of_year</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">timestamp</span>
+        <span class="n">end_of_year</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">year</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">timestamp</span>
+        <span class="n">timestamp</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">timestamp</span>
+        <span class="n">year_fraction</span> <span class="o">=</span> <span class="p">((</span><span class="n">timestamp</span> <span class="o">-</span> <span class="n">start_of_year</span><span class="p">)</span> <span class="o">/</span>
+                         <span class="p">(</span><span class="n">end_of_year</span> <span class="o">-</span> <span class="n">start_of_year</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">time</span><span class="o">.</span><span class="n">year</span> <span class="o">+</span> <span class="n">year_fraction</span></div>
+
+<div class="viewcode-block" id="Pickler._serialize"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.zmap.core.Pickler._serialize.html#obspy.io.zmap.core.Pickler._serialize">[docs]</a>    <span class="k">def</span> <span class="nf">_serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">catalog</span><span class="p">):</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ev</span> <span class="ow">in</span> <span class="n">catalog</span><span class="p">:</span>
+            <span class="n">strings</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zmap_columns</span><span class="p">,</span> <span class="s1">&#39;NaN&#39;</span><span class="p">)</span>
+            <span class="c1"># origin</span>
+            <span class="n">origin</span> <span class="o">=</span> <span class="n">ev</span><span class="o">.</span><span class="n">preferred_origin</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">origin</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">ev</span><span class="o">.</span><span class="n">origins</span><span class="p">:</span>
+                <span class="n">origin</span> <span class="o">=</span> <span class="n">ev</span><span class="o">.</span><span class="n">origins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">origin</span><span class="p">:</span>
+                <span class="n">dec_year</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decimal_year</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+                <span class="n">dec_second</span> <span class="o">=</span> <span class="n">origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">second</span> <span class="o">+</span> \
+                    <span class="n">origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">/</span> <span class="mf">1e6</span>
+                <span class="n">strings</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+                    <span class="s1">&#39;depth&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num2str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">depth</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>  <span class="c1"># m to km</span>
+                    <span class="s1">&#39;z_err&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num2str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_depth_error</span><span class="p">(</span><span class="n">origin</span><span class="p">)),</span>
+                    <span class="s1">&#39;lat&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num2str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">latitude</span><span class="p">),</span>
+                    <span class="s1">&#39;lon&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num2str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">longitude</span><span class="p">),</span>
+                    <span class="s1">&#39;h_err&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num2str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_hz_error</span><span class="p">(</span><span class="n">origin</span><span class="p">)),</span>
+                    <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num2str</span><span class="p">(</span><span class="n">dec_year</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
+                    <span class="s1">&#39;month&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num2str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                    <span class="s1">&#39;day&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num2str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                    <span class="s1">&#39;hour&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num2str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                    <span class="s1">&#39;minute&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num2str</span><span class="p">(</span><span class="n">origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                    <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">dec_second</span><span class="p">)</span>
+                <span class="p">})</span>
+            <span class="c1"># magnitude</span>
+            <span class="n">magnitude</span> <span class="o">=</span> <span class="n">ev</span><span class="o">.</span><span class="n">preferred_magnitude</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">magnitude</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">ev</span><span class="o">.</span><span class="n">magnitudes</span><span class="p">:</span>
+                <span class="n">magnitude</span> <span class="o">=</span> <span class="n">ev</span><span class="o">.</span><span class="n">magnitudes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">magnitude</span><span class="p">:</span>
+                <span class="n">strings</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+                    <span class="s1">&#39;mag&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num2str</span><span class="p">(</span><span class="n">magnitude</span><span class="o">.</span><span class="n">mag</span><span class="p">),</span>
+                    <span class="s1">&#39;m_err&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num2str</span><span class="p">(</span><span class="n">magnitude</span><span class="o">.</span><span class="n">mag_errors</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">)</span>
+                <span class="p">})</span>
+            <span class="c1"># create tab separated row</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">strings</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">zmap_columns</span><span class="p">]))</span>
+        <span class="n">zmap</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="n">zmap</span></div></div>
+
+
+<div class="viewcode-block" id="Unpickler"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.zmap.core.Unpickler.html#obspy.io.zmap.core.Unpickler">[docs]</a><span class="k">class</span> <span class="nc">Unpickler</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Unpickler.load"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.zmap.core.Unpickler.load.html#obspy.io.zmap.core.Unpickler.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns an ObsPy Catalog object from a ZMAP file.</span>
+
+<span class="sd">        :type filename: str or file</span>
+<span class="sd">        :param filename: Source file name or open file-like object.</span>
+<span class="sd">        :rtype: :class:`~obspy.core.event.Catalog`</span>
+<span class="sd">        :returns: ObsPy catalog</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Open filehandler or use an existing file like object.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;read&quot;</span><span class="p">):</span>
+            <span class="n">file_opened</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">fh</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">file_opened</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">fh</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">zmap_str</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">zmap_str</span><span class="p">,</span> <span class="s1">&#39;decode&#39;</span><span class="p">):</span>
+                <span class="n">zmap_str</span> <span class="o">=</span> <span class="n">zmap_str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+            <span class="n">catalog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deserialize</span><span class="p">(</span><span class="n">zmap_str</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">catalog</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">file_opened</span><span class="p">:</span>
+                <span class="n">fh</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Unpickler.loads"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.zmap.core.Unpickler.loads.html#obspy.io.zmap.core.Unpickler.loads">[docs]</a>    <span class="k">def</span> <span class="nf">loads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">zmap_str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns an ObsPy Catalog object from a ZMAP string.</span>
+
+<span class="sd">        :type zmap_str: str</span>
+<span class="sd">        :param zmap_str: ObsPy Catalog object.</span>
+<span class="sd">        :rtype: :class:`~obspy.core.event.Catalog`</span>
+<span class="sd">        :returns: ObsPy catalog</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deserialize</span><span class="p">(</span><span class="n">zmap_str</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Unpickler._deserialize"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.zmap.core.Unpickler._deserialize.html#obspy.io.zmap.core.Unpickler._deserialize">[docs]</a>    <span class="k">def</span> <span class="nf">_deserialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">zmap_str</span><span class="p">):</span>
+        <span class="n">catalog</span> <span class="o">=</span> <span class="n">Catalog</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">zmap_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">origin</span> <span class="o">=</span> <span class="n">Origin</span><span class="p">()</span>
+            <span class="n">event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span><span class="n">origins</span><span class="o">=</span><span class="p">[</span><span class="n">origin</span><span class="p">])</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">preferred_origin_id</span> <span class="o">=</span> <span class="n">origin</span><span class="o">.</span><span class="n">resource_id</span><span class="o">.</span><span class="n">id</span>
+            <span class="c1"># Begin value extraction</span>
+            <span class="n">columns</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="mi">13</span><span class="p">)[:</span><span class="mi">13</span><span class="p">]</span>  <span class="c1"># ignore extra columns</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">_STD_ZMAP_COLUMNS</span> <span class="o">+</span> <span class="n">_EXT_ZMAP_COLUMNS</span><span class="p">,</span> <span class="n">columns</span><span class="p">))</span>
+            <span class="c1"># Extract origin</span>
+            <span class="n">origin</span><span class="o">.</span><span class="n">longitude</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_str2num</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">))</span>
+            <span class="n">origin</span><span class="o">.</span><span class="n">latitude</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_str2num</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">))</span>
+            <span class="n">depth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_str2num</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;depth&#39;</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">depth</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">origin</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="n">depth</span> <span class="o">*</span> <span class="mf">1000.0</span>
+            <span class="n">z_err</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_str2num</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;z_err&#39;</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">z_err</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">origin</span><span class="o">.</span><span class="n">depth_errors</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">z_err</span> <span class="o">*</span> <span class="mf">1000.0</span>
+            <span class="n">h_err</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_str2num</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;h_err&#39;</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">h_err</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">ou</span> <span class="o">=</span> <span class="n">OriginUncertainty</span><span class="p">()</span>
+                <span class="n">ou</span><span class="o">.</span><span class="n">horizontal_uncertainty</span> <span class="o">=</span> <span class="n">h_err</span>
+                <span class="n">ou</span><span class="o">.</span><span class="n">preferred_description</span> <span class="o">=</span> <span class="s1">&#39;horizontal uncertainty&#39;</span>
+                <span class="n">origin</span><span class="o">.</span><span class="n">origin_uncertainty</span> <span class="o">=</span> <span class="n">ou</span>
+            <span class="n">year</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_str2num</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">year</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">t_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">]</span>
+                <span class="n">comps</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_str2num</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">f</span><span class="p">))</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">t_fields</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">origin</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decyear2utc</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">any</span><span class="p">(</span><span class="n">v</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">comps</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+                    <span class="c1"># no seconds involved</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">comps</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">:</span>
+                        <span class="n">utc_args</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">comps</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+                    <span class="c1"># we also have to handle seconds</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">utc_args</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">0</span>
+                                    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">comps</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+                        <span class="c1"># just leave float seconds as is</span>
+                        <span class="n">utc_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">comps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="n">origin</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="o">*</span><span class="n">utc_args</span><span class="p">)</span>
+            <span class="n">mag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_str2num</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mag&#39;</span><span class="p">))</span>
+            <span class="c1"># Extract magnitude</span>
+            <span class="k">if</span> <span class="n">mag</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">magnitude</span> <span class="o">=</span> <span class="n">Magnitude</span><span class="p">(</span><span class="n">mag</span><span class="o">=</span><span class="n">mag</span><span class="p">)</span>
+                <span class="n">m_err</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_str2num</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;m_err&#39;</span><span class="p">))</span>
+                <span class="n">magnitude</span><span class="o">.</span><span class="n">mag_errors</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">m_err</span>
+                <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">magnitude</span><span class="p">)</span>
+                <span class="n">event</span><span class="o">.</span><span class="n">preferred_magnitude_id</span> <span class="o">=</span> <span class="n">magnitude</span><span class="o">.</span><span class="n">resource_id</span><span class="o">.</span><span class="n">id</span>
+            <span class="n">catalog</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">catalog</span></div>
+
+<div class="viewcode-block" id="Unpickler._str2num"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.zmap.core.Unpickler._str2num.html#obspy.io.zmap.core.Unpickler._str2num">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_str2num</span><span class="p">(</span><span class="n">num_str</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">num_str</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">num_str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;nan&#39;</span><span class="p">:</span>
+                <span class="n">num</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_str</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">num</span></div>
+
+<div class="viewcode-block" id="Unpickler._decyear2utc"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.zmap.core.Unpickler._decyear2utc.html#obspy.io.zmap.core.Unpickler._decyear2utc">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_decyear2utc</span><span class="p">(</span><span class="n">decimal_year</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return UTCDateTime from decimal year</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">start_of_year</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">decimal_year</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">end_of_year</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">decimal_year</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">start_of_year</span> <span class="o">+</span> <span class="p">(</span><span class="n">decimal_year</span> <span class="o">%</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">end_of_year</span> <span class="o">-</span> <span class="n">start_of_year</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">t</span></div></div>
+
+
+<div class="viewcode-block" id="_write_zmap"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.zmap.core._write_zmap.html#obspy.io.zmap.core._write_zmap">[docs]</a><span class="k">def</span> <span class="nf">_write_zmap</span><span class="p">(</span><span class="n">catalog</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">with_uncertainties</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># @UnusedVariable</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Writes a ZMAP file.</span>
+
+<span class="sd">    Extended ZMAP format as used in CSEP (http://www.cseptesting.org) is</span>
+<span class="sd">    supported by using keyword argument with_uncertainties=True (default:</span>
+<span class="sd">    False)</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        This function should NOT be called directly, it registers via the</span>
+<span class="sd">        the :meth:`~obspy.core.event.Catalog.write` method of an</span>
+<span class="sd">        ObsPy :class:`~obspy.core.event.Catalog` object, call this instead.</span>
+
+<span class="sd">    :type catalog: :class:`~obspy.core.event.Catalog`</span>
+<span class="sd">    :param catalog: The ObsPy Catalog object to write.</span>
+<span class="sd">    :type filename: str or file</span>
+<span class="sd">    :param filename: Filename to write or open file-like object.</span>
+<span class="sd">    :type with_uncertainties: bool</span>
+<span class="sd">    :param with_uncertainties: appends non-standard columns for horizontal,</span>
+<span class="sd">        magnitude and depth uncertainty (see :mod:`~obspy.io.zmap.core`).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Pickler</span><span class="p">(</span><span class="n">with_uncertainties</span><span class="p">)</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">catalog</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_read_zmap"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.zmap.core._read_zmap.html#obspy.io.zmap.core._read_zmap">[docs]</a><span class="k">def</span> <span class="nf">_read_zmap</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads a ZMAP file and returns an ObsPy Catalog object.</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        This function should NOT be called directly, it registers via the</span>
+<span class="sd">        ObsPy :func:`~obspy.core.event.read_events` function, call this</span>
+<span class="sd">        instead.</span>
+
+<span class="sd">    :type filename: str or file</span>
+<span class="sd">    :param filename: ZMAP string, name of ZMAP file to be read or open</span>
+<span class="sd">        file-like object.</span>
+<span class="sd">    :rtype: :class:`~obspy.core.event.Catalog`</span>
+<span class="sd">    :return: An ObsPy Catalog object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;read&#39;</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+                <span class="k">pass</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="c1"># we assume it&#39;s a string now</span>
+            <span class="k">return</span> <span class="n">Unpickler</span><span class="p">()</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Unpickler</span><span class="p">()</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_is_zmap"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.zmap.core._is_zmap.html#obspy.io.zmap.core._is_zmap">[docs]</a><span class="nd">@map_example_filename</span><span class="p">(</span><span class="s2">&quot;filename&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_is_zmap</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks whether a file is ZMAP format.</span>
+
+<span class="sd">    Unlike :func:`~obspy.io.zmap.core._read_zmap` *_is_zmap* is strict, i.e. it</span>
+<span class="sd">    will not detect a ZMAP file unless it consists of exactly 10 or 13</span>
+<span class="sd">    numerical columns.</span>
+
+<span class="sd">    :type filename: str or file</span>
+<span class="sd">    :param filename: ZMAP string, name of the file to be checked or open</span>
+<span class="sd">        file-like object.</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    :return: ``True`` if ZMAP file.</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    &gt;&gt;&gt; _is_zmap(&#39;/path/to/zmap_events.txt&#39;)</span>
+<span class="sd">    True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;tell&#39;</span><span class="p">,</span> <span class="s1">&#39;seek&#39;</span><span class="p">,</span> <span class="s1">&#39;read&#39;</span><span class="p">]):</span>
+        <span class="c1"># we got an open file</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+        <span class="n">filename</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">first_line</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+        <span class="n">filename</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">first_line</span><span class="p">,</span> <span class="s1">&#39;decode&#39;</span><span class="p">):</span>
+            <span class="n">first_line</span> <span class="o">=</span> <span class="n">first_line</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">first_line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">first_line</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">first_line</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="n">line_ending</span> <span class="o">=</span> <span class="n">first_line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">line_ending</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="n">first_line</span> <span class="o">=</span> <span class="n">first_line</span><span class="p">[:</span><span class="n">line_ending</span><span class="p">]</span>
+
+    <span class="c1"># we expect 10 (standard) or 13 columns (extended)</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="n">first_line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">13</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="c1"># only numerical values are allowed (including NaN)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">]</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<span class="c1"># Remove once 0.11 has been released.</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">DynamicAttributeImportRerouteModule</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="vm">__doc__</span><span class="p">,</span> <span class="n">locs</span><span class="o">=</span><span class="nb">locals</span><span class="p">(),</span>
+    <span class="n">original_module</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">],</span>
+    <span class="n">import_map</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">function_map</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;isZmap&#39;</span><span class="p">:</span> <span class="s1">&#39;obspy.io.zmap.core._is_zmap&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;readZmap&#39;</span><span class="p">:</span> <span class="s1">&#39;obspy.io.zmap.core._read_zmap&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;writeZmap&#39;</span><span class="p">:</span> <span class="s1">&#39;obspy.io.zmap.core._write_zmap&#39;</span><span class="p">})</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

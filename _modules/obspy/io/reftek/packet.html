@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.io.reftek.packet &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.io.reftek.packet</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Routines for handling of Reftek130 packets.</span>
+
+<span class="sd">Currently only event header (EH), event trailer (ET) and data (DT) packets are</span>
+<span class="sd">handled. These three packets have more or less the same meaning in the first 8</span>
+<span class="sd">bytes of the payload which makes the first 24 bytes the so called extended</span>
+<span class="sd">header.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+<span class="kn">from</span> <span class="nn">future.utils</span> <span class="k">import</span> <span class="n">native_str</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">UTCDateTime</span>
+<span class="kn">from</span> <span class="nn">obspy.io.mseed.headers</span> <span class="k">import</span> <span class="n">clibmseed</span>
+
+<span class="kn">from</span> <span class="nn">.util</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">_decode_ascii</span><span class="p">,</span> <span class="n">_parse_long_time</span><span class="p">,</span> <span class="n">_16_tuple_ascii</span><span class="p">,</span> <span class="n">_16_tuple_int</span><span class="p">,</span>
+    <span class="n">_16_tuple_float</span><span class="p">,</span> <span class="n">bcd</span><span class="p">,</span> <span class="n">bcd_hex</span><span class="p">,</span> <span class="n">bcd_julian_day_string_to_seconds_of_year</span><span class="p">,</span>
+    <span class="n">bcd_16bit_int</span><span class="p">,</span> <span class="n">bcd_8bit_hex</span><span class="p">,</span> <span class="n">_get_timestamp_for_start_of_year</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Reftek130UnpackPacketError"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.packet.Reftek130UnpackPacketError.html#obspy.io.reftek.packet.Reftek130UnpackPacketError">[docs]</a><span class="k">class</span> <span class="nc">Reftek130UnpackPacketError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<span class="n">PACKET_TYPES_IMPLEMENTED</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;EH&quot;</span><span class="p">,</span> <span class="s2">&quot;ET&quot;</span><span class="p">,</span> <span class="s2">&quot;DT&quot;</span><span class="p">)</span>
+<span class="n">PACKET_TYPES_NOT_IMPLEMENTED</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;AD&quot;</span><span class="p">,</span> <span class="s2">&quot;CD&quot;</span><span class="p">,</span> <span class="s2">&quot;DS&quot;</span><span class="p">,</span> <span class="s2">&quot;FD&quot;</span><span class="p">,</span> <span class="s2">&quot;OM&quot;</span><span class="p">,</span> <span class="s2">&quot;SC&quot;</span><span class="p">,</span> <span class="s2">&quot;SH&quot;</span><span class="p">)</span>
+<span class="n">PACKET_TYPES</span> <span class="o">=</span> <span class="n">PACKET_TYPES_IMPLEMENTED</span> <span class="o">+</span> <span class="n">PACKET_TYPES_NOT_IMPLEMENTED</span>
+
+
+<span class="c1"># The extended header which is the same for EH/ET/DT packets.</span>
+<span class="c1"># tuples are:</span>
+<span class="c1">#  - field name</span>
+<span class="c1">#  - dtype during initial reading</span>
+<span class="c1">#  - conversion routine (if any)</span>
+<span class="c1">#  - dtype after conversion</span>
+<span class="n">PACKET</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;packet_type&quot;</span><span class="p">,</span> <span class="n">native_str</span><span class="p">(</span><span class="s2">&quot;|S2&quot;</span><span class="p">),</span> <span class="kc">None</span><span class="p">,</span> <span class="n">native_str</span><span class="p">(</span><span class="s2">&quot;S2&quot;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">&quot;experiment_number&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="n">bcd</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="n">bcd</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;unit_id&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">bcd_hex</span><span class="p">,</span> <span class="n">native_str</span><span class="p">(</span><span class="s2">&quot;S4&quot;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">bcd_julian_day_string_to_seconds_of_year</span><span class="p">,</span>
+     <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;byte_count&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">bcd_16bit_int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;packet_sequence&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">bcd_16bit_int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;event_number&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">bcd_16bit_int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;data_stream_number&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="n">bcd</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;channel_number&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="n">bcd</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;number_of_samples&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">bcd_16bit_int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;flags&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;data_format&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="n">bcd_8bit_hex</span><span class="p">,</span> <span class="n">native_str</span><span class="p">(</span><span class="s2">&quot;S2&quot;</span><span class="p">)),</span>
+    <span class="c1"># Temporarily store the payload here.</span>
+    <span class="p">(</span><span class="s2">&quot;payload&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> <span class="kc">None</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))]</span>
+
+
+<span class="c1"># name, offset, length (bytes) and converter routine for EH/ET packet payload</span>
+<span class="n">EH_PAYLOAD</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;trigger_time_message&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="n">_decode_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;time_source&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">33</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">_decode_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;time_quality&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">34</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">_decode_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;station_name_extension&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">_decode_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;station_name&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">36</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">_decode_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;stream_name&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">_decode_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;_reserved_2&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">56</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">_decode_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;sampling_rate&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="s2">&quot;trigger_type&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">68</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">_decode_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;trigger_time&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">_parse_long_time</span><span class="p">),</span>
+    <span class="s2">&quot;first_sample_time&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">88</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">_parse_long_time</span><span class="p">),</span>
+    <span class="s2">&quot;detrigger_time&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">104</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">_parse_long_time</span><span class="p">),</span>
+    <span class="s2">&quot;last_sample_time&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">_parse_long_time</span><span class="p">),</span>
+    <span class="s2">&quot;channel_adjusted_nominal_bit_weights&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">136</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">_16_tuple_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;channel_true_bit_weights&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">264</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="n">_16_tuple_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;channel_gain_code&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">392</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">_16_tuple_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;channel_ad_resolution_code&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">408</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">_16_tuple_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;channel_fsa_code&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">424</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">_16_tuple_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;channel_code&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">440</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">_16_tuple_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;channel_sensor_fsa_code&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">504</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">_16_tuple_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;channel_sensor_vpu&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">520</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="n">_16_tuple_float</span><span class="p">),</span>
+    <span class="s2">&quot;channel_sensor_units_code&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">616</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">_16_tuple_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;station_channel_number&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">632</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="n">_16_tuple_int</span><span class="p">),</span>
+    <span class="s2">&quot;_reserved_3&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">680</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="n">_decode_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;total_installed_channels&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">836</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+    <span class="s2">&quot;station_comment&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">838</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="n">_decode_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;digital_filter_list&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">878</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">_decode_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">894</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="n">_decode_ascii</span><span class="p">),</span>
+    <span class="s2">&quot;reftek_120&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">920</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="kc">None</span><span class="p">)}</span>
+
+
+<div class="viewcode-block" id="Packet"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.packet.Packet.html#obspy.io.reftek.packet.Packet">[docs]</a><span class="k">class</span> <span class="nc">Packet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">_headers</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;experiment_number&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_id&#39;</span><span class="p">,</span> <span class="s1">&#39;byte_count&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;packet_sequence&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Packet.from_data"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.packet.Packet.from_data.html#obspy.io.reftek.packet.Packet.from_data">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_data</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+        <span class="n">packet_type</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;packet_type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ASCII&quot;</span><span class="p">,</span> <span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">packet_type</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;EH&quot;</span><span class="p">,</span> <span class="s2">&quot;ET&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">EHPacket</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">packet_type</span> <span class="o">==</span> <span class="s2">&quot;DT&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">DTPacket</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Can not create Reftek packet for packet type &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">packet_type</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Packet.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.packet.Packet.__init__.html#obspy.io.reftek.packet.Packet.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;packet_type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Packet.__getattr__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.packet.Packet.__getattr__.html#obspy.io.reftek.packet.Packet.__getattr__">[docs]</a>    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_headers</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">timestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="EHPacket"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.packet.EHPacket.html#obspy.io.reftek.packet.EHPacket">[docs]</a><span class="k">class</span> <span class="nc">EHPacket</span><span class="p">(</span><span class="n">Packet</span><span class="p">):</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;_data&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">EH_PAYLOAD</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">_headers</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;packet_sequence&#39;</span><span class="p">,</span> <span class="s1">&#39;experiment_number&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_id&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;byte_count&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;event_number&#39;</span><span class="p">,</span> <span class="s1">&#39;data_stream_number&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;data_format&#39;</span><span class="p">,</span> <span class="s1">&#39;flags&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="EHPacket.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.packet.EHPacket.__init__.html#obspy.io.reftek.packet.EHPacket.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;payload&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="c1"># for numpy &lt; 1.9.0, does not work for python 3.6</span>
+            <span class="n">payload</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;payload&quot;</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">converter</span><span class="p">)</span> <span class="ow">in</span> <span class="n">EH_PAYLOAD</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">payload</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">start</span> <span class="o">+</span> <span class="n">length</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">converter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">converter</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="EHPacket._to_dict"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.packet.EHPacket._to_dict.html#obspy.io.reftek.packet.EHPacket._to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert to dictionary structure.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">EH_PAYLOAD</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span></div>
+
+<div class="viewcode-block" id="EHPacket.__str__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.packet.EHPacket.__str__.html#obspy.io.reftek.packet.EHPacket.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">compact</span><span class="p">:</span>
+            <span class="n">sta</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">station_name</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span>
+                   <span class="bp">self</span><span class="o">.</span><span class="n">station_name_extension</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">{:04d}</span><span class="s2"> </span><span class="si">{:2s}</span><span class="s2"> </span><span class="si">{:4s}</span><span class="s2"> </span><span class="si">{:2d}</span><span class="s2"> </span><span class="si">{:4d}</span><span class="s2"> </span><span class="si">{:4d}</span><span class="s2"> </span><span class="si">{:2d}</span><span class="s2"> </span><span class="si">{:2s}</span><span class="s2"> &quot;</span>
+                    <span class="s2">&quot;</span><span class="si">{:5s}</span><span class="s2"> </span><span class="si">{:4d}</span><span class="s2">         </span><span class="si">{!s}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">packet_sequence</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">unit_id</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_number</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">byte_count</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_number</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">data_stream_number</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_format</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span>
+                        <span class="n">sta</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sampling_rate</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_headers</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;unit_id&quot;</span><span class="p">,</span> <span class="s2">&quot;data_format&quot;</span><span class="p">):</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+                <span class="n">info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+            <span class="n">info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+            <span class="n">info</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">))</span>
+                     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">EH_PAYLOAD</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> Packet</span><span class="se">\n\t</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span>
+                                            <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">info</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">info</span></div></div>
+
+
+<div class="viewcode-block" id="DTPacket"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.packet.DTPacket.html#obspy.io.reftek.packet.DTPacket">[docs]</a><span class="k">class</span> <span class="nc">DTPacket</span><span class="p">(</span><span class="n">Packet</span><span class="p">):</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;_data&quot;</span><span class="p">]</span>
+    <span class="n">_headers</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;packet_sequence&#39;</span><span class="p">,</span> <span class="s1">&#39;experiment_number&#39;</span><span class="p">,</span> <span class="s1">&#39;unit_id&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;byte_count&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;event_number&#39;</span><span class="p">,</span> <span class="s1">&#39;data_stream_number&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;channel_number&#39;</span><span class="p">,</span> <span class="s1">&#39;number_of_samples&#39;</span><span class="p">,</span> <span class="s1">&#39;data_format&#39;</span><span class="p">,</span> <span class="s1">&#39;flags&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DTPacket.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.packet.DTPacket.__init__.html#obspy.io.reftek.packet.DTPacket.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="DTPacket.__str__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.packet.DTPacket.__str__.html#obspy.io.reftek.packet.DTPacket.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">compact</span><span class="p">:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">{:04d}</span><span class="s2"> </span><span class="si">{:2s}</span><span class="s2"> </span><span class="si">{:4s}</span><span class="s2"> </span><span class="si">{:2d}</span><span class="s2"> </span><span class="si">{:4d}</span><span class="s2"> </span><span class="si">{:4d}</span><span class="s2"> </span><span class="si">{:2d}</span><span class="s2"> </span><span class="si">{:2s}</span><span class="s2"> &quot;</span>
+                    <span class="s2">&quot;           </span><span class="si">{:2d}</span><span class="s2"> </span><span class="si">{:4d}</span><span class="s2"> </span><span class="si">{!s}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">packet_sequence</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">unit_id</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiment_number</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">byte_count</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_number</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">data_stream_number</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_format</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">channel_number</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_samples</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_headers</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;unit_id&quot;</span><span class="p">,</span> <span class="s2">&quot;data_format&quot;</span><span class="p">):</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+                <span class="n">info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> Packet</span><span class="se">\n\t</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span>
+                                            <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">info</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">info</span></div></div>
+
+
+<span class="n">PACKET_INITIAL_UNPACK_DTYPE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([</span>
+    <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="n">dtype_initial</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">dtype_initial</span><span class="p">,</span> <span class="n">converter</span><span class="p">,</span> <span class="n">dtype_final</span> <span class="ow">in</span> <span class="n">PACKET</span><span class="p">])</span>
+
+<span class="n">PACKET_FINAL_DTYPE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([</span>
+    <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="n">dtype_final</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">dtype_initial</span><span class="p">,</span> <span class="n">converter</span><span class="p">,</span> <span class="n">dtype_final</span> <span class="ow">in</span> <span class="n">PACKET</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="_initial_unpack_packets"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.packet._initial_unpack_packets.html#obspy.io.reftek.packet._initial_unpack_packets">[docs]</a><span class="k">def</span> <span class="nf">_initial_unpack_packets</span><span class="p">(</span><span class="n">bytestring</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    First unpack data with dtype matching itemsize of storage in the reftek</span>
+<span class="sd">    file, than allocate result array with dtypes for storage of python</span>
+<span class="sd">    objects/arrays and fill it with the unpacked data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">bytestring</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">PACKET_FINAL_DTYPE</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">bytestring</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1024</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">tail</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bytestring</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1024</span>
+        <span class="n">bytestring</span> <span class="o">=</span> <span class="n">bytestring</span><span class="p">[:</span><span class="o">-</span><span class="n">tail</span><span class="p">]</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Length of data not a multiple of 1024. Data might be &quot;</span>
+               <span class="s2">&quot;truncated. Dropping </span><span class="si">{:d}</span><span class="s2"> byte(s) at the end.&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tail</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span>
+        <span class="n">bytestring</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">PACKET_INITIAL_UNPACK_DTYPE</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">PACKET_FINAL_DTYPE</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">dtype_initial</span><span class="p">,</span> <span class="n">converter</span><span class="p">,</span> <span class="n">dtype_final</span> <span class="ow">in</span> <span class="n">PACKET</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">converter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">name</span><span class="p">][:]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">name</span><span class="p">][:]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">name</span><span class="p">][:]</span> <span class="o">=</span> <span class="n">converter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">Reftek130UnpackPacketError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+    <span class="c1"># time unpacking is special and needs some additional work.</span>
+    <span class="c1"># we need to add the POSIX timestamp of the start of respective year to the</span>
+    <span class="c1"># already unpacked seconds into the respective year..</span>
+    <span class="n">result</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">][:]</span> <span class="o">+=</span> <span class="p">[</span><span class="n">_get_timestamp_for_start_of_year</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+                          <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="_unpack_C0_C2_data"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.packet._unpack_C0_C2_data.html#obspy.io.reftek.packet._unpack_C0_C2_data">[docs]</a><span class="k">def</span> <span class="nf">_unpack_C0_C2_data</span><span class="p">(</span><span class="n">packets</span><span class="p">,</span> <span class="n">encoding</span><span class="p">):</span>  <span class="c1"># noqa</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Unpacks sample data from a packet array that uses &#39;C0&#39; or &#39;C2&#39; data</span>
+<span class="sd">    encoding.</span>
+
+<span class="sd">    :type packets: :class:`numpy.ndarray` (dtype ``PACKET_FINAL_DTYPE``)</span>
+<span class="sd">    :param packets: Array of data packets (``packet_type`` ``&#39;DT&#39;``) from which</span>
+<span class="sd">        to unpack the sample data (with data encoding &#39;C0&#39; or &#39;C2&#39;).</span>
+<span class="sd">    :type encoding: str</span>
+<span class="sd">    :param encoding: Reftek data encoding as specified in event header (EH)</span>
+<span class="sd">        packet, either ``&#39;C0&#39;`` or ``&#39;C2&#39;``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">encoding</span> <span class="o">==</span> <span class="s1">&#39;C0&#39;</span><span class="p">:</span>
+        <span class="n">encoding_bytes</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;C0&#39;</span>
+    <span class="k">elif</span> <span class="n">encoding</span> <span class="o">==</span> <span class="s1">&#39;C2&#39;</span><span class="p">:</span>
+        <span class="n">encoding_bytes</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;C2&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Unregonized encoding: &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">packets</span><span class="p">[</span><span class="s1">&#39;data_format&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">encoding_bytes</span><span class="p">):</span>
+        <span class="n">differing_formats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span>
+            <span class="n">packets</span><span class="p">[</span><span class="n">packets</span><span class="p">[</span><span class="s1">&#39;data_format&#39;</span><span class="p">]</span> <span class="o">!=</span>
+                    <span class="n">encoding_bytes</span><span class="p">][</span><span class="s1">&#39;data_format&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Using &#39;</span><span class="si">{}</span><span class="s2">&#39; data format unpacking routine but some packet(s) &quot;</span>
+               <span class="s2">&quot;specify other data format(s): </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span>
+                                                         <span class="n">differing_formats</span><span class="p">))</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="c1"># if the packet array is contiguous in memory (which it generally should</span>
+    <span class="c1"># be), we can work with the memory address of the first packed data byte</span>
+    <span class="c1"># and advance it by a fixed offset when moving from one packet to the next</span>
+    <span class="k">if</span> <span class="n">packets</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;C_CONTIGUOUS&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">packets</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s1">&#39;F_CONTIGUOUS&#39;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">_unpack_C0_C2_data_fast</span><span class="p">(</span><span class="n">packets</span><span class="p">,</span> <span class="n">encoding</span><span class="p">)</span>
+    <span class="c1"># if the packet array is *not* contiguous in memory, fall back to slightly</span>
+    <span class="c1"># slower unpacking with looking up the memory position of the first packed</span>
+    <span class="c1"># byte in each packet individually.</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_unpack_C0_C2_data_safe</span><span class="p">(</span><span class="n">packets</span><span class="p">,</span> <span class="n">encoding</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_unpack_C0_C2_data_fast"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.packet._unpack_C0_C2_data_fast.html#obspy.io.reftek.packet._unpack_C0_C2_data_fast">[docs]</a><span class="k">def</span> <span class="nf">_unpack_C0_C2_data_fast</span><span class="p">(</span><span class="n">packets</span><span class="p">,</span> <span class="n">encoding</span><span class="p">):</span>  <span class="c1"># noqa</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Unpacks sample data from a packet array that uses &#39;C0&#39; or &#39;C2&#39; data</span>
+<span class="sd">    encoding.</span>
+
+<span class="sd">    Unfortunately the whole data cannot be unpacked with one call to</span>
+<span class="sd">    libmseed as some payloads do not take the full 960 bytes. They are</span>
+<span class="sd">    thus padded which would results in padded pieces directly in a large</span>
+<span class="sd">    array and libmseed (understandably) does not support that.</span>
+
+<span class="sd">    Thus we resort to *tada* pointer arithmetics in Python ;-) This is</span>
+<span class="sd">    quite a bit faster then correctly casting to an integer pointer so</span>
+<span class="sd">    it&#39;s worth it.</span>
+
+<span class="sd">    Also avoid a data copy.</span>
+
+<span class="sd">    Writing this directly in C would be about 3 times as fast so it might</span>
+<span class="sd">    be worth it.</span>
+
+<span class="sd">    :type packets: :class:`numpy.ndarray` (dtype ``PACKET_FINAL_DTYPE``)</span>
+<span class="sd">    :param packets: Array of data packets (``packet_type`` ``&#39;DT&#39;``) from which</span>
+<span class="sd">        to unpack the sample data (with data encoding &#39;C0&#39; or &#39;C2&#39;).</span>
+<span class="sd">    :type encoding: str</span>
+<span class="sd">    :param encoding: Reftek data encoding as specified in event header (EH)</span>
+<span class="sd">        packet, either ``&#39;C0&#39;`` or ``&#39;C2&#39;``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">encoding</span> <span class="o">==</span> <span class="s1">&#39;C0&#39;</span><span class="p">:</span>
+        <span class="n">decode_steim</span> <span class="o">=</span> <span class="n">clibmseed</span><span class="o">.</span><span class="n">msr_decode_steim1</span>
+    <span class="k">elif</span> <span class="n">encoding</span> <span class="o">==</span> <span class="s1">&#39;C2&#39;</span><span class="p">:</span>
+        <span class="n">decode_steim</span> <span class="o">=</span> <span class="n">clibmseed</span><span class="o">.</span><span class="n">msr_decode_steim2</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Unregonized encoding: &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">npts</span> <span class="o">=</span> <span class="n">packets</span><span class="p">[</span><span class="s2">&quot;number_of_samples&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">unpacked_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">npts</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">packets</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;payload&quot;</span><span class="p">][</span><span class="mi">40</span><span class="p">:]</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">packets</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">packets</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;payload&quot;</span><span class="p">][</span><span class="mi">40</span><span class="p">:]</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data</span> <span class="o">-</span> <span class="n">s</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">_npts</span> <span class="ow">in</span> <span class="n">packets</span><span class="p">[</span><span class="s2">&quot;number_of_samples&quot;</span><span class="p">]:</span>
+        <span class="n">decode_steim</span><span class="p">(</span>
+            <span class="n">s</span><span class="p">,</span> <span class="mi">960</span><span class="p">,</span> <span class="n">_npts</span><span class="p">,</span> <span class="n">unpacked_data</span><span class="p">[</span><span class="n">pos</span><span class="p">:],</span> <span class="n">_npts</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="mi">1</span><span class="p">)</span>
+        <span class="n">pos</span> <span class="o">+=</span> <span class="n">_npts</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="n">offset</span>
+    <span class="k">return</span> <span class="n">unpacked_data</span></div>
+
+
+<div class="viewcode-block" id="_unpack_C0_C2_data_safe"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.reftek.packet._unpack_C0_C2_data_safe.html#obspy.io.reftek.packet._unpack_C0_C2_data_safe">[docs]</a><span class="k">def</span> <span class="nf">_unpack_C0_C2_data_safe</span><span class="p">(</span><span class="n">packets</span><span class="p">,</span> <span class="n">encoding</span><span class="p">):</span>  <span class="c1"># noqa</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Unpacks sample data from a packet array that uses &#39;C0&#39; or &#39;C2&#39; data</span>
+<span class="sd">    encoding.</span>
+
+<span class="sd">    If the packet array is *not* contiguous in memory, fall back to slightly</span>
+<span class="sd">    slower unpacking with looking up the memory position of the first packed</span>
+<span class="sd">    byte in each packet individually.</span>
+
+<span class="sd">    :type packets: :class:`numpy.ndarray` (dtype ``PACKET_FINAL_DTYPE``)</span>
+<span class="sd">    :param packets: Array of data packets (``packet_type`` ``&#39;DT&#39;``) from which</span>
+<span class="sd">        to unpack the sample data (with data encoding &#39;C0&#39; or &#39;C2&#39;).</span>
+<span class="sd">    :type encoding: str</span>
+<span class="sd">    :param encoding: Reftek data encoding as specified in event header (EH)</span>
+<span class="sd">        packet, either ``&#39;C0&#39;`` or ``&#39;C2&#39;``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">encoding</span> <span class="o">==</span> <span class="s1">&#39;C0&#39;</span><span class="p">:</span>
+        <span class="n">decode_steim</span> <span class="o">=</span> <span class="n">clibmseed</span><span class="o">.</span><span class="n">msr_decode_steim1</span>
+    <span class="k">elif</span> <span class="n">encoding</span> <span class="o">==</span> <span class="s1">&#39;C2&#39;</span><span class="p">:</span>
+        <span class="n">decode_steim</span> <span class="o">=</span> <span class="n">clibmseed</span><span class="o">.</span><span class="n">msr_decode_steim2</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Unregonized encoding: &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">npts</span> <span class="o">=</span> <span class="n">packets</span><span class="p">[</span><span class="s2">&quot;number_of_samples&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">unpacked_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">npts</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># Sample data starts at byte 40 in the DT packet&#39;s</span>
+    <span class="c1"># payload.</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">packets</span><span class="p">:</span>
+        <span class="n">_npts</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s2">&quot;number_of_samples&quot;</span><span class="p">]</span>
+        <span class="n">decode_steim</span><span class="p">(</span>
+            <span class="n">p</span><span class="p">[</span><span class="s2">&quot;payload&quot;</span><span class="p">][</span><span class="mi">40</span><span class="p">:]</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">960</span><span class="p">,</span> <span class="n">_npts</span><span class="p">,</span>
+            <span class="n">unpacked_data</span><span class="p">[</span><span class="n">pos</span><span class="p">:],</span> <span class="n">_npts</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">pos</span> <span class="o">+=</span> <span class="n">_npts</span>
+    <span class="k">return</span> <span class="n">unpacked_data</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

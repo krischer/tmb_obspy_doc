@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.io.ndk.core &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.io.ndk.core</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">NDK file support for ObsPy</span>
+
+<span class="sd">The format is an ASCII format but will internally handled by unicode routines.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA @UnusedWildImport</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">izip_longest</span> <span class="k">as</span> <span class="n">zip_longest</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">zip_longest</span>
+
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">UTCDateTime</span>
+<span class="kn">from</span> <span class="nn">obspy.core.event</span> <span class="k">import</span> <span class="p">(</span><span class="n">Axis</span><span class="p">,</span> <span class="n">Catalog</span><span class="p">,</span> <span class="n">Comment</span><span class="p">,</span> <span class="n">CreationInfo</span><span class="p">,</span> <span class="n">DataUsed</span><span class="p">,</span>
+                              <span class="n">Event</span><span class="p">,</span> <span class="n">EventDescription</span><span class="p">,</span> <span class="n">FocalMechanism</span><span class="p">,</span>
+                              <span class="n">Magnitude</span><span class="p">,</span> <span class="n">MomentTensor</span><span class="p">,</span> <span class="n">NodalPlane</span><span class="p">,</span> <span class="n">NodalPlanes</span><span class="p">,</span>
+                              <span class="n">Origin</span><span class="p">,</span> <span class="n">PrincipalAxes</span><span class="p">,</span> <span class="n">SourceTimeFunction</span><span class="p">,</span>
+                              <span class="n">Tensor</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.deprecation_helpers</span> <span class="k">import</span> \
+    <span class="n">DynamicAttributeImportRerouteModule</span>
+<span class="kn">from</span> <span class="nn">obspy.geodetics</span> <span class="k">import</span> <span class="n">FlinnEngdahl</span>
+
+
+<div class="viewcode-block" id="ObsPyNDKException"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.ndk.core.ObsPyNDKException.html#obspy.io.ndk.core.ObsPyNDKException">[docs]</a><span class="k">class</span> <span class="nc">ObsPyNDKException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base Exception class for this module.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="ObsPyNDKWarning"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.ndk.core.ObsPyNDKWarning.html#obspy.io.ndk.core.ObsPyNDKWarning">[docs]</a><span class="k">class</span> <span class="nc">ObsPyNDKWarning</span><span class="p">(</span><span class="ne">UserWarning</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base warning for this module.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="_get_resource_id"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.ndk.core._get_resource_id.html#obspy.io.ndk.core._get_resource_id">[docs]</a><span class="k">def</span> <span class="nf">_get_resource_id</span><span class="p">(</span><span class="n">cmtname</span><span class="p">,</span> <span class="n">res_type</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function to create consistent resource ids.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">res_id</span> <span class="o">=</span> <span class="s2">&quot;smi:local/ndk/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">cmtname</span><span class="p">,</span> <span class="n">res_type</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tag</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">res_id</span> <span class="o">+=</span> <span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="n">tag</span>
+    <span class="k">return</span> <span class="n">res_id</span></div>
+
+
+<div class="viewcode-block" id="_parse_date_time"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.ndk.core._parse_date_time.html#obspy.io.ndk.core._parse_date_time">[docs]</a><span class="k">def</span> <span class="nf">_parse_date_time</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function taking a tuple of date and time string from an NDK file and</span>
+<span class="sd">    converting it to an UTCDateTime object.</span>
+
+<span class="sd">    In particular it is able to deal with a time string specifying 60</span>
+<span class="sd">    seconds which is not a valid ISO time string but occurs a lot in NDK</span>
+<span class="sd">    files.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">add_minute</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="s2">&quot;:60.0&quot;</span> <span class="ow">in</span> <span class="n">time</span><span class="p">:</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;:60.0&quot;</span><span class="p">,</span> <span class="s2">&quot;:0.0&quot;</span><span class="p">)</span>
+        <span class="n">add_minute</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;T&quot;</span> <span class="o">+</span> <span class="n">time</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Could not parse date/time string &#39;</span><span class="si">%s</span><span class="s2">&#39; and &#39;</span><span class="si">%s</span><span class="s2">&#39; to a valid &quot;</span>
+               <span class="s2">&quot;time&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">time</span><span class="p">))</span>
+        <span class="k">raise</span> <span class="n">ObsPyNDKException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">add_minute</span><span class="p">:</span>
+        <span class="n">dt</span> <span class="o">+=</span> <span class="mf">60.0</span>
+    <span class="k">return</span> <span class="n">dt</span></div>
+
+
+<div class="viewcode-block" id="_is_ndk"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.ndk.core._is_ndk.html#obspy.io.ndk.core._is_ndk">[docs]</a><span class="k">def</span> <span class="nf">_is_ndk</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks that a file is actually an NDK file.</span>
+
+<span class="sd">    It will read the first line and check to see if the date, time, and the</span>
+<span class="sd">    location are valid. Then it assumes the file is an NDK file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Get the first line.</span>
+    <span class="c1"># Not a file-like object.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;readline&quot;</span><span class="p">):</span>
+        <span class="c1"># Check if it exists, otherwise assume its a string.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;rt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+                <span class="n">first_line</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">line_ending</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">line_ending</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="n">first_line</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[:</span><span class="n">line_ending</span><span class="p">]</span>
+    <span class="c1"># File like object.</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">first_line</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">first_line</span><span class="p">,</span> <span class="s2">&quot;decode&quot;</span><span class="p">):</span>
+            <span class="n">first_line</span> <span class="o">=</span> <span class="n">first_line</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+    <span class="c1"># A certain minimum length is required to extract all the following</span>
+    <span class="c1"># parameters.</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_line</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">46</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="n">date</span> <span class="o">=</span> <span class="n">first_line</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">first_line</span><span class="p">[</span><span class="mi">16</span><span class="p">:</span><span class="mi">26</span><span class="p">]</span>
+
+    <span class="c1"># Assemble the time.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">_parse_date_time</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">ObsPyNDKException</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">latitude</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">first_line</span><span class="p">[</span><span class="mi">27</span><span class="p">:</span><span class="mi">33</span><span class="p">])</span>
+        <span class="n">longitude</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">first_line</span><span class="p">[</span><span class="mi">34</span><span class="p">:</span><span class="mi">41</span><span class="p">])</span>
+        <span class="n">depth</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">first_line</span><span class="p">[</span><span class="mi">42</span><span class="p">:</span><span class="mi">47</span><span class="p">])</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="mf">90.0</span> <span class="o">&lt;=</span> <span class="n">latitude</span> <span class="o">&lt;=</span> <span class="mf">90.0</span><span class="p">)</span> <span class="ow">and</span> \
+            <span class="p">(</span><span class="o">-</span><span class="mf">180.0</span> <span class="o">&lt;=</span> <span class="n">longitude</span> <span class="o">&lt;=</span> <span class="mf">180.0</span><span class="p">)</span> <span class="ow">and</span> \
+            <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">depth</span> <span class="o">&lt;=</span> <span class="mi">800000</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="_read_ndk"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.ndk.core._read_ndk.html#obspy.io.ndk.core._read_ndk">[docs]</a><span class="k">def</span> <span class="nf">_read_ndk</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># @UnusedVariable</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads an NDK file to a :class:`~obspy.core.event.Catalog` object.</span>
+
+<span class="sd">    :param filename: File or file-like object in text mode.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Read the whole file at once. While an iterator would be more efficient</span>
+    <span class="c1"># the largest NDK file out in the wild is 13.7 MB so it does not matter</span>
+    <span class="c1"># much.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;read&quot;</span><span class="p">):</span>
+        <span class="c1"># Check if it exists, otherwise assume its a string.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;rt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;decode&quot;</span><span class="p">):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+    <span class="c1"># Create iterator that yields lines.</span>
+    <span class="k">def</span> <span class="nf">lines_iter</span><span class="p">():</span>
+        <span class="n">prev_line</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">next_line</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">prev_line</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">next_line</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="k">yield</span> <span class="n">data</span><span class="p">[</span><span class="n">prev_line</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span> <span class="n">next_line</span><span class="p">]</span>
+            <span class="n">prev_line</span> <span class="o">=</span> <span class="n">next_line</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">prev_line</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">data</span><span class="p">[</span><span class="n">prev_line</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span>
+
+    <span class="c1"># Use one Flinn Engdahl object for all region determinations.</span>
+    <span class="n">fe</span> <span class="o">=</span> <span class="n">FlinnEngdahl</span><span class="p">()</span>
+    <span class="n">cat</span> <span class="o">=</span> <span class="n">Catalog</span><span class="p">(</span><span class="n">resource_id</span><span class="o">=</span><span class="n">_get_resource_id</span><span class="p">(</span><span class="s2">&quot;catalog&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())))</span>
+
+    <span class="c1"># Loop over 5 lines at once.</span>
+    <span class="k">for</span> <span class="n">_i</span><span class="p">,</span> <span class="n">lines</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">zip_longest</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">lines_iter</span><span class="p">()]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="kc">None</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Skipped last </span><span class="si">%i</span><span class="s2"> lines. Not a multiple of 5 lines.&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="n">lines</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="kc">None</span><span class="p">))</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">ObsPyNDKWarning</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Parse the lines to a human readable dictionary.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">record</span> <span class="o">=</span> <span class="n">_read_lines</span><span class="p">(</span><span class="o">*</span><span class="n">lines</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">ObsPyNDKException</span><span class="p">):</span>
+            <span class="n">exc</span> <span class="o">=</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;Could not parse event </span><span class="si">%i</span><span class="s2"> (faulty file?). Will be &quot;</span>
+                <span class="s2">&quot;skipped. Lines of the event:</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;</span><span class="se">\t</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="n">_i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span> <span class="n">exc</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">ObsPyNDKWarning</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Use one creation info for essentially every item.</span>
+        <span class="n">creation_info</span> <span class="o">=</span> <span class="n">CreationInfo</span><span class="p">(</span>
+            <span class="n">agency_id</span><span class="o">=</span><span class="s2">&quot;GCMT&quot;</span><span class="p">,</span>
+            <span class="n">version</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;version_code&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Use the ObsPy Flinn Engdahl region determiner as the region in the</span>
+        <span class="c1"># NDK files is oftentimes trimmed.</span>
+        <span class="n">region</span> <span class="o">=</span> <span class="n">fe</span><span class="o">.</span><span class="n">get_region</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;centroid_longitude&quot;</span><span class="p">],</span>
+                               <span class="n">record</span><span class="p">[</span><span class="s2">&quot;centroid_latitude&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Create an event object.</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span>
+            <span class="n">force_resource_id</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">event_type</span><span class="o">=</span><span class="s2">&quot;earthquake&quot;</span><span class="p">,</span>
+            <span class="n">event_type_certainty</span><span class="o">=</span><span class="s2">&quot;known&quot;</span><span class="p">,</span>
+            <span class="n">event_descriptions</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">EventDescription</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">region</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;Flinn-Engdahl region&quot;</span><span class="p">),</span>
+                <span class="n">EventDescription</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;cmt_event_name&quot;</span><span class="p">],</span>
+                                 <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;earthquake name&quot;</span><span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Assemble the time for the reference origin.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="n">_parse_date_time</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="n">ObsPyNDKException</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Invalid time in event </span><span class="si">%i</span><span class="s2">. &#39;</span><span class="si">%s</span><span class="s2">&#39; and &#39;</span><span class="si">%s</span><span class="s2">&#39; cannot be &quot;</span>
+                   <span class="s2">&quot;assembled to a valid time. Event will be skipped.&quot;</span><span class="p">)</span> <span class="o">%</span> \
+                  <span class="p">(</span><span class="n">_i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">ObsPyNDKWarning</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Create two origins, one with the reference latitude/longitude and</span>
+        <span class="c1"># one with the centroidal values.</span>
+        <span class="n">ref_origin</span> <span class="o">=</span> <span class="n">Origin</span><span class="p">(</span>
+            <span class="n">force_resource_id</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
+            <span class="n">longitude</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;hypo_lng&quot;</span><span class="p">],</span>
+            <span class="n">latitude</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;hypo_lat&quot;</span><span class="p">],</span>
+            <span class="c1"># Convert to m.</span>
+            <span class="n">depth</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;hypo_depth_in_km&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1000.0</span><span class="p">,</span>
+            <span class="n">origin_type</span><span class="o">=</span><span class="s2">&quot;hypocenter&quot;</span><span class="p">,</span>
+            <span class="n">comments</span><span class="o">=</span><span class="p">[</span><span class="n">Comment</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hypocenter catalog: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
+                              <span class="n">record</span><span class="p">[</span><span class="s2">&quot;hypocenter_reference_catalog&quot;</span><span class="p">],</span>
+                              <span class="n">force_resource_id</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+        <span class="p">)</span>
+        <span class="n">ref_origin</span><span class="o">.</span><span class="n">comments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span>
+            <span class="n">record</span><span class="p">[</span><span class="s2">&quot;cmt_event_name&quot;</span><span class="p">],</span> <span class="s2">&quot;comment&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;ref_origin&quot;</span><span class="p">)</span>
+        <span class="n">ref_origin</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;cmt_event_name&quot;</span><span class="p">],</span>
+                                                  <span class="s2">&quot;origin&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;reforigin&quot;</span><span class="p">)</span>
+
+        <span class="n">cmt_origin</span> <span class="o">=</span> <span class="n">Origin</span><span class="p">(</span>
+            <span class="n">force_resource_id</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">longitude</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;centroid_longitude&quot;</span><span class="p">],</span>
+            <span class="n">longitude_errors</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;uncertainty&quot;</span><span class="p">:</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;centroid_longitude_error&quot;</span><span class="p">]},</span>
+            <span class="n">latitude</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;centroid_latitude&quot;</span><span class="p">],</span>
+            <span class="n">latitude_errors</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;uncertainty&quot;</span><span class="p">:</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;centroid_latitude_error&quot;</span><span class="p">]},</span>
+            <span class="c1"># Convert to m.</span>
+            <span class="n">depth</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;centroid_depth_in_km&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1000.0</span><span class="p">,</span>
+            <span class="n">depth_errors</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;uncertainty&quot;</span><span class="p">:</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;centroid_depth_in_km_error&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">},</span>
+            <span class="n">time</span><span class="o">=</span><span class="n">ref_origin</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;centroid_time&quot;</span><span class="p">],</span>
+            <span class="n">time_errors</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;uncertainty&quot;</span><span class="p">:</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;centroid_time_error&quot;</span><span class="p">]},</span>
+            <span class="n">depth_type</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;type_of_centroid_depth&quot;</span><span class="p">],</span>
+            <span class="n">origin_type</span><span class="o">=</span><span class="s2">&quot;centroid&quot;</span><span class="p">,</span>
+            <span class="n">time_fixed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">epicenter_fixed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">creation_info</span><span class="o">=</span><span class="n">creation_info</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">cmt_origin</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;cmt_event_name&quot;</span><span class="p">],</span>
+                                                  <span class="s2">&quot;origin&quot;</span><span class="p">,</span>
+                                                  <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;cmtorigin&quot;</span><span class="p">)</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">origins</span> <span class="o">=</span> <span class="p">[</span><span class="n">ref_origin</span><span class="p">,</span> <span class="n">cmt_origin</span><span class="p">]</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">preferred_origin_id</span> <span class="o">=</span> <span class="n">cmt_origin</span><span class="o">.</span><span class="n">resource_id</span><span class="o">.</span><span class="n">id</span>
+
+        <span class="c1"># Create the magnitude object.</span>
+        <span class="n">mag</span> <span class="o">=</span> <span class="n">Magnitude</span><span class="p">(</span>
+            <span class="n">force_resource_id</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">mag</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;Mw&quot;</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="n">magnitude_type</span><span class="o">=</span><span class="s2">&quot;Mwc&quot;</span><span class="p">,</span>
+            <span class="n">origin_id</span><span class="o">=</span><span class="n">cmt_origin</span><span class="o">.</span><span class="n">resource_id</span><span class="p">,</span>
+            <span class="n">creation_info</span><span class="o">=</span><span class="n">creation_info</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">mag</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;cmt_event_name&quot;</span><span class="p">],</span>
+                                           <span class="s2">&quot;magnitude&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;moment_mag&quot;</span><span class="p">)</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span> <span class="o">=</span> <span class="p">[</span><span class="n">mag</span><span class="p">]</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">preferred_magnitude_id</span> <span class="o">=</span> <span class="n">mag</span><span class="o">.</span><span class="n">resource_id</span><span class="o">.</span><span class="n">id</span>
+
+        <span class="c1"># Add the reported mb, MS magnitudes as additional magnitude objects.</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Magnitude</span><span class="p">(</span>
+            <span class="n">force_resource_id</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">mag</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;mb&quot;</span><span class="p">],</span>
+            <span class="n">magnitude_type</span><span class="o">=</span><span class="s2">&quot;mb&quot;</span><span class="p">,</span>
+            <span class="n">comments</span><span class="o">=</span><span class="p">[</span><span class="n">Comment</span><span class="p">(</span>
+                <span class="n">force_resource_id</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Reported magnitude in NDK file. Most likely &#39;mb&#39;.&quot;</span>
+            <span class="p">)]</span>
+        <span class="p">))</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">comments</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span>
+            <span class="n">record</span><span class="p">[</span><span class="s2">&quot;cmt_event_name&quot;</span><span class="p">],</span> <span class="s2">&quot;comment&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;mb_magnitude&quot;</span><span class="p">)</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span>
+            <span class="n">record</span><span class="p">[</span><span class="s2">&quot;cmt_event_name&quot;</span><span class="p">],</span> <span class="s2">&quot;magnitude&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;mb&quot;</span><span class="p">)</span>
+
+        <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Magnitude</span><span class="p">(</span>
+            <span class="n">force_resource_id</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">mag</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;MS&quot;</span><span class="p">],</span>
+            <span class="n">magnitude_type</span><span class="o">=</span><span class="s2">&quot;MS&quot;</span><span class="p">,</span>
+            <span class="n">comments</span><span class="o">=</span><span class="p">[</span><span class="n">Comment</span><span class="p">(</span>
+                <span class="n">force_resource_id</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Reported magnitude in NDK file. Most likely &#39;MS&#39;.&quot;</span>
+            <span class="p">)]</span>
+        <span class="p">))</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">comments</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span>
+            <span class="n">record</span><span class="p">[</span><span class="s2">&quot;cmt_event_name&quot;</span><span class="p">],</span> <span class="s2">&quot;comment&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;MS_magnitude&quot;</span><span class="p">)</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span>
+            <span class="n">record</span><span class="p">[</span><span class="s2">&quot;cmt_event_name&quot;</span><span class="p">],</span> <span class="s2">&quot;magnitude&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;MS&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Take care of the moment tensor.</span>
+        <span class="n">tensor</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span>
+            <span class="n">m_rr</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;m_rr&quot;</span><span class="p">],</span>
+            <span class="n">m_rr_errors</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;uncertainty&quot;</span><span class="p">:</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;m_rr_error&quot;</span><span class="p">]},</span>
+            <span class="n">m_pp</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;m_pp&quot;</span><span class="p">],</span>
+            <span class="n">m_pp_errors</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;uncertainty&quot;</span><span class="p">:</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;m_pp_error&quot;</span><span class="p">]},</span>
+            <span class="n">m_tt</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;m_tt&quot;</span><span class="p">],</span>
+            <span class="n">m_tt_errors</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;uncertainty&quot;</span><span class="p">:</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;m_tt_error&quot;</span><span class="p">]},</span>
+            <span class="n">m_rt</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;m_rt&quot;</span><span class="p">],</span>
+            <span class="n">m_rt_errors</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;uncertainty&quot;</span><span class="p">:</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;m_rt_error&quot;</span><span class="p">]},</span>
+            <span class="n">m_rp</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;m_rp&quot;</span><span class="p">],</span>
+            <span class="n">m_rp_errors</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;uncertainty&quot;</span><span class="p">:</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;m_rp_error&quot;</span><span class="p">]},</span>
+            <span class="n">m_tp</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;m_tp&quot;</span><span class="p">],</span>
+            <span class="n">m_tp_errors</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;uncertainty&quot;</span><span class="p">:</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;m_tp_error&quot;</span><span class="p">]},</span>
+            <span class="n">creation_info</span><span class="o">=</span><span class="n">creation_info</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">mt</span> <span class="o">=</span> <span class="n">MomentTensor</span><span class="p">(</span>
+            <span class="n">force_resource_id</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">scalar_moment</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;scalar_moment&quot;</span><span class="p">],</span>
+            <span class="n">tensor</span><span class="o">=</span><span class="n">tensor</span><span class="p">,</span>
+            <span class="n">data_used</span><span class="o">=</span><span class="p">[</span><span class="n">DataUsed</span><span class="p">(</span><span class="o">**</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;data_used&quot;</span><span class="p">]],</span>
+            <span class="n">inversion_type</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;source_type&quot;</span><span class="p">],</span>
+            <span class="n">source_time_function</span><span class="o">=</span><span class="n">SourceTimeFunction</span><span class="p">(</span>
+                <span class="nb">type</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;moment_rate_type&quot;</span><span class="p">],</span>
+                <span class="n">duration</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;moment_rate_duration&quot;</span><span class="p">]</span>
+            <span class="p">),</span>
+            <span class="n">derived_origin_id</span><span class="o">=</span><span class="n">cmt_origin</span><span class="o">.</span><span class="n">resource_id</span><span class="p">,</span>
+            <span class="n">creation_info</span><span class="o">=</span><span class="n">creation_info</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">mt</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;cmt_event_name&quot;</span><span class="p">],</span>
+                                          <span class="s2">&quot;momenttensor&quot;</span><span class="p">)</span>
+        <span class="n">axis</span> <span class="o">=</span> <span class="p">[</span><span class="n">Axis</span><span class="p">(</span><span class="o">**</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;principal_axis&quot;</span><span class="p">]]</span>
+        <span class="n">focmec</span> <span class="o">=</span> <span class="n">FocalMechanism</span><span class="p">(</span>
+            <span class="n">force_resource_id</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">moment_tensor</span><span class="o">=</span><span class="n">mt</span><span class="p">,</span>
+            <span class="n">principal_axes</span><span class="o">=</span><span class="n">PrincipalAxes</span><span class="p">(</span>
+                <span class="c1"># The ordering is the same as for the IRIS SPUD service and</span>
+                <span class="c1"># from a website of the Saint Louis University Earthquake</span>
+                <span class="c1"># center so it should be correct.</span>
+                <span class="n">t_axis</span><span class="o">=</span><span class="n">axis</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">p_axis</span><span class="o">=</span><span class="n">axis</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                <span class="n">n_axis</span><span class="o">=</span><span class="n">axis</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">),</span>
+            <span class="n">nodal_planes</span><span class="o">=</span><span class="n">NodalPlanes</span><span class="p">(</span>
+                <span class="n">nodal_plane_1</span><span class="o">=</span><span class="n">NodalPlane</span><span class="p">(</span><span class="o">**</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;nodal_plane_1&quot;</span><span class="p">]),</span>
+                <span class="n">nodal_plane_2</span><span class="o">=</span><span class="n">NodalPlane</span><span class="p">(</span><span class="o">**</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;nodal_plane_2&quot;</span><span class="p">])</span>
+            <span class="p">),</span>
+            <span class="n">comments</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">Comment</span><span class="p">(</span><span class="n">force_resource_id</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">text</span><span class="o">=</span><span class="s2">&quot;CMT Analysis Type: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
+                             <span class="n">record</span><span class="p">[</span><span class="s2">&quot;cmt_type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()),</span>
+                <span class="n">Comment</span><span class="p">(</span><span class="n">force_resource_id</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">text</span><span class="o">=</span><span class="s2">&quot;CMT Timestamp: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
+                             <span class="n">record</span><span class="p">[</span><span class="s2">&quot;cmt_timestamp&quot;</span><span class="p">])],</span>
+            <span class="n">creation_info</span><span class="o">=</span><span class="n">creation_info</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">focmec</span><span class="o">.</span><span class="n">comments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span>
+            <span class="n">record</span><span class="p">[</span><span class="s2">&quot;cmt_event_name&quot;</span><span class="p">],</span> <span class="s2">&quot;comment&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;cmt_type&quot;</span><span class="p">)</span>
+        <span class="n">focmec</span><span class="o">.</span><span class="n">comments</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span>
+            <span class="n">record</span><span class="p">[</span><span class="s2">&quot;cmt_event_name&quot;</span><span class="p">],</span> <span class="s2">&quot;comment&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;cmt_timestamp&quot;</span><span class="p">)</span>
+        <span class="n">focmec</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;cmt_event_name&quot;</span><span class="p">],</span>
+                                              <span class="s2">&quot;focal_mechanism&quot;</span><span class="p">)</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">focal_mechanisms</span> <span class="o">=</span> <span class="p">[</span><span class="n">focmec</span><span class="p">]</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">preferred_focal_mechanism_id</span> <span class="o">=</span> <span class="n">focmec</span><span class="o">.</span><span class="n">resource_id</span><span class="o">.</span><span class="n">id</span>
+
+        <span class="c1"># Set at end to avoid duplicate resource id warning.</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">resource_id</span> <span class="o">=</span> <span class="n">_get_resource_id</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;cmt_event_name&quot;</span><span class="p">],</span>
+                                             <span class="s2">&quot;event&quot;</span><span class="p">)</span>
+
+        <span class="n">cat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No valid events found in NDK file.&quot;</span>
+        <span class="k">raise</span> <span class="n">ObsPyNDKException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">cat</span></div>
+
+
+<div class="viewcode-block" id="_read_lines"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.ndk.core._read_lines.html#obspy.io.ndk.core._read_lines">[docs]</a><span class="k">def</span> <span class="nf">_read_lines</span><span class="p">(</span><span class="n">line1</span><span class="p">,</span> <span class="n">line2</span><span class="p">,</span> <span class="n">line3</span><span class="p">,</span> <span class="n">line4</span><span class="p">,</span> <span class="n">line5</span><span class="p">):</span>
+    <span class="c1"># First line: Hypocenter line</span>
+    <span class="c1"># [1-4]   Hypocenter reference catalog (e.g., PDE for USGS location,</span>
+    <span class="c1">#         ISC for #ISC catalog, SWE for surface-wave location,</span>
+    <span class="c1">#         [Ekstrom, BSSA, 2006])</span>
+    <span class="c1"># [6-15]  Date of reference event</span>
+    <span class="c1"># [17-26] Time of reference event</span>
+    <span class="c1"># [28-33] Latitude</span>
+    <span class="c1"># [35-41] Longitude</span>
+    <span class="c1"># [43-47] Depth</span>
+    <span class="c1"># [49-55] Reported magnitudes, usually mb and MS</span>
+    <span class="c1"># [57-80] Geographical location (24 characters)</span>
+    <span class="n">rec</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;hypocenter_reference_catalog&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line1</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line1</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line1</span><span class="p">[</span><span class="mi">16</span><span class="p">:</span><span class="mi">26</span><span class="p">]</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;hypo_lat&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line1</span><span class="p">[</span><span class="mi">27</span><span class="p">:</span><span class="mi">33</span><span class="p">])</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;hypo_lng&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line1</span><span class="p">[</span><span class="mi">34</span><span class="p">:</span><span class="mi">41</span><span class="p">])</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;hypo_depth_in_km&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line1</span><span class="p">[</span><span class="mi">42</span><span class="p">:</span><span class="mi">47</span><span class="p">])</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;mb&quot;</span><span class="p">],</span> <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;MS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">line1</span><span class="p">[</span><span class="mi">48</span><span class="p">:</span><span class="mi">55</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line1</span><span class="p">[</span><span class="mi">56</span><span class="p">:</span><span class="mi">80</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="c1"># Second line: CMT info (1)</span>
+    <span class="c1"># [1-16]  CMT event name. This string is a unique CMT-event identifier.</span>
+    <span class="c1">#         Older events have 8-character names, current ones have</span>
+    <span class="c1">#         14-character names.  See note (1) below for the naming</span>
+    <span class="c1">#         conventions used.</span>
+    <span class="c1"># [18-61] Data used in the CMT inversion. Three data types may be used:</span>
+    <span class="c1">#         Long-period body waves (B), Intermediate-period surface waves</span>
+    <span class="c1">#         (S), and long-period mantle waves (M). For each data type,</span>
+    <span class="c1">#         three values are given: the number of stations used, the</span>
+    <span class="c1">#         number  of components used, and the shortest period used.</span>
+    <span class="c1"># [63-68] Type of source inverted for:</span>
+    <span class="c1">#         &quot;CMT: 0&quot; - general moment tensor;</span>
+    <span class="c1">#         &quot;CMT: 1&quot; - moment tensor with constraint of zero trace</span>
+    <span class="c1">#             (standard);</span>
+    <span class="c1">#         &quot;CMT: 2&quot; - double-couple source.</span>
+    <span class="c1"># [70-80] Type and duration of moment-rate function assumed in the</span>
+    <span class="c1">#         inversion.  &quot;TRIHD&quot; indicates a triangular moment-rate</span>
+    <span class="c1">#         function, &quot;BOXHD&quot; indicates a boxcar moment-rate function.</span>
+    <span class="c1">#         The value given is half the duration of the moment-rate</span>
+    <span class="c1">#         function. This value is assumed in the inversion, following a</span>
+    <span class="c1">#         standard scaling relationship (see note (2) below), and is</span>
+    <span class="c1">#         not derived from the analysis.</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;cmt_event_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line2</span><span class="p">[:</span><span class="mi">16</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="n">data_used</span> <span class="o">=</span> <span class="n">line2</span><span class="p">[</span><span class="mi">17</span><span class="p">:</span><span class="mi">61</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="c1"># Use regex to get the data used in case the data types are in a</span>
+    <span class="c1"># different order.</span>
+    <span class="n">data_used</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[A-Z]:\s*\d+\s+\d+\s+\d+&quot;</span><span class="p">,</span> <span class="n">data_used</span><span class="p">)</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;data_used&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">data_used</span><span class="p">:</span>
+        <span class="n">data_type</span><span class="p">,</span> <span class="n">count</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span>
+            <span class="n">data_type</span> <span class="o">=</span> <span class="s2">&quot;body waves&quot;</span>
+        <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s2">&quot;S&quot;</span><span class="p">:</span>
+            <span class="n">data_type</span> <span class="o">=</span> <span class="s2">&quot;surface waves&quot;</span>
+        <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s2">&quot;M&quot;</span><span class="p">:</span>
+            <span class="n">data_type</span> <span class="o">=</span> <span class="s2">&quot;mantle waves&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Unknown data type &#39;</span><span class="si">%s</span><span class="s2">&#39;.&quot;</span> <span class="o">%</span> <span class="n">data_type</span>
+            <span class="k">raise</span> <span class="n">ObsPyNDKException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="n">sta</span><span class="p">,</span> <span class="n">comp</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="n">count</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+        <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;data_used&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;wave_type&quot;</span><span class="p">:</span> <span class="n">data_type</span><span class="p">,</span>
+            <span class="s2">&quot;station_count&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">sta</span><span class="p">),</span>
+            <span class="s2">&quot;component_count&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">comp</span><span class="p">),</span>
+            <span class="s2">&quot;shortest_period&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">period</span><span class="p">)</span>
+        <span class="p">})</span>
+
+    <span class="n">source_type</span> <span class="o">=</span> <span class="n">line2</span><span class="p">[</span><span class="mi">62</span><span class="p">:</span><span class="mi">68</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">source_type</span> <span class="o">==</span> <span class="s2">&quot;CMT:0&quot;</span><span class="p">:</span>
+        <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;source_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;general&quot;</span>
+    <span class="k">elif</span> <span class="n">source_type</span> <span class="o">==</span> <span class="s2">&quot;CMT:1&quot;</span><span class="p">:</span>
+        <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;source_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;zero trace&quot;</span>
+    <span class="k">elif</span> <span class="n">source_type</span> <span class="o">==</span> <span class="s2">&quot;CMT:2&quot;</span><span class="p">:</span>
+        <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;source_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;double couple&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Unknown source type.&quot;</span>
+        <span class="k">raise</span> <span class="n">ObsPyNDKException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="n">mr_type</span><span class="p">,</span> <span class="n">mr_duration</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line2</span><span class="p">[</span><span class="mi">69</span><span class="p">:]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)]</span>
+    <span class="n">mr_type</span> <span class="o">=</span> <span class="n">mr_type</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">mr_type</span> <span class="o">==</span> <span class="s2">&quot;TRIHD&quot;</span><span class="p">:</span>
+        <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;moment_rate_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;triangle&quot;</span>
+    <span class="k">elif</span> <span class="n">mr_type</span> <span class="o">==</span> <span class="s2">&quot;BOXHD&quot;</span><span class="p">:</span>
+        <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;moment_rate_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;box car&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Moment rate function &#39;</span><span class="si">%s</span><span class="s2">&#39; unknown.&quot;</span> <span class="o">%</span> <span class="n">mr_type</span>
+        <span class="k">raise</span> <span class="n">ObsPyNDKException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="c1"># Specified as half the duration in the file.</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;moment_rate_duration&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">mr_duration</span><span class="p">)</span> <span class="o">*</span> <span class="mf">2.0</span>
+
+    <span class="c1"># Third line: CMT info (2)</span>
+    <span class="c1"># [1-58]  Centroid parameters determined in the inversion. Centroid</span>
+    <span class="c1">#         time, given with respect to the reference time, centroid</span>
+    <span class="c1">#         latitude, centroid longitude, and centroid depth. The value</span>
+    <span class="c1">#         of each variable is followed by its estimated standard error.</span>
+    <span class="c1">#         See note (3) below for cases in which the hypocentral</span>
+    <span class="c1">#         coordinates are held fixed.</span>
+    <span class="c1"># [60-63] Type of depth. &quot;FREE&quot; indicates that the depth was a result</span>
+    <span class="c1">#         of the inversion; &quot;FIX &quot; that the depth was fixed and not</span>
+    <span class="c1">#         inverted for; &quot;BDY &quot; that the depth was fixed based on</span>
+    <span class="c1">#         modeling of broad-band P waveforms.</span>
+    <span class="c1"># [65-80] Timestamp. This 16-character string identifies the type of</span>
+    <span class="c1">#         analysis that led to the given CMT results and, for recent</span>
+    <span class="c1">#         events, the date and time of the analysis. This is useful to</span>
+    <span class="c1">#         distinguish Quick CMTs (&quot;Q-&quot;), calculated within hours of an</span>
+    <span class="c1">#         event, from Standard CMTs (&quot;S-&quot;), which are calculated later.</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;centroid_time&quot;</span><span class="p">],</span> <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;centroid_time_error&quot;</span><span class="p">],</span> \
+        <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;centroid_latitude&quot;</span><span class="p">],</span> <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;centroid_latitude_error&quot;</span><span class="p">],</span> \
+        <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;centroid_longitude&quot;</span><span class="p">],</span> <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;centroid_longitude_error&quot;</span><span class="p">],</span> \
+        <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;centroid_depth_in_km&quot;</span><span class="p">],</span> <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;centroid_depth_in_km_error&quot;</span><span class="p">]</span> <span class="o">=</span> \
+        <span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">line3</span><span class="p">[:</span><span class="mi">58</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">type_of_depth</span> <span class="o">=</span> <span class="n">line3</span><span class="p">[</span><span class="mi">59</span><span class="p">:</span><span class="mi">63</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">type_of_depth</span> <span class="o">==</span> <span class="s2">&quot;FREE&quot;</span><span class="p">:</span>
+        <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;type_of_centroid_depth&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;from moment tensor inversion&quot;</span>
+    <span class="k">elif</span> <span class="n">type_of_depth</span> <span class="o">==</span> <span class="s2">&quot;FIX&quot;</span><span class="p">:</span>
+        <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;type_of_centroid_depth&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;from location&quot;</span>
+    <span class="k">elif</span> <span class="n">type_of_depth</span> <span class="o">==</span> <span class="s2">&quot;BDY&quot;</span><span class="p">:</span>
+        <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;type_of_centroid_depth&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;from modeling of broad-band P &quot;</span> \
+                                        <span class="s2">&quot;waveforms&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Unknown type of depth &#39;</span><span class="si">%s</span><span class="s2">&#39;.&quot;</span> <span class="o">%</span> <span class="n">type_of_depth</span>
+        <span class="k">raise</span> <span class="n">ObsPyNDKException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">line3</span><span class="p">[</span><span class="mi">64</span><span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;cmt_timestamp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timestamp</span>
+    <span class="k">if</span> <span class="n">timestamp</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Q-&quot;</span><span class="p">):</span>
+        <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;cmt_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;quick&quot;</span>
+    <span class="k">elif</span> <span class="n">timestamp</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;S-&quot;</span><span class="p">):</span>
+        <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;cmt_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;standard&quot;</span>
+    <span class="c1"># This is invalid but occurs a lot so we include it here.</span>
+    <span class="k">elif</span> <span class="n">timestamp</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;O-&quot;</span><span class="p">):</span>
+        <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;cmt_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;unknown&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid CMT timestamp &#39;</span><span class="si">%s</span><span class="s2">&#39; for event </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="n">timestamp</span><span class="p">,</span> <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;cmt_event_name&quot;</span><span class="p">])</span>
+        <span class="k">raise</span> <span class="n">ObsPyNDKException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="c1"># Fourth line: CMT info (3)</span>
+    <span class="c1"># [1-2]   The exponent for all following moment values. For example, if</span>
+    <span class="c1">#         the exponent is given as 24, the moment values that follow,</span>
+    <span class="c1">#         expressed in dyne-cm, should be multiplied by 10**24.</span>
+    <span class="c1"># [3-80]  The six moment-tensor elements: Mrr, Mtt, Mpp, Mrt, Mrp, Mtp,</span>
+    <span class="c1">#         where r is up, t is south, and p is east. See Aki and</span>
+    <span class="c1">#         Richards for conversions to other coordinate systems. The</span>
+    <span class="c1">#         value of each moment-tensor element is followed by its</span>
+    <span class="c1">#         estimated standard error. See note (4) below for cases in</span>
+    <span class="c1">#         which some elements are constrained in the inversion.</span>
+    <span class="c1"># Exponent converts to dyne*cm. To convert to N*m it has to be decreased</span>
+    <span class="c1"># seven orders of magnitude.</span>
+    <span class="n">exponent</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line4</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span> <span class="o">-</span> <span class="mi">7</span>
+    <span class="c1"># Directly set the exponent instead of calculating it to enhance</span>
+    <span class="c1"># precision.</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;m_rr&quot;</span><span class="p">],</span> <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;m_rr_error&quot;</span><span class="p">],</span> <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;m_tt&quot;</span><span class="p">],</span> <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;m_tt_error&quot;</span><span class="p">],</span> \
+        <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;m_pp&quot;</span><span class="p">],</span> <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;m_pp_error&quot;</span><span class="p">],</span> <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;m_rt&quot;</span><span class="p">],</span> <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;m_rt_error&quot;</span><span class="p">],</span> \
+        <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;m_rp&quot;</span><span class="p">],</span> <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;m_rp_error&quot;</span><span class="p">],</span> <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;m_tp&quot;</span><span class="p">],</span> <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;m_tp_error&quot;</span><span class="p">]</span> <span class="o">=</span> \
+        <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">E</span><span class="si">%i</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">exponent</span><span class="p">)),</span> <span class="n">line4</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+
+    <span class="c1"># Fifth line: CMT info (4)</span>
+    <span class="c1"># [1-3]   Version code. This three-character string is used to track</span>
+    <span class="c1">#         the version of the program that generates the &quot;ndk&quot; file.</span>
+    <span class="c1"># [4-48]  Moment tensor expressed in its principal-axis system:</span>
+    <span class="c1">#         eigenvalue, plunge, and azimuth of the three eigenvectors.</span>
+    <span class="c1">#         The eigenvalue should be multiplied by 10**(exponent) as</span>
+    <span class="c1">#         given on line four.</span>
+    <span class="c1"># [50-56] Scalar moment, to be multiplied by 10**(exponent) as given on</span>
+    <span class="c1">#         line four.</span>
+    <span class="c1"># [58-80] Strike, dip, and rake for first nodal plane of the</span>
+    <span class="c1">#         best-double-couple mechanism, repeated for the second nodal</span>
+    <span class="c1">#         plane.  The angles are defined as in Aki and Richards. The</span>
+    <span class="c1">#         format for this string should not be considered fixed.</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;version_code&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line5</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;scalar_moment&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line5</span><span class="p">[</span><span class="mi">49</span><span class="p">:</span><span class="mi">56</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="n">exponent</span><span class="p">)</span>
+    <span class="c1"># Calculate the moment magnitude.</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;Mw&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">rec</span><span class="p">[</span><span class="s2">&quot;scalar_moment&quot;</span><span class="p">])</span> <span class="o">-</span> <span class="mf">9.1</span><span class="p">)</span>
+
+    <span class="n">principal_axis</span> <span class="o">=</span> <span class="n">line5</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">48</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;principal_axis&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="nb">iter</span><span class="p">(</span><span class="n">principal_axis</span><span class="p">)]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">):</span>
+        <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;principal_axis&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="c1"># Again set the exponent directly to avoid even more rounding</span>
+            <span class="c1"># errors.</span>
+            <span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">E</span><span class="si">%i</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">axis</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">exponent</span><span class="p">),</span>
+            <span class="s2">&quot;plunge&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">axis</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+            <span class="s2">&quot;azimuth&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">axis</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="p">})</span>
+
+    <span class="n">nodal_planes</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">line5</span><span class="p">[</span><span class="mi">57</span><span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;nodal_plane_1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;strike&quot;</span><span class="p">:</span> <span class="nb">next</span><span class="p">(</span><span class="n">nodal_planes</span><span class="p">),</span>
+        <span class="s2">&quot;dip&quot;</span><span class="p">:</span> <span class="nb">next</span><span class="p">(</span><span class="n">nodal_planes</span><span class="p">),</span>
+        <span class="s2">&quot;rake&quot;</span><span class="p">:</span> <span class="nb">next</span><span class="p">(</span><span class="n">nodal_planes</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;nodal_plane_2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;strike&quot;</span><span class="p">:</span> <span class="nb">next</span><span class="p">(</span><span class="n">nodal_planes</span><span class="p">),</span>
+        <span class="s2">&quot;dip&quot;</span><span class="p">:</span> <span class="nb">next</span><span class="p">(</span><span class="n">nodal_planes</span><span class="p">),</span>
+        <span class="s2">&quot;rake&quot;</span><span class="p">:</span> <span class="nb">next</span><span class="p">(</span><span class="n">nodal_planes</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">rec</span></div>
+
+
+<span class="c1"># Remove once 0.11 has been released.</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">DynamicAttributeImportRerouteModule</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="vm">__doc__</span><span class="p">,</span> <span class="n">locs</span><span class="o">=</span><span class="nb">locals</span><span class="p">(),</span>
+    <span class="n">original_module</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">],</span>
+    <span class="n">import_map</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">function_map</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;is_ndk&#39;</span><span class="p">:</span> <span class="s1">&#39;obspy.io.ndk.core._is_ndk&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;read_ndk&#39;</span><span class="p">:</span> <span class="s1">&#39;obspy.io.ndk.core._read_ndk&#39;</span><span class="p">})</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

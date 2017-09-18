@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.io.cmtsolution.core &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.io.cmtsolution.core</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">CMTSOLUTION file format support for ObsPy.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA @UnusedWildImport</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">UTCDateTime</span>
+<span class="kn">from</span> <span class="nn">obspy.core.event</span> <span class="k">import</span> <span class="p">(</span><span class="n">Catalog</span><span class="p">,</span> <span class="n">Comment</span><span class="p">,</span> <span class="n">Event</span><span class="p">,</span> <span class="n">EventDescription</span><span class="p">,</span>
+                              <span class="n">Origin</span><span class="p">,</span> <span class="n">Magnitude</span><span class="p">,</span> <span class="n">FocalMechanism</span><span class="p">,</span> <span class="n">MomentTensor</span><span class="p">,</span>
+                              <span class="n">Tensor</span><span class="p">,</span> <span class="n">SourceTimeFunction</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">obspy.geodetics</span> <span class="k">import</span> <span class="n">FlinnEngdahl</span>
+
+
+<span class="n">_fe</span> <span class="o">=</span> <span class="n">FlinnEngdahl</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="_get_resource_id"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.cmtsolution.core._get_resource_id.html#obspy.io.cmtsolution.core._get_resource_id">[docs]</a><span class="k">def</span> <span class="nf">_get_resource_id</span><span class="p">(</span><span class="n">cmtname</span><span class="p">,</span> <span class="n">res_type</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function to create consistent resource ids.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">res_id</span> <span class="o">=</span> <span class="s2">&quot;smi:local/cmtsolution/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">cmtname</span><span class="p">,</span> <span class="n">res_type</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tag</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">res_id</span> <span class="o">+=</span> <span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="n">tag</span>
+    <span class="k">return</span> <span class="n">res_id</span></div>
+
+
+<div class="viewcode-block" id="_buffer_proxy"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.cmtsolution.core._buffer_proxy.html#obspy.io.cmtsolution.core._buffer_proxy">[docs]</a><span class="k">def</span> <span class="nf">_buffer_proxy</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">reset_fp</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">file_mode</span><span class="o">=</span><span class="s2">&quot;rb&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calls a function with an open file or file-like object as the first</span>
+<span class="sd">    argument. If the file originally was a filename, the file will be</span>
+<span class="sd">    opened, otherwise it will just be passed to the underlying function.</span>
+
+<span class="sd">    :param filename_or_buf: File to pass.</span>
+<span class="sd">    :type filename_or_buf: str, open file, or file-like object.</span>
+<span class="sd">    :param function: The function to call.</span>
+<span class="sd">    :param reset_fp: If True, the file pointer will be set to the initial</span>
+<span class="sd">        position after the function has been called.</span>
+<span class="sd">    :type reset_fp: bool</span>
+<span class="sd">    :param file_mode: Mode to open file in if necessary.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="n">filename_or_buf</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+        <span class="n">is_buffer</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="n">is_buffer</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="n">is_buffer</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">ret_val</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">reset_fp</span><span class="p">:</span>
+            <span class="n">filename_or_buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret_val</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="n">file_mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">function</span><span class="p">(</span><span class="n">fh</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_is_cmtsolution"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.cmtsolution.core._is_cmtsolution.html#obspy.io.cmtsolution.core._is_cmtsolution">[docs]</a><span class="k">def</span> <span class="nf">_is_cmtsolution</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks if the file is a CMTSOLUTION file.</span>
+
+<span class="sd">    :param filename_or_buf: File to test.</span>
+<span class="sd">    :type filename_or_buf: str or file-like object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_buffer_proxy</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="n">_internal_is_cmtsolution</span><span class="p">,</span>
+                             <span class="n">reset_fp</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Happens for example when passing the data as a string which would be</span>
+    <span class="c1"># interpreted as a filename.</span>
+    <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="_internal_is_cmtsolution"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.cmtsolution.core._internal_is_cmtsolution.html#obspy.io.cmtsolution.core._internal_is_cmtsolution">[docs]</a><span class="k">def</span> <span class="nf">_internal_is_cmtsolution</span><span class="p">(</span><span class="n">buf</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks if the file is a CMTSOLUTION file.</span>
+
+<span class="sd">    :param buf: File to check.</span>
+<span class="sd">    :type buf: Open file or open file like object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The file format is so simple. Just attempt to read the first event. If</span>
+    <span class="c1"># it passes it will be read again but that has really no</span>
+    <span class="c1"># significant performance impact.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">_internal_read_single_cmtsolution</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="_read_cmtsolution"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.cmtsolution.core._read_cmtsolution.html#obspy.io.cmtsolution.core._read_cmtsolution">[docs]</a><span class="k">def</span> <span class="nf">_read_cmtsolution</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads a CMTSOLUTION file to a :class:`~obspy.core.event.Catalog` object.</span>
+
+<span class="sd">    :param filename_or_buf: File to read.</span>
+<span class="sd">    :type filename_or_buf: str or file-like object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_buffer_proxy</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="n">_internal_read_cmtsolution</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_internal_read_cmtsolution"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.cmtsolution.core._internal_read_cmtsolution.html#obspy.io.cmtsolution.core._internal_read_cmtsolution">[docs]</a><span class="k">def</span> <span class="nf">_internal_read_cmtsolution</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads a CMTSOLUTION file to a :class:`~obspy.core.event.Catalog` object.</span>
+
+<span class="sd">    :param buf: File to read.</span>
+<span class="sd">    :type buf: Open file or open file like object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cur_pos</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+
+    <span class="c1"># This also works with BytesIO and what not.</span>
+    <span class="n">buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+    <span class="n">buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">cur_pos</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># This is pretty inefficient due to all the file pointer jumping but</span>
+    <span class="c1"># performance is really the least of our concerns. Also most performance</span>
+    <span class="c1"># is still lost initializing the large ObsPy event objects.</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">buf</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">size</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="c1"># If there is something, jump back to the beginning of the line and</span>
+        <span class="c1"># read the next event.</span>
+        <span class="k">if</span> <span class="n">line</span><span class="p">:</span>
+            <span class="n">buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">cur_pos</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_internal_read_single_cmtsolution</span><span class="p">(</span><span class="n">buf</span><span class="p">))</span>
+        <span class="n">cur_pos</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">Catalog</span><span class="p">(</span><span class="n">resource_id</span><span class="o">=</span><span class="n">_get_resource_id</span><span class="p">(</span><span class="s2">&quot;catalog&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())),</span>
+                   <span class="n">events</span><span class="o">=</span><span class="n">events</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_internal_read_single_cmtsolution"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.cmtsolution.core._internal_read_single_cmtsolution.html#obspy.io.cmtsolution.core._internal_read_single_cmtsolution">[docs]</a><span class="k">def</span> <span class="nf">_internal_read_single_cmtsolution</span><span class="p">(</span><span class="n">buf</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads a single CMTSOLUTION file to a :class:`~obspy.core.event.Catalog`</span>
+<span class="sd">    object.</span>
+
+<span class="sd">    :param buf: File to read.</span>
+<span class="sd">    :type buf: Open file or open file like object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The first line encodes the preliminary epicenter.</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+
+    <span class="n">hypocenter_catalog</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+    <span class="n">origin_time</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">5</span><span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()[:</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">origin_time</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span> <span class="o">+</span> \
+        <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">origin_time</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">origin_time</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Could not determine origin time from line: </span><span class="si">%s</span><span class="s2">. Will &quot;</span>
+                      <span class="s2">&quot;be set to zero.&quot;</span> <span class="o">%</span> <span class="n">line</span><span class="p">)</span>
+        <span class="n">origin_time</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">28</span><span class="p">:]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="n">latitude</span><span class="p">,</span> <span class="n">longitude</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">body_wave_mag</span><span class="p">,</span> <span class="n">surface_wave_mag</span> <span class="o">=</span> \
+        <span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">line</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+
+    <span class="c1"># The rest encodes the centroid solution.</span>
+    <span class="n">event_name</span> <span class="o">=</span> <span class="n">buf</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+    <span class="n">preliminary_origin</span> <span class="o">=</span> <span class="n">Origin</span><span class="p">(</span>
+        <span class="n">resource_id</span><span class="o">=</span><span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;origin&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;prelim&quot;</span><span class="p">),</span>
+        <span class="n">time</span><span class="o">=</span><span class="n">origin_time</span><span class="p">,</span>
+        <span class="n">longitude</span><span class="o">=</span><span class="n">longitude</span><span class="p">,</span>
+        <span class="n">latitude</span><span class="o">=</span><span class="n">latitude</span><span class="p">,</span>
+        <span class="c1"># Depth is in meters.</span>
+        <span class="n">depth</span><span class="o">=</span><span class="n">depth</span> <span class="o">*</span> <span class="mf">1000.0</span><span class="p">,</span>
+        <span class="n">origin_type</span><span class="o">=</span><span class="s2">&quot;hypocenter&quot;</span><span class="p">,</span>
+        <span class="n">region</span><span class="o">=</span><span class="n">_fe</span><span class="o">.</span><span class="n">get_region</span><span class="p">(</span><span class="n">longitude</span><span class="o">=</span><span class="n">longitude</span><span class="p">,</span> <span class="n">latitude</span><span class="o">=</span><span class="n">latitude</span><span class="p">),</span>
+        <span class="n">evaluation_status</span><span class="o">=</span><span class="s2">&quot;preliminary&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">preliminary_bw_magnitude</span> <span class="o">=</span> <span class="n">Magnitude</span><span class="p">(</span>
+        <span class="n">resource_id</span><span class="o">=</span><span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;magnitude&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;prelim_bw&quot;</span><span class="p">),</span>
+        <span class="n">mag</span><span class="o">=</span><span class="n">body_wave_mag</span><span class="p">,</span> <span class="n">magnitude_type</span><span class="o">=</span><span class="s2">&quot;Mb&quot;</span><span class="p">,</span>
+        <span class="n">evaluation_status</span><span class="o">=</span><span class="s2">&quot;preliminary&quot;</span><span class="p">,</span>
+        <span class="n">origin_id</span><span class="o">=</span><span class="n">preliminary_origin</span><span class="o">.</span><span class="n">resource_id</span><span class="p">)</span>
+
+    <span class="n">preliminary_sw_magnitude</span> <span class="o">=</span> <span class="n">Magnitude</span><span class="p">(</span>
+        <span class="n">resource_id</span><span class="o">=</span><span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;magnitude&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;prelim_sw&quot;</span><span class="p">),</span>
+        <span class="n">mag</span><span class="o">=</span><span class="n">surface_wave_mag</span><span class="p">,</span> <span class="n">magnitude_type</span><span class="o">=</span><span class="s2">&quot;MS&quot;</span><span class="p">,</span>
+        <span class="n">evaluation_status</span><span class="o">=</span><span class="s2">&quot;preliminary&quot;</span><span class="p">,</span>
+        <span class="n">origin_id</span><span class="o">=</span><span class="n">preliminary_origin</span><span class="o">.</span><span class="n">resource_id</span><span class="p">)</span>
+
+    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;time_shift&quot;</span><span class="p">,</span> <span class="s2">&quot;half_duration&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;longitude&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;depth&quot;</span><span class="p">,</span> <span class="s2">&quot;m_rr&quot;</span><span class="p">,</span> <span class="s2">&quot;m_tt&quot;</span><span class="p">,</span> <span class="s2">&quot;m_pp&quot;</span><span class="p">,</span> <span class="s2">&quot;m_rt&quot;</span><span class="p">,</span> <span class="s2">&quot;m_rp&quot;</span><span class="p">,</span> <span class="s2">&quot;m_tp&quot;</span><span class="p">]</span>
+    <span class="n">cmt_values</span> <span class="o">=</span> <span class="p">{</span><span class="n">_i</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">buf</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                  <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">values</span><span class="p">}</span>
+
+    <span class="c1"># Moment magnitude calculation in dyne * cm.</span>
+    <span class="n">m_0</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+        <span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;m_rr&quot;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span>
+        <span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;m_tt&quot;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span>
+        <span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;m_pp&quot;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span>
+        <span class="mf">2.0</span> <span class="o">*</span> <span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;m_rt&quot;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span>
+        <span class="mf">2.0</span> <span class="o">*</span> <span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;m_rp&quot;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span>
+        <span class="mf">2.0</span> <span class="o">*</span> <span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;m_tp&quot;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">m_w</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">m_0</span><span class="p">)</span> <span class="o">-</span> <span class="mf">16.1</span><span class="p">)</span>
+
+    <span class="c1"># Convert to meters.</span>
+    <span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;depth&quot;</span><span class="p">]</span> <span class="o">*=</span> <span class="mf">1000.0</span>
+    <span class="c1"># Convert to Newton meter.</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;m_rr&quot;</span><span class="p">,</span> <span class="s2">&quot;m_tt&quot;</span><span class="p">,</span> <span class="s2">&quot;m_pp&quot;</span><span class="p">,</span> <span class="s2">&quot;m_rt&quot;</span><span class="p">,</span> <span class="s2">&quot;m_rp&quot;</span><span class="p">,</span> <span class="s2">&quot;m_tp&quot;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+        <span class="n">cmt_values</span><span class="p">[</span><span class="n">value</span><span class="p">]</span> <span class="o">/=</span> <span class="mf">1E7</span>
+
+    <span class="n">cmt_origin</span> <span class="o">=</span> <span class="n">Origin</span><span class="p">(</span>
+        <span class="n">resource_id</span><span class="o">=</span><span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;origin&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;cmt&quot;</span><span class="p">),</span>
+        <span class="n">time</span><span class="o">=</span><span class="n">origin_time</span> <span class="o">+</span> <span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;time_shift&quot;</span><span class="p">],</span>
+        <span class="n">longitude</span><span class="o">=</span><span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">],</span>
+        <span class="n">latitude</span><span class="o">=</span><span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">],</span>
+        <span class="n">depth</span><span class="o">=</span><span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;depth&quot;</span><span class="p">],</span>
+        <span class="n">origin_type</span><span class="o">=</span><span class="s2">&quot;centroid&quot;</span><span class="p">,</span>
+        <span class="c1"># Could rarely be different than the epicentral region.</span>
+        <span class="n">region</span><span class="o">=</span><span class="n">_fe</span><span class="o">.</span><span class="n">get_region</span><span class="p">(</span><span class="n">longitude</span><span class="o">=</span><span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">],</span>
+                              <span class="n">latitude</span><span class="o">=</span><span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">])</span>
+        <span class="c1"># No evaluation status as it could be any of several and the file</span>
+        <span class="c1"># format does not provide that information.</span>
+    <span class="p">)</span>
+
+    <span class="n">cmt_mag</span> <span class="o">=</span> <span class="n">Magnitude</span><span class="p">(</span>
+        <span class="n">resource_id</span><span class="o">=</span><span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;magnitude&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;mw&quot;</span><span class="p">),</span>
+        <span class="c1"># Round to 2 digits.</span>
+        <span class="n">mag</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">m_w</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="n">magnitude_type</span><span class="o">=</span><span class="s2">&quot;mw&quot;</span><span class="p">,</span>
+        <span class="n">origin_id</span><span class="o">=</span><span class="n">cmt_origin</span><span class="o">.</span><span class="n">resource_id</span>
+    <span class="p">)</span>
+
+    <span class="n">foc_mec</span> <span class="o">=</span> <span class="n">FocalMechanism</span><span class="p">(</span>
+        <span class="n">resource_id</span><span class="o">=</span><span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;focal_mechanism&quot;</span><span class="p">),</span>
+        <span class="c1"># The preliminary origin most likely triggered the focal mechanism</span>
+        <span class="c1"># determination.</span>
+        <span class="n">triggering_origin_id</span><span class="o">=</span><span class="n">preliminary_origin</span><span class="o">.</span><span class="n">resource_id</span>
+    <span class="p">)</span>
+
+    <span class="n">tensor</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span>
+        <span class="n">m_rr</span><span class="o">=</span><span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;m_rr&quot;</span><span class="p">],</span>
+        <span class="n">m_pp</span><span class="o">=</span><span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;m_pp&quot;</span><span class="p">],</span>
+        <span class="n">m_tt</span><span class="o">=</span><span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;m_tt&quot;</span><span class="p">],</span>
+        <span class="n">m_rt</span><span class="o">=</span><span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;m_rt&quot;</span><span class="p">],</span>
+        <span class="n">m_rp</span><span class="o">=</span><span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;m_rp&quot;</span><span class="p">],</span>
+        <span class="n">m_tp</span><span class="o">=</span><span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;m_tp&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Source time function is a triangle, according to the SPECFEM manual.</span>
+    <span class="n">stf</span> <span class="o">=</span> <span class="n">SourceTimeFunction</span><span class="p">(</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;triangle&quot;</span><span class="p">,</span>
+        <span class="c1"># The duration is twice the half duration.</span>
+        <span class="n">duration</span><span class="o">=</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">cmt_values</span><span class="p">[</span><span class="s2">&quot;half_duration&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="n">mt</span> <span class="o">=</span> <span class="n">MomentTensor</span><span class="p">(</span>
+        <span class="n">resource_id</span><span class="o">=</span><span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;moment_tensor&quot;</span><span class="p">),</span>
+        <span class="n">derived_origin_id</span><span class="o">=</span><span class="n">cmt_origin</span><span class="o">.</span><span class="n">resource_id</span><span class="p">,</span>
+        <span class="n">moment_magnitude_id</span><span class="o">=</span><span class="n">cmt_mag</span><span class="o">.</span><span class="n">resource_id</span><span class="p">,</span>
+        <span class="c1"># Convert to Nm.</span>
+        <span class="n">scalar_moment</span><span class="o">=</span><span class="n">m_0</span> <span class="o">/</span> <span class="mf">1E7</span><span class="p">,</span>
+        <span class="n">tensor</span><span class="o">=</span><span class="n">tensor</span><span class="p">,</span>
+        <span class="n">source_time_function</span><span class="o">=</span><span class="n">stf</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Assemble everything.</span>
+    <span class="n">foc_mec</span><span class="o">.</span><span class="n">moment_tensor</span> <span class="o">=</span> <span class="n">mt</span>
+
+    <span class="n">ev</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span><span class="n">resource_id</span><span class="o">=</span><span class="n">_get_resource_id</span><span class="p">(</span><span class="n">event_name</span><span class="p">,</span> <span class="s2">&quot;event&quot;</span><span class="p">),</span>
+               <span class="n">event_type</span><span class="o">=</span><span class="s2">&quot;earthquake&quot;</span><span class="p">)</span>
+    <span class="n">ev</span><span class="o">.</span><span class="n">event_descriptions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">EventDescription</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">event_name</span><span class="p">,</span>
+                                                  <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;earthquake name&quot;</span><span class="p">))</span>
+    <span class="n">ev</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Comment</span><span class="p">(</span>
+        <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Hypocenter catalog: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">hypocenter_catalog</span><span class="p">,</span>
+        <span class="n">force_resource_id</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+    <span class="n">ev</span><span class="o">.</span><span class="n">origins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmt_origin</span><span class="p">)</span>
+    <span class="n">ev</span><span class="o">.</span><span class="n">origins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">preliminary_origin</span><span class="p">)</span>
+    <span class="n">ev</span><span class="o">.</span><span class="n">magnitudes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmt_mag</span><span class="p">)</span>
+    <span class="n">ev</span><span class="o">.</span><span class="n">magnitudes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">preliminary_bw_magnitude</span><span class="p">)</span>
+    <span class="n">ev</span><span class="o">.</span><span class="n">magnitudes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">preliminary_sw_magnitude</span><span class="p">)</span>
+    <span class="n">ev</span><span class="o">.</span><span class="n">focal_mechanisms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">foc_mec</span><span class="p">)</span>
+
+    <span class="c1"># Set the preferred items.</span>
+    <span class="n">ev</span><span class="o">.</span><span class="n">preferred_origin_id</span> <span class="o">=</span> <span class="n">cmt_origin</span><span class="o">.</span><span class="n">resource_id</span><span class="o">.</span><span class="n">id</span>
+    <span class="n">ev</span><span class="o">.</span><span class="n">preferred_magnitude_id</span> <span class="o">=</span> <span class="n">cmt_mag</span><span class="o">.</span><span class="n">resource_id</span><span class="o">.</span><span class="n">id</span>
+    <span class="n">ev</span><span class="o">.</span><span class="n">preferred_focal_mechanism_id</span> <span class="o">=</span> <span class="n">foc_mec</span><span class="o">.</span><span class="n">resource_id</span><span class="o">.</span><span class="n">id</span>
+
+    <span class="k">return</span> <span class="n">ev</span></div>
+
+
+<div class="viewcode-block" id="_write_cmtsolution"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.cmtsolution.core._write_cmtsolution.html#obspy.io.cmtsolution.core._write_cmtsolution">[docs]</a><span class="k">def</span> <span class="nf">_write_cmtsolution</span><span class="p">(</span><span class="n">catalog</span><span class="p">,</span> <span class="n">filename_or_buf</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write an event to a file.</span>
+
+<span class="sd">    :param catalog: The catalog to write. Can only contain one event.</span>
+<span class="sd">    :type catalog: :class:`~obspy.core.event.Catalog`</span>
+<span class="sd">    :param filename_or_buf: Filename or file-like object to write to.</span>
+<span class="sd">    :type filename_or_buf: str, open file, or file-like object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_buffer_proxy</span><span class="p">(</span><span class="n">filename_or_buf</span><span class="p">,</span> <span class="n">_internal_write_cmtsolution</span><span class="p">,</span>
+                         <span class="n">file_mode</span><span class="o">=</span><span class="s2">&quot;wb&quot;</span><span class="p">,</span> <span class="n">catalog</span><span class="o">=</span><span class="n">catalog</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_internal_write_cmtsolution"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.cmtsolution.core._internal_write_cmtsolution.html#obspy.io.cmtsolution.core._internal_write_cmtsolution">[docs]</a><span class="k">def</span> <span class="nf">_internal_write_cmtsolution</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">catalog</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write events to a file.</span>
+
+<span class="sd">    :param buf: File to write to.</span>
+<span class="sd">    :type buf: Open file or file-like object.</span>
+<span class="sd">    :param catalog: The catalog to write.</span>
+<span class="sd">    :type catalog: :class:`~obspy.core.event.Catalog`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Some sanity checks.</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">catalog</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Catalog must contain at least one event&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">catalog</span><span class="p">:</span>
+        <span class="n">_internal_write_single_cmtsolution</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+        <span class="c1"># Add an empty line between events.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">catalog</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">buf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_internal_write_single_cmtsolution"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.cmtsolution.core._internal_write_single_cmtsolution.html#obspy.io.cmtsolution.core._internal_write_single_cmtsolution">[docs]</a><span class="k">def</span> <span class="nf">_internal_write_single_cmtsolution</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write an event to a file.</span>
+
+<span class="sd">    :param buf: File to write to.</span>
+<span class="sd">    :type buf: Open file or file-like object.</span>
+<span class="sd">    :param event: The event to write.</span>
+<span class="sd">    :type event: :class:`~obspy.core.event.Event`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">focal_mechanisms</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Event must contain a focal mechanism.&quot;</span><span class="p">)</span>
+    <span class="n">foc_mec</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">preferred_focal_mechanism</span><span class="p">()</span> <span class="ow">or</span> <span class="n">event</span><span class="o">.</span><span class="n">focal_mechanisms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">foc_mec</span><span class="o">.</span><span class="n">moment_tensor</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The preferred or first focal mechanism must &quot;</span>
+                         <span class="s2">&quot;contain a moment tensor.&quot;</span><span class="p">)</span>
+    <span class="n">mt</span> <span class="o">=</span> <span class="n">foc_mec</span><span class="o">.</span><span class="n">moment_tensor</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">mt</span><span class="o">.</span><span class="n">tensor</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The preferred or first focal mechanism must &quot;</span>
+                         <span class="s2">&quot;contain a moment tensor element with an actual &quot;</span>
+                         <span class="s2">&quot;tensor.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">origins</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Event must have at least one origin.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Event must have at least one magnitude.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Attempt to get the body and surface wave magnitudes.</span>
+    <span class="n">mb_candidates</span> <span class="o">=</span> \
+        <span class="p">[</span><span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span> <span class="k">if</span> <span class="n">_i</span><span class="o">.</span><span class="n">magnitude_type</span> <span class="o">==</span> <span class="s2">&quot;Mb&quot;</span><span class="p">]</span>
+    <span class="n">ms_candidates</span> <span class="o">=</span> \
+        <span class="p">[</span><span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span> <span class="k">if</span> <span class="n">_i</span><span class="o">.</span><span class="n">magnitude_type</span> <span class="o">==</span> <span class="s2">&quot;MS&quot;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">mb_candidates</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No body wave magnitude found. Will be replaced by the &quot;</span>
+                      <span class="s2">&quot;first magnitude in the event object.&quot;</span><span class="p">)</span>
+        <span class="n">mb_mag</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mb_mag</span> <span class="o">=</span> <span class="n">mb_candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ms_candidates</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No surface wave magnitude found. Will be replaced by &quot;</span>
+                      <span class="s2">&quot;the first magnitude in the event object.&quot;</span><span class="p">)</span>
+        <span class="n">ms_mag</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">magnitudes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ms_mag</span> <span class="o">=</span> <span class="n">ms_candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Now find the cmt origin. First attempt to get the derived origin of</span>
+    <span class="c1"># the moment tensor,</span>
+    <span class="k">if</span> <span class="n">mt</span><span class="o">.</span><span class="n">derived_origin_id</span><span class="p">:</span>
+        <span class="n">cmt_origin</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">derived_origin_id</span><span class="o">.</span><span class="n">get_referred_object</span><span class="p">()</span>
+    <span class="c1"># Otherwise try to find the first one that is CMT</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">origins</span>
+                      <span class="k">if</span> <span class="n">_i</span><span class="o">.</span><span class="n">origin_type</span> <span class="o">==</span> <span class="s2">&quot;centroid&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">candidates</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No derived origin attached to the moment tensor. &quot;</span>
+                          <span class="s2">&quot;Will instead use another centroid origin to be &quot;</span>
+                          <span class="s2">&quot;written to the file.&quot;</span><span class="p">)</span>
+            <span class="n">cmt_origin</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># Otherwise just take the preferred or first one.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Could not find a centroid origin. Will instead &quot;</span>
+                          <span class="s2">&quot;assume that the preferred or first origin is the &quot;</span>
+                          <span class="s2">&quot;centroid origin.&quot;</span><span class="p">)</span>
+            <span class="n">cmt_origin</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">preferred_origin</span><span class="p">()</span> <span class="ow">or</span> <span class="n">event</span><span class="o">.</span><span class="n">origins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Next step is to find a hypocentral origin.</span>
+    <span class="n">candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">origins</span>
+                  <span class="k">if</span> <span class="n">_i</span><span class="o">.</span><span class="n">origin_type</span> <span class="o">==</span> <span class="s2">&quot;hypocenter&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">candidates</span><span class="p">:</span>
+        <span class="n">hypo_origin</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># Otherwise get the first one that is not equal to the CMT origin.</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">origins</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Hypocentral origin will be identical to the &quot;</span>
+                          <span class="s2">&quot;centroid one.&quot;</span><span class="p">)</span>
+            <span class="n">hypo_origin</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">origins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;No hypocentral origin could be found. Will choose &quot;</span>
+                          <span class="s2">&quot;the first one that is not identical to the &quot;</span>
+                          <span class="s2">&quot;centroid origin.&quot;</span><span class="p">)</span>
+            <span class="n">hypo_origin</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">origins</span> <span class="k">if</span> <span class="n">_i</span> <span class="o">!=</span> <span class="n">cmt_origin</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Try to find the half duration.</span>
+    <span class="k">if</span> <span class="n">mt</span><span class="o">.</span><span class="n">source_time_function</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mt</span><span class="o">.</span><span class="n">source_time_function</span><span class="o">.</span><span class="n">duration</span><span class="p">:</span>
+            <span class="n">half_duration</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">source_time_function</span><span class="o">.</span><span class="n">duration</span> <span class="o">/</span> <span class="mf">2.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Source time function has no duration. The half &quot;</span>
+                          <span class="s2">&quot;duration will be set to 1.0.&quot;</span><span class="p">)</span>
+            <span class="n">half_duration</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Moment tensor has no source time function. Half &quot;</span>
+                      <span class="s2">&quot;duration will be set to 1.0.&quot;</span><span class="p">)</span>
+        <span class="n">half_duration</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="c1"># Now attempt to retrieve the event name. Otherwise just get a random one.</span>
+    <span class="n">event_name</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">event_descriptions</span><span class="p">:</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">event_descriptions</span>
+                      <span class="k">if</span> <span class="n">_i</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;earthquake name&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">candidates</span><span class="p">:</span>
+            <span class="n">event_name</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">if</span> <span class="n">event_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">event_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())[:</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+    <span class="c1"># Also attempt to retrieve the determination type.</span>
+    <span class="n">hypocenter_catalog</span> <span class="o">=</span> <span class="s2">&quot;PDE&quot;</span>
+    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">comments</span><span class="p">:</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">comments</span>
+            <span class="k">if</span> <span class="n">_i</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;hypocenter catalog:&quot;</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="n">candidates</span><span class="p">:</span>
+            <span class="n">hypocenter_catalog</span> <span class="o">=</span> \
+                <span class="n">candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+    <span class="n">template</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;</span><span class="si">{hypocenter_catalog:&gt;4}</span><span class="s2"> </span><span class="si">{year:4d}</span><span class="s2"> </span><span class="si">{month:02d}</span><span class="s2"> </span><span class="si">{day:02d}</span><span class="s2"> </span><span class="si">{hour:02d}</span><span class="s2"> &quot;</span>
+        <span class="s2">&quot;</span><span class="si">{minute:02d}</span><span class="s2"> </span><span class="si">{second:05.2f}</span><span class="s2"> &quot;</span>
+        <span class="s2">&quot;</span><span class="si">{latitude:9.4f}</span><span class="s2"> </span><span class="si">{longitude:9.4f}</span><span class="s2"> </span><span class="si">{depth:5.1f}</span><span class="s2"> </span><span class="si">{mb:.1f}</span><span class="s2"> </span><span class="si">{ms:.1f}</span><span class="s2"> &quot;</span>
+        <span class="s2">&quot;</span><span class="si">{region}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;event name:</span><span class="si">{event_name:&gt;17}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;time shift:</span><span class="si">{time_shift:17.4f}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;half duration:</span><span class="si">{half_duration:14.4f}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;latitude:</span><span class="si">{cmt_latitude:19.4f}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;longitude:</span><span class="si">{cmt_longitude:18.4f}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;depth:</span><span class="si">{cmt_depth:22.4f}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;Mrr:</span><span class="si">{m_rr:24.6E}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;Mtt:</span><span class="si">{m_tt:24.6E}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;Mpp:</span><span class="si">{m_pp:24.6E}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;Mrt:</span><span class="si">{m_rt:24.6E}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;Mrp:</span><span class="si">{m_rp:24.6E}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;Mtp:</span><span class="si">{m_tp:24.6E}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">template</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">hypocenter_catalog</span><span class="o">=</span><span class="n">hypocenter_catalog</span><span class="p">,</span>
+        <span class="n">year</span><span class="o">=</span><span class="n">hypo_origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">year</span><span class="p">,</span>
+        <span class="n">month</span><span class="o">=</span><span class="n">hypo_origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">month</span><span class="p">,</span>
+        <span class="n">day</span><span class="o">=</span><span class="n">hypo_origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">day</span><span class="p">,</span>
+        <span class="n">hour</span><span class="o">=</span><span class="n">hypo_origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span>
+        <span class="n">minute</span><span class="o">=</span><span class="n">hypo_origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span>
+        <span class="n">second</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">hypo_origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">second</span><span class="p">)</span> <span class="o">+</span>
+        <span class="n">hypo_origin</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">/</span> <span class="mf">1E6</span><span class="p">,</span>
+        <span class="n">latitude</span><span class="o">=</span><span class="n">hypo_origin</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span>
+        <span class="n">longitude</span><span class="o">=</span><span class="n">hypo_origin</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span>
+        <span class="n">depth</span><span class="o">=</span><span class="n">hypo_origin</span><span class="o">.</span><span class="n">depth</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">,</span>
+        <span class="n">mb</span><span class="o">=</span><span class="n">mb_mag</span><span class="o">.</span><span class="n">mag</span><span class="p">,</span>
+        <span class="n">ms</span><span class="o">=</span><span class="n">ms_mag</span><span class="o">.</span><span class="n">mag</span><span class="p">,</span>
+        <span class="n">region</span><span class="o">=</span><span class="n">_fe</span><span class="o">.</span><span class="n">get_region</span><span class="p">(</span><span class="n">longitude</span><span class="o">=</span><span class="n">hypo_origin</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span>
+                              <span class="n">latitude</span><span class="o">=</span><span class="n">hypo_origin</span><span class="o">.</span><span class="n">latitude</span><span class="p">),</span>
+        <span class="n">event_name</span><span class="o">=</span><span class="n">event_name</span><span class="p">,</span>
+        <span class="n">time_shift</span><span class="o">=</span><span class="n">cmt_origin</span><span class="o">.</span><span class="n">time</span> <span class="o">-</span> <span class="n">hypo_origin</span><span class="o">.</span><span class="n">time</span><span class="p">,</span>
+        <span class="n">half_duration</span><span class="o">=</span><span class="n">half_duration</span><span class="p">,</span>
+        <span class="n">cmt_latitude</span><span class="o">=</span><span class="n">cmt_origin</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span>
+        <span class="n">cmt_longitude</span><span class="o">=</span><span class="n">cmt_origin</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span>
+        <span class="n">cmt_depth</span><span class="o">=</span><span class="n">cmt_origin</span><span class="o">.</span><span class="n">depth</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">,</span>
+        <span class="c1"># Convert to dyne * cm.</span>
+        <span class="n">m_rr</span><span class="o">=</span><span class="n">mt</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">m_rr</span> <span class="o">*</span> <span class="mf">1E7</span><span class="p">,</span>
+        <span class="n">m_tt</span><span class="o">=</span><span class="n">mt</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">m_tt</span> <span class="o">*</span> <span class="mf">1E7</span><span class="p">,</span>
+        <span class="n">m_pp</span><span class="o">=</span><span class="n">mt</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">m_pp</span> <span class="o">*</span> <span class="mf">1E7</span><span class="p">,</span>
+        <span class="n">m_rt</span><span class="o">=</span><span class="n">mt</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">m_rt</span> <span class="o">*</span> <span class="mf">1E7</span><span class="p">,</span>
+        <span class="n">m_rp</span><span class="o">=</span><span class="n">mt</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">m_rp</span> <span class="o">*</span> <span class="mf">1E7</span><span class="p">,</span>
+        <span class="n">m_tp</span><span class="o">=</span><span class="n">mt</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">m_tp</span> <span class="o">*</span> <span class="mf">1E7</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Write to a buffer/file opened in binary mode.</span>
+    <span class="n">buf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

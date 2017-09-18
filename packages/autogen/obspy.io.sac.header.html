@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.io.sac.header &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../contents.html">ObsPy Documentation (1.0.3)</a></li> 
+    </ol>
+  
+  <div class="section" id="module-obspy.io.sac.header">
+<span id="obspy-io-sac-header"></span><h1>obspy.io.sac.header<a class="headerlink" href="#module-obspy.io.sac.header" title="Permalink to this headline">¶</a></h1>
+<p>SAC header specification, including documentation.</p>
+<p>Header names, order, types, and nulls, as well as allowed enumerated values,
+are specified here.  Header name strings, and their array order are contained
+in separate float, int, and string tuples.  Enumerated values, and their
+allowed string and integer values, are in dictionaries.  Header value
+documentation is in a dictionary, for reuse throughout the package.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="4%" />
+<col width="83%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field Name</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>a          =</td>
+<td>F</td>
+<td>First arrival time (seconds relative to reference time.)</td>
+</tr>
+<tr class="row-odd"><td>az         =</td>
+<td>F</td>
+<td>Event to station azimuth (degrees).</td>
+</tr>
+<tr class="row-even"><td>b          =</td>
+<td>F</td>
+<td>Beginning value of the independent variable.</td>
+</tr>
+<tr class="row-odd"><td>baz        =</td>
+<td>F</td>
+<td>Station to event azimuth (degrees).</td>
+</tr>
+<tr class="row-even"><td>cmpaz      =</td>
+<td>F</td>
+<td>Component azimuth (degrees, clockwise from north).</td>
+</tr>
+<tr class="row-odd"><td>cmpinc     =</td>
+<td>F</td>
+<td>Component incident angle (degrees, from vertical).</td>
+</tr>
+<tr class="row-even"><td>delta      =</td>
+<td>F</td>
+<td>Increment between evenly spaced samples (nominal value).</td>
+</tr>
+<tr class="row-odd"><td>depmax     =</td>
+<td>F</td>
+<td>Maximum value of dependent variable.</td>
+</tr>
+<tr class="row-even"><td>depmen     =</td>
+<td>F</td>
+<td>Mean value of dependent variable.</td>
+</tr>
+<tr class="row-odd"><td>depmin     =</td>
+<td>F</td>
+<td>Minimum value of dependent variable.</td>
+</tr>
+<tr class="row-even"><td>dist       =</td>
+<td>F</td>
+<td>Station to event distance (km).</td>
+</tr>
+<tr class="row-odd"><td>e          =</td>
+<td>F</td>
+<td>Ending value of the independent variable.</td>
+</tr>
+<tr class="row-even"><td>evdp       =</td>
+<td>F</td>
+<td>Event depth below surface (meters).</td>
+</tr>
+<tr class="row-odd"><td>evel       =</td>
+<td>F</td>
+<td>Event elevation (meters).</td>
+</tr>
+<tr class="row-even"><td>evla       =</td>
+<td>F</td>
+<td>Event latitude (degrees north positive).</td>
+</tr>
+<tr class="row-odd"><td>evlo       =</td>
+<td>F</td>
+<td>Event longitude (degrees east positive).</td>
+</tr>
+<tr class="row-even"><td>f          =</td>
+<td>F</td>
+<td>Fini/end of event time (seconds relative to reference time.)</td>
+</tr>
+<tr class="row-odd"><td>gcarc      =</td>
+<td>F</td>
+<td>Station to event great circle arc length (degrees).</td>
+</tr>
+<tr class="row-even"><td>idep       =</td>
+<td>I</td>
+<td><p class="first">Type of dependent variable:</p>
+<ul class="last simple">
+<li>IUNKN (Unknown)</li>
+<li>IDISP (Displacement in nm)</li>
+<li>IVEL (Velocity in nm/sec)</li>
+<li>IVOLTS (Velocity in volts)</li>
+<li>IACC (Acceleration in nm/sec/sec)</li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>ievreg     =</td>
+<td>I</td>
+<td>Event geographic region.</td>
+</tr>
+<tr class="row-even"><td>ievtyp     =</td>
+<td>I</td>
+<td><p class="first">Type of event:</p>
+<ul class="last simple">
+<li>IUNKN (Unknown)</li>
+<li>INUCL (Nuclear event)</li>
+<li>IPREN (Nuclear pre-shot event)</li>
+<li>IPOSTN (Nuclear post-shot event)</li>
+<li>IQUAKE (Earthquake)</li>
+<li>IPREQ (Foreshock)</li>
+<li>IPOSTQ (Aftershock)</li>
+<li>ICHEM (Chemical explosion)</li>
+<li>IQB (Quarry or mine blast confirmed by quarry)</li>
+<li>IQB1 (Quarry/mine blast with designed shot
+info-ripple fired)</li>
+<li>IQB2 (Quarry/mine blast with observed shot
+info-ripple fired)</li>
+<li>IQMT (Quarry/mining-induced events:
+tremors and rockbursts)</li>
+<li>IEQ (Earthquake)</li>
+<li>IEQ1 (Earthquakes in a swarm or aftershock
+sequence)</li>
+<li>IEQ2 (Felt earthquake)</li>
+<li>IME (Marine explosion)</li>
+<li>IEX (Other explosion)</li>
+<li>INU (Nuclear explosion)</li>
+<li>INC (Nuclear cavity collapse)</li>
+<li><a href="#id1"><span class="problematic" id="id2">IO_</span></a> (Other source of known origin)</li>
+<li>IR (Regional event of unknown origin)</li>
+<li>IT (Teleseismic event of unknown origin)</li>
+<li>IU (Undetermined or conflicting information)</li>
+<li>IOTHER (Other)</li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>iftype     =</td>
+<td>I</td>
+<td><p class="first">Type of file:</p>
+<ul class="last simple">
+<li>ITIME {Time series file}</li>
+<li>IRLIM {Spectral file—real and imaginary}</li>
+<li>IAMPH {Spectral file—amplitude and phase}</li>
+<li>IXY {General x versus y data}</li>
+<li>IXYZ {General XYZ (3-D) file}</li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td>iinst      =</td>
+<td>I</td>
+<td>Type of recording instrument.</td>
+</tr>
+<tr class="row-odd"><td>imagsrc    =</td>
+<td>I</td>
+<td><p class="first">Source of magnitude information:</p>
+<ul class="last simple">
+<li>INEIC (National Earthquake Information Center)</li>
+<li>IPDE (Preliminary Determination of Epicenter)</li>
+<li>IISC (International Seismological Centre)</li>
+<li>IREB (Reviewed Event Bulletin)</li>
+<li>IUSGS (US Geological Survey)</li>
+<li>IBRK (UC Berkeley)</li>
+<li>ICALTECH (California Institute of Technology)</li>
+<li>ILLNL (Lawrence Livermore National Laboratory)</li>
+<li>IEVLOC (Event Location (computer program) )</li>
+<li>IJSOP (Joint Seismic Observation Program)</li>
+<li>IUSER (The individual using SAC2000)</li>
+<li>IUNKNOWN (unknown)</li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td>imagtyp    =</td>
+<td>I</td>
+<td><p class="first">Magnitude type:</p>
+<ul class="last simple">
+<li>IMB (52): Bodywave Magnitude</li>
+<li>IMS (53): Surfacewave Magnitude</li>
+<li>IML (54): Local Magnitude</li>
+<li>IMW (55): Moment Magnitude</li>
+<li>IMD (56): Duration Magnitude</li>
+<li>IMX (57): User Defined Magnitude</li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>iqual      =</td>
+<td>N</td>
+<td><p class="first">Quality of data, as integers. Enum values listed:</p>
+<ul class="last simple">
+<li>IGOOD (45) (Good data)</li>
+<li>IGLCH (46) (Glitches)</li>
+<li>IDROP (47) (Dropouts)</li>
+<li>ILOWSN (48) (Low signal to noise ratio)</li>
+<li>IOTHER (44) (Other)</li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td>istreg     =</td>
+<td>I</td>
+<td>Station geographic region.</td>
+</tr>
+<tr class="row-odd"><td>isynth     =</td>
+<td>I</td>
+<td><p class="first">Synthetic data flag:</p>
+<ul class="last simple">
+<li>IRLDTA (Real data)</li>
+<li>????? (Flags for various synthetic seismogram codes)</li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td>iztype     =</td>
+<td>I</td>
+<td><p class="first">Reference time equivalence:</p>
+<ul class="last simple">
+<li>IUNKN (5): Unknown</li>
+<li>IB (9): Begin time</li>
+<li>IDAY (10): Midnight of reference GMT day</li>
+<li>IO (11): Event origin time</li>
+<li>IA (12): First arrival time</li>
+<li>ITn (13-22): User defined time pick n, n=0,9</li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>ka         =</td>
+<td>K</td>
+<td>First arrival time identification.</td>
+</tr>
+<tr class="row-even"><td>kcmpnm     =</td>
+<td>K</td>
+<td>Component name.</td>
+</tr>
+<tr class="row-odd"><td>kevnm      =</td>
+<td>K</td>
+<td>Event name.</td>
+</tr>
+<tr class="row-even"><td>kf         =</td>
+<td>F</td>
+<td>Fini or end of event time identification.</td>
+</tr>
+<tr class="row-odd"><td>khole      =</td>
+<td>k</td>
+<td>Hole identification if nuclear event.</td>
+</tr>
+<tr class="row-even"><td>kinst      =</td>
+<td>K</td>
+<td>Generic name of recording instrument</td>
+</tr>
+<tr class="row-odd"><td>knetwk     =</td>
+<td>K</td>
+<td>Name of seismic network.</td>
+</tr>
+<tr class="row-even"><td>ko         =</td>
+<td>K</td>
+<td>Event origin time identification.</td>
+</tr>
+<tr class="row-odd"><td>kstnm      =</td>
+<td>K</td>
+<td>Station name.</td>
+</tr>
+<tr class="row-even"><td>kt0        =</td>
+<td>F</td>
+<td>User defined time pick identification.</td>
+</tr>
+<tr class="row-odd"><td>kt1        =</td>
+<td>F</td>
+<td>User defined time pick identification.</td>
+</tr>
+<tr class="row-even"><td>kt2        =</td>
+<td>F</td>
+<td>User defined time pick identification.</td>
+</tr>
+<tr class="row-odd"><td>kt3        =</td>
+<td>F</td>
+<td>User defined time pick identification.</td>
+</tr>
+<tr class="row-even"><td>kt4        =</td>
+<td>F</td>
+<td>User defined time pick identification.</td>
+</tr>
+<tr class="row-odd"><td>kt5        =</td>
+<td>F</td>
+<td>User defined time pick identification.</td>
+</tr>
+<tr class="row-even"><td>kt6        =</td>
+<td>F</td>
+<td>User defined time pick identification.</td>
+</tr>
+<tr class="row-odd"><td>kt7        =</td>
+<td>F</td>
+<td>User defined time pick identification.</td>
+</tr>
+<tr class="row-even"><td>kt8        =</td>
+<td>F</td>
+<td>User defined time pick identification.</td>
+</tr>
+<tr class="row-odd"><td>kt9        =</td>
+<td>F</td>
+<td>User defined time pick identification.</td>
+</tr>
+<tr class="row-even"><td>kuser0     =</td>
+<td>K</td>
+<td>User defined variable storage area 0.</td>
+</tr>
+<tr class="row-odd"><td>kuser1     =</td>
+<td>K</td>
+<td>User defined variable storage area 1.</td>
+</tr>
+<tr class="row-even"><td>kuser2     =</td>
+<td>K</td>
+<td>User defined variable storage area 2.</td>
+</tr>
+<tr class="row-odd"><td>lcalda     =</td>
+<td>L</td>
+<td>TRUE if DIST AZ BAZ and GCARC are to be calculated from st event coordinates.</td>
+</tr>
+<tr class="row-even"><td>leven      =</td>
+<td>L</td>
+<td>TRUE if data is evenly spaced.</td>
+</tr>
+<tr class="row-odd"><td>lovrok     =</td>
+<td>L</td>
+<td>TRUE if it is okay to overwrite this file on disk.</td>
+</tr>
+<tr class="row-even"><td>lpspol     =</td>
+<td>L</td>
+<td>TRUE if station components have a positive polarity (left-hand rule).</td>
+</tr>
+<tr class="row-odd"><td>mag        =</td>
+<td>F</td>
+<td>Event magnitude.</td>
+</tr>
+<tr class="row-even"><td>nevid      =</td>
+<td>N</td>
+<td>Event ID (CSS 3.0)</td>
+</tr>
+<tr class="row-odd"><td>norid      =</td>
+<td>N</td>
+<td>Origin ID (CSS 3.0)</td>
+</tr>
+<tr class="row-even"><td>npts       =</td>
+<td>N</td>
+<td>Number of points per data component.</td>
+</tr>
+<tr class="row-odd"><td>nvhdr      =</td>
+<td>N</td>
+<td>Header version number. Current value is the integer 6.
+Older version data (NVHDR &lt; 6) are automatically updated
+when read into sac.</td>
+</tr>
+<tr class="row-even"><td>nwfid      =</td>
+<td>N</td>
+<td>Waveform ID (CSS 3.0)</td>
+</tr>
+<tr class="row-odd"><td>nzhour     =</td>
+<td>N</td>
+<td>GMT hour.</td>
+</tr>
+<tr class="row-even"><td>nzjday     =</td>
+<td>N</td>
+<td>GMT julian day.</td>
+</tr>
+<tr class="row-odd"><td>nzmin      =</td>
+<td>N</td>
+<td>GMT minute.</td>
+</tr>
+<tr class="row-even"><td>nzmsec     =</td>
+<td>N</td>
+<td>GMT millisecond.</td>
+</tr>
+<tr class="row-odd"><td>nzsec      =</td>
+<td>N</td>
+<td>GMT second.</td>
+</tr>
+<tr class="row-even"><td>nzyear     =</td>
+<td>N</td>
+<td>GMT year corresponding to reference time in file.</td>
+</tr>
+<tr class="row-odd"><td>o          =</td>
+<td>F</td>
+<td>Event origin time (seconds relative to reference time.)</td>
+</tr>
+<tr class="row-even"><td>odelta     =</td>
+<td>F</td>
+<td>Observed increment if different from nominal value.</td>
+</tr>
+<tr class="row-odd"><td>scale      =</td>
+<td>F</td>
+<td>Multiplying scale factor for dependent variable</td>
+</tr>
+<tr class="row-even"><td>stdp       =</td>
+<td>F</td>
+<td>Station depth below surface (meters).</td>
+</tr>
+<tr class="row-odd"><td>stel       =</td>
+<td>F</td>
+<td>Station elevation (meters).</td>
+</tr>
+<tr class="row-even"><td>stla       =</td>
+<td>F</td>
+<td>Station latitude (degrees, north positive)</td>
+</tr>
+<tr class="row-odd"><td>stlo       =</td>
+<td>F</td>
+<td>Station longitude (degrees, east positive).</td>
+</tr>
+<tr class="row-even"><td>t0         =</td>
+<td>F</td>
+<td>User defined time (seconds picks or markers relative to reference time).</td>
+</tr>
+<tr class="row-odd"><td>t1         =</td>
+<td>F</td>
+<td>User defined time (seconds picks or markers relative to reference time).</td>
+</tr>
+<tr class="row-even"><td>t2         =</td>
+<td>F</td>
+<td>User defined time (seconds picks or markers relative to reference time).</td>
+</tr>
+<tr class="row-odd"><td>t3         =</td>
+<td>F</td>
+<td>User defined time (seconds picks or markers relative to reference time).</td>
+</tr>
+<tr class="row-even"><td>t4         =</td>
+<td>F</td>
+<td>User defined time (seconds picks or markers relative to reference time).</td>
+</tr>
+<tr class="row-odd"><td>t5         =</td>
+<td>F</td>
+<td>User defined time (seconds picks or markers relative to reference time).</td>
+</tr>
+<tr class="row-even"><td>t6         =</td>
+<td>F</td>
+<td>User defined time (seconds picks or markers relative to reference time).</td>
+</tr>
+<tr class="row-odd"><td>t7         =</td>
+<td>F</td>
+<td>User defined time (seconds picks or markers relative to reference time).</td>
+</tr>
+<tr class="row-even"><td>t8         =</td>
+<td>F</td>
+<td>User defined time (seconds picks or markers relative to reference time).</td>
+</tr>
+<tr class="row-odd"><td>t9         =</td>
+<td>F</td>
+<td>User defined time (seconds picks or markers relative to reference time).</td>
+</tr>
+<tr class="row-even"><td>user0      =</td>
+<td>F</td>
+<td>User defined variable storage area 0.</td>
+</tr>
+<tr class="row-odd"><td>user1      =</td>
+<td>F</td>
+<td>User defined variable storage area 1.</td>
+</tr>
+<tr class="row-even"><td>user2      =</td>
+<td>F</td>
+<td>User defined variable storage area 2.</td>
+</tr>
+<tr class="row-odd"><td>user3      =</td>
+<td>F</td>
+<td>User defined variable storage area 3.</td>
+</tr>
+<tr class="row-even"><td>user4      =</td>
+<td>F</td>
+<td>User defined variable storage area 4.</td>
+</tr>
+<tr class="row-odd"><td>user5      =</td>
+<td>F</td>
+<td>User defined variable storage area 5.</td>
+</tr>
+<tr class="row-even"><td>user6      =</td>
+<td>F</td>
+<td>User defined variable storage area 6.</td>
+</tr>
+<tr class="row-odd"><td>user7      =</td>
+<td>F</td>
+<td>User defined variable storage area 7.</td>
+</tr>
+<tr class="row-even"><td>user8      =</td>
+<td>F</td>
+<td>User defined variable storage area 8.</td>
+</tr>
+<tr class="row-odd"><td>user9      =</td>
+<td>F</td>
+<td>User defined variable storage area 9.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

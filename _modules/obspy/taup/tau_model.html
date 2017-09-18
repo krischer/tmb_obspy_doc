@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.taup.tau_model &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.taup.tau_model</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Internal TauModel class.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+<span class="kn">from</span> <span class="nn">future.utils</span> <span class="k">import</span> <span class="n">native_str</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">count</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">pi</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">obspy.core.util.decorator</span> <span class="k">import</span> <span class="n">deprecated</span>
+<span class="kn">from</span> <span class="nn">.helper_classes</span> <span class="k">import</span> <span class="n">DepthRange</span><span class="p">,</span> <span class="n">SlownessModelError</span><span class="p">,</span> <span class="n">TauModelError</span>
+<span class="kn">from</span> <span class="nn">.slowness_model</span> <span class="k">import</span> <span class="n">SlownessModel</span>
+<span class="kn">from</span> <span class="nn">.tau_branch</span> <span class="k">import</span> <span class="n">TauBranch</span>
+<span class="kn">from</span> <span class="nn">.velocity_model</span> <span class="k">import</span> <span class="n">VelocityModel</span>
+
+
+<div class="viewcode-block" id="TauModel"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_model.TauModel.html#obspy.taup.tau_model.TauModel">[docs]</a><span class="k">class</span> <span class="nc">TauModel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides storage of all the TauBranches comprising a model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="TauModel.__init__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_model.TauModel.__init__.html#obspy.taup.tau_model.TauModel.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s_mod</span><span class="p">,</span> <span class="n">radius_of_planet</span><span class="p">,</span> <span class="n">is_spherical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">skip_calc</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">debug</span>
+        <span class="c1"># Depth for which tau model as constructed.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source_depth</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius_of_planet</span> <span class="o">=</span> <span class="n">radius_of_planet</span>
+        <span class="c1"># True if this is a spherical slowness model. False if flat.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_spherical</span> <span class="o">=</span> <span class="n">is_spherical</span>
+        <span class="c1"># Ray parameters used to construct the tau branches. This may only be</span>
+        <span class="c1"># a subset of the slownesses/ray parameters saved in the slowness</span>
+        <span class="c1"># model due to high slowness zones (low velocity zones).</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ray_params</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># 2D NumPy array containing a TauBranch object</span>
+        <span class="c1"># corresponding to each &quot;branch&quot; of the tau model, First list is P,</span>
+        <span class="c1"># second is S. Branches correspond to depth regions between</span>
+        <span class="c1"># discontinuities or reversals in slowness gradient for a wave type.</span>
+        <span class="c1"># Each branch contains time, distance, and tau increments for each ray</span>
+        <span class="c1"># parameter in ray_param for the layer. Rays that turn above the branch</span>
+        <span class="c1"># layer get 0 for time, distance, and tau increments.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span> <span class="o">=</span> <span class="n">s_mod</span>
+
+        <span class="c1"># Branch with the source at its top.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source_branch</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Depths that should not have reflections or phase conversions. For</span>
+        <span class="c1"># instance, if the source is not at a branch boundary then</span>
+        <span class="c1"># no_discon_depths contains source depth and reflections and phase</span>
+        <span class="c1"># conversions are not allowed at this branch boundary. If the source</span>
+        <span class="c1"># happens to fall on a real discontinuity then it is not included.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">no_discon_depths</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="n">cache</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_depth_cache</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">cache</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_depth_cache</span> <span class="o">=</span> <span class="n">cache</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_depth_cache</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">skip_calc</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calc_tau_inc_from</span><span class="p">()</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;calcTauIncFrom&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;calc_tau_inc_from&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">calcTauIncFrom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;calcTauIncFrom&#39; has been renamed to</span>
+<span class="sd">        &#39;calc_tau_inc_from&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_tau_inc_from</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TauModel.calc_tau_inc_from"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_model.TauModel.calc_tau_inc_from.html#obspy.taup.tau_model.TauModel.calc_tau_inc_from">[docs]</a>    <span class="k">def</span> <span class="nf">calc_tau_inc_from</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates tau for each branch within a slowness model.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># First, we must have at least 1 slowness layer to calculate a</span>
+        <span class="c1">#  distance. Otherwise we must signal an exception.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">get_num_layers</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> \
+                <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">get_num_layers</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">SlownessModelError</span><span class="p">(</span>
+                <span class="s2">&quot;Can&#39;t calculate tauInc when get_num_layers() = 0. &quot;</span>
+                <span class="s2">&quot;I need more slowness samples.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+        <span class="c1"># Create an array holding the ray parameter that we will use for</span>
+        <span class="c1"># constructing the tau splines. Only store ray parameters that are</span>
+        <span class="c1"># not in a high slowness zone, i.e. they are smaller than the</span>
+        <span class="c1"># minimum ray parameter encountered so far.</span>
+        <span class="n">num_branches</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">critical_depths</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="n">num_branches</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">TauBranch</span><span class="p">)</span>
+        <span class="c1"># Here we find the list of ray parameters to be used for the tau</span>
+        <span class="c1"># model. We only need to find ray parameters for S waves since P</span>
+        <span class="c1"># waves have been constructed to be a subset of the S samples.</span>
+        <span class="n">ray_num</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">min_p_so_far</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">s_layers</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;top_p&#39;</span><span class="p">]</span>
+        <span class="n">temp_ray_params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">get_num_layers</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span> <span class="o">+</span>
+                                   <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">critical_depths</span><span class="p">))</span>
+        <span class="c1"># Make sure we get the top slowness of the very top layer</span>
+        <span class="n">temp_ray_params</span><span class="p">[</span><span class="n">ray_num</span><span class="p">]</span> <span class="o">=</span> <span class="n">min_p_so_far</span>
+        <span class="n">ray_num</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">curr_s_layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">s_layers</span><span class="p">:</span>
+            <span class="c1"># Add the top if it is strictly less than the last sample added.</span>
+            <span class="c1"># Note that this will not be added if the slowness is continuous</span>
+            <span class="c1">#  across the layer boundary.</span>
+            <span class="k">if</span> <span class="n">curr_s_layer</span><span class="p">[</span><span class="s1">&#39;top_p&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">min_p_so_far</span><span class="p">:</span>
+                <span class="n">temp_ray_params</span><span class="p">[</span><span class="n">ray_num</span><span class="p">]</span> <span class="o">=</span> <span class="n">curr_s_layer</span><span class="p">[</span><span class="s1">&#39;top_p&#39;</span><span class="p">]</span>
+                <span class="n">ray_num</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">min_p_so_far</span> <span class="o">=</span> <span class="n">curr_s_layer</span><span class="p">[</span><span class="s1">&#39;top_p&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">curr_s_layer</span><span class="p">[</span><span class="s1">&#39;bot_p&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">min_p_so_far</span><span class="p">:</span>
+                <span class="c1"># Add the bottom if it is strictly less than the last sample</span>
+                <span class="c1"># added. This will always happen unless we are</span>
+                <span class="c1"># within a high slowness zone.</span>
+                <span class="n">temp_ray_params</span><span class="p">[</span><span class="n">ray_num</span><span class="p">]</span> <span class="o">=</span> <span class="n">curr_s_layer</span><span class="p">[</span><span class="s1">&#39;bot_p&#39;</span><span class="p">]</span>
+                <span class="n">ray_num</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">min_p_so_far</span> <span class="o">=</span> <span class="n">curr_s_layer</span><span class="p">[</span><span class="s1">&#39;bot_p&#39;</span><span class="p">]</span>
+        <span class="c1"># Copy tempRayParams to ray_param while chopping off trailing zeros</span>
+        <span class="c1"># (from the initialisation), so the size is exactly right. NB</span>
+        <span class="c1"># slicing doesn&#39;t really mean deep copy, but it works for a list of</span>
+        <span class="c1"># doubles like this</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ray_params</span> <span class="o">=</span> <span class="n">temp_ray_params</span><span class="p">[:</span><span class="n">ray_num</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of slowness samples for tau:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ray_num</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">wave_num</span><span class="p">,</span> <span class="n">is_p_wave</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]):</span>
+            <span class="c1"># The minimum slowness seen so far.</span>
+            <span class="n">min_p_so_far</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">is_p_wave</span><span class="p">)[</span><span class="s1">&#39;top_p&#39;</span><span class="p">]</span>
+            <span class="c1"># for critNum, (topCritDepth, botCritDepth) in enumerate(zip(</span>
+            <span class="c1"># self.s_mod.critical_depths[:-1],</span>
+            <span class="c1"># self.s_mod.critical_depths[1:])):</span>
+            <span class="c1"># Faster:</span>
+            <span class="k">for</span> <span class="n">crit_num</span><span class="p">,</span> <span class="n">top_crit_depth</span><span class="p">,</span> <span class="n">bot_crit_depth</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                    <span class="n">count</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">critical_depths</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">critical_depths</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+                <span class="n">top_crit_layer_num</span> <span class="o">=</span> <span class="n">top_crit_depth</span><span class="p">[</span><span class="s1">&#39;p_layer_num&#39;</span><span class="p">]</span> \
+                    <span class="k">if</span> <span class="n">is_p_wave</span> <span class="k">else</span> <span class="n">top_crit_depth</span><span class="p">[</span><span class="s1">&#39;s_layer_num&#39;</span><span class="p">]</span>
+                <span class="n">bot_crit_layer_num</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">bot_crit_depth</span><span class="p">[</span><span class="s1">&#39;p_layer_num&#39;</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">is_p_wave</span> <span class="k">else</span> <span class="n">bot_crit_depth</span><span class="p">[</span><span class="s1">&#39;s_layer_num&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="n">wave_num</span><span class="p">,</span> <span class="n">crit_num</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="n">TauBranch</span><span class="p">(</span><span class="n">top_crit_depth</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">],</span> <span class="n">bot_crit_depth</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">],</span>
+                              <span class="n">is_p_wave</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="n">wave_num</span><span class="p">,</span> <span class="n">crit_num</span><span class="p">]</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="n">wave_num</span><span class="p">,</span> <span class="n">crit_num</span><span class="p">]</span><span class="o">.</span><span class="n">create_branch</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="p">,</span> <span class="n">min_p_so_far</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ray_params</span><span class="p">)</span>
+                <span class="c1"># Update minPSoFar. Note that the new minPSoFar could be at</span>
+                <span class="c1"># the start of a discontinuity over a high slowness zone,</span>
+                <span class="c1"># so we need to check the top, bottom and the layer just</span>
+                <span class="c1"># above the discontinuity.</span>
+                <span class="n">top_s_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span><span class="n">top_crit_layer_num</span><span class="p">,</span>
+                                                            <span class="n">is_p_wave</span><span class="p">)</span>
+                <span class="n">bot_s_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span><span class="n">bot_crit_layer_num</span><span class="p">,</span>
+                                                            <span class="n">is_p_wave</span><span class="p">)</span>
+                <span class="n">min_p_so_far</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
+                    <span class="n">min_p_so_far</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">top_s_layer</span><span class="p">[</span><span class="s1">&#39;top_p&#39;</span><span class="p">],</span>
+                                      <span class="n">bot_s_layer</span><span class="p">[</span><span class="s1">&#39;bot_p&#39;</span><span class="p">]))</span>
+                <span class="n">bot_s_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">get_slowness_layer</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">layer_number_above</span><span class="p">(</span><span class="n">bot_crit_depth</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">],</span>
+                                                  <span class="n">is_p_wave</span><span class="p">),</span> <span class="n">is_p_wave</span><span class="p">)</span>
+                <span class="n">min_p_so_far</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">min_p_so_far</span><span class="p">,</span> <span class="n">bot_s_layer</span><span class="p">[</span><span class="s1">&#39;bot_p&#39;</span><span class="p">])</span>
+        <span class="c1"># Here we decide which branches are the closest to the Moho, CMB,</span>
+        <span class="c1"># and IOCB by comparing the depth of the top of the branch with the</span>
+        <span class="c1"># depths in the Velocity Model.</span>
+        <span class="n">best_moho</span> <span class="o">=</span> <span class="mf">1e300</span>
+        <span class="n">best_cmb</span> <span class="o">=</span> <span class="mf">1e300</span>
+        <span class="n">best_iocb</span> <span class="o">=</span> <span class="mf">1e300</span>
+        <span class="k">for</span> <span class="n">branch_num</span><span class="p">,</span> <span class="n">tBranch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">tBranch</span><span class="o">.</span><span class="n">top_depth</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">v_mod</span><span class="o">.</span><span class="n">moho_depth</span><span class="p">)</span> <span class="o">&lt;=</span> \
+                    <span class="n">best_moho</span><span class="p">:</span>
+                <span class="c1"># Branch with Moho at its top.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">moho_branch</span> <span class="o">=</span> <span class="n">branch_num</span>
+                <span class="n">best_moho</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">tBranch</span><span class="o">.</span><span class="n">top_depth</span> <span class="o">-</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">v_mod</span><span class="o">.</span><span class="n">moho_depth</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">tBranch</span><span class="o">.</span><span class="n">top_depth</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">v_mod</span><span class="o">.</span><span class="n">cmb_depth</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">best_cmb</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cmb_branch</span> <span class="o">=</span> <span class="n">branch_num</span>
+                <span class="n">best_cmb</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">tBranch</span><span class="o">.</span><span class="n">top_depth</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">v_mod</span><span class="o">.</span><span class="n">cmb_depth</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">tBranch</span><span class="o">.</span><span class="n">top_depth</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">v_mod</span><span class="o">.</span><span class="n">iocb_depth</span><span class="p">)</span> <span class="o">&lt;</span> \
+                    <span class="n">best_iocb</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">iocb_branch</span> <span class="o">=</span> <span class="n">branch_num</span>
+                <span class="n">best_iocb</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">tBranch</span><span class="o">.</span><span class="n">top_depth</span> <span class="o">-</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">v_mod</span><span class="o">.</span><span class="n">iocb_depth</span><span class="p">)</span>
+        <span class="c1"># Now set moho_depth etc. to the top of the branches we have decided</span>
+        <span class="c1"># on.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moho_depth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">moho_branch</span><span class="p">]</span><span class="o">.</span><span class="n">top_depth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cmb_depth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmb_branch</span><span class="p">]</span><span class="o">.</span><span class="n">top_depth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iocb_depth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iocb_branch</span><span class="p">]</span><span class="o">.</span><span class="n">top_depth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TauModel.__str__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_model.TauModel.__str__.html#obspy.taup.tau_model.TauModel.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="s2">&quot;Delta tau for each slowness sample and layer.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">ray_param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ray_params</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tb</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="n">desc</span> <span class="o">+=</span> <span class="p">(</span>
+                    <span class="s2">&quot; i &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; j &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; ray_param &quot;</span> <span class="o">+</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">ray_param</span><span class="p">)</span> <span class="o">+</span>
+                    <span class="s2">&quot; tau &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tb</span><span class="o">.</span><span class="n">tau</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; time &quot;</span> <span class="o">+</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">tb</span><span class="o">.</span><span class="n">time</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; dist &quot;</span> <span class="o">+</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">tb</span><span class="o">.</span><span class="n">dist</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; degrees &quot;</span> <span class="o">+</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">tb</span><span class="o">.</span><span class="n">dist</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="mi">180</span> <span class="o">/</span> <span class="n">pi</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">desc</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">desc</span></div>
+
+<div class="viewcode-block" id="TauModel.validate"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_model.TauModel.validate.html#obspy.taup.tau_model.TauModel.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Could implement the model validation; not critical right now</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="TauModel.depth_correct"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_model.TauModel.depth_correct.html#obspy.taup.tau_model.TauModel.depth_correct">[docs]</a>    <span class="k">def</span> <span class="nf">depth_correct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Called in TauPTime. Computes a new tau model for a source at depth</span>
+<span class="sd">        using the previously computed branches for a surface source. No</span>
+<span class="sd">        change is needed to the branches above and below the branch</span>
+<span class="sd">        containing the depth, except for the addition of a slowness sample.</span>
+<span class="sd">        The branch containing the source depth is split into 2 branches,</span>
+<span class="sd">        and up going branch and a downgoing branch. Additionally,</span>
+<span class="sd">        the slowness at the source depth must be sampled exactly as it is an</span>
+<span class="sd">        extremal point for each of these branches. Cf. [Buland1983]_, page</span>
+<span class="sd">        1290.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_depth</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">TauModelError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t depth correct a TauModel that is not &quot;</span>
+                                <span class="s2">&quot;originally for a surface source.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">depth</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius_of_planet</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">TauModelError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t depth correct to a source deeper than &quot;</span>
+                                <span class="s2">&quot;the radius of the planet.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_from_depth_cache</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;loadFromDepthCache&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;load_from_depth_cache&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">loadFromDepthCache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;loadFromDepthCache&#39; has been renamed to</span>
+<span class="sd">        &#39;load_from_depth_cache&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_from_depth_cache</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TauModel.load_from_depth_cache"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_model.TauModel.load_from_depth_cache.html#obspy.taup.tau_model.TauModel.load_from_depth_cache">[docs]</a>    <span class="k">def</span> <span class="nf">load_from_depth_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">):</span>
+        <span class="c1"># Very simple and straightforward LRU cache implementation.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_depth_cache</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Retrieve and later insert again to get LRU cache behaviour.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_depth_cache</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_from_depth_cache</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_depth_cache</span><span class="p">[</span><span class="n">depth</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="c1"># Pop first key-value pairs until at most 128 elements are still</span>
+            <span class="c1"># in the cache.</span>
+            <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_depth_cache</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">128</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_depth_cache</span><span class="o">.</span><span class="n">popitem</span><span class="p">(</span><span class="n">last</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_from_depth_cache</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TauModel._load_from_depth_cache"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_model.TauModel._load_from_depth_cache.html#obspy.taup.tau_model.TauModel._load_from_depth_cache">[docs]</a>    <span class="k">def</span> <span class="nf">_load_from_depth_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">):</span>
+        <span class="n">depth_corrected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_branch</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+        <span class="n">depth_corrected</span><span class="o">.</span><span class="n">source_depth</span> <span class="o">=</span> <span class="n">depth</span>
+        <span class="n">depth_corrected</span><span class="o">.</span><span class="n">source_branch</span> <span class="o">=</span> <span class="n">depth_corrected</span><span class="o">.</span><span class="n">find_branch</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+        <span class="n">depth_corrected</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">depth_corrected</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;splitBranch&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;split_branch&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">splitBranch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;splitBranch&#39; has been renamed to</span>
+<span class="sd">        &#39;split_branch&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_branch</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TauModel.split_branch"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_model.TauModel.split_branch.html#obspy.taup.tau_model.TauModel.split_branch">[docs]</a>    <span class="k">def</span> <span class="nf">split_branch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a new TauModel with the branches containing depth split at</span>
+<span class="sd">        depth. Used for putting a source at depth since a source can only be</span>
+<span class="sd">        located on a branch boundary.</span>
+<span class="sd">         &quot;&quot;&quot;</span>
+        <span class="c1"># First check to see if depth happens to already be a branch</span>
+        <span class="c1"># boundary, then just return original model.</span>
+        <span class="k">for</span> <span class="n">tb</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">tb</span><span class="o">.</span><span class="n">top_depth</span> <span class="o">==</span> <span class="n">depth</span> <span class="ow">or</span> <span class="n">tb</span><span class="o">.</span><span class="n">bot_depth</span> <span class="o">==</span> <span class="n">depth</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># Depth is not a branch boundary, so must modify the tau model.</span>
+        <span class="n">index_p</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">p_wave_ray_param</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">index_s</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">s_wave_ray_param</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">out_s_mod</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span>
+        <span class="n">out_ray_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ray_params</span>
+        <span class="c1"># Do S wave first since the S ray param is &gt; P ray param.</span>
+        <span class="k">for</span> <span class="n">is_p_wave</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">]:</span>
+            <span class="n">split_info</span> <span class="o">=</span> <span class="n">out_s_mod</span><span class="o">.</span><span class="n">split_layer</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">is_p_wave</span><span class="p">)</span>
+            <span class="n">out_s_mod</span> <span class="o">=</span> <span class="n">split_info</span><span class="o">.</span><span class="n">s_mod</span>
+            <span class="k">if</span> <span class="n">split_info</span><span class="o">.</span><span class="n">needed_split</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">split_info</span><span class="o">.</span><span class="n">moved_sample</span><span class="p">:</span>
+                <span class="c1"># Split the slowness layers containing depth into two layers</span>
+                <span class="c1"># each.</span>
+                <span class="n">new_ray_param</span> <span class="o">=</span> <span class="n">split_info</span><span class="o">.</span><span class="n">ray_param</span>
+                <span class="c1"># Insert the new ray parameters into the ray_param array.</span>
+                <span class="n">above</span> <span class="o">=</span> <span class="n">out_ray_params</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">below</span> <span class="o">=</span> <span class="n">out_ray_params</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="p">(</span><span class="n">above</span> <span class="o">&gt;</span> <span class="n">new_ray_param</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">new_ray_param</span> <span class="o">&gt;</span> <span class="n">below</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
+                    <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">index</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="n">out_ray_params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">out_ray_params</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span>
+                                               <span class="n">new_ray_param</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">is_p_wave</span><span class="p">:</span>
+                        <span class="n">index_p</span> <span class="o">=</span> <span class="n">index</span>
+                        <span class="n">p_wave_ray_param</span> <span class="o">=</span> <span class="n">new_ray_param</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">index_s</span> <span class="o">=</span> <span class="n">index</span>
+                        <span class="n">s_wave_ray_param</span> <span class="o">=</span> <span class="n">new_ray_param</span>
+
+        <span class="c1"># Now add a sample to each branch above the depth, split the branch</span>
+        <span class="c1"># containing the depth, and add a sample to each deeper branch.</span>
+        <span class="n">branch_to_split</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_branch</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+        <span class="n">new_tau_branches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+                                    <span class="n">dtype</span><span class="o">=</span><span class="n">TauBranch</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">branch_to_split</span><span class="p">):</span>
+            <span class="n">new_tau_branches</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
+            <span class="n">new_tau_branches</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
+            <span class="c1"># Add the new ray parameter(s) from splitting the S and/or P</span>
+            <span class="c1"># wave slowness layer to both the P and S wave tau branches (if</span>
+            <span class="c1"># splitting occurred).</span>
+            <span class="k">if</span> <span class="n">index_s</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">new_tau_branches</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">s_wave_ray_param</span><span class="p">,</span> <span class="n">out_s_mod</span><span class="p">,</span>
+                                              <span class="n">index_s</span><span class="p">)</span>
+                <span class="n">new_tau_branches</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">s_wave_ray_param</span><span class="p">,</span> <span class="n">out_s_mod</span><span class="p">,</span>
+                                              <span class="n">index_s</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">index_p</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">new_tau_branches</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">p_wave_ray_param</span><span class="p">,</span> <span class="n">out_s_mod</span><span class="p">,</span>
+                                              <span class="n">index_p</span><span class="p">)</span>
+                <span class="n">new_tau_branches</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">p_wave_ray_param</span><span class="p">,</span> <span class="n">out_s_mod</span><span class="p">,</span>
+                                              <span class="n">index_p</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">pOrS</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">new_tau_branches</span><span class="p">[</span><span class="n">pOrS</span><span class="p">,</span> <span class="n">branch_to_split</span><span class="p">]</span> <span class="o">=</span> <span class="n">TauBranch</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="n">pOrS</span><span class="p">,</span> <span class="n">branch_to_split</span><span class="p">]</span><span class="o">.</span><span class="n">top_depth</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span>
+                <span class="n">pOrS</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">new_tau_branches</span><span class="p">[</span><span class="n">pOrS</span><span class="p">,</span> <span class="n">branch_to_split</span><span class="p">]</span><span class="o">.</span><span class="n">create_branch</span><span class="p">(</span>
+                <span class="n">out_s_mod</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="n">pOrS</span><span class="p">,</span> <span class="n">branch_to_split</span><span class="p">]</span><span class="o">.</span><span class="n">max_ray_param</span><span class="p">,</span>
+                <span class="n">out_ray_params</span><span class="p">)</span>
+            <span class="n">new_tau_branches</span><span class="p">[</span><span class="n">pOrS</span><span class="p">,</span> <span class="n">branch_to_split</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="n">pOrS</span><span class="p">,</span> <span class="n">branch_to_split</span><span class="p">]</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span>
+                    <span class="n">new_tau_branches</span><span class="p">[</span><span class="n">pOrS</span><span class="p">,</span> <span class="n">branch_to_split</span><span class="p">],</span>
+                    <span class="n">index_p</span><span class="p">,</span> <span class="n">index_s</span><span class="p">,</span> <span class="n">out_s_mod</span><span class="p">,</span>
+                    <span class="n">new_tau_branches</span><span class="p">[</span><span class="n">pOrS</span><span class="p">,</span> <span class="n">branch_to_split</span><span class="p">]</span><span class="o">.</span><span class="n">min_ray_param</span><span class="p">,</span>
+                    <span class="n">out_ray_params</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">branch_to_split</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+            <span class="k">for</span> <span class="n">pOrS</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+                <span class="n">new_tau_branches</span><span class="p">[</span><span class="n">pOrS</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span>  \
+                    <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="n">pOrS</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">index_s</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># Add the new ray parameter from splitting the S wave</span>
+                <span class="c1"># slownes layer to both the P and S wave tau branches.</span>
+                <span class="k">for</span> <span class="n">pOrS</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+                    <span class="n">new_tau_branches</span><span class="p">[</span><span class="n">pOrS</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+                        <span class="n">s_wave_ray_param</span><span class="p">,</span> <span class="n">out_s_mod</span><span class="p">,</span> <span class="n">index_s</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">index_p</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># Add the new ray parameter from splitting the P wave</span>
+                <span class="c1"># slownes layer to both the P and S wave tau branches.</span>
+                <span class="k">for</span> <span class="n">pOrS</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+                    <span class="n">new_tau_branches</span><span class="p">[</span><span class="n">pOrS</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+                        <span class="n">p_wave_ray_param</span><span class="p">,</span> <span class="n">out_s_mod</span><span class="p">,</span> <span class="n">index_p</span><span class="p">)</span>
+        <span class="c1"># We have split a branch so possibly source_branch, moho_branch,</span>
+        <span class="c1"># cmb_branch and iocb_branch are off by 1.</span>
+        <span class="n">out_source_branch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_branch</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_depth</span> <span class="o">&gt;</span> <span class="n">depth</span><span class="p">:</span>
+            <span class="n">out_source_branch</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">out_moho_branch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">moho_branch</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moho_depth</span> <span class="o">&gt;</span> <span class="n">depth</span><span class="p">:</span>
+            <span class="n">out_moho_branch</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">out_cmb_branch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmb_branch</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmb_depth</span> <span class="o">&gt;</span> <span class="n">depth</span><span class="p">:</span>
+            <span class="n">out_cmb_branch</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">out_iocb_branch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iocb_branch</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iocb_depth</span> <span class="o">&gt;</span> <span class="n">depth</span><span class="p">:</span>
+            <span class="n">out_iocb_branch</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># No overloaded constructors - so do it this way to bypass the</span>
+        <span class="c1"># calc_tau_inc_from in the __init__.</span>
+        <span class="n">tau_model</span> <span class="o">=</span> <span class="n">TauModel</span><span class="p">(</span>
+            <span class="n">out_s_mod</span><span class="p">,</span>
+            <span class="n">radius_of_planet</span><span class="o">=</span><span class="n">out_s_mod</span><span class="o">.</span><span class="n">v_mod</span><span class="o">.</span><span class="n">radius_of_planet</span><span class="p">,</span>
+            <span class="n">is_spherical</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">is_spherical</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">debug</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">,</span> <span class="n">skip_calc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">tau_model</span><span class="o">.</span><span class="n">source_depth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_depth</span>
+        <span class="n">tau_model</span><span class="o">.</span><span class="n">source_branch</span> <span class="o">=</span> <span class="n">out_source_branch</span>
+        <span class="n">tau_model</span><span class="o">.</span><span class="n">moho_branch</span> <span class="o">=</span> <span class="n">out_moho_branch</span>
+        <span class="n">tau_model</span><span class="o">.</span><span class="n">moho_depth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">moho_depth</span>
+        <span class="n">tau_model</span><span class="o">.</span><span class="n">cmb_branch</span> <span class="o">=</span> <span class="n">out_cmb_branch</span>
+        <span class="n">tau_model</span><span class="o">.</span><span class="n">cmb_depth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmb_depth</span>
+        <span class="n">tau_model</span><span class="o">.</span><span class="n">iocb_branch</span> <span class="o">=</span> <span class="n">out_iocb_branch</span>
+        <span class="n">tau_model</span><span class="o">.</span><span class="n">iocb_depth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iocb_depth</span>
+        <span class="n">tau_model</span><span class="o">.</span><span class="n">ray_params</span> <span class="o">=</span> <span class="n">out_ray_params</span>
+        <span class="n">tau_model</span><span class="o">.</span><span class="n">tau_branches</span> <span class="o">=</span> <span class="n">new_tau_branches</span>
+        <span class="n">tau_model</span><span class="o">.</span><span class="n">no_discon_depths</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_discon_depths</span> <span class="o">+</span> <span class="p">[</span><span class="n">depth</span><span class="p">]</span>
+        <span class="n">tau_model</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">tau_model</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;findBranch&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;find_branch&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">findBranch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;findBranch&#39; has been renamed to</span>
+<span class="sd">        &#39;find_branch&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_branch</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TauModel.find_branch"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_model.TauModel.find_branch.html#obspy.taup.tau_model.TauModel.find_branch">[docs]</a>    <span class="k">def</span> <span class="nf">find_branch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Finds the branch that either has the depth as its top boundary, or</span>
+<span class="sd">        strictly contains the depth. Also, we allow the bottom-most branch to</span>
+<span class="sd">        contain its bottom depth, so that the center of the planet is contained</span>
+<span class="sd">        within the bottom branch.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tb</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="n">tb</span><span class="o">.</span><span class="n">top_depth</span> <span class="o">&lt;=</span> <span class="n">depth</span> <span class="o">&lt;</span> <span class="n">tb</span><span class="o">.</span><span class="n">bot_depth</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">i</span>
+        <span class="c1"># Check to see if depth is centre of the planet.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bot_depth</span> <span class="o">==</span> <span class="n">depth</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">TauModelError</span><span class="p">(</span><span class="s2">&quot;No TauBranch contains this depth.&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;getTauBranch&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;get_tau_branch&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">getTauBranch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;getTauBranch&#39; has been renamed to</span>
+<span class="sd">        &#39;get_tau_branch&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_tau_branch</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TauModel.get_tau_branch"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_model.TauModel.get_tau_branch.html#obspy.taup.tau_model.TauModel.get_tau_branch">[docs]</a>    <span class="k">def</span> <span class="nf">get_tau_branch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">branch_nu</span><span class="p">,</span> <span class="n">is_p_wave</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">is_p_wave</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">branch_nu</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">branch_nu</span><span class="p">]</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;getBranchDepths&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;get_branch_depths&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">getBranchDepths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;getBranchDepths&#39; has been renamed to</span>
+<span class="sd">        &#39;get_branch_depths&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_branch_depths</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TauModel.get_branch_depths"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_model.TauModel.get_branch_depths.html#obspy.taup.tau_model.TauModel.get_branch_depths">[docs]</a>    <span class="k">def</span> <span class="nf">get_branch_depths</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return an array of the depths that are boundaries between branches.</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">branch_depths</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_tau_branch</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">top_depth</span><span class="p">]</span>
+        <span class="n">branch_depths</span> <span class="o">+=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_tau_branch</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">bot_depth</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="mi">0</span><span class="p">]))]</span>
+        <span class="k">return</span> <span class="n">branch_depths</span></div>
+
+<div class="viewcode-block" id="TauModel.serialize"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_model.TauModel.serialize.html#obspy.taup.tau_model.TauModel.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Serialize model to numpy npz binary file.</span>
+
+<span class="sd">        Summary of contents that have to be handled during serialization::</span>
+
+<span class="sd">            TauModel</span>
+<span class="sd">            ========</span>
+<span class="sd">            cmb_branch &lt;type &#39;int&#39;&gt;</span>
+<span class="sd">            cmb_depth &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            debug &lt;type &#39;bool&#39;&gt;</span>
+<span class="sd">            iocb_branch &lt;type &#39;int&#39;&gt;</span>
+<span class="sd">            iocb_depth &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            moho_branch &lt;type &#39;int&#39;&gt;</span>
+<span class="sd">            moho_depth &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            no_discon_depths &lt;type &#39;list&#39;&gt; (of float!?)</span>
+<span class="sd">            radius_of_planet &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            ray_params &lt;type &#39;numpy.ndarray&#39;&gt; (1D, float)</span>
+<span class="sd">            s_mod &lt;class &#39;obspy.taup.slowness_model.SlownessModel&#39;&gt;</span>
+<span class="sd">            source_branch &lt;type &#39;int&#39;&gt;</span>
+<span class="sd">            source_depth &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            is_spherical &lt;type &#39;bool&#39;&gt;</span>
+<span class="sd">            tau_branches &lt;type &#39;numpy.ndarray&#39;&gt; (2D, type TauBranch)</span>
+
+<span class="sd">            TauBranch</span>
+<span class="sd">            =========</span>
+<span class="sd">            debug &lt;type &#39;bool&#39;&gt;</span>
+<span class="sd">            bot_depth &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            dist &lt;type &#39;numpy.ndarray&#39;&gt;</span>
+<span class="sd">            is_p_wave &lt;type &#39;bool&#39;&gt;</span>
+<span class="sd">            max_ray_param &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            min_ray_param &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            min_turn_ray_param &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            tau &lt;type &#39;numpy.ndarray&#39;&gt;</span>
+<span class="sd">            time &lt;type &#39;numpy.ndarray&#39;&gt;</span>
+<span class="sd">            top_depth &lt;type &#39;float&#39;&gt;</span>
+
+<span class="sd">            SlownessModel</span>
+<span class="sd">            =============</span>
+<span class="sd">            debug &lt;type &#39;bool&#39;&gt;</span>
+<span class="sd">            p_layers &lt;type &#39;numpy.ndarray&#39;&gt;</span>
+<span class="sd">            p_wave &lt;type &#39;bool&#39;&gt;</span>
+<span class="sd">            s_layers &lt;type &#39;numpy.ndarray&#39;&gt;</span>
+<span class="sd">            s_wave &lt;type &#39;bool&#39;&gt;</span>
+<span class="sd">            allow_inner_core_s &lt;type &#39;bool&#39;&gt;</span>
+<span class="sd">            critical_depths &lt;type &#39;numpy.ndarray&#39;&gt;</span>
+<span class="sd">            fluid_layer_depths &lt;type &#39;list&#39;&gt; (of DepthRange)</span>
+<span class="sd">            high_slowness_layer_depths_p &lt;type &#39;list&#39;&gt; (of DepthRange)</span>
+<span class="sd">            high_slowness_layer_depths_s &lt;type &#39;list&#39;&gt; (of DepthRange)</span>
+<span class="sd">            max_delta_p &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            max_depth_interval &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            max_interp_error &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            max_range_interval &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            min_delta_p &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            radius_of_planet &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            slowness_tolerance &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            v_mod &lt;class &#39;obspy.taup.velocity_model.VelocityModel&#39;&gt;</span>
+
+<span class="sd">            VelocityModel</span>
+<span class="sd">            =============</span>
+<span class="sd">            cmb_depth &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            iocb_depth &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            is_spherical &lt;type &#39;bool&#39;&gt;</span>
+<span class="sd">            layers &lt;type &#39;numpy.ndarray&#39;&gt;</span>
+<span class="sd">            max_radius &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            min_radius &lt;type &#39;int&#39;&gt;</span>
+<span class="sd">            model_name &lt;type &#39;unicode&#39;&gt;</span>
+<span class="sd">            moho_depth &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">            radius_of_planet &lt;type &#39;float&#39;&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># a) handle simple contents</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cmb_branch&#39;</span><span class="p">,</span> <span class="s1">&#39;cmb_depth&#39;</span><span class="p">,</span> <span class="s1">&#39;debug&#39;</span><span class="p">,</span> <span class="s1">&#39;iocb_branch&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;iocb_depth&#39;</span><span class="p">,</span> <span class="s1">&#39;moho_branch&#39;</span><span class="p">,</span> <span class="s1">&#39;moho_depth&#39;</span><span class="p">,</span> <span class="s1">&#39;no_discon_depths&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;radius_of_planet&#39;</span><span class="p">,</span> <span class="s1">&#39;ray_params&#39;</span><span class="p">,</span> <span class="s1">&#39;source_branch&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;source_depth&#39;</span><span class="p">,</span> <span class="s1">&#39;is_spherical&#39;</span><span class="p">]</span>
+        <span class="n">arrays</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">}</span>
+
+        <span class="c1"># b) handle .tau_branches</span>
+        <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">for</span> <span class="n">j_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">j</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+                <span class="c1"># just store the shape of self.tau_branches in the key names</span>
+                <span class="c1"># for later reconstruction of array in deserialization.</span>
+                <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;tau_branches__</span><span class="si">%i</span><span class="s1">/</span><span class="si">%i</span><span class="s1">__</span><span class="si">%i</span><span class="s1">/</span><span class="si">%i</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">j_</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i_</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                <span class="n">arrays</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau_branches</span><span class="p">[</span><span class="n">i_</span><span class="p">][</span><span class="n">j_</span><span class="p">]</span><span class="o">.</span><span class="n">_to_array</span><span class="p">()</span>
+
+        <span class="c1"># c) handle simple contents of .s_mod</span>
+        <span class="n">dtypes</span> <span class="o">=</span> <span class="p">[(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;debug&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;p_wave&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;s_wave&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;allow_inner_core_s&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;max_delta_p&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;max_depth_interval&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;max_interp_error&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;max_range_interval&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;min_delta_p&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;radius_of_planet&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;slowness_tolerance&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">)]</span>
+        <span class="n">slowness_model</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtypes</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="n">dtypes</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">dtype</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">slowness_model</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="n">arrays</span><span class="p">[</span><span class="s1">&#39;s_mod&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">slowness_model</span>
+
+        <span class="c1"># d) handle complex contents of .s_mod</span>
+        <span class="n">arrays</span><span class="p">[</span><span class="s1">&#39;s_mod.p_layers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">p_layers</span>
+        <span class="n">arrays</span><span class="p">[</span><span class="s1">&#39;s_mod.s_layers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">s_layers</span>
+        <span class="n">arrays</span><span class="p">[</span><span class="s1">&#39;s_mod.critical_depths&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">critical_depths</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;fluid_layer_depths&#39;</span><span class="p">,</span> <span class="s1">&#39;high_slowness_layer_depths_p&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;high_slowness_layer_depths_s&#39;</span><span class="p">]:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">arr_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">arr_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">data_</span><span class="o">.</span><span class="n">_to_array</span><span class="p">()</span> <span class="k">for</span> <span class="n">data_</span> <span class="ow">in</span> <span class="n">data</span><span class="p">])</span>
+            <span class="n">arrays</span><span class="p">[</span><span class="s1">&#39;s_mod.&#39;</span> <span class="o">+</span> <span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr_</span>
+
+        <span class="c1"># e) handle .s_mod.v_mod</span>
+        <span class="n">dtypes</span> <span class="o">=</span> <span class="p">[(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;cmb_depth&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;iocb_depth&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;is_spherical&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;max_radius&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;min_radius&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">int_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;model_name&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">str_</span><span class="p">,</span>
+                   <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">v_mod</span><span class="o">.</span><span class="n">model_name</span><span class="p">)),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;moho_depth&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">),</span>
+                  <span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="s1">&#39;radius_of_planet&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">)]</span>
+        <span class="n">velocity_model</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtypes</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="n">dtypes</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">dtype</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">velocity_model</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">v_mod</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="n">arrays</span><span class="p">[</span><span class="s1">&#39;v_mod&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">velocity_model</span>
+        <span class="n">arrays</span><span class="p">[</span><span class="s1">&#39;v_mod.layers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">v_mod</span><span class="o">.</span><span class="n">layers</span>
+
+        <span class="c1"># finally save the collection of (structured) arrays to a binary file</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">savez_compressed</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">**</span><span class="n">arrays</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TauModel.deserialize"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_model.TauModel.deserialize.html#obspy.taup.tau_model.TauModel.deserialize">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deserialize model from numpy npz binary file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># XXX: Make this a with statement when old NumPy support is dropped.</span>
+        <span class="n">npz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">TauModel</span><span class="p">(</span><span class="n">s_mod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                             <span class="n">radius_of_planet</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">npz</span><span class="p">[</span><span class="s2">&quot;radius_of_planet&quot;</span><span class="p">]),</span>
+                             <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span> <span class="n">skip_calc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">complex_contents</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="s1">&#39;tau_branches&#39;</span><span class="p">,</span> <span class="s1">&#39;s_mod&#39;</span><span class="p">,</span> <span class="s1">&#39;v_mod&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;s_mod.p_layers&#39;</span><span class="p">,</span> <span class="s1">&#39;s_mod.s_layers&#39;</span><span class="p">,</span> <span class="s1">&#39;s_mod.critical_depths&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;s_mod.fluid_layer_depths&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;s_mod.high_slowness_layer_depths_p&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;s_mod.high_slowness_layer_depths_s&#39;</span><span class="p">,</span> <span class="s1">&#39;v_mod.layers&#39;</span><span class="p">]</span>
+
+            <span class="c1"># a) handle simple contents</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">npz</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="c1"># we have multiple, dynamic key names for individual tau</span>
+                <span class="c1"># branches now, skip them all</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">complex_contents</span> <span class="ow">or</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;tau_branches&#39;</span><span class="p">):</span>
+                    <span class="k">continue</span>
+                <span class="n">arr</span> <span class="o">=</span> <span class="n">npz</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">arr</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">arr</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[()]</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">arr</span><span class="p">)</span>
+
+            <span class="c1"># b) handle .tau_branches</span>
+            <span class="n">tau_branch_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">npz</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+                               <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;tau_branches_&#39;</span><span class="p">)]</span>
+            <span class="n">j</span><span class="p">,</span> <span class="n">i</span> <span class="o">=</span> <span class="n">tau_branch_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">branches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">object_</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">tau_branch_keys</span><span class="p">:</span>
+                <span class="n">j_</span><span class="p">,</span> <span class="n">i_</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+                <span class="n">i_</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i_</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">j_</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">j_</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">branches</span><span class="p">[</span><span class="n">i_</span><span class="p">][</span><span class="n">j_</span><span class="p">]</span> <span class="o">=</span> <span class="n">TauBranch</span><span class="o">.</span><span class="n">_from_array</span><span class="p">(</span><span class="n">npz</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+            <span class="c1"># no idea how numpy lays out empty arrays of object type,</span>
+            <span class="c1"># make a copy just in case..</span>
+            <span class="n">branches</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">branches</span><span class="p">)</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;tau_branches&quot;</span><span class="p">,</span> <span class="n">branches</span><span class="p">)</span>
+
+            <span class="c1"># c) handle simple contents of .s_mod</span>
+            <span class="n">slowness_model</span> <span class="o">=</span> <span class="n">SlownessModel</span><span class="p">(</span><span class="n">v_mod</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                           <span class="n">skip_model_creation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;s_mod&quot;</span><span class="p">,</span> <span class="n">slowness_model</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">npz</span><span class="p">[</span><span class="s1">&#39;s_mod&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">names</span><span class="p">:</span>
+                <span class="c1"># restore scalar types from 0d array</span>
+                <span class="n">arr</span> <span class="o">=</span> <span class="n">npz</span><span class="p">[</span><span class="s1">&#39;s_mod&#39;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">arr</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">arr</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">slowness_model</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">arr</span><span class="p">)</span>
+
+            <span class="c1"># d) handle complex contents of .s_mod</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;p_layers&#39;</span><span class="p">,</span> <span class="s1">&#39;s_layers&#39;</span><span class="p">,</span> <span class="s1">&#39;critical_depths&#39;</span><span class="p">]:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">slowness_model</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">npz</span><span class="p">[</span><span class="s1">&#39;s_mod.&#39;</span> <span class="o">+</span> <span class="n">key</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;fluid_layer_depths&#39;</span><span class="p">,</span> <span class="s1">&#39;high_slowness_layer_depths_p&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;high_slowness_layer_depths_s&#39;</span><span class="p">]:</span>
+                <span class="n">arr_</span> <span class="o">=</span> <span class="n">npz</span><span class="p">[</span><span class="s1">&#39;s_mod.&#39;</span> <span class="o">+</span> <span class="n">key</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr_</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">DepthRange</span><span class="o">.</span><span class="n">_from_array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">arr_</span><span class="p">]</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">slowness_model</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+            <span class="c1"># e) handle .s_mod.v_mod</span>
+            <span class="n">velocity_model</span> <span class="o">=</span> <span class="n">VelocityModel</span><span class="p">(</span>
+                <span class="n">model_name</span><span class="o">=</span><span class="n">native_str</span><span class="p">(</span><span class="n">npz</span><span class="p">[</span><span class="s2">&quot;v_mod&quot;</span><span class="p">][</span><span class="s2">&quot;model_name&quot;</span><span class="p">]),</span>
+                <span class="n">radius_of_planet</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">npz</span><span class="p">[</span><span class="s2">&quot;v_mod&quot;</span><span class="p">][</span><span class="s2">&quot;radius_of_planet&quot;</span><span class="p">]),</span>
+                <span class="n">min_radius</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">npz</span><span class="p">[</span><span class="s2">&quot;v_mod&quot;</span><span class="p">][</span><span class="s2">&quot;min_radius&quot;</span><span class="p">]),</span>
+                <span class="n">max_radius</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">npz</span><span class="p">[</span><span class="s2">&quot;v_mod&quot;</span><span class="p">][</span><span class="s2">&quot;max_radius&quot;</span><span class="p">]),</span>
+                <span class="n">moho_depth</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">npz</span><span class="p">[</span><span class="s2">&quot;v_mod&quot;</span><span class="p">][</span><span class="s2">&quot;moho_depth&quot;</span><span class="p">]),</span>
+                <span class="n">cmb_depth</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">npz</span><span class="p">[</span><span class="s2">&quot;v_mod&quot;</span><span class="p">][</span><span class="s2">&quot;cmb_depth&quot;</span><span class="p">]),</span>
+                <span class="n">iocb_depth</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">npz</span><span class="p">[</span><span class="s2">&quot;v_mod&quot;</span><span class="p">][</span><span class="s2">&quot;iocb_depth&quot;</span><span class="p">]),</span>
+                <span class="n">is_spherical</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">npz</span><span class="p">[</span><span class="s2">&quot;v_mod&quot;</span><span class="p">][</span><span class="s2">&quot;is_spherical&quot;</span><span class="p">]),</span>
+                <span class="n">layers</span><span class="o">=</span><span class="kc">None</span>
+            <span class="p">)</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">slowness_model</span><span class="p">,</span> <span class="s2">&quot;v_mod&quot;</span><span class="p">,</span> <span class="n">velocity_model</span><span class="p">)</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">velocity_model</span><span class="p">,</span> <span class="s1">&#39;layers&#39;</span><span class="p">,</span> <span class="n">npz</span><span class="p">[</span><span class="s1">&#39;v_mod.layers&#39;</span><span class="p">])</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">npz</span><span class="p">,</span> <span class="s1">&#39;close&#39;</span><span class="p">):</span>
+                <span class="n">npz</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">npz</span>
+        <span class="k">return</span> <span class="n">model</span></div>
+
+<div class="viewcode-block" id="TauModel.from_file"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau_model.TauModel.from_file.html#obspy.taup.tau_model.TauModel.from_file">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_file</span><span class="p">(</span><span class="n">model_name</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">model_name</span><span class="p">):</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">model_name</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span>
+                                    <span class="n">model_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;.npz&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">TauModel</span><span class="o">.</span><span class="n">deserialize</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">)</span></div></div>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

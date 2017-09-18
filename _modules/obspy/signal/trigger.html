@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.signal.trigger &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.signal.trigger</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># -------------------------------------------------------------------</span>
+<span class="c1"># Filename: trigger.py</span>
+<span class="c1">#  Purpose: Python trigger/picker routines for seismology.</span>
+<span class="c1">#   Author: Moritz Beyreuther, Tobias Megies</span>
+<span class="c1">#    Email: moritz.beyreuther@geophysik.uni-muenchen.de</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (C) 2008-2012 Moritz Beyreuther, Tobias Megies</span>
+<span class="c1"># -------------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Various routines related to triggering/picking</span>
+
+<span class="sd">Module implementing the Recursive STA/LTA. Two versions, a fast ctypes one and</span>
+<span class="sd">a bit slower python one. Furthermore, the classic and delayed STA/LTA, the</span>
+<span class="sd">carl_sta_trig and the z_detect are implemented.</span>
+<span class="sd">Also includes picking routines, routines for evaluation and visualization of</span>
+<span class="sd">characteristic functions and a coincidence triggering routine.</span>
+
+<span class="sd">.. seealso:: [Withers1998]_ (p. 98) and [Trnkoczy2012]_</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">deque</span>
+<span class="kn">import</span> <span class="nn">ctypes</span> <span class="k">as</span> <span class="nn">C</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">UTCDateTime</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.decorator</span> <span class="k">import</span> <span class="n">deprecated</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util.deprecation_helpers</span> <span class="k">import</span> \
+    <span class="n">DynamicAttributeImportRerouteModule</span>
+<span class="kn">from</span> <span class="nn">obspy.signal.cross_correlation</span> <span class="k">import</span> <span class="n">templates_max_similarity</span>
+<span class="kn">from</span> <span class="nn">obspy.signal.headers</span> <span class="k">import</span> <span class="n">clibsignal</span><span class="p">,</span> <span class="n">head_stalta_t</span>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;recursive_STALTA&#39; has been renamed to &#39;recursive_sta_lta&#39;.&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">recursive_STALTA</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="p">):</span>  <span class="c1"># noqa</span>
+    <span class="k">return</span> <span class="n">recursive_sta_lta</span><span class="p">(</span><span class="n">nsta</span><span class="o">=</span><span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="o">=</span><span class="n">nlta</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="recursive_sta_lta"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.trigger.recursive_sta_lta.html#obspy.signal.trigger.recursive_sta_lta">[docs]</a><span class="k">def</span> <span class="nf">recursive_sta_lta</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Recursive STA/LTA.</span>
+
+<span class="sd">    Fast version written in C.</span>
+
+<span class="sd">    :note: This version directly uses a C version via CTypes</span>
+<span class="sd">    :type a: :class:`numpy.ndarray`, dtype=float64</span>
+<span class="sd">    :param a: Seismic Trace, numpy.ndarray dtype float64</span>
+<span class="sd">    :type nsta: int</span>
+<span class="sd">    :param nsta: Length of short time average window in samples</span>
+<span class="sd">    :type nlta: int</span>
+<span class="sd">    :param nlta: Length of long time average window in samples</span>
+<span class="sd">    :rtype: :class:`numpy.ndarray`, dtype=float64</span>
+<span class="sd">    :return: Characteristic function of recursive STA/LTA</span>
+
+<span class="sd">    .. seealso:: [Withers1998]_ (p. 98) and [Trnkoczy2012]_</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># be nice and adapt type if necessary</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">ndat</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">charfct</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">ndat</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="c1"># do not use pointer here:</span>
+    <span class="n">clibsignal</span><span class="o">.</span><span class="n">recstalta</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">charfct</span><span class="p">,</span> <span class="n">ndat</span><span class="p">,</span> <span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">charfct</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;recursive_stalta_py&#39; has been renamed to &quot;</span>
+            <span class="s2">&quot;&#39;recursive_sta_lta_py&#39;.&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span>
+<span class="k">def</span> <span class="nf">recursive_STALTA_py</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">recursive_sta_lta_py</span><span class="p">(</span><span class="n">nsta</span><span class="o">=</span><span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="o">=</span><span class="n">nlta</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="recursive_sta_lta_py"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.trigger.recursive_sta_lta_py.html#obspy.signal.trigger.recursive_sta_lta_py">[docs]</a><span class="k">def</span> <span class="nf">recursive_sta_lta_py</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Recursive STA/LTA written in Python.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        There exists a faster version of this trigger wrapped in C</span>
+<span class="sd">        called :func:`~obspy.signal.trigger.recursive_sta_lta` in this module!</span>
+
+<span class="sd">    :type a: NumPy :class:`~numpy.ndarray`</span>
+<span class="sd">    :param a: Seismic Trace</span>
+<span class="sd">    :type nsta: int</span>
+<span class="sd">    :param nsta: Length of short time average window in samples</span>
+<span class="sd">    :type nlta: int</span>
+<span class="sd">    :param nlta: Length of long time average window in samples</span>
+<span class="sd">    :rtype: NumPy :class:`~numpy.ndarray`</span>
+<span class="sd">    :return: Characteristic function of recursive STA/LTA</span>
+
+<span class="sd">    .. seealso:: [Withers1998]_ (p. 98) and [Trnkoczy2012]_</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="n">ndat</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="c1"># compute the short time average (STA) and long time average (LTA)</span>
+    <span class="c1"># given by Evans and Allen</span>
+    <span class="n">csta</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">nsta</span>
+    <span class="n">clta</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">nlta</span>
+    <span class="n">sta</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="n">lta</span> <span class="o">=</span> <span class="mf">1e-99</span>  <span class="c1"># avoid zero division</span>
+    <span class="n">charfct</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">icsta</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">csta</span>
+    <span class="n">iclta</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">clta</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ndat</span><span class="p">):</span>
+        <span class="n">sq</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">sta</span> <span class="o">=</span> <span class="n">csta</span> <span class="o">*</span> <span class="n">sq</span> <span class="o">+</span> <span class="n">icsta</span> <span class="o">*</span> <span class="n">sta</span>
+        <span class="n">lta</span> <span class="o">=</span> <span class="n">clta</span> <span class="o">*</span> <span class="n">sq</span> <span class="o">+</span> <span class="n">iclta</span> <span class="o">*</span> <span class="n">lta</span>
+        <span class="n">charfct</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sta</span> <span class="o">/</span> <span class="n">lta</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nlta</span><span class="p">:</span>
+            <span class="n">charfct</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">charfct</span><span class="p">)</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;carl_STA_trig&#39; has been renamed to &quot;</span>
+            <span class="s2">&quot;&#39;carl_sta_trig&#39;.&quot;</span><span class="p">)</span>  <span class="c1"># noqa</span>
+<span class="k">def</span> <span class="nf">carl_STA_trig</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="p">,</span> <span class="n">ratio</span><span class="p">,</span> <span class="n">quiet</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">carl_sta_trig</span><span class="p">(</span><span class="n">nsta</span><span class="o">=</span><span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="o">=</span><span class="n">nlta</span><span class="p">,</span> <span class="n">ratio</span><span class="o">=</span><span class="n">ratio</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="carl_sta_trig"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.trigger.carl_sta_trig.html#obspy.signal.trigger.carl_sta_trig">[docs]</a><span class="k">def</span> <span class="nf">carl_sta_trig</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="p">,</span> <span class="n">ratio</span><span class="p">,</span> <span class="n">quiet</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the carlSTAtrig characteristic function.</span>
+
+<span class="sd">    eta = star - (ratio * ltar) - abs(sta - lta) - quiet</span>
+
+<span class="sd">    :type a: NumPy :class:`~numpy.ndarray`</span>
+<span class="sd">    :param a: Seismic Trace</span>
+<span class="sd">    :type nsta: int</span>
+<span class="sd">    :param nsta: Length of short time average window in samples</span>
+<span class="sd">    :type nlta: int</span>
+<span class="sd">    :param nlta: Length of long time average window in samples</span>
+<span class="sd">    :type ration: float</span>
+<span class="sd">    :param ratio: as ratio gets smaller, carl_sta_trig gets more sensitive</span>
+<span class="sd">    :type quiet: float</span>
+<span class="sd">    :param quiet: as quiet gets smaller, carl_sta_trig gets more sensitive</span>
+<span class="sd">    :rtype: NumPy :class:`~numpy.ndarray`</span>
+<span class="sd">    :return: Characteristic function of CarlStaTrig</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="n">sta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">lta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">star</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">ltar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">pad_sta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nsta</span><span class="p">)</span>
+    <span class="n">pad_lta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nlta</span><span class="p">)</span>  <span class="c1"># avoid for 0 division 0/1=0</span>
+    <span class="c1">#</span>
+    <span class="c1"># compute the short time average (STA)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nsta</span><span class="p">):</span>  <span class="c1"># window size to smooth over</span>
+        <span class="n">sta</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">pad_sta</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">m</span> <span class="o">-</span> <span class="n">nsta</span> <span class="o">+</span> <span class="n">i</span><span class="p">]))</span>
+    <span class="n">sta</span> <span class="o">/=</span> <span class="n">nsta</span>
+    <span class="c1">#</span>
+    <span class="c1"># compute the long time average (LTA), 8 sec average over sta</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nlta</span><span class="p">):</span>  <span class="c1"># window size to smooth over</span>
+        <span class="n">lta</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">pad_lta</span><span class="p">,</span> <span class="n">sta</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">m</span> <span class="o">-</span> <span class="n">nlta</span> <span class="o">+</span> <span class="n">i</span><span class="p">]))</span>
+    <span class="n">lta</span> <span class="o">/=</span> <span class="n">nlta</span>
+    <span class="n">lta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">lta</span><span class="p">))[:</span><span class="n">m</span><span class="p">]</span>  <span class="c1"># XXX ???</span>
+    <span class="c1">#</span>
+    <span class="c1"># compute star, average of abs diff between trace and lta</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nsta</span><span class="p">):</span>  <span class="c1"># window size to smooth over</span>
+        <span class="n">star</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">pad_sta</span><span class="p">,</span>
+                               <span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">m</span> <span class="o">-</span> <span class="n">nsta</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lta</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">m</span> <span class="o">-</span> <span class="n">nsta</span> <span class="o">+</span> <span class="n">i</span><span class="p">])))</span>
+    <span class="n">star</span> <span class="o">/=</span> <span class="n">nsta</span>
+    <span class="c1">#</span>
+    <span class="c1"># compute ltar, 8 sec average over star</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nlta</span><span class="p">):</span>  <span class="c1"># window size to smooth over</span>
+        <span class="n">ltar</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">pad_lta</span><span class="p">,</span> <span class="n">star</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">m</span> <span class="o">-</span> <span class="n">nlta</span> <span class="o">+</span> <span class="n">i</span><span class="p">]))</span>
+    <span class="n">ltar</span> <span class="o">/=</span> <span class="n">nlta</span>
+    <span class="c1">#</span>
+    <span class="n">eta</span> <span class="o">=</span> <span class="n">star</span> <span class="o">-</span> <span class="p">(</span><span class="n">ratio</span> <span class="o">*</span> <span class="n">ltar</span><span class="p">)</span> <span class="o">-</span> <span class="nb">abs</span><span class="p">(</span><span class="n">sta</span> <span class="o">-</span> <span class="n">lta</span><span class="p">)</span> <span class="o">-</span> <span class="n">quiet</span>
+    <span class="n">eta</span><span class="p">[:</span><span class="n">nlta</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+    <span class="k">return</span> <span class="n">eta</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;classic_STALTA&#39; has been renamed to &#39;classic_sta_lta&#39;.&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">classic_STALTA</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="p">):</span>  <span class="c1"># noqa</span>
+    <span class="k">return</span> <span class="n">classic_sta_lta</span><span class="p">(</span><span class="n">nsta</span><span class="o">=</span><span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="o">=</span><span class="n">nlta</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="classic_sta_lta"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.trigger.classic_sta_lta.html#obspy.signal.trigger.classic_sta_lta">[docs]</a><span class="k">def</span> <span class="nf">classic_sta_lta</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the standard STA/LTA from a given input array a. The length of</span>
+<span class="sd">    the STA is given by nsta in samples, respectively is the length of the</span>
+<span class="sd">    LTA given by nlta in samples.</span>
+
+<span class="sd">    Fast version written in C.</span>
+
+<span class="sd">    :type a: NumPy :class:`~numpy.ndarray`</span>
+<span class="sd">    :param a: Seismic Trace</span>
+<span class="sd">    :type nsta: int</span>
+<span class="sd">    :param nsta: Length of short time average window in samples</span>
+<span class="sd">    :type nlta: int</span>
+<span class="sd">    :param nlta: Length of long time average window in samples</span>
+<span class="sd">    :rtype: NumPy :class:`~numpy.ndarray`</span>
+<span class="sd">    :return: Characteristic function of classic STA/LTA</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">a</span>
+    <span class="c1"># initialize C struct / NumPy structured array</span>
+    <span class="n">head</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">head_stalta_t</span><span class="p">)</span>
+    <span class="n">head</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="p">)</span>
+    <span class="c1"># ensure correct type and contiguous of data</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="c1"># all memory should be allocated by python</span>
+    <span class="n">charfct</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="c1"># run and check the error-code</span>
+    <span class="n">errcode</span> <span class="o">=</span> <span class="n">clibsignal</span><span class="o">.</span><span class="n">stalta</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">charfct</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">errcode</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;ERROR </span><span class="si">%d</span><span class="s1"> stalta: len(data) &lt; nlta&#39;</span> <span class="o">%</span> <span class="n">errcode</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">charfct</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;classic_STALTA_py&#39; has been renamed to &#39;classic_sta_lta_py&#39;.&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">classic_STALTA_py</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="p">):</span>  <span class="c1"># noqa</span>
+    <span class="k">return</span> <span class="n">classic_sta_lta_py</span><span class="p">(</span><span class="n">nsta</span><span class="o">=</span><span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="o">=</span><span class="n">nlta</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="classic_sta_lta_py"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.trigger.classic_sta_lta_py.html#obspy.signal.trigger.classic_sta_lta_py">[docs]</a><span class="k">def</span> <span class="nf">classic_sta_lta_py</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the standard STA/LTA from a given input array a. The length of</span>
+<span class="sd">    the STA is given by nsta in samples, respectively is the length of the</span>
+<span class="sd">    LTA given by nlta in samples. Written in Python.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        There exists a faster version of this trigger wrapped in C</span>
+<span class="sd">        called :func:`~obspy.signal.trigger.classic_sta_lta` in this module!</span>
+
+<span class="sd">    :type a: NumPy :class:`~numpy.ndarray`</span>
+<span class="sd">    :param a: Seismic Trace</span>
+<span class="sd">    :type nsta: int</span>
+<span class="sd">    :param nsta: Length of short time average window in samples</span>
+<span class="sd">    :type nlta: int</span>
+<span class="sd">    :param nlta: Length of long time average window in samples</span>
+<span class="sd">    :rtype: NumPy :class:`~numpy.ndarray`</span>
+<span class="sd">    :return: Characteristic function of classic STA/LTA</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The cumulative sum can be exploited to calculate a moving average (the</span>
+    <span class="c1"># cumsum function is quite efficient)</span>
+    <span class="n">sta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">a</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># Convert to float</span>
+    <span class="n">sta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">sta</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+
+    <span class="c1"># Copy for LTA</span>
+    <span class="n">lta</span> <span class="o">=</span> <span class="n">sta</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># Compute the STA and the LTA</span>
+    <span class="n">sta</span><span class="p">[</span><span class="n">nsta</span><span class="p">:]</span> <span class="o">=</span> <span class="n">sta</span><span class="p">[</span><span class="n">nsta</span><span class="p">:]</span> <span class="o">-</span> <span class="n">sta</span><span class="p">[:</span><span class="o">-</span><span class="n">nsta</span><span class="p">]</span>
+    <span class="n">sta</span> <span class="o">/=</span> <span class="n">nsta</span>
+    <span class="n">lta</span><span class="p">[</span><span class="n">nlta</span><span class="p">:]</span> <span class="o">=</span> <span class="n">lta</span><span class="p">[</span><span class="n">nlta</span><span class="p">:]</span> <span class="o">-</span> <span class="n">lta</span><span class="p">[:</span><span class="o">-</span><span class="n">nlta</span><span class="p">]</span>
+    <span class="n">lta</span> <span class="o">/=</span> <span class="n">nlta</span>
+
+    <span class="c1"># Pad zeros</span>
+    <span class="n">sta</span><span class="p">[:</span><span class="n">nlta</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># Avoid division by zero by setting zero values to tiny float</span>
+    <span class="n">dtiny</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">tiny</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">lta</span> <span class="o">&lt;</span> <span class="n">dtiny</span>
+    <span class="n">lta</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">dtiny</span>
+
+    <span class="k">return</span> <span class="n">sta</span> <span class="o">/</span> <span class="n">lta</span></div>
+
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;&#39;delayed_STALTA&#39; has been renamed to &#39;delayed_sta_lta&#39;.&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">delayed_STALTA</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="p">):</span>  <span class="c1"># noqa</span>
+    <span class="k">return</span> <span class="n">delayed_sta_lta</span><span class="p">(</span><span class="n">nsta</span><span class="o">=</span><span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="o">=</span><span class="n">nlta</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="delayed_sta_lta"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.trigger.delayed_sta_lta.html#obspy.signal.trigger.delayed_sta_lta">[docs]</a><span class="k">def</span> <span class="nf">delayed_sta_lta</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">nsta</span><span class="p">,</span> <span class="n">nlta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Delayed STA/LTA.</span>
+
+<span class="sd">    :type a: NumPy :class:`~numpy.ndarray`</span>
+<span class="sd">    :param a: Seismic Trace</span>
+<span class="sd">    :type nsta: int</span>
+<span class="sd">    :param nsta: Length of short time average window in samples</span>
+<span class="sd">    :type nlta: int</span>
+<span class="sd">    :param nlta: Length of long time average window in samples</span>
+<span class="sd">    :rtype: NumPy :class:`~numpy.ndarray`</span>
+<span class="sd">    :return: Characteristic function of delayed STA/LTA</span>
+
+<span class="sd">    .. seealso:: [Withers1998]_ (p. 98) and [Trnkoczy2012]_</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># compute the short time average (STA) and long time average (LTA)</span>
+    <span class="c1"># don&#39;t start for STA at nsta because it&#39;s muted later anyway</span>
+    <span class="n">sta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">lta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="n">sta</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">nsta</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">nsta</span> <span class="o">+</span> <span class="n">sta</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">lta</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">nsta</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">nsta</span> <span class="o">-</span> <span class="n">nlta</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> \
+            <span class="n">nlta</span> <span class="o">+</span> <span class="n">lta</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">sta</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nlta</span> <span class="o">+</span> <span class="n">nsta</span> <span class="o">+</span> <span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">lta</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nlta</span> <span class="o">+</span> <span class="n">nsta</span> <span class="o">+</span> <span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># avoid division by zero</span>
+    <span class="k">return</span> <span class="n">sta</span> <span class="o">/</span> <span class="n">lta</span></div>
+
+
+<div class="viewcode-block" id="z_detect"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.trigger.z_detect.html#obspy.signal.trigger.z_detect">[docs]</a><span class="k">def</span> <span class="nf">z_detect</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">nsta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Z-detector.</span>
+
+<span class="sd">    :param nsta: Window length in Samples.</span>
+
+<span class="sd">    .. seealso:: [Withers1998]_, p. 99</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># Z-detector given by Swindell and Snell (1977)</span>
+    <span class="n">sta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="c1"># Standard Sta</span>
+    <span class="n">pad_sta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nsta</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nsta</span><span class="p">):</span>  <span class="c1"># window size to smooth over</span>
+        <span class="n">sta</span> <span class="o">=</span> <span class="n">sta</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">pad_sta</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">m</span> <span class="o">-</span> <span class="n">nsta</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">a_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sta</span><span class="p">)</span>
+    <span class="n">a_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sta</span><span class="p">)</span>
+    <span class="n">_z</span> <span class="o">=</span> <span class="p">(</span><span class="n">sta</span> <span class="o">-</span> <span class="n">a_mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">a_std</span>
+    <span class="k">return</span> <span class="n">_z</span></div>
+
+
+<div class="viewcode-block" id="trigger_onset"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.trigger.trigger_onset.html#obspy.signal.trigger.trigger_onset">[docs]</a><span class="k">def</span> <span class="nf">trigger_onset</span><span class="p">(</span><span class="n">charfct</span><span class="p">,</span> <span class="n">thres1</span><span class="p">,</span> <span class="n">thres2</span><span class="p">,</span> <span class="n">max_len</span><span class="o">=</span><span class="mf">9e99</span><span class="p">,</span> <span class="n">max_len_delete</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate trigger on and off times.</span>
+
+<span class="sd">    Given thres1 and thres2 calculate trigger on and off times from</span>
+<span class="sd">    characteristic function.</span>
+
+<span class="sd">    This method is written in pure Python and gets slow as soon as there</span>
+<span class="sd">    are more then 1e6 triggerings (&quot;on&quot; AND &quot;off&quot;) in charfct --- normally</span>
+<span class="sd">    this does not happen.</span>
+
+<span class="sd">    :type charfct: NumPy :class:`~numpy.ndarray`</span>
+<span class="sd">    :param charfct: Characteristic function of e.g. STA/LTA trigger</span>
+<span class="sd">    :type thres1: float</span>
+<span class="sd">    :param thres1: Value above which trigger (of characteristic function)</span>
+<span class="sd">                   is activated (higher threshold)</span>
+<span class="sd">    :type thres2: float</span>
+<span class="sd">    :param thres2: Value below which trigger (of characteristic function)</span>
+<span class="sd">        is deactivated (lower threshold)</span>
+<span class="sd">    :type max_len: int</span>
+<span class="sd">    :param max_len: Maximum length of triggered event in samples. A new</span>
+<span class="sd">                    event will be triggered as soon as the signal reaches</span>
+<span class="sd">                    again above thres1.</span>
+<span class="sd">    :type max_len_delete: bool</span>
+<span class="sd">    :param max_len_delete: Do not write events longer than max_len into</span>
+<span class="sd">                           report file.</span>
+<span class="sd">    :rtype: List</span>
+<span class="sd">    :return: Nested List of trigger on and of times in samples</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 1) find indices of samples greater than threshold</span>
+    <span class="c1"># 2) calculate trigger &quot;of&quot; times by the gap in trigger indices</span>
+    <span class="c1">#    above the threshold i.e. the difference of two following indices</span>
+    <span class="c1">#    in ind is greater than 1</span>
+    <span class="c1"># 3) in principle the same as for &quot;of&quot; just add one to the index to get</span>
+    <span class="c1">#    start times, this operation is not supported on the compact</span>
+    <span class="c1">#    syntax</span>
+    <span class="c1"># 4) as long as there is a on time greater than the actual of time find</span>
+    <span class="c1">#    trigger on states which are greater than last of state an the</span>
+    <span class="c1">#    corresponding of state which is greater than current on state</span>
+    <span class="c1"># 5) if the signal stays above thres2 longer than max_len an event</span>
+    <span class="c1">#    is triggered and following a new event can be triggered as soon as</span>
+    <span class="c1">#    the signal is above thres1</span>
+    <span class="n">ind1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">charfct</span> <span class="o">&gt;</span> <span class="n">thres1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ind1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="n">ind2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">charfct</span> <span class="o">&gt;</span> <span class="n">thres2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1">#</span>
+    <span class="n">on</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="n">ind1</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+    <span class="n">of</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="c1"># determine the indices where charfct falls below off-threshold</span>
+    <span class="n">ind2_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">ind2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="n">ind2_</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">ind2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span>
+    <span class="c1"># last occurence is missed by the diff, add it manually</span>
+    <span class="n">ind2_</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">of</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">ind2</span><span class="p">[</span><span class="n">ind2_</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+    <span class="n">on</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">ind1</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">ind1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+    <span class="c1"># include last pick if trigger is on or drop it</span>
+    <span class="k">if</span> <span class="n">max_len_delete</span><span class="p">:</span>
+        <span class="c1"># drop it</span>
+        <span class="n">of</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="mf">1e99</span><span class="p">])</span>
+        <span class="n">on</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">on</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># include it</span>
+        <span class="n">of</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">ind2</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+    <span class="c1">#</span>
+    <span class="n">pick</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">on</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">of</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="k">while</span> <span class="n">on</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">of</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">on</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+        <span class="k">while</span> <span class="n">of</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">on</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">of</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">of</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">on</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_len</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">max_len_delete</span><span class="p">:</span>
+                <span class="n">on</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+                <span class="k">continue</span>
+            <span class="n">of</span><span class="o">.</span><span class="n">appendleft</span><span class="p">(</span><span class="n">on</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">max_len</span><span class="p">)</span>
+        <span class="n">pick</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">on</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">of</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pick</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="pk_baer"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.trigger.pk_baer.html#obspy.signal.trigger.pk_baer">[docs]</a><span class="k">def</span> <span class="nf">pk_baer</span><span class="p">(</span><span class="n">reltrc</span><span class="p">,</span> <span class="n">samp_int</span><span class="p">,</span> <span class="n">tdownmax</span><span class="p">,</span> <span class="n">tupevent</span><span class="p">,</span> <span class="n">thr1</span><span class="p">,</span> <span class="n">thr2</span><span class="p">,</span> <span class="n">preset_len</span><span class="p">,</span>
+            <span class="n">p_dur</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper for P-picker routine by M. Baer, Schweizer Erdbebendienst.</span>
+
+<span class="sd">    :param reltrc: time series as numpy.ndarray float32 data, possibly filtered</span>
+<span class="sd">    :param samp_int: number of samples per second</span>
+<span class="sd">    :param tdownmax: if dtime exceeds tdownmax, the trigger is examined for</span>
+<span class="sd">        validity</span>
+<span class="sd">    :param tupevent: min nr of samples for itrm to be accepted as a pick</span>
+<span class="sd">    :param thr1: threshold to trigger for pick (c.f. paper)</span>
+<span class="sd">    :param thr2: threshold for updating sigma  (c.f. paper)</span>
+<span class="sd">    :param preset_len: no of points taken for the estimation of variance of</span>
+<span class="sd">        SF(t) on preset()</span>
+<span class="sd">    :param p_dur: p_dur defines the time interval for which the maximum</span>
+<span class="sd">        amplitude is evaluated Originally set to 6 secs</span>
+<span class="sd">    :return: (pptime, pfm) pptime sample number of parrival; pfm direction</span>
+<span class="sd">        of first motion (U or D)</span>
+
+<span class="sd">    .. note:: currently the first sample is not taken into account</span>
+
+<span class="sd">    .. seealso:: [Baer1987]_</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pptime</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_int</span><span class="p">()</span>
+    <span class="c1"># c_chcar_p strings are immutable, use string_buffer for pointers</span>
+    <span class="n">pfm</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;     &quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="c1"># be nice and adapt type if necessary</span>
+    <span class="n">reltrc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">reltrc</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="c1"># index in pk_mbaer.c starts with 1, 0 index is lost, length must be</span>
+    <span class="c1"># one shorter</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">reltrc</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">pptime</span><span class="p">),</span> <span class="n">pfm</span><span class="p">,</span> <span class="n">samp_int</span><span class="p">,</span>
+            <span class="n">tdownmax</span><span class="p">,</span> <span class="n">tupevent</span><span class="p">,</span> <span class="n">thr1</span><span class="p">,</span> <span class="n">thr2</span><span class="p">,</span> <span class="n">preset_len</span><span class="p">,</span> <span class="n">p_dur</span><span class="p">)</span>
+    <span class="n">errcode</span> <span class="o">=</span> <span class="n">clibsignal</span><span class="o">.</span><span class="n">ppick</span><span class="p">(</span><span class="n">reltrc</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">errcode</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">MemoryError</span><span class="p">(</span><span class="s2">&quot;Error in function ppick of mk_mbaer.c&quot;</span><span class="p">)</span>
+    <span class="c1"># add the sample to the time which is not taken into account</span>
+    <span class="c1"># pfm has to be decoded from byte to string</span>
+    <span class="k">return</span> <span class="n">pptime</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">pfm</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ar_pick"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.trigger.ar_pick.html#obspy.signal.trigger.ar_pick">[docs]</a><span class="k">def</span> <span class="nf">ar_pick</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">samp_rate</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">lta_p</span><span class="p">,</span> <span class="n">sta_p</span><span class="p">,</span> <span class="n">lta_s</span><span class="p">,</span> <span class="n">sta_s</span><span class="p">,</span> <span class="n">m_p</span><span class="p">,</span> <span class="n">m_s</span><span class="p">,</span>
+            <span class="n">l_p</span><span class="p">,</span> <span class="n">l_s</span><span class="p">,</span> <span class="n">s_pick</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Pick P and S arrivals with an AR-AIC + STA/LTA algorithm.</span>
+
+<span class="sd">    The algorithm picks onset times using an Auto Regression - Akaike</span>
+<span class="sd">    Information Criterion (AR-AIC) method. The detection intervals are</span>
+<span class="sd">    successively narrowed down with the help of STA/LTA ratios as well as</span>
+<span class="sd">    STA-LTA difference calculations. For details, please see [Akazawa2004]_.</span>
+
+<span class="sd">    An important feature of this algorithm is that it requires comparatively</span>
+<span class="sd">    little tweaking and site-specific settings and is thus applicable to large,</span>
+<span class="sd">    diverse data sets.</span>
+
+<span class="sd">    :type a: :class:`numpy.ndarray`</span>
+<span class="sd">    :param a: Z signal the data.</span>
+<span class="sd">    :type b: :class:`numpy.ndarray`</span>
+<span class="sd">    :param b: N signal of the data.</span>
+<span class="sd">    :type c: :class:`numpy.ndarray`</span>
+<span class="sd">    :param c: E signal of the data.</span>
+<span class="sd">    :type samp_rate: float</span>
+<span class="sd">    :param samp_rate: Number of samples per second.</span>
+<span class="sd">    :type f1: float</span>
+<span class="sd">    :param f1: Frequency of the lower bandpass window.</span>
+<span class="sd">    :type f2: float</span>
+<span class="sd">    :param f2: Frequency of the upper .andpass window.</span>
+<span class="sd">    :type lta_p: float</span>
+<span class="sd">    :param lta_p: Length of LTA for the P arrival in seconds.</span>
+<span class="sd">    :type sta_p: float</span>
+<span class="sd">    :param sta_p: Length of STA for the P arrival in seconds.</span>
+<span class="sd">    :type lta_s: float</span>
+<span class="sd">    :param lta_s: Length of LTA for the S arrival in seconds.</span>
+<span class="sd">    :type sta_s: float</span>
+<span class="sd">    :param sta_s: Length of STA for the S arrival in seconds.</span>
+<span class="sd">    :type m_p: int</span>
+<span class="sd">    :param m_p: Number of AR coefficients for the P arrival.</span>
+<span class="sd">    :type m_s: int</span>
+<span class="sd">    :param m_s: Number of AR coefficients for the S arrival.</span>
+<span class="sd">    :type l_p: float</span>
+<span class="sd">    :param l_p: Length of variance window for the P arrival in seconds.</span>
+<span class="sd">    :type l_s: float</span>
+<span class="sd">    :param l_s: Length of variance window for the S arrival in seconds.</span>
+<span class="sd">    :type s_pick: bool</span>
+<span class="sd">    :param s_pick: If ``True``, also pick the S phase, otherwise only the P</span>
+<span class="sd">        phase.</span>
+<span class="sd">    :rtype: tuple</span>
+<span class="sd">    :returns: A tuple with the P and the S arrival.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># be nice and adapt type if necessary</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">s_pick</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_int</span><span class="p">(</span><span class="n">s_pick</span><span class="p">)</span>  <span class="c1"># pick S phase also</span>
+    <span class="n">ptime</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_float</span><span class="p">()</span>
+    <span class="n">stime</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c_float</span><span class="p">()</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">samp_rate</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span>
+            <span class="n">lta_p</span><span class="p">,</span> <span class="n">sta_p</span><span class="p">,</span> <span class="n">lta_s</span><span class="p">,</span> <span class="n">sta_s</span><span class="p">,</span> <span class="n">m_p</span><span class="p">,</span> <span class="n">m_s</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">ptime</span><span class="p">),</span>
+            <span class="n">C</span><span class="o">.</span><span class="n">byref</span><span class="p">(</span><span class="n">stime</span><span class="p">),</span> <span class="n">l_p</span><span class="p">,</span> <span class="n">l_s</span><span class="p">,</span> <span class="n">s_pick</span><span class="p">)</span>
+    <span class="n">errcode</span> <span class="o">=</span> <span class="n">clibsignal</span><span class="o">.</span><span class="n">ar_picker</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">errcode</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">bufs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;buff1&#39;</span><span class="p">,</span> <span class="s1">&#39;buff1_s&#39;</span><span class="p">,</span> <span class="s1">&#39;buff2&#39;</span><span class="p">,</span> <span class="s1">&#39;buff3&#39;</span><span class="p">,</span> <span class="s1">&#39;buff4&#39;</span><span class="p">,</span> <span class="s1">&#39;buff4_s&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;f_error&#39;</span><span class="p">,</span> <span class="s1">&#39;b_error&#39;</span><span class="p">,</span> <span class="s1">&#39;ar_f&#39;</span><span class="p">,</span> <span class="s1">&#39;ar_b&#39;</span><span class="p">,</span> <span class="s1">&#39;buf_sta&#39;</span><span class="p">,</span> <span class="s1">&#39;buf_lta&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;extra_tr1&#39;</span><span class="p">,</span> <span class="s1">&#39;extra_tr2&#39;</span><span class="p">,</span> <span class="s1">&#39;extra_tr3&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">errcode</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bufs</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">MemoryError</span><span class="p">(</span><span class="s1">&#39;Unable to allocate </span><span class="si">%s</span><span class="s1">!&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">bufs</span><span class="p">[</span><span class="n">errcode</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]))</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Error during PAZ calculation!&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ptime</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">stime</span><span class="o">.</span><span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="plot_trigger"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.trigger.plot_trigger.html#obspy.signal.trigger.plot_trigger">[docs]</a><span class="k">def</span> <span class="nf">plot_trigger</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">cft</span><span class="p">,</span> <span class="n">thr_on</span><span class="p">,</span> <span class="n">thr_off</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot characteristic function of trigger along with waveform data and</span>
+<span class="sd">    trigger On/Off from given thresholds.</span>
+
+<span class="sd">    :type trace: :class:`~obspy.core.trace.Trace`</span>
+<span class="sd">    :param trace: waveform data</span>
+<span class="sd">    :type cft: :class:`numpy.ndarray`</span>
+<span class="sd">    :param cft: characteristic function as returned by a trigger in</span>
+<span class="sd">        :mod:`obspy.signal.trigger`</span>
+<span class="sd">    :type thr_on: float</span>
+<span class="sd">    :param thr_on: threshold for switching trigger on</span>
+<span class="sd">    :type thr_off: float</span>
+<span class="sd">    :param thr_off: threshold for switching trigger off</span>
+<span class="sd">    :type show: bool</span>
+<span class="sd">    :param show: Do not call `plt.show()` at end of routine. That way,</span>
+<span class="sd">        further modifications can be done to the figure before showing it.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sampling_rate</span>
+    <span class="n">npts</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">npts</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">npts</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="n">df</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">trace</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">cft</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    <span class="n">on_off</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">trigger_onset</span><span class="p">(</span><span class="n">cft</span><span class="p">,</span> <span class="n">thr_on</span><span class="p">,</span> <span class="n">thr_off</span><span class="p">))</span>
+    <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">on_off</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                   <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Trigger On&quot;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">on_off</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                   <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Trigger Off&quot;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">thr_on</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">thr_off</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time after </span><span class="si">%s</span><span class="s2"> [s]&quot;</span> <span class="o">%</span> <span class="n">trace</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span><span class="o">.</span><span class="n">isoformat</span><span class="p">())</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="coincidence_trigger"><a class="viewcode-back" href="../../../packages/autogen/obspy.signal.trigger.coincidence_trigger.html#obspy.signal.trigger.coincidence_trigger">[docs]</a><span class="k">def</span> <span class="nf">coincidence_trigger</span><span class="p">(</span><span class="n">trigger_type</span><span class="p">,</span> <span class="n">thr_on</span><span class="p">,</span> <span class="n">thr_off</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span>
+                        <span class="n">thr_coincidence_sum</span><span class="p">,</span> <span class="n">trace_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">max_trigger_length</span><span class="o">=</span><span class="mf">1e6</span><span class="p">,</span> <span class="n">delete_long_trigger</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">trigger_off_extension</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">event_templates</span><span class="o">=</span><span class="p">{},</span> <span class="n">similarity_threshold</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+                        <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform a network coincidence trigger.</span>
+
+<span class="sd">    The routine works in the following steps:</span>
+<span class="sd">      * take every single trace in the stream</span>
+<span class="sd">      * apply specified triggering routine (can be skipped to work on</span>
+<span class="sd">        precomputed custom characteristic functions)</span>
+<span class="sd">      * evaluate all single station triggering results</span>
+<span class="sd">      * compile chronological overall list of all single station triggers</span>
+<span class="sd">      * find overlapping single station triggers</span>
+<span class="sd">      * calculate coincidence sum of every individual overlapping trigger</span>
+<span class="sd">      * add to coincidence trigger list if it exceeds the given threshold</span>
+<span class="sd">      * optional: if master event templates are provided, also check single</span>
+<span class="sd">        station triggers individually and include any single station trigger if</span>
+<span class="sd">        it exceeds the specified similarity threshold even if no other stations</span>
+<span class="sd">        coincide with the trigger</span>
+<span class="sd">      * return list of network coincidence triggers</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        An example can be found in the</span>
+<span class="sd">        `Trigger/Picker Tutorial</span>
+<span class="sd">        &lt;https://tutorial.obspy.org/code_snippets/trigger_tutorial.html&gt;`_.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        Setting `trigger_type=None` precomputed characteristic functions can</span>
+<span class="sd">        be provided.</span>
+
+<span class="sd">    .. seealso:: [Withers1998]_ (p. 98) and [Trnkoczy2012]_</span>
+
+<span class="sd">    :param trigger_type: String that specifies which trigger is applied (e.g.</span>
+<span class="sd">        ``&#39;recstalta&#39;``). See e.g. :meth:`obspy.core.trace.Trace.trigger` for</span>
+<span class="sd">        further details. If set to `None` no triggering routine is applied,</span>
+<span class="sd">        i.e.  data in traces is supposed to be a precomputed characteristic</span>
+<span class="sd">        function on which the trigger thresholds are evaluated.</span>
+<span class="sd">    :type trigger_type: str or None</span>
+<span class="sd">    :type thr_on: float</span>
+<span class="sd">    :param thr_on: threshold for switching single station trigger on</span>
+<span class="sd">    :type thr_off: float</span>
+<span class="sd">    :param thr_off: threshold for switching single station trigger off</span>
+<span class="sd">    :type stream: :class:`~obspy.core.stream.Stream`</span>
+<span class="sd">    :param stream: Stream containing waveform data for all stations. These</span>
+<span class="sd">        data are changed inplace, make a copy to keep the raw waveform data.</span>
+<span class="sd">    :type thr_coincidence_sum: int or float</span>
+<span class="sd">    :param thr_coincidence_sum: Threshold for coincidence sum. The network</span>
+<span class="sd">        coincidence sum has to be at least equal to this value for a trigger to</span>
+<span class="sd">        be included in the returned trigger list.</span>
+<span class="sd">    :type trace_ids: list or dict, optional</span>
+<span class="sd">    :param trace_ids: Trace IDs to be used in the network coincidence sum. A</span>
+<span class="sd">        dictionary with trace IDs as keys and weights as values can</span>
+<span class="sd">        be provided. If a list of trace IDs is provided, all</span>
+<span class="sd">        weights are set to 1. The default of ``None`` uses all traces present</span>
+<span class="sd">        in the provided stream. Waveform data with trace IDs not</span>
+<span class="sd">        present in this list/dict are disregarded in the analysis.</span>
+<span class="sd">    :type max_trigger_length: int or float</span>
+<span class="sd">    :param max_trigger_length: Maximum single station trigger length (in</span>
+<span class="sd">        seconds). ``delete_long_trigger`` controls what happens to single</span>
+<span class="sd">        station triggers longer than this value.</span>
+<span class="sd">    :type delete_long_trigger: bool, optional</span>
+<span class="sd">    :param delete_long_trigger: If ``False`` (default), single station</span>
+<span class="sd">        triggers are manually released at ``max_trigger_length``, although the</span>
+<span class="sd">        characteristic function has not dropped below ``thr_off``. If set to</span>
+<span class="sd">        ``True``, all single station triggers longer than</span>
+<span class="sd">        ``max_trigger_length`` will be removed and are excluded from</span>
+<span class="sd">        coincidence sum computation.</span>
+<span class="sd">    :type trigger_off_extension: int or float, optional</span>
+<span class="sd">    :param trigger_off_extension: Extends search window for next trigger</span>
+<span class="sd">        on-time after last trigger off-time in coincidence sum computation.</span>
+<span class="sd">    :type details: bool, optional</span>
+<span class="sd">    :param details: If set to ``True`` the output coincidence triggers contain</span>
+<span class="sd">        more detailed information: A list with the trace IDs (in addition to</span>
+<span class="sd">        only the station names), as well as lists with single station</span>
+<span class="sd">        characteristic function peak values and standard deviations in the</span>
+<span class="sd">        triggering interval and mean values of both, relatively weighted like</span>
+<span class="sd">        in the coincidence sum. These values can help to judge the reliability</span>
+<span class="sd">        of the trigger.</span>
+<span class="sd">    :param options: Necessary keyword arguments for the respective trigger</span>
+<span class="sd">        that will be passed on. For example ``sta`` and ``lta`` for any STA/LTA</span>
+<span class="sd">        variant (e.g. ``sta=3``, ``lta=10``).</span>
+<span class="sd">        Arguments ``sta`` and ``lta`` (seconds) will be mapped to ``nsta``</span>
+<span class="sd">        and ``nlta`` (samples) by multiplying with sampling rate of trace.</span>
+<span class="sd">        (e.g. ``sta=3``, ``lta=10`` would call the trigger with 3 and 10</span>
+<span class="sd">        seconds average, respectively)</span>
+<span class="sd">    :param event_templates: Event templates to use in checking similarity of</span>
+<span class="sd">        single station triggers against known events. Expected are streams with</span>
+<span class="sd">        three traces for Z, N, E component. A dictionary is expected where for</span>
+<span class="sd">        each station used in the trigger, a list of streams can be provided as</span>
+<span class="sd">        the value to the network/station key (e.g. {&quot;GR.FUR&quot;: [stream1,</span>
+<span class="sd">        stream2]}). Templates are compared against the provided `stream`</span>
+<span class="sd">        without the specified triggering routine (`trigger_type`) applied.</span>
+<span class="sd">    :type event_templates: dict</span>
+<span class="sd">    :param similarity_threshold: similarity threshold (0.0-1.0) at which a</span>
+<span class="sd">        single station trigger gets included in the output network event</span>
+<span class="sd">        trigger list. A common threshold can be set for all stations (float) or</span>
+<span class="sd">        a dictionary mapping station names to float values for each station.</span>
+<span class="sd">    :type similarity_threshold: float or dict</span>
+<span class="sd">    :rtype: list</span>
+<span class="sd">    :returns: List of event triggers sorted chronologically.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1"># if no trace ids are specified use all traces ids found in stream</span>
+    <span class="k">if</span> <span class="n">trace_ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">trace_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">tr</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="n">st</span><span class="p">]</span>
+    <span class="c1"># we always work with a dictionary with trace ids and their weights later</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trace_ids</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trace_ids</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="n">trace_ids</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">trace_ids</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># set up similarity thresholds as a dictionary if necessary</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">similarity_threshold</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">similarity_threshold</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">([</span><span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">station</span> <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="n">st</span><span class="p">],</span>
+                                             <span class="n">similarity_threshold</span><span class="p">)</span>
+
+    <span class="c1"># the single station triggering</span>
+    <span class="n">triggers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># prepare kwargs for trigger_onset</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;max_len_delete&#39;</span><span class="p">:</span> <span class="n">delete_long_trigger</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="n">st</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">tr</span><span class="o">.</span><span class="n">id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">trace_ids</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;At least one trace&#39;s ID was not found in the &quot;</span> <span class="o">+</span> \
+                  <span class="s2">&quot;trace ID list and was disregarded (</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="n">tr</span><span class="o">.</span><span class="n">id</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">trigger_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">tr</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="n">trigger_type</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;max_len&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="n">max_trigger_length</span> <span class="o">*</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sampling_rate</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">tmp_triggers</span> <span class="o">=</span> <span class="n">trigger_onset</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">thr_on</span><span class="p">,</span> <span class="n">thr_off</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">on</span><span class="p">,</span> <span class="n">off</span> <span class="ow">in</span> <span class="n">tmp_triggers</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">cft_peak</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">on</span><span class="p">:</span><span class="n">off</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+                <span class="n">cft_std</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">on</span><span class="p">:</span><span class="n">off</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">cft_peak</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">on</span><span class="p">]</span>
+                <span class="n">cft_std</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">on</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">on</span><span class="p">)</span> <span class="o">/</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sampling_rate</span>
+            <span class="n">off</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">starttime</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">off</span><span class="p">)</span> <span class="o">/</span> <span class="n">tr</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sampling_rate</span>
+            <span class="n">triggers</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">on</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">off</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">tr</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">cft_peak</span><span class="p">,</span>
+                             <span class="n">cft_std</span><span class="p">))</span>
+    <span class="n">triggers</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+    <span class="c1"># the coincidence triggering and coincidence sum computation</span>
+    <span class="n">coincidence_triggers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">last_off_time</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">while</span> <span class="n">triggers</span> <span class="o">!=</span> <span class="p">[]:</span>
+        <span class="c1"># remove first trigger from list and look for overlaps</span>
+        <span class="n">on</span><span class="p">,</span> <span class="n">off</span><span class="p">,</span> <span class="n">tr_id</span><span class="p">,</span> <span class="n">cft_peak</span><span class="p">,</span> <span class="n">cft_std</span> <span class="o">=</span> <span class="n">triggers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">sta</span> <span class="o">=</span> <span class="n">tr_id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">event</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">on</span><span class="p">)</span>
+        <span class="n">event</span><span class="p">[</span><span class="s1">&#39;stations&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">tr_id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="n">event</span><span class="p">[</span><span class="s1">&#39;trace_ids&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">tr_id</span><span class="p">]</span>
+        <span class="n">event</span><span class="p">[</span><span class="s1">&#39;coincidence_sum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">trace_ids</span><span class="p">[</span><span class="n">tr_id</span><span class="p">])</span>
+        <span class="n">event</span><span class="p">[</span><span class="s1">&#39;similarity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">details</span><span class="p">:</span>
+            <span class="n">event</span><span class="p">[</span><span class="s1">&#39;cft_peaks&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">cft_peak</span><span class="p">]</span>
+            <span class="n">event</span><span class="p">[</span><span class="s1">&#39;cft_stds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">cft_std</span><span class="p">]</span>
+        <span class="c1"># evaluate maximum similarity for station if event templates were</span>
+        <span class="c1"># provided</span>
+        <span class="n">templates</span> <span class="o">=</span> <span class="n">event_templates</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sta</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">templates</span><span class="p">:</span>
+            <span class="n">event</span><span class="p">[</span><span class="s1">&#39;similarity&#39;</span><span class="p">][</span><span class="n">sta</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="n">templates_max_similarity</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">event</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">templates</span><span class="p">)</span>
+        <span class="c1"># compile the list of stations that overlap with the current trigger</span>
+        <span class="k">for</span> <span class="n">trigger</span> <span class="ow">in</span> <span class="n">triggers</span><span class="p">:</span>
+            <span class="n">tmp_on</span><span class="p">,</span> <span class="n">tmp_off</span><span class="p">,</span> <span class="n">tmp_tr_id</span><span class="p">,</span> <span class="n">tmp_cft_peak</span><span class="p">,</span> <span class="n">tmp_cft_std</span> <span class="o">=</span> <span class="n">trigger</span>
+            <span class="n">tmp_sta</span> <span class="o">=</span> <span class="n">tmp_tr_id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="c1"># skip retriggering of already present station in current</span>
+            <span class="c1"># coincidence trigger</span>
+            <span class="k">if</span> <span class="n">tmp_tr_id</span> <span class="ow">in</span> <span class="n">event</span><span class="p">[</span><span class="s1">&#39;trace_ids&#39;</span><span class="p">]:</span>
+                <span class="k">continue</span>
+            <span class="c1"># check for overlapping trigger,</span>
+            <span class="c1"># break if there is a gap in between the two triggers</span>
+            <span class="k">if</span> <span class="n">tmp_on</span> <span class="o">&gt;</span> <span class="n">off</span> <span class="o">+</span> <span class="n">trigger_off_extension</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">event</span><span class="p">[</span><span class="s1">&#39;stations&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_sta</span><span class="p">)</span>
+            <span class="n">event</span><span class="p">[</span><span class="s1">&#39;trace_ids&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_tr_id</span><span class="p">)</span>
+            <span class="n">event</span><span class="p">[</span><span class="s1">&#39;coincidence_sum&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">trace_ids</span><span class="p">[</span><span class="n">tmp_tr_id</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">details</span><span class="p">:</span>
+                <span class="n">event</span><span class="p">[</span><span class="s1">&#39;cft_peaks&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_cft_peak</span><span class="p">)</span>
+                <span class="n">event</span><span class="p">[</span><span class="s1">&#39;cft_stds&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_cft_std</span><span class="p">)</span>
+            <span class="c1"># allow sets of triggers that overlap only on subsets of all</span>
+            <span class="c1"># stations (e.g. A overlaps with B and B overlaps w/ C =&gt; ABC)</span>
+            <span class="n">off</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">off</span><span class="p">,</span> <span class="n">tmp_off</span><span class="p">)</span>
+            <span class="c1"># evaluate maximum similarity for station if event templates were</span>
+            <span class="c1"># provided</span>
+            <span class="n">templates</span> <span class="o">=</span> <span class="n">event_templates</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tmp_sta</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">templates</span><span class="p">:</span>
+                <span class="n">event</span><span class="p">[</span><span class="s1">&#39;similarity&#39;</span><span class="p">][</span><span class="n">tmp_sta</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="n">templates_max_similarity</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">event</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">templates</span><span class="p">)</span>
+        <span class="c1"># skip if both coincidence sum and similarity thresholds are not met</span>
+        <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="s1">&#39;coincidence_sum&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">thr_coincidence_sum</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">event</span><span class="p">[</span><span class="s1">&#39;similarity&#39;</span><span class="p">]:</span>
+                <span class="k">continue</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">([</span><span class="n">val</span> <span class="o">&gt;</span> <span class="n">similarity_threshold</span><span class="p">[</span><span class="n">_s</span><span class="p">]</span>
+                          <span class="k">for</span> <span class="n">_s</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">event</span><span class="p">[</span><span class="s1">&#39;similarity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()]):</span>
+                <span class="k">continue</span>
+        <span class="c1"># skip coincidence trigger if it is just a subset of the previous</span>
+        <span class="c1"># (determined by a shared off-time, this is a bit sloppy)</span>
+        <span class="k">if</span> <span class="n">off</span> <span class="o">&lt;=</span> <span class="n">last_off_time</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">event</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">off</span> <span class="o">-</span> <span class="n">on</span>
+        <span class="k">if</span> <span class="n">details</span><span class="p">:</span>
+            <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">trace_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">event</span><span class="p">[</span><span class="s1">&#39;trace_ids&#39;</span><span class="p">]])</span>
+            <span class="n">weighted_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s1">&#39;cft_peaks&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">weights</span>
+            <span class="n">event</span><span class="p">[</span><span class="s1">&#39;cft_peak_wmean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weighted_values</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">weights</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="n">weighted_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s1">&#39;cft_stds&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">weights</span>
+            <span class="n">event</span><span class="p">[</span><span class="s1">&#39;cft_std_wmean&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s1">&#39;cft_stds&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">weights</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">weights</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">coincidence_triggers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="n">last_off_time</span> <span class="o">=</span> <span class="n">off</span>
+    <span class="k">return</span> <span class="n">coincidence_triggers</span></div>
+
+
+<span class="c1"># Remove once 0.11 has been released.</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">DynamicAttributeImportRerouteModule</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="vm">__doc__</span><span class="p">,</span> <span class="n">locs</span><span class="o">=</span><span class="nb">locals</span><span class="p">(),</span>
+    <span class="n">original_module</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">],</span>
+    <span class="n">import_map</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">function_map</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;arPick&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.trigger.ar_pick&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;carlSTATrig&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.trigger.carl_sta_trig&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;classicSTALTA&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.trigger.classic_sta_lta&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;classicSTALTAPy&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.trigger.classic_sta_lta_py&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;coincidenceTrigger&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.trigger.coincidence_trigger&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;delayedSTALTA&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.trigger.delayed_sta_lta&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pkBaer&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.trigger.pk_baer&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;plotTrigger&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.trigger.plot_trigger&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;recSTALTA&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.trigger.recursive_sta_lta&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;recSTALTAPy&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.trigger.recursive_sta_lta_py&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;triggerOnset&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.trigger.trigger_onset&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;zDetect&quot;</span><span class="p">:</span> <span class="s2">&quot;obspy.signal.trigger.z_detect&quot;</span><span class="p">})</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

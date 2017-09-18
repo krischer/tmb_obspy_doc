@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.io.segy.segy &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.io.segy.segy</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># ------------------------------------------------------------------</span>
+<span class="c1">#  Filename: seg.py</span>
+<span class="c1">#  Purpose: Routines for reading and writing SEG Y files.</span>
+<span class="c1">#   Author: Lion Krischer</span>
+<span class="c1">#    Email: krischer@geophysik.uni-muenchen.de</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (C) 2010 Lion Krischer</span>
+<span class="c1"># --------------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Routines to read and write SEG Y rev 1 encoded seismic data files.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">struct</span> <span class="k">import</span> <span class="n">pack</span><span class="p">,</span> <span class="n">unpack</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">obspy.core.util.deprecation_helpers</span> <span class="k">import</span> \
+    <span class="n">DynamicAttributeImportRerouteModule</span>
+
+<span class="kn">from</span> <span class="nn">.header</span> <span class="k">import</span> <span class="p">(</span><span class="n">BINARY_FILE_HEADER_FORMAT</span><span class="p">,</span>
+                     <span class="n">DATA_SAMPLE_FORMAT_PACK_FUNCTIONS</span><span class="p">,</span>
+                     <span class="n">DATA_SAMPLE_FORMAT_SAMPLE_SIZE</span><span class="p">,</span>
+                     <span class="n">DATA_SAMPLE_FORMAT_UNPACK_FUNCTIONS</span><span class="p">,</span> <span class="n">ENDIAN</span><span class="p">,</span>
+                     <span class="n">TRACE_HEADER_FORMAT</span><span class="p">,</span> <span class="n">TRACE_HEADER_KEYS</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.unpack</span> <span class="k">import</span> <span class="n">OnTheFlyDataUnpacker</span>
+<span class="kn">from</span> <span class="nn">.util</span> <span class="k">import</span> <span class="n">unpack_header_value</span>
+
+
+<div class="viewcode-block" id="SEGYError"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYError.html#obspy.io.segy.segy.SEGYError">[docs]</a><span class="k">class</span> <span class="nc">SEGYError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base SEGY exception class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="SEGYTraceHeaderTooSmallError"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYTraceHeaderTooSmallError.html#obspy.io.segy.segy.SEGYTraceHeaderTooSmallError">[docs]</a><span class="k">class</span> <span class="nc">SEGYTraceHeaderTooSmallError</span><span class="p">(</span><span class="n">SEGYError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Raised if the trace header is not the required 240 byte long.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="SEGYTraceReadingError"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYTraceReadingError.html#obspy.io.segy.segy.SEGYTraceReadingError">[docs]</a><span class="k">class</span> <span class="nc">SEGYTraceReadingError</span><span class="p">(</span><span class="n">SEGYError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Raised if there is not enough data left in the file to unpack the data</span>
+<span class="sd">    according to the values read from the header.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="SEGYTraceOnTheFlyDataUnpackingError"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYTraceOnTheFlyDataUnpackingError.html#obspy.io.segy.segy.SEGYTraceOnTheFlyDataUnpackingError">[docs]</a><span class="k">class</span> <span class="nc">SEGYTraceOnTheFlyDataUnpackingError</span><span class="p">(</span><span class="n">SEGYError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Raised if attempting to unpack trace data but no ``unpack_data()`` function</span>
+<span class="sd">    exists.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="SEGYWritingError"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYWritingError.html#obspy.io.segy.segy.SEGYWritingError">[docs]</a><span class="k">class</span> <span class="nc">SEGYWritingError</span><span class="p">(</span><span class="n">SEGYError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Raised if the trace header is not the required 240 byte long.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="SEGYFile"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYFile.html#obspy.io.segy.segy.SEGYFile">[docs]</a><span class="k">class</span> <span class="nc">SEGYFile</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class that internally handles SEG Y files.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SEGYFile.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYFile.__init__.html#obspy.io.segy.segy.SEGYFile.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">textual_header_encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">unpack_headers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Class that internally handles SEG Y files.</span>
+
+<span class="sd">        :param file: A file like object with the file pointer set at the</span>
+<span class="sd">            beginning of the SEG Y file. If file is None, an empty SEGYFile</span>
+<span class="sd">            object will be initialized.</span>
+<span class="sd">        :param endian: The endianness of the file. If None, autodetection will</span>
+<span class="sd">            be used.</span>
+<span class="sd">        :param textual_header_encoding: The encoding of the textual header.</span>
+<span class="sd">            Either &#39;EBCDIC&#39;, &#39;ASCII&#39; or None. If it is None, autodetection will</span>
+<span class="sd">            be attempted. If it is None and file is also None, it will default</span>
+<span class="sd">            to &#39;ASCII&#39;.</span>
+<span class="sd">        :type unpack_headers: bool</span>
+<span class="sd">        :param unpack_headers: Determines whether or not all headers will be</span>
+<span class="sd">            unpacked during reading the file. Has a huge impact on the memory</span>
+<span class="sd">            usage and the performance. They can be unpacked on-the-fly after</span>
+<span class="sd">            being read. Defaults to False.</span>
+<span class="sd">        :type headonly: bool</span>
+<span class="sd">        :param headonly: Determines whether or not the actual data records</span>
+<span class="sd">            will be read and unpacked. Has a huge impact on memory usage. Data</span>
+<span class="sd">            can be read and unpacked on-the-fly after reading the file.</span>
+<span class="sd">            Defaults to False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_create_empty_segy_file_object</span><span class="p">()</span>
+            <span class="c1"># Set the endianness to big.</span>
+            <span class="k">if</span> <span class="n">endian</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">=</span> <span class="s1">&#39;&gt;&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">=</span> <span class="n">ENDIAN</span><span class="p">[</span><span class="n">endian</span><span class="p">]</span>
+            <span class="c1"># And the textual header encoding to ASCII.</span>
+            <span class="k">if</span> <span class="n">textual_header_encoding</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">textual_header_encoding</span> <span class="o">=</span> <span class="s1">&#39;ASCII&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">textual_header</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">file</span>
+        <span class="c1"># If endian is None autodetect is.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">endian</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_autodetect_endianness</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">=</span> <span class="n">ENDIAN</span><span class="p">[</span><span class="n">endian</span><span class="p">]</span>
+        <span class="c1"># If the textual header encoding is None, autodetection will be used.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">textual_header_encoding</span> <span class="o">=</span> <span class="n">textual_header_encoding</span>
+        <span class="c1"># Read the headers.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_read_headers</span><span class="p">()</span>
+        <span class="c1"># Read the actual traces.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_read_traces</span><span class="p">(</span><span class="n">unpack_headers</span><span class="o">=</span><span class="n">unpack_headers</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="n">headonly</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SEGYFile.__str__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYFile.__str__.html#obspy.io.segy.segy.SEGYFile.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prints some information about the SEG Y file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%i</span><span class="s1"> traces in the SEG Y structure.&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">traces</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SEGYFile._repr_pretty_"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYFile._repr_pretty_.html#obspy.io.segy.segy.SEGYFile._repr_pretty_">[docs]</a>    <span class="k">def</span> <span class="nf">_repr_pretty_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cycle</span><span class="p">):</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="SEGYFile._autodetect_endianness"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYFile._autodetect_endianness.html#obspy.io.segy.segy.SEGYFile._autodetect_endianness">[docs]</a>    <span class="k">def</span> <span class="nf">_autodetect_endianness</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tries to automatically determine the endianness of the file at hand.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+        <span class="c1"># Jump to the data sample format code.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">3224</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="nb">format</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&gt;h&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">2</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># Check if valid.</span>
+        <span class="k">if</span> <span class="nb">format</span> <span class="ow">in</span> <span class="n">DATA_SAMPLE_FORMAT_UNPACK_FUNCTIONS</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">=</span> <span class="s1">&#39;&gt;&#39;</span>
+        <span class="c1"># Else test little endian.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="nb">format</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&lt;h&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">2</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">format</span> <span class="ow">in</span> <span class="n">DATA_SAMPLE_FORMAT_UNPACK_FUNCTIONS</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">=</span> <span class="s1">&#39;&lt;&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Unable to determine the endianness of the file. &#39;</span> <span class="o">+</span> \
+                      <span class="s1">&#39;Please specify it.&#39;</span>
+                <span class="k">raise</span> <span class="n">SEGYError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="c1"># Jump to previous position.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SEGYFile._create_empty_segy_file_object"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYFile._create_empty_segy_file_object.html#obspy.io.segy.segy.SEGYFile._create_empty_segy_file_object">[docs]</a>    <span class="k">def</span> <span class="nf">_create_empty_segy_file_object</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates an empty SEGYFile object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">textual_file_header</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">binary_file_header</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">traces</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="SEGYFile._read_textual_header"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYFile._read_textual_header.html#obspy.io.segy.segy.SEGYFile._read_textual_header">[docs]</a>    <span class="k">def</span> <span class="nf">_read_textual_header</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads the textual header.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The first 3200 byte are the textual header.</span>
+        <span class="n">textual_header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">3200</span><span class="p">)</span>
+        <span class="c1"># The data can either be saved as plain ASCII or EBCDIC. The first</span>
+        <span class="c1"># character always is mostly &#39;C&#39; and therefore used to check the</span>
+        <span class="c1"># encoding. Sometimes is it not C but also cannot be decoded from</span>
+        <span class="c1"># EBCDIC so it is treated as ASCII and all empty symbols are removed.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">textual_header_encoding</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">textual_header</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="sa">b</span><span class="s1">&#39;C&#39;</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">textual_header</span> <span class="o">=</span> \
+                        <span class="n">textual_header</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;EBCDIC-CP-BE&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
+                    <span class="c1"># If this worked, the encoding is EBCDIC.</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">textual_header_encoding</span> <span class="o">=</span> <span class="s1">&#39;EBCDIC&#39;</span>
+                <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span>
+                    <span class="n">textual_header</span> <span class="o">=</span> <span class="n">textual_header</span>
+                    <span class="c1"># Otherwise it is ASCII.</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">textual_header_encoding</span> <span class="o">=</span> <span class="s1">&#39;ASCII&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Otherwise the encoding will also be ASCII.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">textual_header_encoding</span> <span class="o">=</span> <span class="s1">&#39;ASCII&#39;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">textual_header_encoding</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;EBCDIC&#39;</span><span class="p">:</span>
+            <span class="n">textual_header</span> <span class="o">=</span> \
+                <span class="n">textual_header</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;EBCDIC-CP-BE&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">textual_header_encoding</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;ASCII&#39;</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            The textual_header_encoding has to be either ASCII, EBCDIC or None</span>
+<span class="s2">            for autodetection. ASCII, EBCDIC or None for autodetection.</span>
+<span class="s2">            &quot;&quot;&quot;</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">raise</span> <span class="n">SEGYError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="c1"># Finally set it.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">textual_file_header</span> <span class="o">=</span> <span class="n">textual_header</span></div>
+
+<div class="viewcode-block" id="SEGYFile._read_headers"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYFile._read_headers.html#obspy.io.segy.segy.SEGYFile._read_headers">[docs]</a>    <span class="k">def</span> <span class="nf">_read_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads the textual and binary file headers starting at the current file</span>
+<span class="sd">        pointer position.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Read the textual header.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_read_textual_header</span><span class="p">()</span>
+        <span class="c1"># The next 400 bytes are from the Binary File Header.</span>
+        <span class="n">binary_file_header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+        <span class="n">bfh</span> <span class="o">=</span> <span class="n">SEGYBinaryFileHeader</span><span class="p">(</span><span class="n">binary_file_header</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">endian</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">binary_file_header</span> <span class="o">=</span> <span class="n">bfh</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_encoding</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">binary_file_header</span><span class="o">.</span><span class="n">data_sample_format_code</span>
+        <span class="c1"># If bytes 3506-3506 are not zero, an extended textual header follows</span>
+        <span class="c1"># which is not supported so far.</span>
+        <span class="k">if</span> <span class="n">bfh</span><span class="o">.</span><span class="n">number_of_3200_byte_ext_file_header_records_following</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Extended textual headers are supported yet. &#39;</span> <span class="o">+</span> \
+                <span class="s1">&#39;Please contact the developers.&#39;</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SEGYFile.write"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYFile.write.html#obspy.io.segy.segy.SEGYFile.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">data_encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write a SEG Y file to file which is either a file like object with a</span>
+<span class="sd">        write method or a filename string.</span>
+
+<span class="sd">        If data_encoding or endian is set, these values will be enforced.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;write&#39;</span><span class="p">):</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_write</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">data_encoding</span><span class="o">=</span><span class="n">data_encoding</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="n">endian</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">data_encoding</span><span class="o">=</span><span class="n">data_encoding</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="n">endian</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SEGYFile._write"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYFile._write.html#obspy.io.segy.segy.SEGYFile._write">[docs]</a>    <span class="k">def</span> <span class="nf">_write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">data_encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes SEG Y to a file like object.</span>
+
+<span class="sd">        If data_encoding or endian is set, these values will be enforced.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Write the textual header.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_textual_header</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+        <span class="c1"># Write certain fields in the binary header if they are not set. Most</span>
+        <span class="c1"># fields will be written using the data from the first trace. It is</span>
+        <span class="c1"># usually better to set the header manually!</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">binary_file_header</span><span class="o">.</span><span class="n">number_of_data_traces_per_ensemble</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">binary_file_header</span><span class="o">.</span><span class="n">number_of_data_traces_per_ensemble</span> <span class="o">=</span> \
+                <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">traces</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">binary_file_header</span><span class="o">.</span><span class="n">sample_interval_in_microseconds</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">binary_file_header</span><span class="o">.</span><span class="n">sample_interval_in_microseconds</span> <span class="o">=</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">traces</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">sample_interval_in_ms_for_this_trace</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">binary_file_header</span><span class="o">.</span><span class="n">number_of_samples_per_data_trace</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">binary_file_header</span><span class="o">.</span><span class="n">number_of_samples_per_data_trace</span> <span class="o">=</span> \
+                <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">traces</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="c1"># Always set the SEGY Revision number to 1.0 (hex-coded).</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">binary_file_header</span><span class="o">.</span><span class="n">seg_y_format_revision_number</span> <span class="o">=</span> <span class="mi">16</span>
+        <span class="c1"># Set the fixed length flag to zero if all traces have NOT the same</span>
+        <span class="c1"># length. Leave unchanged otherwise.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">tr</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">traces</span><span class="p">]))</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">binary_file_header</span><span class="o">.</span><span class="n">fixed_length_trace_flag</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Extended textual headers are not supported by ObsPy so far.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">binary_file_header</span><span class="o">.</span>\
+            <span class="n">number_of_3200_byte_ext_file_header_records_following</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Enforce the encoding</span>
+        <span class="k">if</span> <span class="n">data_encoding</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">binary_file_header</span><span class="o">.</span><span class="n">data_sample_format_code</span> <span class="o">=</span> <span class="n">data_encoding</span>
+
+        <span class="c1"># Write the binary header.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">binary_file_header</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="n">endian</span><span class="p">)</span>
+        <span class="c1"># Write all traces.</span>
+        <span class="k">for</span> <span class="n">trace</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">traces</span><span class="p">:</span>
+            <span class="n">trace</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">data_encoding</span><span class="o">=</span><span class="n">data_encoding</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="n">endian</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SEGYFile._write_textual_header"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYFile._write_textual_header.html#obspy.io.segy.segy.SEGYFile._write_textual_header">[docs]</a>    <span class="k">def</span> <span class="nf">_write_textual_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write the textual header in various encodings. The encoding will depend</span>
+<span class="sd">        on self.textual_header_encoding. If self.textual_file_header is too</span>
+<span class="sd">        small it will be padded with zeros. If it is too long or an invalid</span>
+<span class="sd">        encoding is specified an exception will be raised.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">textual_file_header</span><span class="p">)</span>
+        <span class="c1"># Append spaces to the end if its too short.</span>
+        <span class="k">if</span> <span class="n">length</span> <span class="o">&lt;</span> <span class="mi">3200</span><span class="p">:</span>
+            <span class="n">textual_header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">textual_file_header</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">3200</span> <span class="o">-</span> <span class="n">length</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">length</span> <span class="o">==</span> <span class="mi">3200</span><span class="p">:</span>
+            <span class="n">textual_header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">textual_file_header</span>
+        <span class="c1"># The length must not exceed 3200 byte.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;self.textual_file_header is not allowed to be longer &#39;</span> <span class="o">+</span> \
+                  <span class="s1">&#39;than 3200 bytes&#39;</span>
+            <span class="k">raise</span> <span class="n">SEGYWritingError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">textual_header_encoding</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;ASCII&#39;</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">textual_header_encoding</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;EBCDIC&#39;</span><span class="p">:</span>
+            <span class="n">textual_header</span> <span class="o">=</span> \
+                <span class="n">textual_header</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;EBCDIC-CP-BE&#39;</span><span class="p">)</span>
+        <span class="c1"># Should not happen.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;self.textual_header_encoding has to be either ASCII or &#39;</span> <span class="o">+</span> \
+                  <span class="s1">&#39;EBCDIC.&#39;</span>
+            <span class="k">raise</span> <span class="n">SEGYWritingError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">textual_header</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SEGYFile._read_traces"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYFile._read_traces.html#obspy.io.segy.segy.SEGYFile._read_traces">[docs]</a>    <span class="k">def</span> <span class="nf">_read_traces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unpack_headers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads the actual traces starting at the current file pointer position</span>
+<span class="sd">        to the end of the file.</span>
+
+<span class="sd">        :type unpack_headers: bool</span>
+<span class="sd">        :param unpack_headers: Determines whether or not all headers will be</span>
+<span class="sd">            unpacked during reading the file. Has a huge impact on the memory</span>
+<span class="sd">            usage and the performance. They can be unpacked on-the-fly after</span>
+<span class="sd">            being read. Defaults to False.</span>
+
+<span class="sd">        :type headonly: bool</span>
+<span class="sd">        :param headonly: Determines whether or not the actual data records</span>
+<span class="sd">            will be read and unpacked. Has a huge impact on memory usage. Data</span>
+<span class="sd">            can be read and unpacked on-the-fly after reading the file.</span>
+<span class="sd">            Defaults to False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">traces</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Determine the filesize once.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">):</span>
+            <span class="n">pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># go t end of file</span>
+            <span class="n">filesize</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">filesize</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fstat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">fileno</span><span class="p">())[</span><span class="mi">6</span><span class="p">]</span>
+        <span class="c1"># Big loop to read all data traces.</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="c1"># Read and as soon as the trace header is too small abort.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">trace</span> <span class="o">=</span> <span class="n">SEGYTrace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_encoding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">endian</span><span class="p">,</span>
+                                  <span class="n">unpack_headers</span><span class="o">=</span><span class="n">unpack_headers</span><span class="p">,</span>
+                                  <span class="n">filesize</span><span class="o">=</span><span class="n">filesize</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="n">headonly</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">traces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">SEGYTraceHeaderTooSmallError</span><span class="p">:</span>
+                <span class="k">break</span></div></div>
+
+
+<div class="viewcode-block" id="SEGYBinaryFileHeader"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYBinaryFileHeader.html#obspy.io.segy.segy.SEGYBinaryFileHeader">[docs]</a><span class="k">class</span> <span class="nc">SEGYBinaryFileHeader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parses the binary file header at the given starting position.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SEGYBinaryFileHeader.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYBinaryFileHeader.__init__.html#obspy.io.segy.segy.SEGYBinaryFileHeader.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="s1">&#39;&gt;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">=</span> <span class="n">endian</span>
+        <span class="k">if</span> <span class="n">header</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_create_empty_binary_file_header</span><span class="p">()</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_read_binary_file_header</span><span class="p">(</span><span class="n">header</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SEGYBinaryFileHeader._read_binary_file_header"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYBinaryFileHeader._read_binary_file_header.html#obspy.io.segy.segy.SEGYBinaryFileHeader._read_binary_file_header">[docs]</a>    <span class="k">def</span> <span class="nf">_read_binary_file_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">header</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads the binary file header and stores every value in a class</span>
+<span class="sd">        attribute.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">BINARY_FILE_HEADER_FORMAT</span><span class="p">:</span>
+            <span class="n">length</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">item</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="n">pos</span><span class="p">:</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">length</span><span class="p">]</span>
+            <span class="n">pos</span> <span class="o">+=</span> <span class="n">length</span>
+            <span class="c1"># Unpack according to different lengths.</span>
+            <span class="k">if</span> <span class="n">length</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="nb">format</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">h&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">endian</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">)</span>
+                <span class="c1"># Set the class attribute.</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">unpack</span><span class="p">(</span><span class="nb">format</span><span class="p">,</span> <span class="n">string</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="c1"># Update: Seems to be correct. Two&#39;s complement integers seem to be</span>
+            <span class="c1"># the common way to store integer values.</span>
+            <span class="k">elif</span> <span class="n">length</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="nb">format</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">i&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">endian</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">)</span>
+                <span class="c1"># Set the class attribute.</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">unpack</span><span class="p">(</span><span class="nb">format</span><span class="p">,</span> <span class="n">string</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="c1"># The other value are the unassigned values. As it is unclear how</span>
+            <span class="c1"># these are formatted they will be stored as strings.</span>
+            <span class="k">elif</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;unassigned&#39;</span><span class="p">):</span>
+                <span class="c1"># These are only the unassigned fields.</span>
+                <span class="nb">format</span> <span class="o">=</span> <span class="s1">&#39;h&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="n">length</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+                <span class="c1"># Set the class attribute.</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+            <span class="c1"># Should not happen.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span></div>
+
+<div class="viewcode-block" id="SEGYBinaryFileHeader.__str__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYBinaryFileHeader.__str__.html#obspy.io.segy.segy.SEGYBinaryFileHeader.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convenience method to print the binary file header.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">final_str</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Binary File Header:&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">BINARY_FILE_HEADER_FORMAT</span><span class="p">:</span>
+            <span class="n">final_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                           <span class="nb">str</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]))))</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">final_str</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SEGYBinaryFileHeader._repr_pretty_"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYBinaryFileHeader._repr_pretty_.html#obspy.io.segy.segy.SEGYBinaryFileHeader._repr_pretty_">[docs]</a>    <span class="k">def</span> <span class="nf">_repr_pretty_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cycle</span><span class="p">):</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="SEGYBinaryFileHeader.write"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYBinaryFileHeader.write.html#obspy.io.segy.segy.SEGYBinaryFileHeader.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes the header to an open file like object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">endian</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">endian</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">endian</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">BINARY_FILE_HEADER_FORMAT</span><span class="p">:</span>
+            <span class="n">length</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">item</span>
+            <span class="c1"># Unpack according to different lengths.</span>
+            <span class="k">if</span> <span class="n">length</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="nb">format</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">h&#39;</span> <span class="o">%</span> <span class="n">endian</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">)</span>
+                <span class="c1"># Write to file.</span>
+                <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pack</span><span class="p">(</span><span class="nb">format</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)))</span>
+            <span class="c1"># Update: Seems to be correct. Two&#39;s complement integers seem to be</span>
+            <span class="c1"># the common way to store integer values.</span>
+            <span class="k">elif</span> <span class="n">length</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="nb">format</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">i&#39;</span> <span class="o">%</span> <span class="n">endian</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">)</span>
+                <span class="c1"># Write to file.</span>
+                <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pack</span><span class="p">(</span><span class="nb">format</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)))</span>
+            <span class="c1"># These are the two unassigned values in the binary file header.</span>
+            <span class="k">elif</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;unassigned&#39;</span><span class="p">):</span>
+                <span class="n">temp</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+                    <span class="n">temp</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">)</span>
+                <span class="n">temp_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+                <span class="c1"># Pad to desired length if necessary.</span>
+                <span class="k">if</span> <span class="n">temp_length</span> <span class="o">!=</span> <span class="n">length</span><span class="p">:</span>
+                    <span class="n">temp</span> <span class="o">+=</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="n">length</span> <span class="o">-</span> <span class="n">temp_length</span><span class="p">)</span>
+                <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+            <span class="c1"># Should not happen.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span></div>
+
+<div class="viewcode-block" id="SEGYBinaryFileHeader._create_empty_binary_file_header"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYBinaryFileHeader._create_empty_binary_file_header.html#obspy.io.segy.segy.SEGYBinaryFileHeader._create_empty_binary_file_header">[docs]</a>    <span class="k">def</span> <span class="nf">_create_empty_binary_file_header</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Just fills all necessary class attributes with zero.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">BINARY_FILE_HEADER_FORMAT</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="SEGYTrace"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYTrace.html#obspy.io.segy.segy.SEGYTrace">[docs]</a><span class="k">class</span> <span class="nc">SEGYTrace</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convenience class that internally handles a single SEG Y trace.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SEGYTrace.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYTrace.__init__.html#obspy.io.segy.segy.SEGYTrace.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_encoding</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="s1">&#39;&gt;&#39;</span><span class="p">,</span>
+                 <span class="n">unpack_headers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">filesize</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convenience class that internally handles a single SEG Y trace.</span>
+
+<span class="sd">        :param file: Open file like object with the file pointer of the</span>
+<span class="sd">            beginning of a trace. If it is None, an empty trace will be</span>
+<span class="sd">            created.</span>
+<span class="sd">        :param data_encoding: The data sample format code as defined in the</span>
+<span class="sd">            binary file header:</span>
+
+<span class="sd">            1:</span>
+<span class="sd">                4 byte IBM floating point</span>
+<span class="sd">            2:</span>
+<span class="sd">                4 byte Integer, two&#39;s complement</span>
+<span class="sd">            3:</span>
+<span class="sd">                2 byte Integer, two&#39;s complement</span>
+<span class="sd">            4:</span>
+<span class="sd">                4 byte Fixed point with gain</span>
+<span class="sd">            5:</span>
+<span class="sd">                4 byte IEEE floating point</span>
+<span class="sd">            8:</span>
+<span class="sd">                1 byte Integer, two&#39;s complement</span>
+
+<span class="sd">            Defaults to 4.</span>
+<span class="sd">        :type big_endian: bool</span>
+<span class="sd">        :param big_endian: True means the header is encoded in big endian and</span>
+<span class="sd">            False corresponds to a little endian header.</span>
+<span class="sd">        :type unpack_headers: bool</span>
+<span class="sd">        :param unpack_headers: Determines whether or not all headers will be</span>
+<span class="sd">            unpacked during reading the file. Has a huge impact on the memory</span>
+<span class="sd">            usage and the performance. They can be unpacked on-the-fly after</span>
+<span class="sd">            being read. Defaults to False.</span>
+<span class="sd">        :type filesize: int</span>
+<span class="sd">        :param filesize: Filesize of the file. If not given it will be</span>
+<span class="sd">            determined using fstat which is slow.</span>
+<span class="sd">        :param headonly: bool</span>
+<span class="sd">        :param headonly: Determines whether or not the actual data records</span>
+<span class="sd">            will be read and unpacked. Has a huge impact on memory usage. Data</span>
+<span class="sd">            can be read and unpacked on-the-fly after reading the file.</span>
+<span class="sd">            Defaults to False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">=</span> <span class="n">endian</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_encoding</span> <span class="o">=</span> <span class="n">data_encoding</span>
+        <span class="c1"># If None just return empty structure.</span>
+        <span class="k">if</span> <span class="n">file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_create_empty_trace</span><span class="p">()</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">file</span>
+        <span class="c1"># Set the filesize if necessary.</span>
+        <span class="k">if</span> <span class="n">filesize</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filesize</span> <span class="o">=</span> <span class="n">filesize</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">):</span>
+                <span class="n">_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">filesize</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">_pos</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">filesize</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fstat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">fileno</span><span class="p">())[</span><span class="mi">6</span><span class="p">]</span>
+        <span class="c1"># Otherwise read the file.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_read_trace</span><span class="p">(</span><span class="n">unpack_headers</span><span class="o">=</span><span class="n">unpack_headers</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="n">headonly</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SEGYTrace._read_trace"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYTrace._read_trace.html#obspy.io.segy.segy.SEGYTrace._read_trace">[docs]</a>    <span class="k">def</span> <span class="nf">_read_trace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unpack_headers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads the complete next header starting at the file pointer at</span>
+<span class="sd">        self.file.</span>
+
+<span class="sd">        :type unpack_headers: bool</span>
+<span class="sd">        :param unpack_headers: Determines whether or not all headers will be</span>
+<span class="sd">            unpacked during reading the file. Has a huge impact on the memory</span>
+<span class="sd">            usage and the performance. They can be unpacked on-the-fly after</span>
+<span class="sd">            being read. Defaults to False.</span>
+<span class="sd">        :type headonly: bool</span>
+<span class="sd">        :param headonly: Determines whether or not the actual data records</span>
+<span class="sd">            will be read and unpacked. Has a huge impact on memory usage. Data</span>
+<span class="sd">            can be read and unpacked on-the-fly after reading the file.</span>
+<span class="sd">            Defaults to False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">trace_header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">240</span><span class="p">)</span>
+        <span class="c1"># Check if it is smaller than 240 byte.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">trace_header</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">240</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;The trace header needs to be 240 bytes long&#39;</span>
+            <span class="k">raise</span> <span class="n">SEGYTraceHeaderTooSmallError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="n">SEGYTraceHeader</span><span class="p">(</span><span class="n">trace_header</span><span class="p">,</span>
+                                      <span class="n">endian</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">endian</span><span class="p">,</span>
+                                      <span class="n">unpack_headers</span><span class="o">=</span><span class="n">unpack_headers</span><span class="p">)</span>
+        <span class="c1"># The number of samples in the current trace.</span>
+        <span class="n">npts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">number_of_samples_in_this_trace</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">npts</span> <span class="o">=</span> <span class="n">npts</span>
+        <span class="c1"># Do a sanity check if there is enough data left.</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+        <span class="n">data_left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filesize</span> <span class="o">-</span> <span class="n">pos</span>
+        <span class="n">data_needed</span> <span class="o">=</span> <span class="n">DATA_SAMPLE_FORMAT_SAMPLE_SIZE</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data_encoding</span><span class="p">]</span> <span class="o">*</span> \
+            <span class="n">npts</span>
+        <span class="k">if</span> <span class="n">npts</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">data_needed</span> <span class="o">&gt;</span> <span class="n">data_left</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                  Too little data left in the file to unpack it according to</span>
+<span class="s2">                  its trace header. This is most likely either due to a wrong</span>
+<span class="s2">                  byte order or a corrupt file.</span>
+<span class="s2">                  &quot;&quot;&quot;</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">raise</span> <span class="n">SEGYTraceReadingError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">headonly</span><span class="p">:</span>
+            <span class="c1"># skip reading the data, but still advance the file</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">data_needed</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="c1"># build a function for reading data from the disk on the fly</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unpack_data</span> <span class="o">=</span> <span class="n">OnTheFlyDataUnpacker</span><span class="p">(</span>
+                <span class="n">DATA_SAMPLE_FORMAT_UNPACK_FUNCTIONS</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data_encoding</span><span class="p">],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">npts</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">endian</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Unpack the data.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">DATA_SAMPLE_FORMAT_UNPACK_FUNCTIONS</span><span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data_encoding</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="n">npts</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">endian</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SEGYTrace.write"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYTrace.write.html#obspy.io.segy.segy.SEGYTrace.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">data_encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes the Trace to a file like object.</span>
+
+<span class="sd">        If endian or data_encoding is set, these values will be enforced.</span>
+<span class="sd">        Otherwise use the values of the SEGYTrace object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Set the data length in the header before writing it.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">number_of_samples_in_this_trace</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="c1"># Write the header.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="n">endian</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">data_encoding</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">data_encoding</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_encoding</span>
+        <span class="k">if</span> <span class="n">endian</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">endian</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">endian</span>
+        <span class="c1"># Write the data.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No data in the SEGYTrace.&quot;</span>
+            <span class="k">raise</span> <span class="n">SEGYWritingError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">DATA_SAMPLE_FORMAT_PACK_FUNCTIONS</span><span class="p">[</span><span class="n">data_encoding</span><span class="p">](</span><span class="n">file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+                                                         <span class="n">endian</span><span class="o">=</span><span class="n">endian</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SEGYTrace._create_empty_trace"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYTrace._create_empty_trace.html#obspy.io.segy.segy.SEGYTrace._create_empty_trace">[docs]</a>    <span class="k">def</span> <span class="nf">_create_empty_trace</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates an empty trace with an empty header.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="n">SEGYTraceHeader</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">endian</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SEGYTrace.__str__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYTrace.__str__.html#obspy.io.segy.segy.SEGYTrace.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print some information about the trace.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ret_val</span> <span class="o">=</span> <span class="s1">&#39;Trace sequence number within line: </span><span class="si">%i</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">trace_sequence_number_within_line</span>
+        <span class="n">ret_val</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="si">%i</span><span class="s1"> samples, dtype=</span><span class="si">%s</span><span class="s1">, </span><span class="si">%.2f</span><span class="s1"> Hz&#39;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">/</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">sample_interval_in_ms_for_this_trace</span> <span class="o">/</span>
+                <span class="nb">float</span><span class="p">(</span><span class="mf">1E6</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">ret_val</span></div>
+
+<div class="viewcode-block" id="SEGYTrace._repr_pretty_"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYTrace._repr_pretty_.html#obspy.io.segy.segy.SEGYTrace._repr_pretty_">[docs]</a>    <span class="k">def</span> <span class="nf">_repr_pretty_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cycle</span><span class="p">):</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="SEGYTrace.__getattr__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYTrace.__getattr__.html#obspy.io.segy.segy.SEGYTrace.__getattr__">[docs]</a>    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method is only called if the attribute is not found in the usual</span>
+<span class="sd">        places (i.e. not an instance attribute or not found in the class tree</span>
+<span class="sd">        for self).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;data&#39;</span><span class="p">:</span>
+            <span class="c1"># Use data unpack function to unpack data on the fly</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;unpack_data&#39;</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unpack_data</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                      Attempted to unpack trace data on the fly with</span>
+<span class="s2">                      self.unpack_data(), but function does not exist.</span>
+<span class="s2">                      &quot;&quot;&quot;</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">raise</span> <span class="n">SEGYTraceOnTheFlyDataUnpackingError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&#39;</span><span class="si">%s</span><span class="s2">&#39; object has no attribute &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> \
+                  <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="SEGYTraceHeader"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYTraceHeader.html#obspy.io.segy.segy.SEGYTraceHeader">[docs]</a><span class="k">class</span> <span class="nc">SEGYTraceHeader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convenience class that handles reading and writing of the trace headers.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SEGYTraceHeader.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYTraceHeader.__init__.html#obspy.io.segy.segy.SEGYTraceHeader.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="s1">&#39;&gt;&#39;</span><span class="p">,</span> <span class="n">unpack_headers</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Will take the 240 byte of the trace header and unpack all values with</span>
+<span class="sd">        the given endianness.</span>
+
+<span class="sd">        :type header: str</span>
+<span class="sd">        :param header: String that contains the packed binary header values.</span>
+<span class="sd">            If header is None, a trace header with all values set to 0 will be</span>
+<span class="sd">            created</span>
+<span class="sd">        :type big_endian: bool</span>
+<span class="sd">        :param big_endian: True means the header is encoded in big endian and</span>
+<span class="sd">            False corresponds to a little endian header.</span>
+<span class="sd">        :type unpack_headers: bool</span>
+<span class="sd">        :param unpack_headers: Determines whether or not all headers will be</span>
+<span class="sd">            unpacked during reading the file. Has a huge impact on the memory</span>
+<span class="sd">            usage and the performance. They can be unpacked on-the-fly after</span>
+<span class="sd">            being read. Defaults to False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">=</span> <span class="n">endian</span>
+        <span class="k">if</span> <span class="n">header</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_create_empty_trace_header</span><span class="p">()</span>
+            <span class="k">return</span>
+        <span class="c1"># Check the length of the string,</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">header</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">240</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;The trace header needs to be 240 bytes long&#39;</span>
+            <span class="k">raise</span> <span class="n">SEGYTraceHeaderTooSmallError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="c1"># Either unpack the header or just append the unpacked header. This is</span>
+        <span class="c1"># much faster and can later be unpacked on the fly.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">unpack_headers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unpacked_header</span> <span class="o">=</span> <span class="n">header</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">unpacked_header</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_read_trace_header</span><span class="p">(</span><span class="n">header</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SEGYTraceHeader._read_trace_header"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYTraceHeader._read_trace_header.html#obspy.io.segy.segy.SEGYTraceHeader._read_trace_header">[docs]</a>    <span class="k">def</span> <span class="nf">_read_trace_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">header</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads the 240 byte long header and unpacks all values into</span>
+<span class="sd">        corresponding class attributes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Set the start position.</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Loop over all items in the TRACE_HEADER_FORMAT list which is supposed</span>
+        <span class="c1"># to be in the correct order.</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">TRACE_HEADER_FORMAT</span><span class="p">:</span>
+            <span class="n">length</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">special_format</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">item</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="n">pos</span><span class="p">:</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">length</span><span class="p">]</span>
+            <span class="n">pos</span> <span class="o">+=</span> <span class="n">length</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">unpack_header_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">endian</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span>
+                                                    <span class="n">length</span><span class="p">,</span> <span class="n">special_format</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="SEGYTraceHeader.write"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYTraceHeader.write.html#obspy.io.segy.segy.SEGYTraceHeader.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes the header to an open file like object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">endian</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">endian</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">endian</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">TRACE_HEADER_FORMAT</span><span class="p">:</span>
+            <span class="n">length</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">special_format</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">item</span>
+            <span class="c1"># Use special format if necessary.</span>
+            <span class="k">if</span> <span class="n">special_format</span><span class="p">:</span>
+                <span class="nb">format</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%s%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">endian</span><span class="p">,</span>
+                                    <span class="n">special_format</span><span class="p">))</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span>
+                                                            <span class="s1">&#39;strict&#39;</span><span class="p">)</span>
+                <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pack</span><span class="p">(</span><span class="nb">format</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)))</span>
+            <span class="c1"># Pack according to different lengths.</span>
+            <span class="k">elif</span> <span class="n">length</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="nb">format</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">h&#39;</span> <span class="o">%</span> <span class="n">endian</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">)</span>
+                <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pack</span><span class="p">(</span><span class="nb">format</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)))</span>
+            <span class="c1"># Update: Seems to be correct. Two&#39;s complement integers seem to be</span>
+            <span class="c1"># the common way to store integer values.</span>
+            <span class="k">elif</span> <span class="n">length</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="nb">format</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">i&#39;</span> <span class="o">%</span> <span class="n">endian</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">)</span>
+                <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pack</span><span class="p">(</span><span class="nb">format</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)))</span>
+            <span class="c1"># Just the one unassigned field.</span>
+            <span class="k">elif</span> <span class="n">length</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+                <span class="n">field</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                <span class="c1"># An empty field will have a zero.</span>
+                <span class="k">if</span> <span class="n">field</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">field</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pack</span><span class="p">((</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">i&#39;</span> <span class="o">%</span> <span class="n">endian</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span>
+                                                             <span class="s1">&#39;strict&#39;</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
+            <span class="c1"># Should not happen.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span></div>
+
+<div class="viewcode-block" id="SEGYTraceHeader.__getattr__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYTraceHeader.__getattr__.html#obspy.io.segy.segy.SEGYTraceHeader.__getattr__">[docs]</a>    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method is only called if the attribute is not found in the usual</span>
+<span class="sd">        places (i.e. not an instance attribute or not found in the class tree</span>
+<span class="sd">        for self).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">TRACE_HEADER_KEYS</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="c1"># If not found raise an attribute error.</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&#39;</span><span class="si">%s</span><span class="s2">&#39; object has no attribute &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> \
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="c1"># Unpack the one value and set the class attribute so it will does not</span>
+        <span class="c1"># have to unpacked again if accessed in the future.</span>
+        <span class="n">length</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">special_format</span><span class="p">,</span> <span class="n">start</span> <span class="o">=</span> <span class="n">TRACE_HEADER_FORMAT</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unpacked_header</span><span class="p">[</span><span class="n">start</span><span class="p">:</span> <span class="n">start</span> <span class="o">+</span> <span class="n">length</span><span class="p">]</span>
+        <span class="n">attribute</span> <span class="o">=</span> <span class="n">unpack_header_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">endian</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span>
+                                        <span class="n">special_format</span><span class="p">)</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">attribute</span></div>
+
+<div class="viewcode-block" id="SEGYTraceHeader.__str__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYTraceHeader.__str__.html#obspy.io.segy.segy.SEGYTraceHeader.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Just returns all header values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">retval</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">TRACE_HEADER_FORMAT</span><span class="p">:</span>
+            <span class="c1"># Do not print the unassigned value.</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;unassigned&#39;</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">retval</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: </span><span class="si">%i</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">retval</span></div>
+
+<div class="viewcode-block" id="SEGYTraceHeader._repr_pretty_"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYTraceHeader._repr_pretty_.html#obspy.io.segy.segy.SEGYTraceHeader._repr_pretty_">[docs]</a>    <span class="k">def</span> <span class="nf">_repr_pretty_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cycle</span><span class="p">):</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="SEGYTraceHeader._create_empty_trace_header"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SEGYTraceHeader._create_empty_trace_header.html#obspy.io.segy.segy.SEGYTraceHeader._create_empty_trace_header">[docs]</a>    <span class="k">def</span> <span class="nf">_create_empty_trace_header</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Init the trace header with zeros.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># First set all fields to zero.</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">TRACE_HEADER_FORMAT</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="_read_segy"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy._read_segy.html#obspy.io.segy.segy._read_segy">[docs]</a><span class="k">def</span> <span class="nf">_read_segy</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">textual_header_encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">unpack_headers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads a SEG Y file and returns a SEGYFile object.</span>
+
+<span class="sd">    :param file: Open file like object or a string which will be assumed to be</span>
+<span class="sd">        a filename.</span>
+<span class="sd">    :type endian: str</span>
+<span class="sd">    :param endian: String that determines the endianness of the file. Either</span>
+<span class="sd">        &#39;&gt;&#39; for big endian or &#39;&lt;&#39; for little endian. If it is None,</span>
+<span class="sd">        obspy.io.segy will try to autodetect the endianness. The endianness</span>
+<span class="sd">        is always valid for the whole file.</span>
+<span class="sd">    :param textual_header_encoding: The encoding of the textual header.</span>
+<span class="sd">        Either &#39;EBCDIC&#39;, &#39;ASCII&#39; or None. If it is None, autodetection will</span>
+<span class="sd">        be attempted.</span>
+<span class="sd">    :type unpack_headers: bool</span>
+<span class="sd">    :param unpack_headers: Determines whether or not all headers will be</span>
+<span class="sd">        unpacked during reading the file. Has a huge impact on the memory usage</span>
+<span class="sd">        and the performance. They can be unpacked on-the-fly after being read.</span>
+<span class="sd">        Defaults to False.</span>
+<span class="sd">    :type headonly: bool</span>
+<span class="sd">    :param headonly: Determines whether or not the actual data records will be</span>
+<span class="sd">        read and unpacked. Has a huge impact on memory usage. Data can be read</span>
+<span class="sd">        and unpacked on-the-fly after reading the file. Defaults to False.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Open the file if it is not a file like object.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;read&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;tell&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> \
+            <span class="nb">hasattr</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;seek&#39;</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">open_file</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_internal_read_segy</span><span class="p">(</span>
+                <span class="n">open_file</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="n">endian</span><span class="p">,</span>
+                <span class="n">textual_header_encoding</span><span class="o">=</span><span class="n">textual_header_encoding</span><span class="p">,</span>
+                <span class="n">unpack_headers</span><span class="o">=</span><span class="n">unpack_headers</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="n">headonly</span><span class="p">)</span>
+    <span class="c1"># Otherwise just read it.</span>
+    <span class="k">return</span> <span class="n">_internal_read_segy</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="n">endian</span><span class="p">,</span>
+                               <span class="n">textual_header_encoding</span><span class="o">=</span><span class="n">textual_header_encoding</span><span class="p">,</span>
+                               <span class="n">unpack_headers</span><span class="o">=</span><span class="n">unpack_headers</span><span class="p">,</span>
+                               <span class="n">headonly</span><span class="o">=</span><span class="n">headonly</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_internal_read_segy"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy._internal_read_segy.html#obspy.io.segy.segy._internal_read_segy">[docs]</a><span class="k">def</span> <span class="nf">_internal_read_segy</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">textual_header_encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">unpack_headers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads on open file object and returns a SEGYFile object.</span>
+
+<span class="sd">    :param file: Open file like object.</span>
+<span class="sd">    :type endian: str</span>
+<span class="sd">    :param endian: String that determines the endianness of the file. Either</span>
+<span class="sd">        &#39;&gt;&#39; for big endian or &#39;&lt;&#39; for little endian. If it is None,</span>
+<span class="sd">        obspy.io.segy will try to autodetect the endianness. The endianness</span>
+<span class="sd">        is always valid for the whole file.</span>
+<span class="sd">    :param textual_header_encoding: The encoding of the textual header.</span>
+<span class="sd">        Either &#39;EBCDIC&#39;, &#39;ASCII&#39; or None. If it is None, autodetection will</span>
+<span class="sd">        be attempted.</span>
+<span class="sd">    :type unpack_headers: bool</span>
+<span class="sd">    :param unpack_headers: Determines whether or not all headers will be</span>
+<span class="sd">        unpacked during reading the file. Has a huge impact on the memory usage</span>
+<span class="sd">        and the performance. They can be unpacked on-the-fly after being read.</span>
+<span class="sd">        Defaults to False.</span>
+<span class="sd">    :type headonly: bool</span>
+<span class="sd">    :param headonly: Determines whether or not the actual data records will be</span>
+<span class="sd">        read and unpacked. Has a huge impact on memory usage. Data can be read</span>
+<span class="sd">        and unpacked on-the-fly after reading the file. Defaults to False.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">SEGYFile</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="n">endian</span><span class="p">,</span>
+                    <span class="n">textual_header_encoding</span><span class="o">=</span><span class="n">textual_header_encoding</span><span class="p">,</span>
+                    <span class="n">unpack_headers</span><span class="o">=</span><span class="n">unpack_headers</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="n">headonly</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SUFile"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SUFile.html#obspy.io.segy.segy.SUFile">[docs]</a><span class="k">class</span> <span class="nc">SUFile</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convenience class that internally handles Seismic Unix data files. It</span>
+<span class="sd">    currently can only read IEEE 4 byte float encoded SU data files.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SUFile.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SUFile.__init__.html#obspy.io.segy.segy.SUFile.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unpack_headers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">headonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param file: A file like object with the file pointer set at the</span>
+<span class="sd">            beginning of the SEG Y file. If file is None, an empty SEGYFile</span>
+<span class="sd">            object will be initialized.</span>
+
+<span class="sd">        :param endian: The endianness of the file. If None, autodetection will</span>
+<span class="sd">            be used.</span>
+<span class="sd">        :type unpack_header: bool</span>
+<span class="sd">        :param unpack_header: Determines whether or not all headers will be</span>
+<span class="sd">            unpacked during reading the file. Has a huge impact on the memory</span>
+<span class="sd">            usage and the performance. They can be unpacked on-the-fly after</span>
+<span class="sd">            being read. Defaults to False.</span>
+<span class="sd">        :type headonly: bool</span>
+<span class="sd">        :param headonly: Determines whether or not the actual data records</span>
+<span class="sd">            will be read and unpacked. Has a huge impact on memory usage. Data</span>
+<span class="sd">            can be read and unpacked on-the-fly after reading the file.</span>
+<span class="sd">            Defaults to False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_create_empty_su_file_object</span><span class="p">()</span>
+            <span class="k">return</span>
+            <span class="c1"># Set the endianness to big.</span>
+            <span class="k">if</span> <span class="n">endian</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">=</span> <span class="s1">&#39;&gt;&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">=</span> <span class="n">ENDIAN</span><span class="p">[</span><span class="n">endian</span><span class="p">]</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">file</span>
+        <span class="c1"># If endian is None autodetect is.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">endian</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_autodetect_endianness</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">=</span> <span class="n">ENDIAN</span><span class="p">[</span><span class="n">endian</span><span class="p">]</span>
+        <span class="c1"># Read the actual traces.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_read_traces</span><span class="p">(</span><span class="n">unpack_headers</span><span class="o">=</span><span class="n">unpack_headers</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="n">headonly</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SUFile._autodetect_endianness"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SUFile._autodetect_endianness.html#obspy.io.segy.segy.SUFile._autodetect_endianness">[docs]</a>    <span class="k">def</span> <span class="nf">_autodetect_endianness</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tries to automatically determine the endianness of the file at hand.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="o">=</span> <span class="n">autodetect_endian_and_sanity_check_su</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">endian</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Autodetection of Endianness failed. Please specify it &#39;</span> <span class="o">+</span> \
+                  <span class="s1">&#39;by hand or contact the developers.&#39;</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SUFile._create_empty_su_file_object"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SUFile._create_empty_su_file_object.html#obspy.io.segy.segy.SUFile._create_empty_su_file_object">[docs]</a>    <span class="k">def</span> <span class="nf">_create_empty_su_file_object</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates an empty SUFile object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">traces</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="SUFile.__str__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SUFile.__str__.html#obspy.io.segy.segy.SUFile.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prints some information about the SU file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%i</span><span class="s1"> traces in the SU structure.&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">traces</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SUFile._repr_pretty_"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SUFile._repr_pretty_.html#obspy.io.segy.segy.SUFile._repr_pretty_">[docs]</a>    <span class="k">def</span> <span class="nf">_repr_pretty_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cycle</span><span class="p">):</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="SUFile._read_traces"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SUFile._read_traces.html#obspy.io.segy.segy.SUFile._read_traces">[docs]</a>    <span class="k">def</span> <span class="nf">_read_traces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unpack_headers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads the actual traces starting at the current file pointer position</span>
+<span class="sd">        to the end of the file.</span>
+
+<span class="sd">        :type unpack_header: bool</span>
+<span class="sd">        :param unpack_header: Determines whether or not all headers will be</span>
+<span class="sd">            unpacked during reading the file. Has a huge impact on the memory</span>
+<span class="sd">            usage and the performance. They can be unpacked on-the-fly after</span>
+<span class="sd">            being read. Defaults to False.</span>
+<span class="sd">        :type headonly: bool</span>
+<span class="sd">        :param headonly: Determines whether or not the actual data records</span>
+<span class="sd">            will be unpacked. Useful if one is just interested in the headers.</span>
+<span class="sd">            Defaults to False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">traces</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Big loop to read all data traces.</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="c1"># Read and as soon as the trace header is too small abort.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Always unpack with IEEE</span>
+                <span class="n">trace</span> <span class="o">=</span> <span class="n">SEGYTrace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">endian</span><span class="p">,</span>
+                                  <span class="n">unpack_headers</span><span class="o">=</span><span class="n">unpack_headers</span><span class="p">,</span>
+                                  <span class="n">headonly</span><span class="o">=</span><span class="n">headonly</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">traces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">SEGYTraceHeaderTooSmallError</span><span class="p">:</span>
+                <span class="k">break</span></div>
+
+<div class="viewcode-block" id="SUFile.write"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SUFile.write.html#obspy.io.segy.segy.SUFile.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write a SU Y file to file which is either a file like object with a</span>
+<span class="sd">        write method or a filename string.</span>
+
+<span class="sd">        If endian is set it will be enforced.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;write&#39;</span><span class="p">):</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_write</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="n">endian</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="n">endian</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SUFile._write"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.SUFile._write.html#obspy.io.segy.segy.SUFile._write">[docs]</a>    <span class="k">def</span> <span class="nf">_write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write a SU Y file to file which is either a file like object with a</span>
+<span class="sd">        write method or a filename string.</span>
+
+<span class="sd">        If endian is set it will be enforced.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Write all traces.</span>
+        <span class="k">for</span> <span class="n">trace</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">traces</span><span class="p">:</span>
+            <span class="n">trace</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">data_encoding</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="n">endian</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="_read_su"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy._read_su.html#obspy.io.segy.segy._read_su">[docs]</a><span class="k">def</span> <span class="nf">_read_su</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unpack_headers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads a Seismic Unix (SU) file and returns a SUFile object.</span>
+
+<span class="sd">    :param file: Open file like object or a string which will be assumed to be</span>
+<span class="sd">        a filename.</span>
+<span class="sd">    :type endian: str</span>
+<span class="sd">    :param endian: String that determines the endianness of the file. Either</span>
+<span class="sd">        &#39;&gt;&#39; for big endian or &#39;&lt;&#39; for little endian. If it is None,</span>
+<span class="sd">        obspy.io.segy will try to autodetect the endianness. The endianness</span>
+<span class="sd">        is always valid for the whole file.</span>
+<span class="sd">    :type unpack_header: bool</span>
+<span class="sd">    :param unpack_header: Determines whether or not all headers will be</span>
+<span class="sd">        unpacked during reading the file. Has a huge impact on the memory usage</span>
+<span class="sd">        and the performance. They can be unpacked on-the-fly after being read.</span>
+<span class="sd">        Defaults to False.</span>
+<span class="sd">    :type headonly: bool</span>
+<span class="sd">    :param headonly: Determines whether or not the actual data records will be</span>
+<span class="sd">        unpacked. Useful if one is just interested in the headers. Defaults to</span>
+<span class="sd">        False.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Open the file if it is not a file like object.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;read&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;tell&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> \
+            <span class="nb">hasattr</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;seek&#39;</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">open_file</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_internal_read_su</span><span class="p">(</span><span class="n">open_file</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="n">endian</span><span class="p">,</span>
+                                     <span class="n">unpack_headers</span><span class="o">=</span><span class="n">unpack_headers</span><span class="p">,</span>
+                                     <span class="n">headonly</span><span class="o">=</span><span class="n">headonly</span><span class="p">)</span>
+    <span class="c1"># Otherwise just read it.</span>
+    <span class="k">return</span> <span class="n">_internal_read_su</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="n">endian</span><span class="p">,</span>
+                             <span class="n">unpack_headers</span><span class="o">=</span><span class="n">unpack_headers</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="n">headonly</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_internal_read_su"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy._internal_read_su.html#obspy.io.segy.segy._internal_read_su">[docs]</a><span class="k">def</span> <span class="nf">_internal_read_su</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unpack_headers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">headonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads on open file object and returns a SUFile object.</span>
+
+<span class="sd">    :param file: Open file like object.</span>
+<span class="sd">    :type endian: str</span>
+<span class="sd">    :param endian: String that determines the endianness of the file. Either</span>
+<span class="sd">        &#39;&gt;&#39; for big endian or &#39;&lt;&#39; for little endian. If it is None,</span>
+<span class="sd">        obspy.io.segy will try to autodetect the endianness. The endianness</span>
+<span class="sd">        is always valid for the whole file.</span>
+<span class="sd">    :type unpack_header: bool</span>
+<span class="sd">    :param unpack_header: Determines whether or not all headers will be</span>
+<span class="sd">        unpacked during reading the file. Has a huge impact on the memory usage</span>
+<span class="sd">        and the performance. They can be unpacked on-the-fly after being read.</span>
+<span class="sd">        Defaults to False.</span>
+<span class="sd">    :type headonly: bool</span>
+<span class="sd">    :param headonly: Determines whether or not the actual data records will be</span>
+<span class="sd">        unpacked. Useful if one is just interested in the headers. Defaults to</span>
+<span class="sd">        False.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">SUFile</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="n">endian</span><span class="p">,</span> <span class="n">unpack_headers</span><span class="o">=</span><span class="n">unpack_headers</span><span class="p">,</span>
+                  <span class="n">headonly</span><span class="o">=</span><span class="n">headonly</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="autodetect_endian_and_sanity_check_su"><a class="viewcode-back" href="../../../../packages/autogen/obspy.io.segy.segy.autodetect_endian_and_sanity_check_su.html#obspy.io.segy.segy.autodetect_endian_and_sanity_check_su">[docs]</a><span class="k">def</span> <span class="nf">autodetect_endian_and_sanity_check_su</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes an open file and tries to determine the endianness of a Seismic</span>
+<span class="sd">    Unix data file by doing some sanity checks with the unpacked header values.</span>
+
+<span class="sd">    Returns False if the sanity checks failed and the endianness otherwise.</span>
+
+<span class="sd">    It is assumed that the data is written as 32bit IEEE floating points in</span>
+<span class="sd">    either little or big endian.</span>
+
+<span class="sd">    The test currently can only identify SU files in which all traces have the</span>
+<span class="sd">    same length. It basically just makes a sanity check for various fields in</span>
+<span class="sd">    the Trace header.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">):</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fstat</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">fileno</span><span class="p">())[</span><span class="mi">6</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">size</span> <span class="o">&lt;</span> <span class="mi">244</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="c1"># Also has to be a multiple of 4 in length because every header is 400 long</span>
+    <span class="c1"># and every data value 4 byte long.</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">size</span> <span class="o">%</span> <span class="mi">4</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="c1"># Jump to the number of samples field in the trace header.</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">114</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">sample_count</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="c1"># Jump to the beginning of the year fields.</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">156</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">year</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">jul_day</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">hour</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">minute</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">second</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="c1"># Jump to previous position.</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># Unpack in little and big endian.</span>
+    <span class="n">le_sample_count</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&lt;h&#39;</span><span class="p">,</span> <span class="n">sample_count</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">be_sample_count</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&gt;h&#39;</span><span class="p">,</span> <span class="n">sample_count</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># Check if both work.</span>
+    <span class="n">working_byteorders</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">le_sample_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="mi">240</span> <span class="o">+</span> <span class="p">(</span><span class="n">le_sample_count</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">%</span> <span class="n">length</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">working_byteorders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&lt;&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">be_sample_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="mi">240</span> <span class="o">+</span> <span class="p">(</span><span class="n">be_sample_count</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">%</span> <span class="n">length</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">working_byteorders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&gt;&#39;</span><span class="p">)</span>
+    <span class="c1"># If None works return False.</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">working_byteorders</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="c1"># Check if the other header values make sense.</span>
+    <span class="n">still_working_byteorders</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">bo</span> <span class="ow">in</span> <span class="n">working_byteorders</span><span class="p">:</span>
+        <span class="n">fmt</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">h&quot;</span> <span class="o">%</span> <span class="n">bo</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">)</span>
+        <span class="n">this_interval</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="n">interval</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">this_year</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="n">year</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">this_julday</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="n">jul_day</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">this_hour</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="n">hour</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">this_minute</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="n">minute</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">this_second</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="n">second</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># Make a sanity check for each.</span>
+        <span class="c1"># XXX: The arbitrary maximum of the sample interval is 10 seconds.</span>
+        <span class="k">if</span> <span class="n">this_interval</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">this_interval</span> <span class="o">&gt;</span> <span class="mf">10E7</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="c1"># Some programs write two digit years.</span>
+        <span class="k">if</span> <span class="n">this_year</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">(</span><span class="n">this_year</span> <span class="o">&lt;</span> <span class="mi">1930</span> <span class="ow">or</span> <span class="n">this_year</span> <span class="o">&gt;=</span> <span class="mi">2030</span><span class="p">)</span> <span class="ow">and</span> \
+                <span class="p">(</span><span class="n">this_year</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">this_year</span> <span class="o">&gt;=</span> <span class="mi">100</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="c1"># 9999 is often used as a placeholder</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">this_julday</span> <span class="o">&gt;</span> <span class="mi">366</span> <span class="ow">or</span> <span class="n">this_julday</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="n">this_julday</span> <span class="o">!=</span> <span class="mi">9999</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">this_hour</span> <span class="o">&gt;</span> <span class="mi">24</span> <span class="ow">or</span> <span class="n">this_hour</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">this_minute</span> <span class="o">&gt;</span> <span class="mi">60</span> <span class="ow">or</span> <span class="n">this_minute</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">this_second</span> <span class="o">&gt;</span> <span class="mi">60</span> <span class="ow">or</span> <span class="n">this_second</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">still_working_byteorders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bo</span><span class="p">)</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">still_working_byteorders</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">length</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">elif</span> <span class="n">length</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">still_working_byteorders</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># XXX: In the unlikely case both byte orders pass the sanity checks</span>
+        <span class="c1"># something else should be checked. Currently it is not.</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            Both possible byte orders passed all sanity checks. Please contact</span>
+<span class="s2">            the ObsPy developers so they can implement additional tests.</span>
+<span class="s2">            &quot;&quot;&quot;</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+
+
+<span class="c1"># Remove once 0.11 has been released.</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">DynamicAttributeImportRerouteModule</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="vm">__doc__</span><span class="p">,</span> <span class="n">locs</span><span class="o">=</span><span class="nb">locals</span><span class="p">(),</span>
+    <span class="n">original_module</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="vm">__name__</span><span class="p">],</span>
+    <span class="n">import_map</span><span class="o">=</span><span class="p">{},</span>
+    <span class="n">function_map</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;readSEGY&#39;</span><span class="p">:</span> <span class="s1">&#39;obspy.io.segy.segy._read_segy&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;readSU&#39;</span><span class="p">:</span> <span class="s1">&#39;obspy.io.segy.segy._read_su&#39;</span><span class="p">})</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

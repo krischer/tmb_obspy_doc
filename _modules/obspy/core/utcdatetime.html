@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.core.utcdatetime &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.core.utcdatetime</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module containing a UTC-based datetime class.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA @UnusedWildImport</span>
+<span class="kn">from</span> <span class="nn">future.utils</span> <span class="k">import</span> <span class="n">native_str</span>
+
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">from</span> <span class="nn">obspy.core.util.decorator</span> <span class="k">import</span> <span class="n">deprecated</span>
+
+
+<span class="n">TIMESTAMP0</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1970</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="UTCDateTime"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.html#obspy.core.utcdatetime.UTCDateTime">[docs]</a><span class="k">class</span> <span class="nc">UTCDateTime</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A UTC-based datetime object.</span>
+
+<span class="sd">    This datetime class is based on the POSIX time, a system for describing</span>
+<span class="sd">    instants in time, defined as the number of seconds elapsed since midnight</span>
+<span class="sd">    Coordinated Universal Time (UTC) of Thursday, January 1, 1970. Using a</span>
+<span class="sd">    single float timestamp allows higher precision as the default Python</span>
+<span class="sd">    :class:`datetime.datetime` class. It features the full `ISO8601:2004`_</span>
+<span class="sd">    specification and some additional string patterns during object</span>
+<span class="sd">    initialization.</span>
+
+<span class="sd">    :type args: int, float, str, :class:`datetime.datetime`, optional</span>
+<span class="sd">    :param args: The creation of a new `UTCDateTime` object depends from the</span>
+<span class="sd">        given input parameters. All possible options are summarized in the</span>
+<span class="sd">        `Examples`_ section below.</span>
+<span class="sd">    :type iso8601: bool, optional</span>
+<span class="sd">    :param iso8601: Enforce `ISO8601:2004`_ detection. Works only with a string</span>
+<span class="sd">        as first input argument.</span>
+<span class="sd">    :type precision: int, optional</span>
+<span class="sd">    :param precision: Sets the precision used by the rich comparison operators.</span>
+<span class="sd">        Defaults to ``6`` digits after the decimal point. See also `Precision`_</span>
+<span class="sd">        section below.</span>
+
+<span class="sd">    .. versionchanged:: 0.5.1</span>
+<span class="sd">        UTCDateTime is no longer based on Python&#39;s datetime.datetime class</span>
+<span class="sd">        instead uses timestamp as a single floating point value which allows</span>
+<span class="sd">        higher precision.</span>
+
+<span class="sd">    .. rubric:: Supported Operations</span>
+
+<span class="sd">    ``UTCDateTime = UTCDateTime + delta``</span>
+<span class="sd">        Adds/removes ``delta`` seconds (given as int or float) to/from the</span>
+<span class="sd">        current ``UTCDateTime`` object and returns a new ``UTCDateTime``</span>
+<span class="sd">        object.</span>
+<span class="sd">        See also: :meth:`~obspy.core.utcdatetime.UTCDateTime.__add__`.</span>
+
+<span class="sd">    ``delta = UTCDateTime - UTCDateTime``</span>
+<span class="sd">        Calculates the time difference in seconds between two ``UTCDateTime``</span>
+<span class="sd">        objects. The time difference is given as float data type and may also</span>
+<span class="sd">        contain a negative number.</span>
+<span class="sd">        See also: :meth:`~obspy.core.utcdatetime.UTCDateTime.__sub__`.</span>
+
+<span class="sd">    .. rubric:: _`Examples`</span>
+
+<span class="sd">    (1) Using a timestamp.</span>
+
+<span class="sd">        &gt;&gt;&gt; UTCDateTime(0)</span>
+<span class="sd">        UTCDateTime(1970, 1, 1, 0, 0)</span>
+
+<span class="sd">        &gt;&gt;&gt; UTCDateTime(1240561632)</span>
+<span class="sd">        UTCDateTime(2009, 4, 24, 8, 27, 12)</span>
+
+<span class="sd">        &gt;&gt;&gt; UTCDateTime(1240561632.5)</span>
+<span class="sd">        UTCDateTime(2009, 4, 24, 8, 27, 12, 500000)</span>
+
+<span class="sd">    (2) Using a `ISO8601:2004`_ string. The detection may be enforced by</span>
+<span class="sd">        setting the ``iso8601`` parameter to True.</span>
+
+<span class="sd">        * Calendar date representation.</span>
+
+<span class="sd">            &gt;&gt;&gt; UTCDateTime(&quot;2009-12-31T12:23:34.5&quot;)</span>
+<span class="sd">            UTCDateTime(2009, 12, 31, 12, 23, 34, 500000)</span>
+
+<span class="sd">            &gt;&gt;&gt; UTCDateTime(&quot;20091231T122334.5&quot;)           # compact</span>
+<span class="sd">            UTCDateTime(2009, 12, 31, 12, 23, 34, 500000)</span>
+
+<span class="sd">            &gt;&gt;&gt; UTCDateTime(&quot;2009-12-31T12:23:34.5Z&quot;)      # w/o time zone</span>
+<span class="sd">            UTCDateTime(2009, 12, 31, 12, 23, 34, 500000)</span>
+
+<span class="sd">            &gt;&gt;&gt; UTCDateTime(&quot;2009-12-31T12:23:34+01:15&quot;)   # w/ time zone</span>
+<span class="sd">            UTCDateTime(2009, 12, 31, 11, 8, 34)</span>
+
+<span class="sd">        * Ordinal date representation.</span>
+
+<span class="sd">            &gt;&gt;&gt; UTCDateTime(&quot;2009-365T12:23:34.5&quot;)</span>
+<span class="sd">            UTCDateTime(2009, 12, 31, 12, 23, 34, 500000)</span>
+
+<span class="sd">            &gt;&gt;&gt; UTCDateTime(&quot;2009365T122334.5&quot;)            # compact</span>
+<span class="sd">            UTCDateTime(2009, 12, 31, 12, 23, 34, 500000)</span>
+
+<span class="sd">            &gt;&gt;&gt; UTCDateTime(&quot;2009001&quot;, iso8601=True)       # enforce ISO8601</span>
+<span class="sd">            UTCDateTime(2009, 1, 1, 0, 0)</span>
+
+<span class="sd">        * Week date representation.</span>
+
+<span class="sd">            &gt;&gt;&gt; UTCDateTime(&quot;2009-W53-7T12:23:34.5&quot;)</span>
+<span class="sd">            UTCDateTime(2010, 1, 3, 12, 23, 34, 500000)</span>
+
+<span class="sd">            &gt;&gt;&gt; UTCDateTime(&quot;2009W537T122334.5&quot;)           # compact</span>
+<span class="sd">            UTCDateTime(2010, 1, 3, 12, 23, 34, 500000)</span>
+
+<span class="sd">            &gt;&gt;&gt; UTCDateTime(&quot;2009W011&quot;, iso8601=True)      # enforce ISO8601</span>
+<span class="sd">            UTCDateTime(2008, 12, 29, 0, 0)</span>
+
+<span class="sd">    (3) Using not ISO8601 compatible strings.</span>
+
+<span class="sd">        &gt;&gt;&gt; UTCDateTime(&quot;1970-01-01 12:23:34&quot;)</span>
+<span class="sd">        UTCDateTime(1970, 1, 1, 12, 23, 34)</span>
+
+<span class="sd">        &gt;&gt;&gt; UTCDateTime(&quot;1970,01,01,12:23:34&quot;)</span>
+<span class="sd">        UTCDateTime(1970, 1, 1, 12, 23, 34)</span>
+
+<span class="sd">        &gt;&gt;&gt; UTCDateTime(&quot;1970,001,12:23:34&quot;)</span>
+<span class="sd">        UTCDateTime(1970, 1, 1, 12, 23, 34)</span>
+
+<span class="sd">        &gt;&gt;&gt; UTCDateTime(&quot;20090701121212&quot;)</span>
+<span class="sd">        UTCDateTime(2009, 7, 1, 12, 12, 12)</span>
+
+<span class="sd">        &gt;&gt;&gt; UTCDateTime(&quot;19700101&quot;)</span>
+<span class="sd">        UTCDateTime(1970, 1, 1, 0, 0)</span>
+
+<span class="sd">        &gt;&gt;&gt; UTCDateTime(&quot;20110818_03:00:00&quot;)</span>
+<span class="sd">        UTCDateTime(2011, 8, 18, 3, 0)</span>
+
+<span class="sd">    (4) Using multiple arguments in the following order: `year, month,</span>
+<span class="sd">        day[, hour[, minute[, second[, microsecond]]]`. The year, month and day</span>
+<span class="sd">        arguments are required.</span>
+
+<span class="sd">        &gt;&gt;&gt; UTCDateTime(1970, 1, 1)</span>
+<span class="sd">        UTCDateTime(1970, 1, 1, 0, 0)</span>
+
+<span class="sd">        &gt;&gt;&gt; UTCDateTime(1970, 1, 1, 12, 23, 34, 123456)</span>
+<span class="sd">        UTCDateTime(1970, 1, 1, 12, 23, 34, 123456)</span>
+
+<span class="sd">    (5) Using the following keyword arguments: `year, month, day, julday, hour,</span>
+<span class="sd">        minute, second, microsecond`. Either the combination of year, month and</span>
+<span class="sd">        day, or year and Julian day are required.</span>
+
+<span class="sd">        &gt;&gt;&gt; UTCDateTime(year=1970, month=1, day=1, minute=15, microsecond=20)</span>
+<span class="sd">        UTCDateTime(1970, 1, 1, 0, 15, 0, 20)</span>
+
+<span class="sd">        &gt;&gt;&gt; UTCDateTime(year=2009, julday=234, hour=14, minute=13)</span>
+<span class="sd">        UTCDateTime(2009, 8, 22, 14, 13)</span>
+
+<span class="sd">    (6) Using a Python :class:`datetime.datetime` object.</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = datetime.datetime(2009, 5, 24, 8, 28, 12, 5001)</span>
+<span class="sd">        &gt;&gt;&gt; UTCDateTime(dt)</span>
+<span class="sd">        UTCDateTime(2009, 5, 24, 8, 28, 12, 5001)</span>
+
+<span class="sd">    .. rubric:: _`Precision`</span>
+
+<span class="sd">    The :class:`UTCDateTime` class works with a default precision of ``6``</span>
+<span class="sd">    digits which effects the comparison of date/time values, e.g.:</span>
+
+<span class="sd">    &gt;&gt;&gt; dt = UTCDateTime(0)</span>
+<span class="sd">    &gt;&gt;&gt; dt2 = UTCDateTime(0.00001)</span>
+<span class="sd">    &gt;&gt;&gt; dt3 = UTCDateTime(0.0000001)</span>
+<span class="sd">    &gt;&gt;&gt; print(dt.precision)</span>
+<span class="sd">    6</span>
+<span class="sd">    &gt;&gt;&gt; dt == dt2  # 5th digit is within current precision</span>
+<span class="sd">    False</span>
+<span class="sd">    &gt;&gt;&gt; dt == dt3  # 7th digit will be neglected</span>
+<span class="sd">    True</span>
+
+<span class="sd">    You may change that behavior either by,</span>
+
+<span class="sd">    (1) using the ``precision`` keyword during object initialization:</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(0, precision=4)</span>
+<span class="sd">        &gt;&gt;&gt; dt2 = UTCDateTime(0.00001, precision=4)</span>
+<span class="sd">        &gt;&gt;&gt; print(dt.precision)</span>
+<span class="sd">        4</span>
+<span class="sd">        &gt;&gt;&gt; dt == dt2</span>
+<span class="sd">        True</span>
+
+<span class="sd">    (2) or set it the class attribute ``DEFAULT_PRECISION`` for all new</span>
+<span class="sd">        :class:`UTCDateTime` objects using a monkey patch:</span>
+
+<span class="sd">        &gt;&gt;&gt; UTCDateTime.DEFAULT_PRECISION = 4</span>
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(0)</span>
+<span class="sd">        &gt;&gt;&gt; dt2 = UTCDateTime(0.00001)</span>
+<span class="sd">        &gt;&gt;&gt; print(dt.precision)</span>
+<span class="sd">        4</span>
+<span class="sd">        &gt;&gt;&gt; dt == dt2</span>
+<span class="sd">        True</span>
+
+<span class="sd">        Don&#39;t forget to reset ``DEFAULT_PRECISION`` if not needed anymore!</span>
+
+<span class="sd">        &gt;&gt;&gt; UTCDateTime.DEFAULT_PRECISION = 6</span>
+
+<span class="sd">    .. _ISO8601:2004: https://en.wikipedia.org/wiki/ISO_8601</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">timestamp</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">DEFAULT_PRECISION</span> <span class="o">=</span> <span class="mi">6</span>
+
+<div class="viewcode-block" id="UTCDateTime.__init__"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.__init__.html#obspy.core.utcdatetime.UTCDateTime.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a new UTCDateTime object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># set default precision</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">precision</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_PRECISION</span><span class="p">)</span>
+        <span class="c1"># iso8601 flag</span>
+        <span class="n">iso8601</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;iso8601&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span>
+        <span class="c1"># check parameter</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># use current time if no time is given</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="c1"># check types</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># got a timestamp</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="fm">__float__</span><span class="p">()</span>
+                <span class="k">return</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">):</span>
+                <span class="c1"># got a Python datetime.datetime object</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_from_datetime</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">):</span>
+                <span class="c1"># got a Python datetime.date object</span>
+                <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">value</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">value</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_from_datetime</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">native_str</span><span class="p">)):</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+                <span class="c1"># got a string instance</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="c1"># check for ISO8601 date string</span>
+                <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">iso8601</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_iso_8601</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">timestamp</span>
+                        <span class="k">return</span>
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">iso8601</span><span class="p">:</span>
+                            <span class="k">raise</span>
+                <span class="c1"># try to apply some standard patterns</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;W&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+                <span class="c1"># check for ordinal date (julian date)</span>
+                <span class="n">parts</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+                <span class="c1"># check for patterns</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span> <span class="ow">and</span> <span class="n">value</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+                    <span class="c1"># looks like an compact ordinal date string</span>
+                    <span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;%Y%j&quot;</span>
+                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> \
+                        <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+                    <span class="c1"># looks like an ordinal date string</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;%Y%j%H%M%S&quot;</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;%Y%j&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># some parts should have 2 digits</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">),</span> <span class="mi">6</span><span class="p">)):</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="n">parts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span> <span class="o">+</span> <span class="n">parts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+                    <span class="c1"># fill missing elements with zeros</span>
+                    <span class="n">value</span> <span class="o">+=</span> <span class="s1">&#39;0&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">14</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+                    <span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">%H%M%S&quot;</span>
+                <span class="n">ms</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                    <span class="n">parts</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">ms</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="k">pass</span>
+                <span class="c1"># all parts should be digits now - here we filter unknown</span>
+                <span class="c1"># patterns and pass it directly to Python&#39;s  datetime.datetime</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+                    <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_from_datetime</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
+                    <span class="k">return</span>
+                <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_from_datetime</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">ms</span><span class="p">)</span>
+                <span class="k">return</span>
+        <span class="c1"># check for ordinal/julian date kwargs</span>
+        <span class="k">if</span> <span class="s1">&#39;julday&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;year&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="c1"># year given as kwargs</span>
+                <span class="n">year</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># year is first (and only) argument</span>
+                <span class="n">year</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">temp</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%4d%03d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">),</span>
+                                    <span class="nb">int</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;julday&#39;</span><span class="p">]))</span>
+                <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="s1">&#39;%Y%j&#39;</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">month</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">day</span>
+                <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;julday&#39;</span><span class="p">)</span>
+
+        <span class="c1"># check if seconds are given as float value</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="n">_frac</span><span class="p">,</span> <span class="n">_sec</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">modf</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="mi">6</span><span class="p">))</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;microsecond&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">_frac</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">))</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;second&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">_sec</span><span class="p">)</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_from_datetime</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UTCDateTime._set"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._set.html#obspy.core.utcdatetime.UTCDateTime._set">[docs]</a>    <span class="k">def</span> <span class="nf">_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets current timestamp using kwargs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">year</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+        <span class="n">month</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>
+        <span class="n">day</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
+        <span class="n">hour</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">)</span>
+        <span class="n">minute</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;minute&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">)</span>
+        <span class="n">second</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;second&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
+        <span class="n">microsecond</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;microsecond&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span><span class="p">)</span>
+        <span class="n">julday</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;julday&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">julday</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span> <span class="n">julday</span><span class="o">=</span><span class="n">julday</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="n">hour</span><span class="p">,</span>
+                                         <span class="n">minute</span><span class="o">=</span><span class="n">minute</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="n">second</span><span class="p">,</span>
+                                         <span class="n">microsecond</span><span class="o">=</span><span class="n">microsecond</span><span class="p">)</span><span class="o">.</span><span class="n">timestamp</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span>
+                                         <span class="n">second</span><span class="p">,</span> <span class="n">microsecond</span><span class="p">)</span><span class="o">.</span><span class="n">timestamp</span></div>
+
+<div class="viewcode-block" id="UTCDateTime._from_datetime"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._from_datetime.html#obspy.core.utcdatetime.UTCDateTime._from_datetime">[docs]</a>    <span class="k">def</span> <span class="nf">_from_datetime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Use Python datetime object to set current time.</span>
+
+<span class="sd">        :type dt: :class:`datetime.datetime`</span>
+<span class="sd">        :param dt: Python datetime object.</span>
+<span class="sd">        :type ms: float</span>
+<span class="sd">        :param ms: extra seconds to add to current UTCDateTime object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># see datetime.timedelta.total_seconds</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">td</span> <span class="o">=</span> <span class="p">(</span><span class="n">dt</span> <span class="o">-</span> <span class="n">TIMESTAMP0</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="n">td</span> <span class="o">=</span> <span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-</span> <span class="n">dt</span><span class="o">.</span><span class="n">utcoffset</span><span class="p">())</span> <span class="o">-</span> <span class="n">TIMESTAMP0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">=</span> <span class="p">(</span><span class="n">td</span><span class="o">.</span><span class="n">microseconds</span> <span class="o">+</span> <span class="p">(</span><span class="n">td</span><span class="o">.</span><span class="n">seconds</span> <span class="o">+</span> <span class="n">td</span><span class="o">.</span><span class="n">days</span> <span class="o">*</span> <span class="mi">86400</span><span class="p">)</span> <span class="o">*</span>
+                          <span class="mi">1000000</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000000.0</span> <span class="o">+</span> <span class="n">ms</span></div>
+
+<div class="viewcode-block" id="UTCDateTime._parse_iso_8601"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._parse_iso_8601.html#obspy.core.utcdatetime.UTCDateTime._parse_iso_8601">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_parse_iso_8601</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parses an ISO8601:2004 date time string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># remove trailing &#39;Z&#39;</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="c1"># split between date and time</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="c1"># remove all hyphens in date</span>
+        <span class="n">date</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="c1"># remove colons in time</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="c1"># guess date pattern</span>
+        <span class="n">length_date</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">date</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;W&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">length_date</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+            <span class="c1"># we got a week date: YYYYWwwD</span>
+            <span class="c1"># remove week indicator &#39;W&#39;</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;W&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">date_pattern</span> <span class="o">=</span> <span class="s2">&quot;%Y%W%w&quot;</span>
+            <span class="n">year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">date</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
+            <span class="c1"># [Www] is the week number prefixed by the letter &#39;W&#39;, from W01</span>
+            <span class="c1"># through W53.</span>
+            <span class="c1"># strpftime %W == Week number of the year (Monday as the first day</span>
+            <span class="c1"># of the week) as a decimal number [00,53]. All days in a new year</span>
+            <span class="c1"># preceding the first Monday are considered to be in week 0.</span>
+            <span class="n">week</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">date</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="c1"># [D] is the weekday number, from 1 through 7, beginning with</span>
+            <span class="c1"># Monday and ending with Sunday.</span>
+            <span class="c1"># strpftime %w == Weekday as a decimal number [0(Sunday),6]</span>
+            <span class="n">day</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">date</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">day</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+                <span class="n">day</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%04d%02d%1d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">week</span><span class="p">,</span> <span class="n">day</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">length_date</span> <span class="o">==</span> <span class="mi">7</span> <span class="ow">and</span> <span class="n">date</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">and</span> <span class="n">value</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># we got a ordinal date: YYYYDDD</span>
+            <span class="n">date_pattern</span> <span class="o">=</span> <span class="s2">&quot;%Y%j&quot;</span>
+        <span class="k">elif</span> <span class="n">length_date</span> <span class="o">==</span> <span class="mi">8</span> <span class="ow">and</span> <span class="n">date</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="c1"># we got a calendar date: YYYYMMDD</span>
+            <span class="n">date_pattern</span> <span class="o">=</span> <span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Wrong or incomplete ISO8601:2004 date format&quot;</span><span class="p">)</span>
+        <span class="c1"># check for time zone information</span>
+        <span class="c1"># note that the zone designator is the actual offset from UTC and</span>
+        <span class="c1"># does not include any information on daylight saving time</span>
+        <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="s1">&#39;+&#39;</span> <span class="ow">in</span> <span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:]:</span>
+            <span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">tz</span><span class="p">)</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">)</span>
+            <span class="n">delta</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">time</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="s1">&#39;-&#39;</span> <span class="ow">in</span> <span class="n">time</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:]:</span>
+            <span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">tz</span><span class="p">)</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+            <span class="n">delta</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">delta</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">delta</span><span class="p">:</span>
+            <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">tz</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">tz</span> <span class="o">+=</span> <span class="s1">&#39;0&#39;</span>
+            <span class="n">delta</span> <span class="o">=</span> <span class="n">delta</span> <span class="o">*</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">tz</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">tz</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+        <span class="c1"># split microseconds</span>
+        <span class="n">ms</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">time</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">ms</span><span class="p">)</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+            <span class="n">ms</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;0.&#39;</span> <span class="o">+</span> <span class="n">ms</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+        <span class="c1"># guess time pattern</span>
+        <span class="n">length_time</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">length_time</span> <span class="o">==</span> <span class="mi">6</span> <span class="ow">and</span> <span class="n">time</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="n">time_pattern</span> <span class="o">=</span> <span class="s2">&quot;%H%M%S&quot;</span>
+        <span class="k">elif</span> <span class="n">length_time</span> <span class="o">==</span> <span class="mi">4</span> <span class="ow">and</span> <span class="n">time</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="n">time_pattern</span> <span class="o">=</span> <span class="s2">&quot;%H%M&quot;</span>
+        <span class="k">elif</span> <span class="n">length_time</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">time</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="n">time_pattern</span> <span class="o">=</span> <span class="s2">&quot;%H&quot;</span>
+        <span class="k">elif</span> <span class="n">length_time</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">time_pattern</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Wrong or incomplete ISO8601:2004 time format&quot;</span><span class="p">)</span>
+        <span class="c1"># parse patterns</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date</span> <span class="o">+</span> <span class="s1">&#39;T&#39;</span> <span class="o">+</span> <span class="n">time</span><span class="p">,</span>
+                                        <span class="n">date_pattern</span> <span class="o">+</span> <span class="s1">&#39;T&#39;</span> <span class="o">+</span> <span class="n">time_pattern</span><span class="p">)</span>
+        <span class="c1"># add microseconds and eventually correct time zone</span>
+        <span class="k">return</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span> <span class="o">+</span> <span class="n">ms</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UTCDateTime._get_timestamp"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._get_timestamp.html#obspy.core.utcdatetime.UTCDateTime._get_timestamp">[docs]</a>    <span class="k">def</span> <span class="nf">_get_timestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns UTC timestamp in seconds.</span>
+
+<span class="sd">        :rtype: float</span>
+<span class="sd">        :return: Timestamp in seconds.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35, 123456)</span>
+<span class="sd">        &gt;&gt;&gt; dt.timestamp</span>
+<span class="sd">        1222864235.123456</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.__float__"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.__float__.html#obspy.core.utcdatetime.UTCDateTime.__float__">[docs]</a>    <span class="k">def</span> <span class="nf">__float__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns UTC timestamp in seconds.</span>
+
+<span class="sd">        :rtype: float</span>
+<span class="sd">        :return: Timestamp in seconds.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35, 123456)</span>
+<span class="sd">        &gt;&gt;&gt; float(dt)</span>
+<span class="sd">        1222864235.123456</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span></div>
+
+<div class="viewcode-block" id="UTCDateTime._get_datetime"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._get_datetime.html#obspy.core.utcdatetime.UTCDateTime._get_datetime">[docs]</a>    <span class="k">def</span> <span class="nf">_get_datetime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a Python datetime object.</span>
+
+<span class="sd">        :rtype: :class:`datetime.datetime`</span>
+<span class="sd">        :return: Python datetime object.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35, 45020)</span>
+<span class="sd">        &gt;&gt;&gt; dt.datetime</span>
+<span class="sd">        datetime.datetime(2008, 10, 1, 12, 30, 35, 45020)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># datetime.utcfromtimestamp will cut off but not round</span>
+        <span class="c1"># avoid through adding timedelta - also avoids the year 2038 problem</span>
+        <span class="k">return</span> <span class="n">TIMESTAMP0</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span><span class="p">)</span></div>
+
+    <span class="n">datetime</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_datetime</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UTCDateTime._get_date"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._get_date.html#obspy.core.utcdatetime.UTCDateTime._get_date">[docs]</a>    <span class="k">def</span> <span class="nf">_get_date</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a Python date object..</span>
+
+<span class="sd">        :rtype: :class:`datetime.date`</span>
+<span class="sd">        :return: Python date object.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35, 45020)</span>
+<span class="sd">        &gt;&gt;&gt; dt.date</span>
+<span class="sd">        datetime.date(2008, 10, 1)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span></div>
+
+    <span class="n">date</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_date</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UTCDateTime._get_year"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._get_year.html#obspy.core.utcdatetime.UTCDateTime._get_year">[docs]</a>    <span class="k">def</span> <span class="nf">_get_year</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns year of the current UTCDateTime object.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        :return: Returns year as an integer.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2012, 2, 11)</span>
+<span class="sd">        &gt;&gt;&gt; dt.year</span>
+<span class="sd">        2012</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">year</span></div>
+
+<div class="viewcode-block" id="UTCDateTime._set_year"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._set_year.html#obspy.core.utcdatetime.UTCDateTime._set_year">[docs]</a>    <span class="k">def</span> <span class="nf">_set_year</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets year of current UTCDateTime object.</span>
+
+<span class="sd">        :param value: Year</span>
+<span class="sd">        :type value: int</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2012, 2, 11, 10, 11, 12)</span>
+<span class="sd">        &gt;&gt;&gt; dt.year = 2010</span>
+<span class="sd">        &gt;&gt;&gt; dt</span>
+<span class="sd">        UTCDateTime(2010, 2, 11, 10, 11, 12)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">value</span><span class="p">)</span></div>
+
+    <span class="n">year</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_year</span><span class="p">,</span> <span class="n">_set_year</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UTCDateTime._get_month"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._get_month.html#obspy.core.utcdatetime.UTCDateTime._get_month">[docs]</a>    <span class="k">def</span> <span class="nf">_get_month</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns month as an integer (January is 1, December is 12).</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        :return: Returns month as an integer, where January is 1 and December</span>
+<span class="sd">            is 12.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2012, 2, 11)</span>
+<span class="sd">        &gt;&gt;&gt; dt.month</span>
+<span class="sd">        2</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">month</span></div>
+
+<div class="viewcode-block" id="UTCDateTime._set_month"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._set_month.html#obspy.core.utcdatetime.UTCDateTime._set_month">[docs]</a>    <span class="k">def</span> <span class="nf">_set_month</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets month of current UTCDateTime object.</span>
+
+<span class="sd">        :param value: Month</span>
+<span class="sd">        :type value: int</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2012, 2, 11, 10, 11, 12)</span>
+<span class="sd">        &gt;&gt;&gt; dt.month = 10</span>
+<span class="sd">        &gt;&gt;&gt; dt</span>
+<span class="sd">        UTCDateTime(2012, 10, 11, 10, 11, 12)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="p">(</span><span class="n">month</span><span class="o">=</span><span class="n">value</span><span class="p">)</span></div>
+
+    <span class="n">month</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_month</span><span class="p">,</span> <span class="n">_set_month</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UTCDateTime._get_day"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._get_day.html#obspy.core.utcdatetime.UTCDateTime._get_day">[docs]</a>    <span class="k">def</span> <span class="nf">_get_day</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns day as an integer.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        :return: Returns day as an integer.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2012, 2, 11)</span>
+<span class="sd">        &gt;&gt;&gt; dt.day</span>
+<span class="sd">        11</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">day</span></div>
+
+<div class="viewcode-block" id="UTCDateTime._set_day"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._set_day.html#obspy.core.utcdatetime.UTCDateTime._set_day">[docs]</a>    <span class="k">def</span> <span class="nf">_set_day</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets day of current UTCDateTime object.</span>
+
+<span class="sd">        :param value: Day</span>
+<span class="sd">        :type value: int</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2012, 2, 11, 10, 11, 12)</span>
+<span class="sd">        &gt;&gt;&gt; dt.day = 20</span>
+<span class="sd">        &gt;&gt;&gt; dt</span>
+<span class="sd">        UTCDateTime(2012, 2, 20, 10, 11, 12)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="p">(</span><span class="n">day</span><span class="o">=</span><span class="n">value</span><span class="p">)</span></div>
+
+    <span class="n">day</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_day</span><span class="p">,</span> <span class="n">_set_day</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UTCDateTime._get_weekday"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._get_weekday.html#obspy.core.utcdatetime.UTCDateTime._get_weekday">[docs]</a>    <span class="k">def</span> <span class="nf">_get_weekday</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the day of the week as an integer (Monday is 0, Sunday is 6).</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        :return: Returns day of the week as an integer, where Monday is 0 and</span>
+<span class="sd">            Sunday is 6.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35, 45020)</span>
+<span class="sd">        &gt;&gt;&gt; dt.weekday</span>
+<span class="sd">        2</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">weekday</span><span class="p">()</span></div>
+
+    <span class="n">weekday</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_weekday</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UTCDateTime._get_time"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._get_time.html#obspy.core.utcdatetime.UTCDateTime._get_time">[docs]</a>    <span class="k">def</span> <span class="nf">_get_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a Python time object.</span>
+
+<span class="sd">        :rtype: :class:`datetime.time`</span>
+<span class="sd">        :return: Python time object.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35, 45020)</span>
+<span class="sd">        &gt;&gt;&gt; dt.time</span>
+<span class="sd">        datetime.time(12, 30, 35, 45020)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">time</span><span class="p">()</span></div>
+
+    <span class="n">time</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_time</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UTCDateTime._get_hour"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._get_hour.html#obspy.core.utcdatetime.UTCDateTime._get_hour">[docs]</a>    <span class="k">def</span> <span class="nf">_get_hour</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns hour as an integer.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        :return: Returns hour as an integer.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2012, 2, 11, 10, 11, 12)</span>
+<span class="sd">        &gt;&gt;&gt; dt.hour</span>
+<span class="sd">        10</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">hour</span></div>
+
+<div class="viewcode-block" id="UTCDateTime._set_hour"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._set_hour.html#obspy.core.utcdatetime.UTCDateTime._set_hour">[docs]</a>    <span class="k">def</span> <span class="nf">_set_hour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets hours of current UTCDateTime object.</span>
+
+<span class="sd">        :param value: Hours</span>
+<span class="sd">        :type value: int</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2012, 2, 11, 10, 11, 12)</span>
+<span class="sd">        &gt;&gt;&gt; dt.hour = 20</span>
+<span class="sd">        &gt;&gt;&gt; dt</span>
+<span class="sd">        UTCDateTime(2012, 2, 11, 20, 11, 12)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="n">value</span><span class="p">)</span></div>
+
+    <span class="n">hour</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_hour</span><span class="p">,</span> <span class="n">_set_hour</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UTCDateTime._get_minute"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._get_minute.html#obspy.core.utcdatetime.UTCDateTime._get_minute">[docs]</a>    <span class="k">def</span> <span class="nf">_get_minute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns minute as an integer.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        :return: Returns minute as an integer.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2012, 2, 11, 10, 11, 12)</span>
+<span class="sd">        &gt;&gt;&gt; dt.minute</span>
+<span class="sd">        11</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">minute</span></div>
+
+<div class="viewcode-block" id="UTCDateTime._set_minute"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._set_minute.html#obspy.core.utcdatetime.UTCDateTime._set_minute">[docs]</a>    <span class="k">def</span> <span class="nf">_set_minute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets minutes of current UTCDateTime object.</span>
+
+<span class="sd">        :param value: Minutes</span>
+<span class="sd">        :type value: int</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2012, 2, 11, 10, 11, 12)</span>
+<span class="sd">        &gt;&gt;&gt; dt.minute = 20</span>
+<span class="sd">        &gt;&gt;&gt; dt</span>
+<span class="sd">        UTCDateTime(2012, 2, 11, 10, 20, 12)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="p">(</span><span class="n">minute</span><span class="o">=</span><span class="n">value</span><span class="p">)</span></div>
+
+    <span class="n">minute</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_minute</span><span class="p">,</span> <span class="n">_set_minute</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UTCDateTime._get_second"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._get_second.html#obspy.core.utcdatetime.UTCDateTime._get_second">[docs]</a>    <span class="k">def</span> <span class="nf">_get_second</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns seconds as an integer.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        :return: Returns seconds as an integer.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2012, 2, 11, 10, 11, 12)</span>
+<span class="sd">        &gt;&gt;&gt; dt.second</span>
+<span class="sd">        12</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">second</span></div>
+
+<div class="viewcode-block" id="UTCDateTime._set_second"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._set_second.html#obspy.core.utcdatetime.UTCDateTime._set_second">[docs]</a>    <span class="k">def</span> <span class="nf">_set_second</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets seconds of current UTCDateTime object.</span>
+
+<span class="sd">        :param value: Seconds</span>
+<span class="sd">        :type value: int</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2012, 2, 11, 10, 11, 12)</span>
+<span class="sd">        &gt;&gt;&gt; dt.second = 20</span>
+<span class="sd">        &gt;&gt;&gt; dt</span>
+<span class="sd">        UTCDateTime(2012, 2, 11, 10, 11, 20)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">+=</span> <span class="n">value</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">second</span></div>
+
+    <span class="n">second</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_second</span><span class="p">,</span> <span class="n">_set_second</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UTCDateTime._get_microsecond"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._get_microsecond.html#obspy.core.utcdatetime.UTCDateTime._get_microsecond">[docs]</a>    <span class="k">def</span> <span class="nf">_get_microsecond</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns microseconds as an integer.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        :return: Returns microseconds as an integer.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2012, 2, 11, 10, 11, 12, 345234)</span>
+<span class="sd">        &gt;&gt;&gt; dt.microsecond</span>
+<span class="sd">        345234</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">microsecond</span></div>
+
+<div class="viewcode-block" id="UTCDateTime._set_microsecond"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._set_microsecond.html#obspy.core.utcdatetime.UTCDateTime._set_microsecond">[docs]</a>    <span class="k">def</span> <span class="nf">_set_microsecond</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets microseconds of current UTCDateTime object.</span>
+
+<span class="sd">        :param value: Microseconds</span>
+<span class="sd">        :type value: int</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2012, 2, 11, 10, 11, 12, 345234)</span>
+<span class="sd">        &gt;&gt;&gt; dt.microsecond = 999123</span>
+<span class="sd">        &gt;&gt;&gt; dt</span>
+<span class="sd">        UTCDateTime(2012, 2, 11, 10, 11, 12, 999123)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="p">(</span><span class="n">microsecond</span><span class="o">=</span><span class="n">value</span><span class="p">)</span></div>
+
+    <span class="n">microsecond</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_microsecond</span><span class="p">,</span> <span class="n">_set_microsecond</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UTCDateTime._get_julday"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._get_julday.html#obspy.core.utcdatetime.UTCDateTime._get_julday">[docs]</a>    <span class="k">def</span> <span class="nf">_get_julday</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns Julian day as an integer.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        :return: Julian day as an integer.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35, 45020)</span>
+<span class="sd">        &gt;&gt;&gt; dt.julday</span>
+<span class="sd">        275</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">utctimetuple</span><span class="p">()</span><span class="o">.</span><span class="n">tm_yday</span></div>
+
+<div class="viewcode-block" id="UTCDateTime._set_julday"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._set_julday.html#obspy.core.utcdatetime.UTCDateTime._set_julday">[docs]</a>    <span class="k">def</span> <span class="nf">_set_julday</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets Julian day of current UTCDateTime object.</span>
+
+<span class="sd">        :param value: Julian day</span>
+<span class="sd">        :type value: int</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 12, 5, 12, 30, 35, 45020)</span>
+<span class="sd">        &gt;&gt;&gt; dt.julday = 275</span>
+<span class="sd">        &gt;&gt;&gt; dt</span>
+<span class="sd">        UTCDateTime(2008, 10, 1, 12, 30, 35, 45020)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set</span><span class="p">(</span><span class="n">julday</span><span class="o">=</span><span class="n">value</span><span class="p">)</span></div>
+
+    <span class="n">julday</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_julday</span><span class="p">,</span> <span class="n">_set_julday</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UTCDateTime.timetuple"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.timetuple.html#obspy.core.utcdatetime.UTCDateTime.timetuple">[docs]</a>    <span class="k">def</span> <span class="nf">timetuple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a time.struct_time such as returned by time.localtime().</span>
+
+<span class="sd">        :rtype: time.struct_time</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">timetuple</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.utctimetuple"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.utctimetuple.html#obspy.core.utcdatetime.UTCDateTime.utctimetuple">[docs]</a>    <span class="k">def</span> <span class="nf">utctimetuple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a time.struct_time of current UTCDateTime object.</span>
+
+<span class="sd">        :rtype: time.struct_time</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">utctimetuple</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.__add__"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.__add__.html#obspy.core.utcdatetime.UTCDateTime.__add__">[docs]</a>    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds seconds and microseconds to current UTCDateTime object.</span>
+
+<span class="sd">        :type value: int, float</span>
+<span class="sd">        :param value: Seconds to add</span>
+<span class="sd">        :rtype: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :return: New UTCDateTime object.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(1970, 1, 1, 0, 0)</span>
+<span class="sd">        &gt;&gt;&gt; dt + 2</span>
+<span class="sd">        UTCDateTime(1970, 1, 1, 0, 0, 2)</span>
+
+<span class="sd">        &gt;&gt;&gt; UTCDateTime(1970, 1, 1, 0, 0) + 1.123456</span>
+<span class="sd">        UTCDateTime(1970, 1, 1, 0, 0, 1, 123456)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">):</span>
+            <span class="c1"># see datetime.timedelta.total_seconds</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">microseconds</span> <span class="o">+</span> <span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">seconds</span> <span class="o">+</span> <span class="n">value</span><span class="o">.</span><span class="n">days</span> <span class="o">*</span>
+                     <span class="mi">86400</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000000</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000000.0</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">UTCDateTime</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;unsupported operand type(s) for +: &#39;UTCDateTime&#39; and &quot;</span>
+                   <span class="s2">&quot;&#39;UTCDateTime&#39;&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">+</span> <span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.__sub__"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.__sub__.html#obspy.core.utcdatetime.UTCDateTime.__sub__">[docs]</a>    <span class="k">def</span> <span class="nf">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Subtracts seconds and microseconds from current UTCDateTime object.</span>
+
+<span class="sd">        :type value: int, float or :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param value: Seconds or UTCDateTime object to subtract. Subtracting an</span>
+<span class="sd">            UTCDateTime objects results into a relative time span in seconds.</span>
+<span class="sd">        :rtype: :class:`~obspy.core.utcdatetime.UTCDateTime` or float</span>
+<span class="sd">        :return: New UTCDateTime object or relative time span in seconds.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(1970, 1, 2, 0, 0)</span>
+<span class="sd">        &gt;&gt;&gt; dt - 2</span>
+<span class="sd">        UTCDateTime(1970, 1, 1, 23, 59, 58)</span>
+
+<span class="sd">        &gt;&gt;&gt; UTCDateTime(1970, 1, 2, 0, 0) - 1.123456</span>
+<span class="sd">        UTCDateTime(1970, 1, 1, 23, 59, 58, 876544)</span>
+
+<span class="sd">        &gt;&gt;&gt; UTCDateTime(1970, 1, 2, 0, 0) - UTCDateTime(1970, 1, 1, 0, 0)</span>
+<span class="sd">        86400.0</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">UTCDateTime</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">-</span> <span class="n">value</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__precision</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">):</span>
+            <span class="c1"># see datetime.timedelta.total_seconds</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">microseconds</span> <span class="o">+</span> <span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">seconds</span> <span class="o">+</span> <span class="n">value</span><span class="o">.</span><span class="n">days</span> <span class="o">*</span>
+                     <span class="mi">86400</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000000</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000000.0</span>
+        <span class="k">return</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">-</span> <span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.__str__"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.__str__.html#obspy.core.utcdatetime.UTCDateTime.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns ISO8601 string representation from current UTCDateTime object.</span>
+
+<span class="sd">        :return: string</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35, 45020)</span>
+<span class="sd">        &gt;&gt;&gt; str(dt)</span>
+<span class="sd">        &#39;2008-10-01T12:30:35.045020Z&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s%s</span><span class="s2">Z&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S&#39;</span><span class="p">),</span>
+                          <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__ms_pattern</span> <span class="o">%</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">%</span> <span class="mi">1</span><span class="p">)))[</span><span class="mi">1</span><span class="p">:])</span></div>
+
+<div class="viewcode-block" id="UTCDateTime._repr_pretty_"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._repr_pretty_.html#obspy.core.utcdatetime.UTCDateTime._repr_pretty_">[docs]</a>    <span class="k">def</span> <span class="nf">_repr_pretty_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cycle</span><span class="p">):</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.__unicode__"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.__unicode__.html#obspy.core.utcdatetime.UTCDateTime.__unicode__">[docs]</a>    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns ISO8601 unicode representation from current UTCDateTime object.</span>
+
+<span class="sd">        :return: string</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35, 45020)</span>
+<span class="sd">        &gt;&gt;&gt; dt.__unicode__()</span>
+<span class="sd">        &#39;2008-10-01T12:30:35.045020Z&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.__eq__"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.__eq__.html#obspy.core.utcdatetime.UTCDateTime.__eq__">[docs]</a>    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rich comparison operator &#39;==&#39;.</span>
+
+<span class="sd">        .. rubric: Example</span>
+
+<span class="sd">        Comparing two UTCDateTime object will always compare timestamps rounded</span>
+<span class="sd">        to a precision of 6 digits by default.</span>
+
+<span class="sd">        &gt;&gt;&gt; t1 = UTCDateTime(123.000000012)</span>
+<span class="sd">        &gt;&gt;&gt; t2 = UTCDateTime(123.000000099)</span>
+<span class="sd">        &gt;&gt;&gt; t1 == t2</span>
+<span class="sd">        True</span>
+
+<span class="sd">        But the actual timestamp differ</span>
+
+<span class="sd">        &gt;&gt;&gt; t1.timestamp == t2.timestamp</span>
+<span class="sd">        False</span>
+
+<span class="sd">        Resetting the precision changes the behavior of the operator</span>
+
+<span class="sd">        &gt;&gt;&gt; t1.precision = 11</span>
+<span class="sd">        &gt;&gt;&gt; t1 == t2</span>
+<span class="sd">        False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">other</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">__precision</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.__ne__"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.__ne__.html#obspy.core.utcdatetime.UTCDateTime.__ne__">[docs]</a>    <span class="k">def</span> <span class="nf">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rich comparison operator &#39;!=&#39;.</span>
+
+<span class="sd">        .. rubric: Example</span>
+
+<span class="sd">        Comparing two UTCDateTime object will always compare timestamps rounded</span>
+<span class="sd">        to a precision of 6 digits by default.</span>
+
+<span class="sd">        &gt;&gt;&gt; t1 = UTCDateTime(123.000000012)</span>
+<span class="sd">        &gt;&gt;&gt; t2 = UTCDateTime(123.000000099)</span>
+<span class="sd">        &gt;&gt;&gt; t1 != t2</span>
+<span class="sd">        False</span>
+
+<span class="sd">        But the actual timestamp differ</span>
+
+<span class="sd">        &gt;&gt;&gt; t1.timestamp != t2.timestamp</span>
+<span class="sd">        True</span>
+
+<span class="sd">        Resetting the precision changes the behavior of the operator</span>
+
+<span class="sd">        &gt;&gt;&gt; t1.precision = 11</span>
+<span class="sd">        &gt;&gt;&gt; t1 != t2</span>
+<span class="sd">        True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.__lt__"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.__lt__.html#obspy.core.utcdatetime.UTCDateTime.__lt__">[docs]</a>    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rich comparison operator &#39;&lt;&#39;.</span>
+
+<span class="sd">        .. rubric: Example</span>
+
+<span class="sd">        Comparing two UTCDateTime object will always compare timestamps rounded</span>
+<span class="sd">        to a precision of 6 digits by default.</span>
+
+<span class="sd">        &gt;&gt;&gt; t1 = UTCDateTime(123.000000012)</span>
+<span class="sd">        &gt;&gt;&gt; t2 = UTCDateTime(123.000000099)</span>
+<span class="sd">        &gt;&gt;&gt; t1 &lt; t2</span>
+<span class="sd">        False</span>
+
+<span class="sd">        But the actual timestamp differ</span>
+
+<span class="sd">        &gt;&gt;&gt; t1.timestamp &lt; t2.timestamp</span>
+<span class="sd">        True</span>
+
+<span class="sd">        Resetting the precision changes the behavior of the operator</span>
+
+<span class="sd">        &gt;&gt;&gt; t1.precision = 11</span>
+<span class="sd">        &gt;&gt;&gt; t1 &lt; t2</span>
+<span class="sd">        True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">other</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">__precision</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.__le__"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.__le__.html#obspy.core.utcdatetime.UTCDateTime.__le__">[docs]</a>    <span class="k">def</span> <span class="nf">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rich comparison operator &#39;&lt;=&#39;.</span>
+
+<span class="sd">        .. rubric: Example</span>
+
+<span class="sd">        Comparing two UTCDateTime object will always compare timestamps rounded</span>
+<span class="sd">        to a precision of 6 digits by default.</span>
+
+<span class="sd">        &gt;&gt;&gt; t1 = UTCDateTime(123.000000099)</span>
+<span class="sd">        &gt;&gt;&gt; t2 = UTCDateTime(123.000000012)</span>
+<span class="sd">        &gt;&gt;&gt; t1 &lt;= t2</span>
+<span class="sd">        True</span>
+
+<span class="sd">        But the actual timestamp differ</span>
+
+<span class="sd">        &gt;&gt;&gt; t1.timestamp &lt;= t2.timestamp</span>
+<span class="sd">        False</span>
+
+<span class="sd">        Resetting the precision changes the behavior of the operator</span>
+
+<span class="sd">        &gt;&gt;&gt; t1.precision = 11</span>
+<span class="sd">        &gt;&gt;&gt; t1 &lt;= t2</span>
+<span class="sd">        False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">other</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">__precision</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.__gt__"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.__gt__.html#obspy.core.utcdatetime.UTCDateTime.__gt__">[docs]</a>    <span class="k">def</span> <span class="nf">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rich comparison operator &#39;&gt;&#39;.</span>
+
+<span class="sd">        .. rubric: Example</span>
+
+<span class="sd">        Comparing two UTCDateTime object will always compare timestamps rounded</span>
+<span class="sd">        to a precision of 6 digits by default.</span>
+
+<span class="sd">        &gt;&gt;&gt; t1 = UTCDateTime(123.000000099)</span>
+<span class="sd">        &gt;&gt;&gt; t2 = UTCDateTime(123.000000012)</span>
+<span class="sd">        &gt;&gt;&gt; t1 &gt; t2</span>
+<span class="sd">        False</span>
+
+<span class="sd">        But the actual timestamp differ</span>
+
+<span class="sd">        &gt;&gt;&gt; t1.timestamp &gt; t2.timestamp</span>
+<span class="sd">        True</span>
+
+<span class="sd">        Resetting the precision changes the behavior of the operator</span>
+
+<span class="sd">        &gt;&gt;&gt; t1.precision = 11</span>
+<span class="sd">        &gt;&gt;&gt; t1 &gt; t2</span>
+<span class="sd">        True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">other</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">__precision</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.__ge__"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.__ge__.html#obspy.core.utcdatetime.UTCDateTime.__ge__">[docs]</a>    <span class="k">def</span> <span class="nf">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rich comparison operator &#39;&gt;=&#39;.</span>
+
+<span class="sd">        .. rubric: Example</span>
+
+<span class="sd">        Comparing two UTCDateTime object will always compare timestamps rounded</span>
+<span class="sd">        to a precision of 6 digits by default.</span>
+
+<span class="sd">        &gt;&gt;&gt; t1 = UTCDateTime(123.000000012)</span>
+<span class="sd">        &gt;&gt;&gt; t2 = UTCDateTime(123.000000099)</span>
+<span class="sd">        &gt;&gt;&gt; t1 &gt;= t2</span>
+<span class="sd">        True</span>
+
+<span class="sd">        But the actual timestamp differ</span>
+
+<span class="sd">        &gt;&gt;&gt; t1.timestamp &gt;= t2.timestamp</span>
+<span class="sd">        False</span>
+
+<span class="sd">        Resetting the precision changes the behavior of the operator</span>
+
+<span class="sd">        &gt;&gt;&gt; t1.precision = 11</span>
+<span class="sd">        &gt;&gt;&gt; t1 &gt;= t2</span>
+<span class="sd">        False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">other</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">__precision</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.__repr__"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.__repr__.html#obspy.core.utcdatetime.UTCDateTime.__repr__">[docs]</a>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a representation of UTCDatetime object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;UTCDateTime&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()[</span><span class="mi">17</span><span class="p">:]</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.__abs__"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.__abs__.html#obspy.core.utcdatetime.UTCDateTime.__abs__">[docs]</a>    <span class="k">def</span> <span class="nf">__abs__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns absolute timestamp value of the current UTCDateTime object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># needed for unittest.assertAlmostEqual tests on Linux</span>
+        <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.__hash__"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.__hash__.html#obspy.core.utcdatetime.UTCDateTime.__hash__">[docs]</a>    <span class="k">def</span> <span class="nf">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        An object is hashable if it has a hash value which never changes</span>
+<span class="sd">        during its lifetime. As an UTCDateTime object may change over time,</span>
+<span class="sd">        it&#39;s not hashable. Use the :meth:`~UTCDateTime.datetime()` method to</span>
+<span class="sd">        generate a :class:`datetime.datetime` object for hashing. But be aware:</span>
+<span class="sd">        once the UTCDateTime object changes, the hash is not valid anymore.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># explicitly flag it as unhashable</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.strftime"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.strftime.html#obspy.core.utcdatetime.UTCDateTime.strftime">[docs]</a>    <span class="k">def</span> <span class="nf">strftime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string representing the date and time, controlled by an</span>
+<span class="sd">        explicit format string.</span>
+
+<span class="sd">        :type format: str</span>
+<span class="sd">        :param format: Format string.</span>
+<span class="sd">        :return: Formatted string representing the date and time.</span>
+
+<span class="sd">        Format codes referring to hours, minutes or seconds will see 0 values.</span>
+<span class="sd">        See methods :meth:`~datetime.datetime.strftime()` and</span>
+<span class="sd">        :meth:`~datetime.datetime.strptime()` for more information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.strptime"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.strptime.html#obspy.core.utcdatetime.UTCDateTime.strptime">[docs]</a>    <span class="k">def</span> <span class="nf">strptime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date_string</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a UTCDateTime corresponding to date_string, parsed according to</span>
+<span class="sd">        given format.</span>
+
+<span class="sd">        :type date_string: str</span>
+<span class="sd">        :param date_string: Date and time string.</span>
+<span class="sd">        :type format: str</span>
+<span class="sd">        :param format: Format string.</span>
+<span class="sd">        :return: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+
+<span class="sd">        See methods :meth:`~datetime.datetime.strftime()` and</span>
+<span class="sd">        :meth:`~datetime.datetime.strptime()` for more information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_string</span><span class="p">,</span> <span class="nb">format</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.timetz"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.timetz.html#obspy.core.utcdatetime.UTCDateTime.timetz">[docs]</a>    <span class="k">def</span> <span class="nf">timetz</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return time object with same hour, minute, second, microsecond, and</span>
+<span class="sd">        tzinfo attributes. See also method :meth:`datetime.datetime.time()`.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35, 45020)</span>
+<span class="sd">        &gt;&gt;&gt; dt.timetz()</span>
+<span class="sd">        datetime.time(12, 30, 35, 45020)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">timetz</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.utcoffset"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.utcoffset.html#obspy.core.utcdatetime.UTCDateTime.utcoffset">[docs]</a>    <span class="k">def</span> <span class="nf">utcoffset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns None (to stay compatible with :class:`datetime.datetime`)</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35, 45020)</span>
+<span class="sd">        &gt;&gt;&gt; dt.utcoffset()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">utcoffset</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.dst"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.dst.html#obspy.core.utcdatetime.UTCDateTime.dst">[docs]</a>    <span class="k">def</span> <span class="nf">dst</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns None (to stay compatible with :class:`datetime.datetime`)</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35, 45020)</span>
+<span class="sd">        &gt;&gt;&gt; dt.dst()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">dst</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.tzname"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.tzname.html#obspy.core.utcdatetime.UTCDateTime.tzname">[docs]</a>    <span class="k">def</span> <span class="nf">tzname</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns None (to stay compatible with :class:`datetime.datetime`)</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35, 45020)</span>
+<span class="sd">        &gt;&gt;&gt; dt.tzname()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">tzname</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.ctime"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.ctime.html#obspy.core.utcdatetime.UTCDateTime.ctime">[docs]</a>    <span class="k">def</span> <span class="nf">ctime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string representing the date and time.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; UTCDateTime(2002, 12, 4, 20, 30, 40).ctime()</span>
+<span class="sd">        &#39;Wed Dec  4 20:30:40 2002&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">ctime</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.isoweekday"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.isoweekday.html#obspy.core.utcdatetime.UTCDateTime.isoweekday">[docs]</a>    <span class="k">def</span> <span class="nf">isoweekday</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the day of the week as an integer (Monday is 1, Sunday is 7).</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        :return: Returns day of the week as an integer, where Monday is 1 and</span>
+<span class="sd">            Sunday is 7.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35, 45020)</span>
+<span class="sd">        &gt;&gt;&gt; dt.isoweekday()</span>
+<span class="sd">        3</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">isoweekday</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.isocalendar"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.isocalendar.html#obspy.core.utcdatetime.UTCDateTime.isocalendar">[docs]</a>    <span class="k">def</span> <span class="nf">isocalendar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a tuple containing (ISO year, ISO week number, ISO weekday).</span>
+
+<span class="sd">        :rtype: tuple of ints</span>
+<span class="sd">        :return: Returns a tuple containing ISO year, ISO week number and ISO</span>
+<span class="sd">            weekday.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35, 45020)</span>
+<span class="sd">        &gt;&gt;&gt; dt.isocalendar()</span>
+<span class="sd">        (2008, 40, 3)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">isocalendar</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.isoformat"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.isoformat.html#obspy.core.utcdatetime.UTCDateTime.isoformat">[docs]</a>    <span class="k">def</span> <span class="nf">isoformat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;T&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string representing the date and time in ISO 8601 format.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        :return: String representing the date and time in ISO 8601 format like</span>
+<span class="sd">            YYYY-MM-DDTHH:MM:SS.mmmmmm or, if microsecond is 0,</span>
+<span class="sd">            YYYY-MM-DDTHH:MM:SS.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35, 45020)</span>
+<span class="sd">        &gt;&gt;&gt; dt.isoformat()</span>
+<span class="sd">        &#39;2008-10-01T12:30:35.045020&#39;</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1)</span>
+<span class="sd">        &gt;&gt;&gt; dt.isoformat()</span>
+<span class="sd">        &#39;2008-10-01T00:00:00&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="n">native_str</span><span class="p">(</span><span class="n">sep</span><span class="p">))</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;formatFissures&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;format_fissures&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">formatFissures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;formatFissures&#39; has been renamed to</span>
+<span class="sd">        &#39;format_fissures&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_fissures</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UTCDateTime.format_fissures"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.format_fissures.html#obspy.core.utcdatetime.UTCDateTime.format_fissures">[docs]</a>    <span class="k">def</span> <span class="nf">format_fissures</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns string representation for the IRIS Fissures protocol.</span>
+
+<span class="sd">        :return: string</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35, 45020)</span>
+<span class="sd">        &gt;&gt;&gt; print(dt.format_fissures())</span>
+<span class="sd">        2008275T123035.0450Z</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%04d%03d</span><span class="s2">T</span><span class="si">%02d%02d%02d</span><span class="s2">.</span><span class="si">%04d</span><span class="s2">Z&quot;</span> <span class="o">%</span> \
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">julday</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">second</span><span class="p">,</span>
+             <span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">//</span> <span class="mi">100</span><span class="p">)</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;formatArcLink&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;format_arclink&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">formatArcLink</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;formatArcLink&#39; has been renamed to</span>
+<span class="sd">        &#39;format_arclink&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_arclink</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UTCDateTime.format_arclink"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.format_arclink.html#obspy.core.utcdatetime.UTCDateTime.format_arclink">[docs]</a>    <span class="k">def</span> <span class="nf">format_arclink</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns string representation for the ArcLink protocol.</span>
+
+<span class="sd">        :return: string</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35, 45020)</span>
+<span class="sd">        &gt;&gt;&gt; print(dt.format_arclink())</span>
+<span class="sd">        2008,10,1,12,30,35,45020</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">,</span><span class="si">%d</span><span class="s2">,</span><span class="si">%d</span><span class="s2">,</span><span class="si">%d</span><span class="s2">,</span><span class="si">%d</span><span class="s2">,</span><span class="si">%d</span><span class="s2">,</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">,</span>
+                                         <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">second</span><span class="p">,</span>
+                                         <span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span><span class="p">)</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;formatSeedLink&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;format_seedlink&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">formatSeedLink</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;formatSeedLink&#39; has been renamed to</span>
+<span class="sd">        &#39;format_seedlink&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_seedlink</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UTCDateTime.format_seedlink"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.format_seedlink.html#obspy.core.utcdatetime.UTCDateTime.format_seedlink">[docs]</a>    <span class="k">def</span> <span class="nf">format_seedlink</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns string representation for the SeedLink protocol.</span>
+
+<span class="sd">        :return: string</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35.45020)</span>
+<span class="sd">        &gt;&gt;&gt; print(dt.format_seedlink())</span>
+<span class="sd">        2008,10,1,12,30,35</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># round seconds down to integer</span>
+        <span class="n">seconds</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">second</span><span class="p">)</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1.0e6</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">,</span><span class="si">%d</span><span class="s2">,</span><span class="si">%d</span><span class="s2">,</span><span class="si">%d</span><span class="s2">,</span><span class="si">%d</span><span class="s2">,</span><span class="si">%g</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">,</span>
+                                      <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="n">seconds</span><span class="p">)</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;formatSEED&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;format_seed&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">formatSEED</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;formatSEED&#39; has been renamed to</span>
+<span class="sd">        &#39;format_seed&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_seed</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UTCDateTime.format_seed"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.format_seed.html#obspy.core.utcdatetime.UTCDateTime.format_seed">[docs]</a>    <span class="k">def</span> <span class="nf">format_seed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns string representation for a SEED volume.</span>
+
+<span class="sd">        :type compact: bool, optional</span>
+<span class="sd">        :param compact: Delivers a compact SEED date string if enabled. Default</span>
+<span class="sd">            value is set to False.</span>
+<span class="sd">        :rtype: string</span>
+<span class="sd">        :return: Datetime string in the SEED format.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 12, 30, 35, 45020)</span>
+<span class="sd">        &gt;&gt;&gt; print(dt.format_seed())</span>
+<span class="sd">        2008,275,12:30:35.0450</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 10, 1, 0, 30, 0, 0)</span>
+<span class="sd">        &gt;&gt;&gt; print(dt.format_seed(compact=True))</span>
+<span class="sd">        2008,275,00:30</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">compact</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">==</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
+                <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%04d</span><span class="s2">,</span><span class="si">%03d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">julday</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%04d</span><span class="s2">,</span><span class="si">%03d</span><span class="s2">,</span><span class="si">%02d</span><span class="s2">:</span><span class="si">%02d</span><span class="s2">:</span><span class="si">%02d</span><span class="s2">.</span><span class="si">%04d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">julday</span><span class="p">,</span>
+                                                      <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span>
+                                                      <span class="bp">self</span><span class="o">.</span><span class="n">second</span><span class="p">,</span>
+                                                      <span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">//</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%04d</span><span class="s2">,</span><span class="si">%03d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">julday</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">==</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">temp</span>
+        <span class="n">temp</span> <span class="o">+=</span> <span class="s2">&quot;,</span><span class="si">%02d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">temp</span> <span class="o">+</span> <span class="s2">&quot;:</span><span class="si">%02d</span><span class="s2">:</span><span class="si">%02d</span><span class="s2">.</span><span class="si">%04d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">second</span><span class="p">,</span>
+                                               <span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">//</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">second</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">temp</span> <span class="o">+</span> <span class="s2">&quot;:</span><span class="si">%02d</span><span class="s2">:</span><span class="si">%02d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">second</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">temp</span> <span class="o">+</span> <span class="s2">&quot;:</span><span class="si">%02d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">temp</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;formatIRISWebService&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;format_iris_web_service&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">formatIRISWebService</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;formatIRISWebService&#39; has been renamed to</span>
+<span class="sd">        &#39;format_iris_web_service&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_iris_web_service</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UTCDateTime.format_iris_web_service"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.format_iris_web_service.html#obspy.core.utcdatetime.UTCDateTime.format_iris_web_service">[docs]</a>    <span class="k">def</span> <span class="nf">format_iris_web_service</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns string representation usable for the IRIS Web services.</span>
+
+<span class="sd">        :return: string</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2008, 5, 27, 12, 30, 35, 45020)</span>
+<span class="sd">        &gt;&gt;&gt; print(dt.format_iris_web_service())</span>
+<span class="sd">        2008-05-27T12:30:35.045</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%04d</span><span class="s2">-</span><span class="si">%02d</span><span class="s2">-</span><span class="si">%02d</span><span class="s2">T</span><span class="si">%02d</span><span class="s2">:</span><span class="si">%02d</span><span class="s2">:</span><span class="si">%02d</span><span class="s2">.</span><span class="si">%03d</span><span class="s2">&quot;</span> <span class="o">%</span> \
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span>
+             <span class="bp">self</span><span class="o">.</span><span class="n">second</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">microsecond</span> <span class="o">//</span> <span class="mi">1000</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UTCDateTime._get_precision"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._get_precision.html#obspy.core.utcdatetime.UTCDateTime._get_precision">[docs]</a>    <span class="k">def</span> <span class="nf">_get_precision</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns precision of current UTCDateTime object.</span>
+
+<span class="sd">        :return: int</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime()</span>
+<span class="sd">        &gt;&gt;&gt; dt.precision</span>
+<span class="sd">        6</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__precision</span></div>
+
+<div class="viewcode-block" id="UTCDateTime._set_precision"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._set_precision.html#obspy.core.utcdatetime.UTCDateTime._set_precision">[docs]</a>    <span class="k">def</span> <span class="nf">_set_precision</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">6</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set precision of current UTCDateTime object.</span>
+
+<span class="sd">        :type value: int, optional</span>
+<span class="sd">        :param value: Precision value used by the rich comparison operators.</span>
+<span class="sd">            Defaults to ``6``.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        (1) Default precision</span>
+
+<span class="sd">            &gt;&gt;&gt; dt = UTCDateTime()</span>
+<span class="sd">            &gt;&gt;&gt; dt.precision</span>
+<span class="sd">            6</span>
+
+<span class="sd">        (2) Set precision during initialization of UTCDateTime object.</span>
+
+<span class="sd">            &gt;&gt;&gt; dt = UTCDateTime(precision=5)</span>
+<span class="sd">            &gt;&gt;&gt; dt.precision</span>
+<span class="sd">            5</span>
+
+<span class="sd">        (3) Set precision for an existing UTCDateTime object.</span>
+
+<span class="sd">            &gt;&gt;&gt; dt = UTCDateTime()</span>
+<span class="sd">            &gt;&gt;&gt; dt.precision = 12</span>
+<span class="sd">            &gt;&gt;&gt; dt.precision</span>
+<span class="sd">            12</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__precision</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__ms_pattern</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%%</span><span class="s2">0.</span><span class="si">%d</span><span class="s2">f&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__precision</span><span class="p">)</span></div>
+
+    <span class="n">precision</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">_get_precision</span><span class="p">,</span> <span class="n">_set_precision</span><span class="p">)</span>
+
+<div class="viewcode-block" id="UTCDateTime.toordinal"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.toordinal.html#obspy.core.utcdatetime.UTCDateTime.toordinal">[docs]</a>    <span class="k">def</span> <span class="nf">toordinal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return proleptic Gregorian ordinal. January 1 of year 1 is day 1.</span>
+
+<span class="sd">        See :meth:`datetime.datetime.toordinal()`.</span>
+
+<span class="sd">        :return: int</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(2012, 1, 1)</span>
+<span class="sd">        &gt;&gt;&gt; dt.toordinal()</span>
+<span class="sd">        734503</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_datetime</span><span class="p">()</span><span class="o">.</span><span class="n">toordinal</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.now"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.now.html#obspy.core.utcdatetime.UTCDateTime.now">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">now</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns current UTC datetime.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">UTCDateTime</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="UTCDateTime.utcnow"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime.utcnow.html#obspy.core.utcdatetime.UTCDateTime.utcnow">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">utcnow</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns current UTC datetime.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">UTCDateTime</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="UTCDateTime._get_hours_after_midnight"><a class="viewcode-back" href="../../../packages/autogen/obspy.core.utcdatetime.UTCDateTime._get_hours_after_midnight.html#obspy.core.utcdatetime.UTCDateTime._get_hours_after_midnight">[docs]</a>    <span class="k">def</span> <span class="nf">_get_hours_after_midnight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate foating point hours after midnight.</span>
+
+<span class="sd">        &gt;&gt;&gt; t = UTCDateTime(&quot;2015-09-27T03:16:12.123456Z&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; t._get_hours_after_midnight()</span>
+<span class="sd">        3.270034293333333</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">timedelta</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">datetime</span> <span class="o">-</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">second</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">timedelta</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mf">3600.0</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

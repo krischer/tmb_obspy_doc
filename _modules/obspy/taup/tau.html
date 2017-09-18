@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.taup.tau &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.taup.tau</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">High-level interface to travel-time calculation routines.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.cbook</span>
+<span class="kn">from</span> <span class="nn">matplotlib.cm</span> <span class="k">import</span> <span class="n">get_cmap</span>
+<span class="kn">import</span> <span class="nn">matplotlib.text</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">.helper_classes</span> <span class="k">import</span> <span class="n">Arrival</span>
+<span class="kn">from</span> <span class="nn">.tau_model</span> <span class="k">import</span> <span class="n">TauModel</span>
+<span class="kn">from</span> <span class="nn">.taup_create</span> <span class="k">import</span> <span class="n">TauPCreate</span>
+<span class="kn">from</span> <span class="nn">.taup_path</span> <span class="k">import</span> <span class="n">TauPPath</span>
+<span class="kn">from</span> <span class="nn">.taup_pierce</span> <span class="k">import</span> <span class="n">TauPPierce</span>
+<span class="kn">from</span> <span class="nn">.taup_time</span> <span class="k">import</span> <span class="n">TauPTime</span>
+<span class="kn">from</span> <span class="nn">.taup_geo</span> <span class="k">import</span> <span class="n">calc_dist</span><span class="p">,</span> <span class="n">add_geo_to_arrivals</span>
+<span class="kn">import</span> <span class="nn">obspy.geodetics.base</span> <span class="k">as</span> <span class="nn">geodetics</span>
+
+
+<span class="c1"># Pretty paired colors. Reorder to have saturated colors first and remove</span>
+<span class="c1"># some colors at the end.</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;Paired&#39;</span><span class="p">,</span> <span class="n">lut</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">COLORS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#</span><span class="si">%02x%02x%02x</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">col</span> <span class="o">*</span> <span class="mi">255</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cmap</span><span class="p">(</span><span class="n">i</span><span class="p">)[:</span><span class="mi">3</span><span class="p">])</span>
+          <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">)]</span>
+<span class="n">COLORS</span> <span class="o">=</span> <span class="n">COLORS</span><span class="p">[</span><span class="mi">1</span><span class="p">:][::</span><span class="mi">2</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">COLORS</span><span class="p">[::</span><span class="mi">2</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">_SmartPolarText</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">Text</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Automatically align text on polar plots to be away from axes.</span>
+
+<span class="sd">    This class automatically sets the horizontal and vertical alignments</span>
+<span class="sd">    based on which sides of the spherical axes the text is located.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">renderer</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span>
+        <span class="n">midx</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">get_figwidth</span><span class="p">()</span> <span class="o">*</span> <span class="n">fig</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">midy</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">get_figheight</span><span class="p">()</span> <span class="o">*</span> <span class="n">fig</span><span class="o">.</span><span class="n">dpi</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="n">extent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_window_extent</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">dpi</span><span class="p">)</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="n">extent</span><span class="o">.</span><span class="n">get_points</span><span class="p">()</span>
+
+        <span class="n">is_left</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">midx</span>
+        <span class="n">is_top</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">midy</span>
+        <span class="n">updated</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">ha</span> <span class="o">=</span> <span class="s1">&#39;right&#39;</span> <span class="k">if</span> <span class="n">is_left</span> <span class="k">else</span> <span class="s1">&#39;left&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_horizontalalignment</span><span class="p">()</span> <span class="o">!=</span> <span class="n">ha</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_horizontalalignment</span><span class="p">(</span><span class="n">ha</span><span class="p">)</span>
+            <span class="n">updated</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">va</span> <span class="o">=</span> <span class="s1">&#39;bottom&#39;</span> <span class="k">if</span> <span class="n">is_top</span> <span class="k">else</span> <span class="s1">&#39;top&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_verticalalignment</span><span class="p">()</span> <span class="o">!=</span> <span class="n">va</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_verticalalignment</span><span class="p">(</span><span class="n">va</span><span class="p">)</span>
+            <span class="n">updated</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="n">updated</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_bbox_position_size</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
+
+        <span class="n">matplotlib</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">renderer</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Arrivals"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.Arrivals.html#obspy.taup.tau.Arrivals">[docs]</a><span class="k">class</span> <span class="nc">Arrivals</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    List like object of arrivals returned by :class:`TauPyModel` methods.</span>
+
+<span class="sd">    :param arrivals: Initial arrivals to store.</span>
+<span class="sd">    :type arrivals: :class:`list` of</span>
+<span class="sd">        :class:`~obspy.taup.helper_classes.Arrival`</span>
+<span class="sd">    :param model: The model used to calculate the arrivals.</span>
+<span class="sd">    :type model: :class:`~TauPyModel`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Arrivals.__init__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.Arrivals.__init__.html#obspy.taup.tau.Arrivals.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arrivals</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Arrivals</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">arrivals</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Arrivals.__add__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.Arrivals.__add__.html#obspy.taup.tau.Arrivals.__add__">[docs]</a>    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Arrival</span><span class="p">):</span>
+            <span class="n">other</span> <span class="o">=</span> <span class="n">Arrivals</span><span class="p">([</span><span class="n">other</span><span class="p">],</span> <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Arrivals</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">Arrivals</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__add__</span><span class="p">(</span><span class="n">other</span><span class="p">),</span>
+                              <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Arrivals.__iadd__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.Arrivals.__iadd__.html#obspy.taup.tau.Arrivals.__iadd__">[docs]</a>    <span class="k">def</span> <span class="nf">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Arrival</span><span class="p">):</span>
+            <span class="n">other</span> <span class="o">=</span> <span class="n">Arrivals</span><span class="p">([</span><span class="n">other</span><span class="p">],</span> <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Arrivals</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Arrivals.__mul__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.Arrivals.__mul__.html#obspy.taup.tau.Arrivals.__mul__">[docs]</a>    <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Integer expected&quot;</span><span class="p">)</span>
+        <span class="n">arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">arr</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">arr</span></div>
+
+<div class="viewcode-block" id="Arrivals.__imul__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.Arrivals.__imul__.html#obspy.taup.tau.Arrivals.__imul__">[docs]</a>    <span class="k">def</span> <span class="nf">__imul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Integer expected&quot;</span><span class="p">)</span>
+        <span class="n">arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="bp">self</span> <span class="o">+=</span> <span class="n">arr</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Arrivals.__setitem__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.Arrivals.__setitem__.html#obspy.taup.tau.Arrivals.__setitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">arrival</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Arrival</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">arrival</span><span class="p">)):</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">Arrivals</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">arrival</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arrival</span><span class="p">,</span> <span class="n">Arrival</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">Arrivals</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">arrival</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Only Arrival objects can be assigned.&#39;</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Arrivals.__setslice__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.Arrivals.__setslice__.html#obspy.taup.tau.Arrivals.__setslice__">[docs]</a>    <span class="k">def</span> <span class="nf">__setslice__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">seq</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Arrival</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">Arrivals</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__setslice__</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">seq</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Only Arrival objects can be assigned.&#39;</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Arrivals.__getitem__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.Arrivals.__getitem__.html#obspy.taup.tau.Arrivals.__getitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">Arrivals</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">index</span><span class="p">),</span>
+                                  <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Arrivals</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Arrivals.__getslice__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.Arrivals.__getslice__.html#obspy.taup.tau.Arrivals.__getslice__">[docs]</a>    <span class="k">def</span> <span class="nf">__getslice__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">Arrivals</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__getslice__</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span>
+                              <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Arrivals.__str__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.Arrivals.__str__.html#obspy.taup.tau.Arrivals.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="s2">&quot;</span><span class="si">{count}</span><span class="s2"> arrivals</span><span class="se">\n\t</span><span class="si">{arrivals}</span><span class="s2">&quot;</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">count</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
+            <span class="n">arrivals</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">_i</span><span class="p">)</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">]))</span></div>
+
+<div class="viewcode-block" id="Arrivals.__repr__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.Arrivals.__repr__.html#obspy.taup.tau.Arrivals.__repr__">[docs]</a>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;[</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">repr</span><span class="p">(</span><span class="n">_i</span><span class="p">)</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">]))</span></div>
+
+<div class="viewcode-block" id="Arrivals.append"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.Arrivals.append.html#obspy.taup.tau.Arrivals.append">[docs]</a>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arrival</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arrival</span><span class="p">,</span> <span class="n">Arrival</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">Arrivals</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arrival</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Append only supports a single Arrival object as argument.&#39;</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Arrivals.copy"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.Arrivals.copy.html#obspy.taup.tau.Arrivals.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">Arrivals</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+                              <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Arrivals.plot"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.Arrivals.plot.html#obspy.taup.tau.Arrivals.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plot_type</span><span class="o">=</span><span class="s2">&quot;spherical&quot;</span><span class="p">,</span> <span class="n">plot_all</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+             <span class="n">label_arrivals</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot the ray paths if any have been calculated.</span>
+
+<span class="sd">        :param plot_type: Either ``&quot;spherical&quot;`` or ``&quot;cartesian&quot;``.</span>
+<span class="sd">            A spherical plot is always global whereas a Cartesian one can</span>
+<span class="sd">            also be local.</span>
+<span class="sd">        :type plot_type: str</span>
+<span class="sd">        :param plot_all: By default all rays, even those travelling in the</span>
+<span class="sd">            other direction and thus arriving at a distance of *360 - x*</span>
+<span class="sd">            degrees are shown. Set this to ``False`` to only show rays</span>
+<span class="sd">            arriving at exactly *x* degrees.</span>
+<span class="sd">        :type plot_all: bool</span>
+<span class="sd">        :param legend: If boolean, specify whether or not to show the legend</span>
+<span class="sd">            (at the default location.) If a str, specify the location of the</span>
+<span class="sd">            legend. If you are plotting a single phase, you may consider using</span>
+<span class="sd">            the ``label_arrivals`` argument.</span>
+<span class="sd">        :type legend: bool or str</span>
+<span class="sd">        :param label_arrivals: Label the arrivals with their respective phase</span>
+<span class="sd">            names. This setting is only useful if you are plotting a single</span>
+<span class="sd">            phase as otherwise the names could be large and possibly overlap</span>
+<span class="sd">            or clip. Consider using the ``legend`` parameter instead if you</span>
+<span class="sd">            are plotting multiple phases.</span>
+<span class="sd">        :type label_arrivals: bool</span>
+<span class="sd">        :param ax: Axes to plot to. If not given, a new figure with an axes</span>
+<span class="sd">            will be created. Must be a polar axes for the spherical plot and</span>
+<span class="sd">            a regular one for the Cartesian plot.</span>
+<span class="sd">        :type ax: :class:`matplotlib.axes.Axes`</span>
+<span class="sd">        :param show: Show the plot.</span>
+<span class="sd">        :type show: bool</span>
+
+<span class="sd">        :returns: The (possibly created) axes instance.</span>
+<span class="sd">        :rtype: :class:`matplotlib.axes.Axes`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+        <span class="n">arrivals</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">_i</span><span class="o">.</span><span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="n">_i</span><span class="o">.</span><span class="n">purist_distance</span> <span class="o">%</span> <span class="mf">360.0</span>
+            <span class="n">distance</span> <span class="o">=</span> <span class="n">_i</span><span class="o">.</span><span class="n">distance</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dist</span> <span class="o">-</span> <span class="n">distance</span><span class="p">)</span> <span class="o">/</span> <span class="n">dist</span> <span class="o">&gt;</span> <span class="mf">1E-5</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">plot_all</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="c1"># Mirror on axis.</span>
+                <span class="n">_i</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">_i</span><span class="p">)</span>
+                <span class="n">_i</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.0</span>
+            <span class="n">arrivals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_i</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">arrivals</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Can only plot arrivals with calculated ray &quot;</span>
+                             <span class="s2">&quot;paths.&quot;</span><span class="p">)</span>
+        <span class="n">discons</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">s_mod</span><span class="o">.</span><span class="n">v_mod</span><span class="o">.</span><span class="n">get_discontinuity_depths</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">plot_type</span> <span class="o">==</span> <span class="s2">&quot;spherical&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ax</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+                <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">polar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">set_theta_zero_location</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">set_theta_direction</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+            <span class="n">intp</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">cbook</span><span class="o">.</span><span class="n">simple_linear_interpolation</span>
+            <span class="n">radius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">radius_of_planet</span>
+            <span class="k">for</span> <span class="n">_i</span><span class="p">,</span> <span class="n">ray</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">arrivals</span><span class="p">):</span>
+                <span class="c1"># Requires interpolation otherwise diffracted phases look</span>
+                <span class="c1"># funny.</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">intp</span><span class="p">(</span><span class="n">ray</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">],</span> <span class="mi">100</span><span class="p">),</span>
+                        <span class="n">radius</span> <span class="o">-</span> <span class="n">intp</span><span class="p">(</span><span class="n">ray</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="s2">&quot;depth&quot;</span><span class="p">],</span> <span class="mi">100</span><span class="p">),</span>
+                        <span class="n">color</span><span class="o">=</span><span class="n">COLORS</span><span class="p">[</span><span class="n">_i</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">COLORS</span><span class="p">)],</span> <span class="n">label</span><span class="o">=</span><span class="n">ray</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                        <span class="n">lw</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">radius</span> <span class="o">-</span> <span class="n">discons</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">NullFormatter</span><span class="p">())</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">NullFormatter</span><span class="p">())</span>
+            <span class="c1"># Pretty earthquake marker.</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="n">radius</span> <span class="o">-</span> <span class="n">arrivals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">source_depth</span><span class="p">],</span>
+                    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#FEF215&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                    <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="s2">&quot;0.3&quot;</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="c1"># Pretty station marker.</span>
+            <span class="n">arrowprops</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s1">&#39;-|&gt;,head_length=0.8,head_width=0.5&#39;</span><span class="p">,</span>
+                              <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#C95241&#39;</span><span class="p">,</span>
+                              <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+            <span class="n">station_radius</span> <span class="o">=</span> <span class="n">radius</span> <span class="o">-</span> <span class="n">arrivals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">receiver_depth</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                        <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">distance</span><span class="p">),</span> <span class="n">station_radius</span><span class="p">),</span>
+                        <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+                        <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">distance</span><span class="p">),</span>
+                                <span class="n">station_radius</span> <span class="o">+</span> <span class="n">radius</span> <span class="o">*</span> <span class="mf">0.02</span><span class="p">),</span>
+                        <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+                        <span class="n">arrowprops</span><span class="o">=</span><span class="n">arrowprops</span><span class="p">,</span>
+                        <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">arrowprops</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s1">&#39;-|&gt;,head_length=1.0,head_width=0.6&#39;</span><span class="p">,</span>
+                              <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.3&#39;</span><span class="p">,</span>
+                              <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                              <span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                        <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">distance</span><span class="p">),</span> <span class="n">station_radius</span><span class="p">),</span>
+                        <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+                        <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">distance</span><span class="p">),</span>
+                                <span class="n">station_radius</span> <span class="o">+</span> <span class="n">radius</span> <span class="o">*</span> <span class="mf">0.01</span><span class="p">),</span>
+                        <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+                        <span class="n">arrowprops</span><span class="o">=</span><span class="n">arrowprops</span><span class="p">,</span>
+                        <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">label_arrivals</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">ray</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">ray</span> <span class="ow">in</span> <span class="n">arrivals</span><span class="p">)))</span>
+                <span class="c1"># We cannot just set the text of the annotations above because</span>
+                <span class="c1"># it changes the arrow path.</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="n">_SmartPolarText</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">distance</span><span class="p">),</span>
+                                    <span class="n">station_radius</span> <span class="o">+</span> <span class="n">radius</span> <span class="o">*</span> <span class="mf">0.07</span><span class="p">,</span>
+                                    <span class="n">name</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_rmax</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_rmin</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">legend</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">legend</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">distance</span> <span class="o">&lt;=</span> <span class="mf">180.0</span><span class="p">:</span>
+                        <span class="n">loc</span> <span class="o">=</span> <span class="s2">&quot;upper left&quot;</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">loc</span> <span class="o">=</span> <span class="s2">&quot;upper right&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">loc</span> <span class="o">=</span> <span class="n">legend</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="n">prop</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="s2">&quot;small&quot;</span><span class="p">))</span>
+
+        <span class="k">elif</span> <span class="n">plot_type</span> <span class="o">==</span> <span class="s2">&quot;cartesian&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ax</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+                <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">_i</span><span class="p">,</span> <span class="n">ray</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">arrivals</span><span class="p">):</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">(</span><span class="n">ray</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">]),</span> <span class="n">ray</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="s2">&quot;depth&quot;</span><span class="p">],</span>
+                        <span class="n">color</span><span class="o">=</span><span class="n">COLORS</span><span class="p">[</span><span class="n">_i</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">COLORS</span><span class="p">)],</span> <span class="n">label</span><span class="o">=</span><span class="n">ray</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                        <span class="n">lw</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Depth [km]&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">legend</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">legend</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+                    <span class="n">loc</span> <span class="o">=</span> <span class="s2">&quot;lower left&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">loc</span> <span class="o">=</span> <span class="n">legend</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="n">prop</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="s2">&quot;small&quot;</span><span class="p">))</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Distance [deg]&quot;</span><span class="p">)</span>
+            <span class="c1"># Pretty station marker.</span>
+            <span class="n">ms</span> <span class="o">=</span> <span class="mi">14</span>
+            <span class="n">station_marker_transform</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">offset_copy</span><span class="p">(</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">transData</span><span class="p">,</span>
+                <span class="n">fig</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">get_figure</span><span class="p">(),</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">ms</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span>
+                <span class="n">units</span><span class="o">=</span><span class="s2">&quot;points&quot;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">distance</span><span class="p">],</span> <span class="p">[</span><span class="n">arrivals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">receiver_depth</span><span class="p">],</span>
+                    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#C95241&quot;</span><span class="p">,</span>
+                    <span class="n">markersize</span><span class="o">=</span><span class="n">ms</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                    <span class="n">markeredgecolor</span><span class="o">=</span><span class="s2">&quot;0.3&quot;</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">transform</span><span class="o">=</span><span class="n">station_marker_transform</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">label_arrivals</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">ray</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">ray</span> <span class="ow">in</span> <span class="n">arrivals</span><span class="p">)))</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">distance</span><span class="p">,</span> <span class="n">arrivals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">receiver_depth</span><span class="p">),</span>
+                            <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ms</span> <span class="o">*</span> <span class="mf">1.5</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;offset points&#39;</span><span class="p">,</span>
+                            <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">annotation_clip</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="c1"># Pretty earthquake marker.</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="n">arrivals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">source_depth</span><span class="p">],</span>
+                    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#FEF215&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                    <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="s2">&quot;0.3&quot;</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
+            <span class="n">x_range</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_range</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">x_range</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">depth</span> <span class="ow">in</span> <span class="n">discons</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">depth</span> <span class="o">&lt;=</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                    <span class="k">continue</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="c1"># Plot some more station markers if necessary.</span>
+            <span class="n">possible_distances</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span> <span class="o">*</span> <span class="p">(</span><span class="n">distance</span> <span class="o">+</span> <span class="mf">360.0</span><span class="p">)</span>
+                                  <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]</span>
+            <span class="n">possible_distances</span> <span class="o">+=</span> <span class="p">[</span><span class="o">-</span><span class="n">_i</span> <span class="o">*</span> <span class="p">(</span><span class="mf">360.0</span> <span class="o">-</span> <span class="n">distance</span><span class="p">)</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span>
+                                   <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]</span>
+            <span class="n">possible_distances</span> <span class="o">=</span> <span class="p">[</span><span class="n">_i</span> <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="n">possible_distances</span>
+                                  <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">_i</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="n">possible_distances</span><span class="p">:</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">possible_distances</span><span class="p">,</span>
+                        <span class="p">[</span><span class="n">arrivals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">receiver_depth</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">possible_distances</span><span class="p">),</span>
+                        <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;v&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#C95241&quot;</span><span class="p">,</span>
+                        <span class="n">markersize</span><span class="o">=</span><span class="n">ms</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                        <span class="n">markeredgecolor</span><span class="o">=</span><span class="s2">&quot;0.3&quot;</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                        <span class="n">transform</span><span class="o">=</span><span class="n">station_marker_transform</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+        <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">ax</span></div></div>
+
+
+<div class="viewcode-block" id="TauPyModel"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.TauPyModel.html#obspy.taup.tau.TauPyModel">[docs]</a><span class="k">class</span> <span class="nc">TauPyModel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Representation of a seismic model and methods for ray paths through it.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TauPyModel.__init__"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.TauPyModel.__init__.html#obspy.taup.tau.TauPyModel.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;iasp91&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">planet_flattening</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                 <span class="n">cache</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Loads an already created TauPy model.</span>
+
+<span class="sd">        :param model: The model name. Either an internal TauPy model or a</span>
+<span class="sd">            filename in the case of custom models.</span>
+<span class="sd">        :param planet_flattening: Flattening parameter for the planet&#39;s</span>
+<span class="sd">            ellipsoid (i.e. (a-b)/a, where a is the semimajor equatorial radius</span>
+<span class="sd">            and b is the semiminor polar radius). A value of 0 (the default)</span>
+<span class="sd">            gives a spherical planet. Note that this is only used to convert</span>
+<span class="sd">            from geographical positions (source and receiver latitudes and</span>
+<span class="sd">            longitudes) to epicentral distances - the actual traveltime and</span>
+<span class="sd">            raypath calculations are performed on a spherical planet.</span>
+<span class="sd">        :type planet_flattening: float</span>
+<span class="sd">        :param cache: An object to use to cache models split at source depths.</span>
+<span class="sd">            Generating results requires splitting a model at the source depth,</span>
+<span class="sd">            which may be expensive. The cache allows faster calculation when</span>
+<span class="sd">            multiple results are requested for the same source depth. The</span>
+<span class="sd">            dictionary must be ordered, otherwise the LRU cache will not</span>
+<span class="sd">            behave correctly. If ``False`` is specified, then no cache will be</span>
+<span class="sd">            used.</span>
+<span class="sd">        :type cache: :class:`collections.OrderedDict` or bool</span>
+
+<span class="sd">        Usage:</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy.taup import tau</span>
+<span class="sd">        &gt;&gt;&gt; i91 = tau.TauPyModel()</span>
+<span class="sd">        &gt;&gt;&gt; print(i91.get_travel_times(10, 20)[0].name)</span>
+<span class="sd">        P</span>
+<span class="sd">        &gt;&gt;&gt; i91.get_travel_times(10, 20)[0].time  # doctest: +ELLIPSIS</span>
+<span class="sd">        272.675...</span>
+<span class="sd">        &gt;&gt;&gt; len(i91.get_travel_times(100, 50, phase_list = [&quot;P&quot;, &quot;S&quot;]))</span>
+<span class="sd">        2</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">TauModel</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">planet_flattening</span> <span class="o">=</span> <span class="n">planet_flattening</span></div>
+
+<div class="viewcode-block" id="TauPyModel.get_travel_times"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.TauPyModel.get_travel_times.html#obspy.taup.tau.TauPyModel.get_travel_times">[docs]</a>    <span class="k">def</span> <span class="nf">get_travel_times</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_depth_in_km</span><span class="p">,</span> <span class="n">distance_in_degree</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                         <span class="n">phase_list</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;ttall&quot;</span><span class="p">,),</span> <span class="n">receiver_depth_in_km</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return travel times of every given phase.</span>
+
+<span class="sd">        :param source_depth_in_km: Source depth in km</span>
+<span class="sd">        :type source_depth_in_km: float</span>
+<span class="sd">        :param distance_in_degree: Epicentral distance in degrees.</span>
+<span class="sd">        :type distance_in_degree: float</span>
+<span class="sd">        :param phase_list: List of phases for which travel times should be</span>
+<span class="sd">            calculated. If this is empty, all phases will be used.</span>
+<span class="sd">        :type phase_list: list of str</span>
+<span class="sd">        :param receiver_depth_in_km: Receiver depth in km</span>
+<span class="sd">        :type receiver_depth_in_km: float</span>
+
+<span class="sd">        :return: List of ``Arrival`` objects, each of which has the time,</span>
+<span class="sd">            corresponding phase name, ray parameter, takeoff angle, etc. as</span>
+<span class="sd">            attributes.</span>
+<span class="sd">        :rtype: :class:`Arrivals`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Accessing the arrivals not just by list indices but by phase name</span>
+        <span class="c1"># might be useful, but also difficult: several arrivals can have the</span>
+        <span class="c1"># same phase.</span>
+        <span class="n">tt</span> <span class="o">=</span> <span class="n">TauPTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">phase_list</span><span class="p">,</span> <span class="n">source_depth_in_km</span><span class="p">,</span>
+                      <span class="n">distance_in_degree</span><span class="p">,</span> <span class="n">receiver_depth_in_km</span><span class="p">)</span>
+        <span class="n">tt</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">Arrivals</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">arrivals</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">time</span><span class="p">),</span>
+                        <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TauPyModel.get_pierce_points"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.TauPyModel.get_pierce_points.html#obspy.taup.tau.TauPyModel.get_pierce_points">[docs]</a>    <span class="k">def</span> <span class="nf">get_pierce_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_depth_in_km</span><span class="p">,</span> <span class="n">distance_in_degree</span><span class="p">,</span>
+                          <span class="n">phase_list</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;ttall&quot;</span><span class="p">,),</span> <span class="n">receiver_depth_in_km</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return pierce points of every given phase.</span>
+
+<span class="sd">        :param source_depth_in_km: Source depth in km</span>
+<span class="sd">        :type source_depth_in_km: float</span>
+<span class="sd">        :param distance_in_degree: Epicentral distance in degrees.</span>
+<span class="sd">        :type distance_in_degree: float</span>
+<span class="sd">        :param phase_list: List of phases for which travel times should be</span>
+<span class="sd">            calculated. If this is empty, all phases will be used.</span>
+<span class="sd">        :type phase_list: list of str</span>
+<span class="sd">        :param receiver_depth_in_km: Receiver depth in km</span>
+<span class="sd">        :type receiver_depth_in_km: float</span>
+
+<span class="sd">        :return: List of ``Arrival`` objects, each of which has the time,</span>
+<span class="sd">            corresponding phase name, ray parameter, takeoff angle, etc. as</span>
+<span class="sd">            attributes.</span>
+<span class="sd">        :rtype: :class:`Arrivals`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pp</span> <span class="o">=</span> <span class="n">TauPPierce</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">phase_list</span><span class="p">,</span> <span class="n">source_depth_in_km</span><span class="p">,</span>
+                        <span class="n">distance_in_degree</span><span class="p">,</span> <span class="n">receiver_depth_in_km</span><span class="p">)</span>
+        <span class="n">pp</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">Arrivals</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">pp</span><span class="o">.</span><span class="n">arrivals</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">time</span><span class="p">),</span>
+                        <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TauPyModel.get_ray_paths"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.TauPyModel.get_ray_paths.html#obspy.taup.tau.TauPyModel.get_ray_paths">[docs]</a>    <span class="k">def</span> <span class="nf">get_ray_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_depth_in_km</span><span class="p">,</span> <span class="n">distance_in_degree</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">phase_list</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;ttall&quot;</span><span class="p">,),</span> <span class="n">receiver_depth_in_km</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return ray paths of every given phase.</span>
+
+<span class="sd">        :param source_depth_in_km: Source depth in km</span>
+<span class="sd">        :type source_depth_in_km: float</span>
+<span class="sd">        :param distance_in_degree: Epicentral distance in degrees.</span>
+<span class="sd">        :type distance_in_degree: float</span>
+<span class="sd">        :param phase_list: List of phases for which travel times should be</span>
+<span class="sd">            calculated. If this is empty, all phases will be used.</span>
+<span class="sd">        :type phase_list: list of str</span>
+<span class="sd">        :param receiver_depth_in_km: Receiver depth in km</span>
+<span class="sd">        :type receiver_depth_in_km: float</span>
+
+<span class="sd">        :return: List of ``Arrival`` objects, each of which has the time,</span>
+<span class="sd">            corresponding phase name, ray parameter, takeoff angle, etc. as</span>
+<span class="sd">            attributes.</span>
+<span class="sd">        :rtype: :class:`Arrivals`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rp</span> <span class="o">=</span> <span class="n">TauPPath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">phase_list</span><span class="p">,</span> <span class="n">source_depth_in_km</span><span class="p">,</span>
+                      <span class="n">distance_in_degree</span><span class="p">,</span> <span class="n">receiver_depth_in_km</span><span class="p">)</span>
+        <span class="n">rp</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">Arrivals</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">rp</span><span class="o">.</span><span class="n">arrivals</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">time</span><span class="p">),</span>
+                        <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TauPyModel.get_travel_times_geo"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.TauPyModel.get_travel_times_geo.html#obspy.taup.tau.TauPyModel.get_travel_times_geo">[docs]</a>    <span class="k">def</span> <span class="nf">get_travel_times_geo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_depth_in_km</span><span class="p">,</span> <span class="n">source_latitude_in_deg</span><span class="p">,</span>
+                             <span class="n">source_longitude_in_deg</span><span class="p">,</span> <span class="n">receiver_latitude_in_deg</span><span class="p">,</span>
+                             <span class="n">receiver_longitude_in_deg</span><span class="p">,</span> <span class="n">phase_list</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;ttall&quot;</span><span class="p">,)):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return travel times of every given phase given geographical data.</span>
+
+<span class="sd">        .. note::</span>
+
+<span class="sd">            Note that the conversion from source and receiver latitudes and</span>
+<span class="sd">            longitudes to epicentral distances respects the model&#39;s flattening</span>
+<span class="sd">            parameter, so this calculation can be performed for a ellipsoidal</span>
+<span class="sd">            or spherical planet. However, the actual traveltime and raypath</span>
+<span class="sd">            calculations are performed on a spherical planet. Ellipticity</span>
+<span class="sd">            corrections of e.g. [Dziewonski1976]_ are not made.</span>
+
+<span class="sd">        :param source_depth_in_km: Source depth in km</span>
+<span class="sd">        :type source_depth_in_km: float</span>
+<span class="sd">        :param source_latitude_in_deg: Source latitude in degrees</span>
+<span class="sd">        :type source_latitude_in_deg: float</span>
+<span class="sd">        :param source_longitude_in_deg: Source longitude in degrees</span>
+<span class="sd">        :type source_longitude_in_deg: float</span>
+<span class="sd">        :param receiver_latitude_in_deg: Receiver latitude in degrees</span>
+<span class="sd">        :type receiver_latitude_in_deg: float</span>
+<span class="sd">        :param receiver_longitude_in_deg: Receiver longitude in degrees</span>
+<span class="sd">        :type receiver_longitude_in_deg: float</span>
+<span class="sd">        :param phase_list: List of phases for which travel times should be</span>
+<span class="sd">            calculated. If this is empty, all phases will be used.</span>
+<span class="sd">        :type phase_list: list of str</span>
+
+<span class="sd">        :return: List of ``Arrival`` objects, each of which has the time,</span>
+<span class="sd">            corresponding phase name, ray parameter, takeoff angle, etc. as</span>
+<span class="sd">            attributes.</span>
+<span class="sd">        :rtype: :class:`Arrivals`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">distance_in_deg</span> <span class="o">=</span> <span class="n">calc_dist</span><span class="p">(</span><span class="n">source_latitude_in_deg</span><span class="p">,</span>
+                                    <span class="n">source_longitude_in_deg</span><span class="p">,</span>
+                                    <span class="n">receiver_latitude_in_deg</span><span class="p">,</span>
+                                    <span class="n">receiver_longitude_in_deg</span><span class="p">,</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">radius_of_planet</span><span class="p">,</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">planet_flattening</span><span class="p">)</span>
+        <span class="n">arrivals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_travel_times</span><span class="p">(</span><span class="n">source_depth_in_km</span><span class="p">,</span> <span class="n">distance_in_deg</span><span class="p">,</span>
+                                         <span class="n">phase_list</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">arrivals</span></div>
+
+<div class="viewcode-block" id="TauPyModel.get_pierce_points_geo"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.TauPyModel.get_pierce_points_geo.html#obspy.taup.tau.TauPyModel.get_pierce_points_geo">[docs]</a>    <span class="k">def</span> <span class="nf">get_pierce_points_geo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_depth_in_km</span><span class="p">,</span> <span class="n">source_latitude_in_deg</span><span class="p">,</span>
+                              <span class="n">source_longitude_in_deg</span><span class="p">,</span>
+                              <span class="n">receiver_latitude_in_deg</span><span class="p">,</span>
+                              <span class="n">receiver_longitude_in_deg</span><span class="p">,</span>
+                              <span class="n">phase_list</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;ttall&quot;</span><span class="p">,)):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return ray paths of every given phase with geographical info.</span>
+
+<span class="sd">        .. note::</span>
+
+<span class="sd">            Note that the conversion from source and receiver latitudes and</span>
+<span class="sd">            longitudes to epicentral distances respects the model&#39;s flattening</span>
+<span class="sd">            parameter, so this calculation can be performed for a ellipsoidal</span>
+<span class="sd">            or spherical planet. However, the actual traveltime and raypath</span>
+<span class="sd">            calculations are performed on a spherical planet. Ellipticity</span>
+<span class="sd">            corrections of e.g. [Dziewonski1976]_ are not made.</span>
+
+<span class="sd">        :param source_depth_in_km: Source depth in km</span>
+<span class="sd">        :type source_depth_in_km: float</span>
+<span class="sd">        :param source_latitude_in_deg: Source latitude in degrees</span>
+<span class="sd">        :type source_latitude_in_deg: float</span>
+<span class="sd">        :param source_longitude_in_deg: Source longitue in degrees</span>
+<span class="sd">        :type source_longitude_in_deg: float</span>
+<span class="sd">        :param receiver_latitude_in_deg: Receiver latitude in degrees</span>
+<span class="sd">        :type receiver_latitude_in_deg: float</span>
+<span class="sd">        :param receiver_longitude_in_deg: Receiver longitude in degrees</span>
+<span class="sd">        :type receiver_longitude_in_deg: float</span>
+<span class="sd">        :param phase_list: List of phases for which travel times should be</span>
+<span class="sd">            calculated. If this is empty, all phases will be used.</span>
+<span class="sd">        :type phase_list: list of str</span>
+<span class="sd">        :return: List of ``Arrival`` objects, each of which has the time,</span>
+<span class="sd">            corresponding phase name, ray parameter, takeoff angle, etc. as</span>
+<span class="sd">            attributes.</span>
+<span class="sd">        :rtype: :class:`Arrivals`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">distance_in_deg</span> <span class="o">=</span> <span class="n">calc_dist</span><span class="p">(</span><span class="n">source_latitude_in_deg</span><span class="p">,</span>
+                                    <span class="n">source_longitude_in_deg</span><span class="p">,</span>
+                                    <span class="n">receiver_latitude_in_deg</span><span class="p">,</span>
+                                    <span class="n">receiver_longitude_in_deg</span><span class="p">,</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">radius_of_planet</span><span class="p">,</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">planet_flattening</span><span class="p">)</span>
+
+        <span class="n">arrivals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pierce_points</span><span class="p">(</span><span class="n">source_depth_in_km</span><span class="p">,</span> <span class="n">distance_in_deg</span><span class="p">,</span>
+                                          <span class="n">phase_list</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">geodetics</span><span class="o">.</span><span class="n">HAS_GEOGRAPHICLIB</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">arrivals</span> <span class="o">=</span> <span class="n">add_geo_to_arrivals</span><span class="p">(</span>
+                    <span class="n">arrivals</span><span class="p">,</span> <span class="n">source_latitude_in_deg</span><span class="p">,</span> <span class="n">source_longitude_in_deg</span><span class="p">,</span>
+                    <span class="n">receiver_latitude_in_deg</span><span class="p">,</span> <span class="n">receiver_longitude_in_deg</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">radius_of_planet</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">planet_flattening</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;ImportError: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Not able to evaluate positions of pierce points. &quot;</span> <span class="o">+</span> \
+                  <span class="s2">&quot;Arrivals object will not be modified. &quot;</span> <span class="o">+</span> \
+                  <span class="s2">&quot;Install the Python module &#39;geographiclib&#39; to solve &quot;</span> <span class="o">+</span> \
+                  <span class="s2">&quot;this issue.&quot;</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">arrivals</span></div>
+
+<div class="viewcode-block" id="TauPyModel.get_ray_paths_geo"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.TauPyModel.get_ray_paths_geo.html#obspy.taup.tau.TauPyModel.get_ray_paths_geo">[docs]</a>    <span class="k">def</span> <span class="nf">get_ray_paths_geo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_depth_in_km</span><span class="p">,</span> <span class="n">source_latitude_in_deg</span><span class="p">,</span>
+                          <span class="n">source_longitude_in_deg</span><span class="p">,</span> <span class="n">receiver_latitude_in_deg</span><span class="p">,</span>
+                          <span class="n">receiver_longitude_in_deg</span><span class="p">,</span> <span class="n">phase_list</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;ttall&quot;</span><span class="p">,)):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return ray paths of every given phase with geographical info.</span>
+
+<span class="sd">        .. note::</span>
+
+<span class="sd">            Note that the conversion from source and receiver latitudes and</span>
+<span class="sd">            longitudes to epicentral distances respects the model&#39;s flattening</span>
+<span class="sd">            parameter, so this calculation can be performed for a ellipsoidal</span>
+<span class="sd">            or spherical planet. However, the actual traveltime and raypath</span>
+<span class="sd">            calculations are performed on a spherical planet. Ellipticity</span>
+<span class="sd">            corrections of e.g. [Dziewonski1976]_ are not made.</span>
+
+<span class="sd">        :param source_depth_in_km: Source depth in km</span>
+<span class="sd">        :type source_depth_in_km: float</span>
+<span class="sd">        :param source_latitude_in_deg: Source latitude in degrees</span>
+<span class="sd">        :type source_latitude_in_deg: float</span>
+<span class="sd">        :param source_longitude_in_deg: Source longitue in degrees</span>
+<span class="sd">        :type source_longitude_in_deg: float</span>
+<span class="sd">        :param receiver_latitude_in_deg: Receiver latitude in degrees</span>
+<span class="sd">        :type receiver_latitude_in_deg: float</span>
+<span class="sd">        :param receiver_longitude_in_deg: Receiver longitude in degrees</span>
+<span class="sd">        :type receiver_longitude_in_deg: float</span>
+<span class="sd">        :param phase_list: List of phases for which travel times should be</span>
+<span class="sd">            calculated. If this is empty, all phases will be used.</span>
+<span class="sd">        :type phase_list: list of str</span>
+<span class="sd">        :return: List of ``Arrival`` objects, each of which has the time,</span>
+<span class="sd">            corresponding phase name, ray parameter, takeoff angle, etc. as</span>
+<span class="sd">            attributes.</span>
+<span class="sd">        :rtype: :class:`Arrivals`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">distance_in_deg</span> <span class="o">=</span> <span class="n">calc_dist</span><span class="p">(</span><span class="n">source_latitude_in_deg</span><span class="p">,</span>
+                                    <span class="n">source_longitude_in_deg</span><span class="p">,</span>
+                                    <span class="n">receiver_latitude_in_deg</span><span class="p">,</span>
+                                    <span class="n">receiver_longitude_in_deg</span><span class="p">,</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">radius_of_planet</span><span class="p">,</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">planet_flattening</span><span class="p">)</span>
+
+        <span class="n">arrivals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ray_paths</span><span class="p">(</span><span class="n">source_depth_in_km</span><span class="p">,</span> <span class="n">distance_in_deg</span><span class="p">,</span>
+                                      <span class="n">phase_list</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">geodetics</span><span class="o">.</span><span class="n">HAS_GEOGRAPHICLIB</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">arrivals</span> <span class="o">=</span> <span class="n">add_geo_to_arrivals</span><span class="p">(</span>
+                    <span class="n">arrivals</span><span class="p">,</span> <span class="n">source_latitude_in_deg</span><span class="p">,</span> <span class="n">source_longitude_in_deg</span><span class="p">,</span>
+                    <span class="n">receiver_latitude_in_deg</span><span class="p">,</span> <span class="n">receiver_longitude_in_deg</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">radius_of_planet</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">planet_flattening</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;ImportError: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Not able to evaluate positions of points on path. &quot;</span> <span class="o">+</span> \
+                  <span class="s2">&quot;Arrivals object will not be modified. &quot;</span> <span class="o">+</span> \
+                  <span class="s2">&quot;Install the Python module &#39;geographiclib&#39; to solve &quot;</span> <span class="o">+</span> \
+                  <span class="s2">&quot;this issue.&quot;</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">arrivals</span></div></div>
+
+
+<div class="viewcode-block" id="create_taup_model"><a class="viewcode-back" href="../../../packages/autogen/obspy.taup.tau.create_taup_model.html#obspy.taup.tau.create_taup_model">[docs]</a><span class="k">def</span> <span class="nf">create_taup_model</span><span class="p">(</span><span class="n">model_name</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">input_dir</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a .taup model from a .tvel file.</span>
+
+<span class="sd">    :param model_name:</span>
+<span class="sd">    :param output_dir:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">model_name</span><span class="p">:</span>
+        <span class="n">model_file_name</span> <span class="o">=</span> <span class="n">model_name</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">model_file_name</span> <span class="o">=</span> <span class="n">model_name</span> <span class="o">+</span> <span class="s2">&quot;.tvel&quot;</span>
+    <span class="n">TauPCreate</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">model_file_name</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">input_dir</span><span class="p">)</span></div>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

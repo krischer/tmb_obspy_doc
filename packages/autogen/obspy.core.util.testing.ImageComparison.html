@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.core.util.testing.ImageComparison &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../contents.html">ObsPy Documentation (1.0.3)</a></li> 
+    </ol>
+  
+  <div class="section" id="obspy-core-util-testing-imagecomparison">
+<h1>obspy.core.util.testing.ImageComparison<a class="headerlink" href="#obspy-core-util-testing-imagecomparison" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="obspy.core.util.testing.ImageComparison">
+<em class="property">class </em><code class="descname">ImageComparison</code><span class="sig-paren">(</span><em>image_path</em>, <em>image_name</em>, <em>reltol=1</em>, <em>adjust_tolerance=True</em>, <em>plt_close_all_enter=True</em>, <em>plt_close_all_exit=True</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/obspy/core/util/testing.html#ImageComparison"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#obspy.core.util.testing.ImageComparison" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="obspy.core.util.base.NamedTemporaryFile.html#obspy.core.util.base.NamedTemporaryFile" title="obspy.core.util.base.NamedTemporaryFile"><code class="xref py py-class docutils literal"><span class="pre">obspy.core.util.base.NamedTemporaryFile</span></code></a></p>
+<p>Handles the comparison against a baseline image in an image test.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Baseline images are created using matplotlib version <cite>1.3.1</cite>.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>image_path</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Path to directory where the baseline image is located</li>
+<li><strong>image_name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Filename (with suffix, without directory path) of the
+baseline image</li>
+<li><strong>reltol</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a><em>, </em><em>optional</em>) – Multiplier that is applied to the default tolerance
+value (i.e. 10 means a 10 times harder to pass test tolerance).</li>
+<li><strong>adjust_tolerance</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Adjust the tolerance based on the matplotlib
+version. Can optionally be turned off to simply compare two images.</li>
+<li><strong>plt_close_all_enter</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Whether to close all open figures when entering
+context (<a class="reference external" href="http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.close" title="(in Matplotlib v2.0.2)"><code class="xref py py-func docutils literal"><span class="pre">matplotlib.pyplot.close()</span></code></a> with “all” as first argument.</li>
+<li><strong>plt_close_all_exit</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Whether to call <a class="reference external" href="http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.close" title="(in Matplotlib v2.0.2)"><code class="xref py py-func docutils literal"><span class="pre">matplotlib.pyplot.close()</span></code></a>
+with “all” as first argument (close all figures) or no arguments (close
+active figure). Has no effect if <code class="docutils literal"><span class="pre">plt_close=False</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The class should be used with Python’s “with” statement. When setting up,
+the matplotlib rcdefaults are set to ensure consistent image testing.
+After the plotting is completed, the <a class="reference internal" href="obspy.core.util.testing.ImageComparison.compare.html#obspy.core.util.testing.ImageComparison.compare" title="obspy.core.util.testing.ImageComparison.compare"><code class="xref py py-meth docutils literal"><span class="pre">ImageComparison.compare()</span></code></a>
+method is called automatically at the end of the “with” block, comparing
+against the previously specified baseline image. This raises an exception
+(if the test fails) with the message string from
+<code class="xref py py-func docutils literal"><span class="pre">matplotlib.testing.compare.compare_images()</span></code>. Afterwards all
+temporary files are deleted automatically.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If images created during the testrun should be kept after the test, set
+environment variable <cite>OBSPY_KEEP_IMAGES</cite> to any value before executing
+the test (e.g. with <cite>$ OBSPY_KEEP_IMAGES= obspy-runtests</cite> or <cite>$
+OBSPY_KEEP_IMAGES= python test_sometest.py</cite>). For <cite>obspy-runtests</cite> the
+option “–keep-images” can also be used instead of setting an
+environment variable. Created images and diffs for failing tests are
+then stored in a subfolder “testrun” under the baseline image’s
+directory.
+To only keep failed images and the corresponding diff image,
+additionally set environment variable <cite>OBSPY_KEEP_ONLY_FAILED_IMAGES</cite>
+to any value before executing the test.</p>
+</div>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">read</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">ImageComparison</span><span class="p">(</span><span class="s2">&quot;/my/baseline/folder&quot;</span><span class="p">,</span> <span class="s1">&#39;plot.png&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ic</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">st</span> <span class="o">=</span> <span class="n">read</span><span class="p">()</span>  
+<span class="gp">... </span>    <span class="n">st</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">outfile</span><span class="o">=</span><span class="n">ic</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>  
+<span class="gp">... </span>    <span class="c1"># image is compared against baseline image automatically</span>
+</pre></div>
+</div>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.__abstractmethods__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.__doc__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.__module__</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.closed</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Public Methods</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.close.html#obspy.core.util.testing.ImageComparison.close" title="obspy.core.util.testing.ImageComparison.close"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.close</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.compare.html#obspy.core.util.testing.ImageComparison.compare" title="obspy.core.util.testing.ImageComparison.compare"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.compare</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.detach.html#obspy.core.util.testing.ImageComparison.detach" title="obspy.core.util.testing.ImageComparison.detach"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.detach</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.fileno.html#obspy.core.util.testing.ImageComparison.fileno" title="obspy.core.util.testing.ImageComparison.fileno"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.fileno</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.flush.html#obspy.core.util.testing.ImageComparison.flush" title="obspy.core.util.testing.ImageComparison.flush"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.flush</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.isatty.html#obspy.core.util.testing.ImageComparison.isatty" title="obspy.core.util.testing.ImageComparison.isatty"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.isatty</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.read.html#obspy.core.util.testing.ImageComparison.read" title="obspy.core.util.testing.ImageComparison.read"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.read</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.read1.html#obspy.core.util.testing.ImageComparison.read1" title="obspy.core.util.testing.ImageComparison.read1"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.read1</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.readable.html#obspy.core.util.testing.ImageComparison.readable" title="obspy.core.util.testing.ImageComparison.readable"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.readable</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.readinto.html#obspy.core.util.testing.ImageComparison.readinto" title="obspy.core.util.testing.ImageComparison.readinto"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.readinto</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.readline.html#obspy.core.util.testing.ImageComparison.readline" title="obspy.core.util.testing.ImageComparison.readline"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.readline</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.readlines.html#obspy.core.util.testing.ImageComparison.readlines" title="obspy.core.util.testing.ImageComparison.readlines"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.readlines</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.seek.html#obspy.core.util.testing.ImageComparison.seek" title="obspy.core.util.testing.ImageComparison.seek"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.seek</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.seekable.html#obspy.core.util.testing.ImageComparison.seekable" title="obspy.core.util.testing.ImageComparison.seekable"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.seekable</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.tell.html#obspy.core.util.testing.ImageComparison.tell" title="obspy.core.util.testing.ImageComparison.tell"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.tell</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.truncate.html#obspy.core.util.testing.ImageComparison.truncate" title="obspy.core.util.testing.ImageComparison.truncate"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.truncate</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.writable.html#obspy.core.util.testing.ImageComparison.writable" title="obspy.core.util.testing.ImageComparison.writable"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.writable</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.write.html#obspy.core.util.testing.ImageComparison.write" title="obspy.core.util.testing.ImageComparison.write"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.write</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.writelines.html#obspy.core.util.testing.ImageComparison.writelines" title="obspy.core.util.testing.ImageComparison.writelines"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.writelines</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Private Methods</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Private methods are mainly for internal/developer use and their API might change without notice.</p>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison._checkClosed.html#obspy.core.util.testing.ImageComparison._checkClosed" title="obspy.core.util.testing.ImageComparison._checkClosed"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison._checkClosed</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison._checkReadable.html#obspy.core.util.testing.ImageComparison._checkReadable" title="obspy.core.util.testing.ImageComparison._checkReadable"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison._checkReadable</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison._checkSeekable.html#obspy.core.util.testing.ImageComparison._checkSeekable" title="obspy.core.util.testing.ImageComparison._checkSeekable"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison._checkSeekable</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison._checkWritable.html#obspy.core.util.testing.ImageComparison._checkWritable" title="obspy.core.util.testing.ImageComparison._checkWritable"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison._checkWritable</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison._copy_tempfiles.html#obspy.core.util.testing.ImageComparison._copy_tempfiles" title="obspy.core.util.testing.ImageComparison._copy_tempfiles"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison._copy_tempfiles</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison._get_final_filenames.html#obspy.core.util.testing.ImageComparison._get_final_filenames" title="obspy.core.util.testing.ImageComparison._get_final_filenames"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison._get_final_filenames</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison._upload_images.html#obspy.core.util.testing.ImageComparison._upload_images" title="obspy.core.util.testing.ImageComparison._upload_images"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison._upload_images</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Special Methods</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.__enter__.html#obspy.core.util.testing.ImageComparison.__enter__" title="obspy.core.util.testing.ImageComparison.__enter__"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.__enter__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.__exit__.html#obspy.core.util.testing.ImageComparison.__exit__" title="obspy.core.util.testing.ImageComparison.__exit__"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.__exit__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.__format__.html#obspy.core.util.testing.ImageComparison.__format__" title="obspy.core.util.testing.ImageComparison.__format__"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.__format__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.__init__.html#obspy.core.util.testing.ImageComparison.__init__" title="obspy.core.util.testing.ImageComparison.__init__"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.__init__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.__new__.html#obspy.core.util.testing.ImageComparison.__new__" title="obspy.core.util.testing.ImageComparison.__new__"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.__new__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.__reduce__.html#obspy.core.util.testing.ImageComparison.__reduce__" title="obspy.core.util.testing.ImageComparison.__reduce__"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.__reduce__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.__reduce_ex__.html#obspy.core.util.testing.ImageComparison.__reduce_ex__" title="obspy.core.util.testing.ImageComparison.__reduce_ex__"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.__reduce_ex__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.__sizeof__.html#obspy.core.util.testing.ImageComparison.__sizeof__" title="obspy.core.util.testing.ImageComparison.__sizeof__"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.__sizeof__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="obspy.core.util.testing.ImageComparison.__subclasshook__.html#obspy.core.util.testing.ImageComparison.__subclasshook__" title="obspy.core.util.testing.ImageComparison.__subclasshook__"><code class="xref py py-obj docutils literal"><span class="pre">ImageComparison.__subclasshook__</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

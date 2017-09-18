@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.clients.iris.client &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.clients.iris.client</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">IRIS Web service client for ObsPy.</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org)</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA @UnusedWildImport</span>
+<span class="kn">from</span> <span class="nn">future.utils</span> <span class="k">import</span> <span class="n">native_str</span>
+
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">platform</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">lxml</span> <span class="k">import</span> <span class="n">objectify</span>
+
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">urllib</span> <span class="k">import</span> <span class="n">urlencode</span>
+    <span class="kn">import</span> <span class="nn">urllib2</span> <span class="k">as</span> <span class="nn">urllib_request</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="k">import</span> <span class="n">urlencode</span>
+    <span class="kn">import</span> <span class="nn">urllib.request</span> <span class="k">as</span> <span class="nn">urllib_request</span>
+
+<span class="kn">from</span> <span class="nn">obspy</span> <span class="k">import</span> <span class="n">Stream</span><span class="p">,</span> <span class="n">UTCDateTime</span><span class="p">,</span> <span class="n">__version__</span><span class="p">,</span> <span class="n">read</span>
+<span class="kn">from</span> <span class="nn">obspy.core.util</span> <span class="k">import</span> <span class="n">NamedTemporaryFile</span><span class="p">,</span> <span class="n">loadtxt</span>
+
+
+<span class="n">DEFAULT_USER_AGENT</span> <span class="o">=</span> <span class="s2">&quot;ObsPy/</span><span class="si">%s</span><span class="s2"> (</span><span class="si">%s</span><span class="s2">, Python </span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">__version__</span><span class="p">,</span>
+                                                   <span class="n">platform</span><span class="o">.</span><span class="n">platform</span><span class="p">(),</span>
+                                                   <span class="n">platform</span><span class="o">.</span><span class="n">python_version</span><span class="p">())</span>
+<span class="n">DEFAULT_PHASES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="s1">&#39;S&#39;</span><span class="p">,</span> <span class="s1">&#39;Pn&#39;</span><span class="p">,</span> <span class="s1">&#39;Sn&#39;</span><span class="p">,</span> <span class="s1">&#39;PcP&#39;</span><span class="p">,</span> <span class="s1">&#39;ScS&#39;</span><span class="p">,</span> <span class="s1">&#39;Pdiff&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Sdiff&#39;</span><span class="p">,</span> <span class="s1">&#39;PKP&#39;</span><span class="p">,</span> <span class="s1">&#39;SKS&#39;</span><span class="p">,</span> <span class="s1">&#39;PKiKP&#39;</span><span class="p">,</span> <span class="s1">&#39;SKiKS&#39;</span><span class="p">,</span> <span class="s1">&#39;PKIKP&#39;</span><span class="p">,</span> <span class="s1">&#39;SKIKS&#39;</span><span class="p">]</span>
+<span class="n">DEFAULT_SERVICE_VERSIONS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;timeseries&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;sacpz&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;resp&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                            <span class="s2">&quot;evalresp&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;traveltime&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;flinnengdahl&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                            <span class="s2">&quot;distaz&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+
+
+<div class="viewcode-block" id="Client"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.iris.client.Client.html#obspy.clients.iris.client.Client">[docs]</a><span class="k">class</span> <span class="nc">Client</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    IRIS Web service request client.</span>
+
+<span class="sd">    :type base_url: str, optional</span>
+<span class="sd">    :param base_url: Base URL of the IRIS Web service (default</span>
+<span class="sd">        is ``&#39;http://service.iris.edu/irisws&#39;``).</span>
+<span class="sd">    :type user: str, optional</span>
+<span class="sd">    :param user: The user name used for authentication with the Web</span>
+<span class="sd">        service (default an empty string).</span>
+<span class="sd">    :type password: str, optional</span>
+<span class="sd">    :param password: A password used for authentication with the Web</span>
+<span class="sd">        service (default is an empty string).</span>
+<span class="sd">    :type timeout: int, optional</span>
+<span class="sd">    :param timeout: Seconds before a connection timeout is raised (default</span>
+<span class="sd">        is ``10`` seconds).</span>
+<span class="sd">    :type debug: bool, optional</span>
+<span class="sd">    :param debug: Enables verbose output (default is ``False``).</span>
+<span class="sd">    :type user_agent: str, optional</span>
+<span class="sd">    :param user_agent: Sets an client identification string which may be</span>
+<span class="sd">        used on server side for statistical analysis (default contains the</span>
+<span class="sd">        current module version and basic information about the used</span>
+<span class="sd">        operation system, e.g.</span>
+<span class="sd">        ``&#39;ObsPy 0.4.7.dev-r2432 (Windows-7-6.1.7601-SP1, Python 2.7.1)&#39;``.</span>
+<span class="sd">    :type major_versions: dict</span>
+<span class="sd">    :param major_versions: Allows to specify custom major version numbers</span>
+<span class="sd">        for individual services (e.g.</span>
+<span class="sd">        `major_versions={&#39;evalresp&#39;: 2, &#39;sacpz&#39;: 3}`), otherwise the</span>
+<span class="sd">        latest version at time of implementation will be used.</span>
+
+<span class="sd">    .. rubric:: Example</span>
+
+<span class="sd">    &gt;&gt;&gt; from obspy.clients.iris import Client</span>
+<span class="sd">    &gt;&gt;&gt; client = Client()</span>
+<span class="sd">    &gt;&gt;&gt; result = client.distaz(stalat=1.1, stalon=1.2, evtlat=3.2,</span>
+<span class="sd">    ...                        evtlon=1.4)</span>
+<span class="sd">    &gt;&gt;&gt; print(result[&#39;distance&#39;])</span>
+<span class="sd">    2.10256</span>
+<span class="sd">    &gt;&gt;&gt; print(result[&#39;backazimuth&#39;])</span>
+<span class="sd">    5.46944</span>
+<span class="sd">    &gt;&gt;&gt; print(result[&#39;azimuth&#39;])</span>
+<span class="sd">    185.47695</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Client.__init__"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.iris.client.Client.__init__.html#obspy.clients.iris.client.Client.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;http://service.iris.edu/irisws&quot;</span><span class="p">,</span>
+                 <span class="n">user</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">user_agent</span><span class="o">=</span><span class="n">DEFAULT_USER_AGENT</span><span class="p">,</span> <span class="n">major_versions</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the IRIS Web service client.</span>
+
+<span class="sd">        See :mod:`obspy.clients.iris` for all parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_url</span> <span class="o">=</span> <span class="n">base_url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">timeout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">debug</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user_agent</span> <span class="o">=</span> <span class="n">user_agent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">major_versions</span> <span class="o">=</span> <span class="n">DEFAULT_SERVICE_VERSIONS</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">major_versions</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">major_versions</span><span class="p">)</span>
+        <span class="c1"># Create an OpenerDirector for Basic HTTP Authentication</span>
+        <span class="n">password_mgr</span> <span class="o">=</span> <span class="n">urllib_request</span><span class="o">.</span><span class="n">HTTPPasswordMgrWithDefaultRealm</span><span class="p">()</span>
+        <span class="n">password_mgr</span><span class="o">.</span><span class="n">add_password</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">base_url</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+        <span class="n">auth_handler</span> <span class="o">=</span> <span class="n">urllib_request</span><span class="o">.</span><span class="n">HTTPBasicAuthHandler</span><span class="p">(</span><span class="n">password_mgr</span><span class="p">)</span>
+        <span class="n">opener</span> <span class="o">=</span> <span class="n">urllib_request</span><span class="o">.</span><span class="n">build_opener</span><span class="p">(</span><span class="n">auth_handler</span><span class="p">)</span>
+        <span class="c1"># install globally</span>
+        <span class="n">urllib_request</span><span class="o">.</span><span class="n">install_opener</span><span class="p">(</span><span class="n">opener</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client._fetch"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.iris.client.Client._fetch.html#obspy.clients.iris.client.Client._fetch">[docs]</a>    <span class="k">def</span> <span class="nf">_fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{},</span> <span class="n">param_list</span><span class="o">=</span><span class="p">[],</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Send a HTTP request via urllib2.</span>
+
+<span class="sd">        :type service: str</span>
+<span class="sd">        :param service: Name of service</span>
+<span class="sd">        :type data: str</span>
+<span class="sd">        :param data: Channel list as returned by `availability` Web service</span>
+<span class="sd">        :type headers: dict, optional</span>
+<span class="sd">        :param headers: Additional header information for request</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;User-Agent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_agent</span>
+        <span class="c1"># replace special characters</span>
+        <span class="n">remoteaddr</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">base_url</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">),</span> <span class="n">service</span><span class="p">,</span>
+                               <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">major_versions</span><span class="p">[</span><span class="n">service</span><span class="p">]),</span> <span class="s2">&quot;query&quot;</span><span class="p">])</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="s1">&#39;&amp;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">param_list</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">params</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">options</span><span class="p">:</span>
+                <span class="n">options</span> <span class="o">+=</span> <span class="s1">&#39;&amp;&#39;</span>
+            <span class="n">options</span> <span class="o">+=</span> <span class="n">urlencode</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">options</span><span class="p">:</span>
+            <span class="n">remoteaddr</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">?</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">remoteaddr</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Requesting </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">remoteaddr</span><span class="p">))</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">urllib_request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">remoteaddr</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+                                     <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">urllib_request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">doc</span></div>
+
+<div class="viewcode-block" id="Client._to_file_or_data"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.iris.client.Client._to_file_or_data.html#obspy.clients.iris.client.Client._to_file_or_data">[docs]</a>    <span class="k">def</span> <span class="nf">_to_file_or_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">binary</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Either writes data into a file if filename is given or directly returns</span>
+<span class="sd">        it.</span>
+
+<span class="sd">        :type filename: str or file</span>
+<span class="sd">        :param filename: File or object being written to. If None, a string</span>
+<span class="sd">            will be returned.</span>
+<span class="sd">        :type data: str or bytes</span>
+<span class="sd">        :param data: The data being written or returned.</span>
+<span class="sd">        :type binary: bool, optional</span>
+<span class="sd">        :param binary: Whether to write the data as binary or text. Defaults to</span>
+<span class="sd">            binary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">data</span>
+        <span class="k">if</span> <span class="n">binary</span><span class="p">:</span>
+            <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;wb&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;wt&#39;</span>
+        <span class="n">file_opened</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># file name is given, create fh, write to file and return nothing</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;write&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">callable</span><span class="p">(</span><span class="n">filename</span><span class="o">.</span><span class="n">write</span><span class="p">):</span>
+            <span class="n">fh</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">native_str</span><span class="p">)):</span>
+            <span class="n">fh</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
+            <span class="n">file_opened</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Parameter &#39;filename&#39; must be either a string or an open &quot;</span>
+                   <span class="s2">&quot;file-like object.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span> <span class="k">if</span> <span class="n">binary</span> <span class="k">else</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="c1"># Only close if also opened.</span>
+            <span class="k">if</span> <span class="n">file_opened</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">fh</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Client.timeseries"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.iris.client.Client.timeseries.html#obspy.clients.iris.client.Client.timeseries">[docs]</a>    <span class="k">def</span> <span class="nf">timeseries</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">network</span><span class="p">,</span> <span class="n">station</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span>
+                   <span class="n">starttime</span><span class="p">,</span> <span class="n">endtime</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="p">[],</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                   <span class="n">output</span><span class="o">=</span><span class="s1">&#39;miniseed&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Low-level interface for `timeseries` Web service of IRIS</span>
+<span class="sd">        (http://service.iris.edu/irisws/timeseries/)- release 1.3.5</span>
+<span class="sd">        (2012-06-07).</span>
+
+<span class="sd">        This method fetches segments of seismic data and returns data formatted</span>
+<span class="sd">        in either MiniSEED, ASCII or SAC. It can optionally filter the data.</span>
+
+<span class="sd">        **Channel and temporal constraints (required)**</span>
+
+<span class="sd">        The four SCNL parameters (Station - Channel - Network - Location) are</span>
+<span class="sd">        used to determine the channel of interest, and are all required.</span>
+<span class="sd">        Wildcards are not accepted.</span>
+
+<span class="sd">        :type network: str</span>
+<span class="sd">        :param network: Network code, e.g. ``&#39;IU&#39;``.</span>
+<span class="sd">        :type station: str</span>
+<span class="sd">        :param station: Station code, e.g. ``&#39;ANMO&#39;``.</span>
+<span class="sd">        :type location: str</span>
+<span class="sd">        :param location: Location code, e.g. ``&#39;00&#39;``</span>
+<span class="sd">        :type channel: str</span>
+<span class="sd">        :param channel: Channel code, e.g. ``&#39;BHZ&#39;``.</span>
+<span class="sd">        :type starttime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param starttime: Start date and time.</span>
+<span class="sd">        :type endtime: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param endtime: End date and time.</span>
+
+<span class="sd">        **Filter Options**</span>
+
+<span class="sd">        The following parameters act as filters upon the time series.</span>
+
+<span class="sd">        :type filter: list of str, optional</span>
+<span class="sd">        :param filter: Filter list.  List order matters because each filter</span>
+<span class="sd">            operation is performed in the order given. For example</span>
+<span class="sd">            ``filter=[&quot;demean&quot;, &quot;lp=2.0&quot;]`` will demean and then apply a</span>
+<span class="sd">            low-pass filter, while ``filter=[&quot;lp=2.0&quot;, &quot;demean&quot;]`` will apply</span>
+<span class="sd">            the low-pass filter first, and then demean.</span>
+
+<span class="sd">            ``&quot;taper=WIDTH,TYPE&quot;``</span>
+<span class="sd">                Apply a time domain symmetric tapering function to the</span>
+<span class="sd">                time series data. The width is specified as a fraction of the</span>
+<span class="sd">                trace length from 0 to 0.5. The window types HANNING (default),</span>
+<span class="sd">                HAMMING, or COSINE may be optionally followed, e.g.</span>
+<span class="sd">                ``&quot;taper=0.25&quot;`` or ``&quot;taper=0.5,COSINE&quot;``.</span>
+<span class="sd">            ``&quot;envelope=true&quot;``</span>
+<span class="sd">                Calculate the envelope of the time series. This calculation</span>
+<span class="sd">                uses a Hilbert transform approximated by a time domain filter.</span>
+<span class="sd">            ``&quot;lp=FREQ&quot;``</span>
+<span class="sd">                Low-pass filter the time-series using an IIR 4th order filter,</span>
+<span class="sd">                using this value (in Hertz) as the cutoff, e.g. ``&quot;lp=1.0&quot;``.</span>
+<span class="sd">            ``&quot;hp=FREQ&quot;``</span>
+<span class="sd">                High-pass filter the time-series using an IIR 4th order filter,</span>
+<span class="sd">                using this value (in Hertz) as the cutoff, e.g. ``&quot;hp=3.0&quot;``.</span>
+<span class="sd">            ``&quot;bp=FREQ1,FREQ2&quot;``</span>
+<span class="sd">                Band pass frequencies, in Hz, e.g. ``&quot;bp=0.1,1.0&quot;``.</span>
+<span class="sd">            ``&quot;demean&quot;``</span>
+<span class="sd">                Remove mean value from data.</span>
+<span class="sd">            ``&quot;scale&quot;``</span>
+<span class="sd">                Scale data samples by specified factor, e.g. ``&quot;scale=2.0&quot;``</span>
+<span class="sd">                If ``&quot;scale=AUTO&quot;``, the data will be scaled by the stage-zero</span>
+<span class="sd">                gain. Cannot specify both ``scale`` and ``divscale``.</span>
+<span class="sd">                Cannot specify both ``correct`` and ``scale=AUTO``.</span>
+<span class="sd">            ``&quot;divscale&quot;``</span>
+<span class="sd">                Scale data samples by the inverse of the specified factor, e.g</span>
+<span class="sd">                ``&quot;divscale=2.0&quot;``. You cannot specify both ``scale`` and</span>
+<span class="sd">                ``divscale``.</span>
+<span class="sd">            ``&quot;correct&quot;``</span>
+<span class="sd">                Apply instrument correction to convert to earth units. Uses</span>
+<span class="sd">                either deconvolution or polynomial response correction. Cannot</span>
+<span class="sd">                specify both ``correct`` and ``scale=AUTO``. Correction</span>
+<span class="sd">                on &gt; 10^7 samples will result in an error. At a sample rate of</span>
+<span class="sd">                20 Hz, 10^7 samples is approximately 5.8 days.</span>
+<span class="sd">            ``&quot;freqlimits=FREQ1,FREQ2,FREQ3,FREQ4&quot;``</span>
+<span class="sd">                Specify an envelope for a spectrum taper for deconvolution,</span>
+<span class="sd">                e.g. ``&quot;freqlimits=0.0033,0.004,0.05,0.06&quot;``. Frequencies are</span>
+<span class="sd">                specified in Hertz. This cosine taper scales the spectrum from</span>
+<span class="sd">                0 to 1 between FREQ1 and FREQ2 and from 1 to 0 between FREQ3</span>
+<span class="sd">                and FREQ4. Can only be used with the correct option. Cannot be</span>
+<span class="sd">                used in combination with the ``autolimits`` option.</span>
+<span class="sd">            ``&quot;autolimits=X,Y&quot;``</span>
+<span class="sd">                Automatically determine frequency limits for deconvolution,</span>
+<span class="sd">                e.g. ``&quot;autolimits=3.0,3.0&quot;``. A pass band is determined for</span>
+<span class="sd">                all frequencies with the lower and upper corner cutoffs defined</span>
+<span class="sd">                in terms of dB down from the maximum amplitude. This algorithm</span>
+<span class="sd">                is designed to work with flat responses, i.e. a response in</span>
+<span class="sd">                velocity for an instrument which is flat to velocity. Other</span>
+<span class="sd">                combinations will likely result in unsatisfactory results.</span>
+<span class="sd">                Cannot be used in combination with the ``freqlimits`` option.</span>
+<span class="sd">            ``&quot;units=UNIT&quot;``</span>
+<span class="sd">                Specify output units. Can be DIS, VEL, ACC or DEF, where DEF</span>
+<span class="sd">                results in no unit conversion, e.g. ``&quot;units=VEL&quot;``. Option</span>
+<span class="sd">                ``units`` can only be used with ``correct``.</span>
+<span class="sd">            ``&quot;diff&quot;``</span>
+<span class="sd">                Differentiate using 2 point (uncentered) method</span>
+<span class="sd">            ``&quot;int&quot;``</span>
+<span class="sd">                Integrate using trapezoidal (midpoint) method</span>
+<span class="sd">            ``&quot;decimate=SAMPLERATE&quot;``</span>
+<span class="sd">                Specify the sample-rate to decimate to, e.g.</span>
+<span class="sd">                ``&quot;decimate=2.0&quot;``. The sample-rate of the source divided by</span>
+<span class="sd">                the given sample-rate must be factorable by 2,3,4,7.</span>
+
+<span class="sd">        **Miscelleneous options**</span>
+
+<span class="sd">        :type filename: str, optional</span>
+<span class="sd">        :param filename: Name of a output file. If this parameter is given</span>
+<span class="sd">            nothing will be returned. Default is ``None``.</span>
+<span class="sd">        :type output: str, optional</span>
+<span class="sd">        :param output: Output format if parameter ``filename`` is used.</span>
+
+<span class="sd">            ``&#39;ascii&#39;``</span>
+<span class="sd">                Data format, 1 column (values)</span>
+<span class="sd">            ``&#39;ascii2&#39;``</span>
+<span class="sd">                ASCII data format, 2 columns (time, value)</span>
+<span class="sd">            ``&#39;ascii&#39;``</span>
+<span class="sd">                Same as ascii2</span>
+<span class="sd">            ``&#39;audio&#39;``</span>
+<span class="sd">                audio WAV file</span>
+<span class="sd">            ``&#39;miniseed&#39;``</span>
+<span class="sd">                IRIS MiniSEED format</span>
+<span class="sd">            ``&#39;plot&#39;``</span>
+<span class="sd">                A simple plot of the time series</span>
+<span class="sd">            ``&#39;saca&#39;``</span>
+<span class="sd">                SAC, ASCII format</span>
+<span class="sd">            ``&#39;sacbb&#39;``</span>
+<span class="sd">                SAC, binary big-endian format</span>
+<span class="sd">            ``&#39;sacbl&#39;``</span>
+<span class="sd">                SAC, binary little-endian format</span>
+
+<span class="sd">        :rtype: :class:`~obspy.core.stream.Stream` or ``None``</span>
+<span class="sd">        :return: ObsPy Stream object if no ``filename`` is given.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy.clients.iris import Client</span>
+<span class="sd">        &gt;&gt;&gt; from obspy import UTCDateTime</span>
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(&quot;2005-01-01T00:00:00&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; client = Client()</span>
+<span class="sd">        &gt;&gt;&gt; st = client.timeseries(&quot;IU&quot;, &quot;ANMO&quot;, &quot;00&quot;, &quot;BHZ&quot;, dt, dt+10)</span>
+<span class="sd">        &gt;&gt;&gt; print(st[0].data)  # doctest: +ELLIPSIS</span>
+<span class="sd">        [  24   20   19   19   19   15   10    4   -4  -11 ...</span>
+<span class="sd">        &gt;&gt;&gt; st = client.timeseries(&quot;IU&quot;, &quot;ANMO&quot;, &quot;00&quot;, &quot;BHZ&quot;, dt, dt+10,</span>
+<span class="sd">        ...     filter=[&quot;correct&quot;, &quot;demean&quot;, &quot;lp=2.0&quot;])</span>
+<span class="sd">        &gt;&gt;&gt; print(st[0].data)  # doctest: +ELLIPSIS</span>
+<span class="sd">        [ -1.57488682e-06  -1.26318002e-06  -7.84807128e-07 ...</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;network&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">network</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">station</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">location</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">location</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;--&#39;</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+        <span class="c1"># convert UTCDateTime to string for query</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;starttime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">starttime</span><span class="p">)</span><span class="o">.</span><span class="n">format_iris_web_service</span><span class="p">()</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;endtime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">endtime</span><span class="p">)</span><span class="o">.</span><span class="n">format_iris_web_service</span><span class="p">()</span>
+        <span class="c1"># output</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;output&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">output</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;output&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;miniseed&#39;</span>
+        <span class="c1"># build up query</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch</span><span class="p">(</span><span class="s2">&quot;timeseries&quot;</span><span class="p">,</span> <span class="n">param_list</span><span class="o">=</span><span class="nb">filter</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">urllib_request</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No waveform data available (</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">)&quot;</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="c1"># write directly if file name is given</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_file_or_data</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># create temporary file for writing data</span>
+        <span class="k">with</span> <span class="n">NamedTemporaryFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">tf</span><span class="p">:</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="c1"># read stream using obspy.io.mseed</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">stream</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;MSEED&#39;</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">stream</span> <span class="o">=</span> <span class="n">Stream</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">stream</span></div>
+
+<div class="viewcode-block" id="Client.resp"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.iris.client.Client.resp.html#obspy.clients.iris.client.Client.resp">[docs]</a>    <span class="k">def</span> <span class="nf">resp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">network</span><span class="p">,</span> <span class="n">station</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
+             <span class="n">starttime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Low-level interface for `resp` Web service of IRIS</span>
+<span class="sd">        (http://service.iris.edu/irisws/resp/) - 1.4.1 (2011-04-14).</span>
+
+<span class="sd">        This method provides access to channel response information in the SEED</span>
+<span class="sd">        `RESP &lt;https://ds.iris.edu/ds/nodes/dmc/kb/questions/60&gt;`_</span>
+<span class="sd">        format (as used by evalresp). Users can query for channel response by</span>
+<span class="sd">        network, station, channel, location and time.</span>
+
+<span class="sd">        :type network: str</span>
+<span class="sd">        :param network: Network code, e.g. ``&#39;IU&#39;``.</span>
+<span class="sd">        :type station: str</span>
+<span class="sd">        :param station: Station code, e.g. ``&#39;ANMO&#39;``.</span>
+<span class="sd">        :type location: str, optional</span>
+<span class="sd">        :param location: Location code, e.g. ``&#39;00&#39;``, wildcards allowed.</span>
+<span class="sd">            Defaults to ``&#39;*&#39;``.</span>
+<span class="sd">        :type channel: str, optional</span>
+<span class="sd">        :param channel: Channel code, e.g. ``&#39;BHZ&#39;``, wildcards allowed.</span>
+<span class="sd">            Defaults to ``&#39;*&#39;``.</span>
+
+<span class="sd">        **Temporal constraints**</span>
+
+<span class="sd">        The following three parameters impose time constraints on the query.</span>
+<span class="sd">        Time may be requested through the use of either time OR the start and</span>
+<span class="sd">        end times. If no time is specified, then the current time is assumed.</span>
+
+<span class="sd">        :type time: :class:`~obspy.core.utcdatetime.UTCDateTime`, optional</span>
+<span class="sd">        :param time: Find the response for the given time. Time cannot be used</span>
+<span class="sd">            with ``starttime`` or ``endtime`` parameters</span>
+<span class="sd">        :type starttime: :class:`~obspy.core.utcdatetime.UTCDateTime`, optional</span>
+<span class="sd">        :param starttime: Start time, may be used in conjunction with</span>
+<span class="sd">            ``endtime``.</span>
+<span class="sd">        :type endtime: :class:`~obspy.core.utcdatetime.UTCDateTime`, optional</span>
+<span class="sd">        :param endtime: End time, may be used in conjunction with</span>
+<span class="sd">            ``starttime``.</span>
+<span class="sd">        :type filename: str, optional</span>
+<span class="sd">        :param filename: Name of a output file. If this parameter is given</span>
+<span class="sd">            nothing will be returned. Default is ``None``.</span>
+<span class="sd">        :rtype: str or ``None``</span>
+<span class="sd">        :return: SEED RESP file as string if no ``filename`` is given..</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy.clients.iris import Client</span>
+<span class="sd">        &gt;&gt;&gt; from obspy import UTCDateTime</span>
+<span class="sd">        &gt;&gt;&gt; client = Client()</span>
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(&quot;2010-02-27T06:30:00.000&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; data = client.resp(&quot;IU&quot;, &quot;ANMO&quot;, &quot;00&quot;, &quot;BHZ&quot;, dt)</span>
+<span class="sd">        &gt;&gt;&gt; print(data.decode())  # doctest: +ELLIPSIS</span>
+<span class="sd">        #</span>
+<span class="sd">        ####################################################################...</span>
+<span class="sd">        #</span>
+<span class="sd">        B050F03     Station:     ANMO</span>
+<span class="sd">        B050F16     Network:     IU</span>
+<span class="sd">        B052F03     Location:    00</span>
+<span class="sd">        B052F04     Channel:     BHZ</span>
+<span class="sd">        ...</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;network&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">network</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">station</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">location</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">location</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;--&#39;</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+        <span class="c1"># convert UTCDateTime to string for query</span>
+        <span class="k">if</span> <span class="n">starttime</span> <span class="ow">and</span> <span class="n">endtime</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;starttime&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">starttime</span><span class="p">)</span><span class="o">.</span><span class="n">format_iris_web_service</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;starttime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">starttime</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;endtime&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">endtime</span><span class="p">)</span><span class="o">.</span><span class="n">format_iris_web_service</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;endtime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">endtime</span>
+        <span class="k">elif</span> <span class="s1">&#39;time&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">format_iris_web_service</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="c1"># build up query</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch</span><span class="p">(</span><span class="s2">&quot;resp&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">urllib_request</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No response data available (</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">)&quot;</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_file_or_data</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.sacpz"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.iris.client.Client.sacpz.html#obspy.clients.iris.client.Client.sacpz">[docs]</a>    <span class="k">def</span> <span class="nf">sacpz</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">network</span><span class="p">,</span> <span class="n">station</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
+              <span class="n">starttime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endtime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Low-level interface for `sacpz` Web service of IRIS</span>
+<span class="sd">        (http://service.iris.edu/irisws/sacpz/) - release 1.1.1 (2012-1-9).</span>
+
+<span class="sd">        This method provides access to instrument response information</span>
+<span class="sd">        (per-channel) as poles and zeros in the ASCII format used by SAC and</span>
+<span class="sd">        other programs. Users can query for channel response by network,</span>
+<span class="sd">        station, channel, location and time.</span>
+
+<span class="sd">        :type network: str</span>
+<span class="sd">        :param network: Network code, e.g. ``&#39;IU&#39;``.</span>
+<span class="sd">        :type station: str</span>
+<span class="sd">        :param station: Station code, e.g. ``&#39;ANMO&#39;``.</span>
+<span class="sd">        :type location: str, optional</span>
+<span class="sd">        :param location: Location code, e.g. ``&#39;00&#39;``, wildcards allowed.</span>
+<span class="sd">            Defaults to ``&#39;*&#39;``.</span>
+<span class="sd">        :type channel: str, optional</span>
+<span class="sd">        :param channel: Channel code, e.g. ``&#39;BHZ&#39;``, wildcards allowed.</span>
+<span class="sd">            Defaults to ``&#39;*&#39;``.</span>
+<span class="sd">        :type starttime: :class:`~obspy.core.utcdatetime.UTCDateTime`, optional</span>
+<span class="sd">        :param starttime: Start date and time.</span>
+<span class="sd">        :type endtime: :class:`~obspy.core.utcdatetime.UTCDateTime`, optional</span>
+<span class="sd">        :param endtime: End date and time. Requires ``starttime`` parameter.</span>
+<span class="sd">        :type filename: str, optional</span>
+<span class="sd">        :param filename: Name of a output file. If this parameter is given</span>
+<span class="sd">            nothing will be returned. Default is ``None``.</span>
+<span class="sd">        :rtype: str or ``None``</span>
+<span class="sd">        :return: String with SAC poles and zeros information if no ``filename``</span>
+<span class="sd">            is given.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy.clients.iris import Client</span>
+<span class="sd">        &gt;&gt;&gt; from obspy import UTCDateTime</span>
+<span class="sd">        &gt;&gt;&gt; client = Client()</span>
+<span class="sd">        &gt;&gt;&gt; dt = UTCDateTime(&quot;2005-01-01&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; sacpz = client.sacpz(&quot;IU&quot;, &quot;ANMO&quot;, &quot;00&quot;, &quot;BHZ&quot;, dt)</span>
+<span class="sd">        &gt;&gt;&gt; print(sacpz.decode())  # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE</span>
+<span class="sd">        * **********************************</span>
+<span class="sd">        * NETWORK   (KNETWK): IU</span>
+<span class="sd">        * STATION    (KSTNM): ANMO</span>
+<span class="sd">        * LOCATION   (KHOLE): 00</span>
+<span class="sd">        * CHANNEL   (KCMPNM): BHZ</span>
+<span class="sd">        * CREATED           : ...</span>
+<span class="sd">        * START             : 2002-11-19T21:07:00</span>
+<span class="sd">        * END               : 2008-06-30T00:00:00</span>
+<span class="sd">        * DESCRIPTION       : Albuquerque, New Mexico, USA</span>
+<span class="sd">        * LATITUDE          : 34.945981</span>
+<span class="sd">        * LONGITUDE         : -106.457133</span>
+<span class="sd">        * ELEVATION         : 1671.0</span>
+<span class="sd">        * DEPTH             : 145.0</span>
+<span class="sd">        * DIP               : 0.0</span>
+<span class="sd">        * AZIMUTH           : 0.0</span>
+<span class="sd">        * SAMPLE RATE       : 20.0</span>
+<span class="sd">        * INPUT UNIT        : M</span>
+<span class="sd">        * OUTPUT UNIT       : COUNTS</span>
+<span class="sd">        * INSTTYPE          : Geotech KS-54000 Borehole Seismometer</span>
+<span class="sd">        * INSTGAIN          : 1.935000e+03 (M/S)</span>
+<span class="sd">        * COMMENT           :</span>
+<span class="sd">        * SENSITIVITY       : 8.115970e+08 (M/S)</span>
+<span class="sd">        * A0                : 8.608300e+04</span>
+<span class="sd">        * **********************************</span>
+<span class="sd">        ZEROS    3</span>
+<span class="sd">            +0.000000e+00    +0.000000e+00</span>
+<span class="sd">            +0.000000e+00    +0.000000e+00</span>
+<span class="sd">            +0.000000e+00    +0.000000e+00</span>
+<span class="sd">        POLES    5</span>
+<span class="sd">            -5.943130e+01    +0.000000e+00</span>
+<span class="sd">            -2.271210e+01    +2.710650e+01</span>
+<span class="sd">            -2.271210e+01    -2.710650e+01</span>
+<span class="sd">            -4.800400e-03    +0.000000e+00</span>
+<span class="sd">            -7.319900e-02    +0.000000e+00</span>
+<span class="sd">        CONSTANT    6.986470e+13</span>
+<span class="sd">        &lt;BLANKLINE&gt;</span>
+<span class="sd">        &lt;BLANKLINE&gt;</span>
+<span class="sd">        &lt;BLANKLINE&gt;</span>
+<span class="sd">        ...</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;network&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">network</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">station</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">location</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">location</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;--&#39;</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+        <span class="c1"># convert UTCDateTime to string for query</span>
+        <span class="k">if</span> <span class="n">starttime</span> <span class="ow">and</span> <span class="n">endtime</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;starttime&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">starttime</span><span class="p">)</span><span class="o">.</span><span class="n">format_iris_web_service</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;starttime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">starttime</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;endtime&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">endtime</span><span class="p">)</span><span class="o">.</span><span class="n">format_iris_web_service</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;endtime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">endtime</span>
+        <span class="k">elif</span> <span class="n">starttime</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">starttime</span><span class="p">)</span><span class="o">.</span><span class="n">format_iris_web_service</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">starttime</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch</span><span class="p">(</span><span class="s2">&quot;sacpz&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_file_or_data</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.distaz"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.iris.client.Client.distaz.html#obspy.clients.iris.client.Client.distaz">[docs]</a>    <span class="k">def</span> <span class="nf">distaz</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stalat</span><span class="p">,</span> <span class="n">stalon</span><span class="p">,</span> <span class="n">evtlat</span><span class="p">,</span> <span class="n">evtlon</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Low-level interface for `distaz` Web service of IRIS</span>
+<span class="sd">        (http://service.iris.edu/irisws/distaz/) - release 1.0.3 (2016).</span>
+
+<span class="sd">        This method will calculate the great-circle angular distance, azimuth,</span>
+<span class="sd">        and backazimuth between two geographic coordinate pairs. All results</span>
+<span class="sd">        are reported in degrees, with azimuth and backazimuth measured</span>
+<span class="sd">        clockwise from North.</span>
+
+<span class="sd">        :type stalat: float</span>
+<span class="sd">        :param stalat: Station latitude.</span>
+<span class="sd">        :type stalon: float</span>
+<span class="sd">        :param stalon: Station longitude.</span>
+<span class="sd">        :type evtlat: float</span>
+<span class="sd">        :param evtlat: Event latitude.</span>
+<span class="sd">        :type evtlon: float</span>
+<span class="sd">        :param evtlon: Event longitude.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        :return: Dictionary containing values for azimuth, backazimuth and</span>
+<span class="sd">            distance.</span>
+
+<span class="sd">        The ``azimuth`` is the angle from the station to the event, while the</span>
+<span class="sd">        ``backazimuth`` is the angle from the event to the station.</span>
+
+<span class="sd">        Latitudes are converted to geocentric latitudes using the WGS84</span>
+<span class="sd">        spheroid to correct for ellipticity.</span>
+
+<span class="sd">        The ``distance`` (in degrees) and ``distancemeters`` are the distance</span>
+<span class="sd">        between the two points on the spheroid.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy.clients.iris import Client</span>
+<span class="sd">        &gt;&gt;&gt; client = Client()</span>
+<span class="sd">        &gt;&gt;&gt; result = client.distaz(stalat=1.1, stalon=1.2, evtlat=3.2,</span>
+<span class="sd">        ...                        evtlon=1.4)</span>
+<span class="sd">        &gt;&gt;&gt; print(result[&#39;distance&#39;])</span>
+<span class="sd">        2.10256</span>
+<span class="sd">        &gt;&gt;&gt; print(result[&#39;distancemeters&#39;])</span>
+<span class="sd">        233272.79028</span>
+<span class="sd">        &gt;&gt;&gt; print(result[&#39;backazimuth&#39;])</span>
+<span class="sd">        5.46944</span>
+<span class="sd">        &gt;&gt;&gt; print(result[&#39;azimuth&#39;])</span>
+<span class="sd">        185.47695</span>
+<span class="sd">        &gt;&gt;&gt; print(result[&#39;ellipsoidname&#39;])</span>
+<span class="sd">        WGS84</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># build up query</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch</span><span class="p">(</span><span class="s2">&quot;distaz&quot;</span><span class="p">,</span> <span class="n">stalat</span><span class="o">=</span><span class="n">stalat</span><span class="p">,</span> <span class="n">stalon</span><span class="o">=</span><span class="n">stalon</span><span class="p">,</span>
+                               <span class="n">evtlat</span><span class="o">=</span><span class="n">evtlat</span><span class="p">,</span> <span class="n">evtlon</span><span class="o">=</span><span class="n">evtlon</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">urllib_request</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No response data available (</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">)&quot;</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">objectify</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">results</span><span class="p">[</span><span class="s1">&#39;ellipsoidname&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">ellipsoid</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+        <span class="n">results</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">distance</span>
+        <span class="n">results</span><span class="p">[</span><span class="s1">&#39;distancemeters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">distanceMeters</span>
+        <span class="n">results</span><span class="p">[</span><span class="s1">&#39;backazimuth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">backAzimuth</span>
+        <span class="n">results</span><span class="p">[</span><span class="s1">&#39;azimuth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">azimuth</span>
+        <span class="k">return</span> <span class="n">results</span></div>
+
+<div class="viewcode-block" id="Client.flinnengdahl"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.iris.client.Client.flinnengdahl.html#obspy.clients.iris.client.Client.flinnengdahl">[docs]</a>    <span class="k">def</span> <span class="nf">flinnengdahl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">rtype</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Low-level interface for `flinnengdahl` Web service of IRIS</span>
+<span class="sd">        (http://service.iris.edu/irisws/flinnengdahl/) - release 1.1</span>
+<span class="sd">        (2011-06-08).</span>
+
+<span class="sd">        This method converts a latitude, longitude pair into either a</span>
+<span class="sd">        `Flinn-Engdahl &lt;https://en.wikipedia.org/wiki/Flinn-Engdahl_regions&gt;`_</span>
+<span class="sd">        seismic region code or region name.</span>
+
+<span class="sd">        :type lat: float</span>
+<span class="sd">        :param lat: Latitude of interest.</span>
+<span class="sd">        :type lon: float</span>
+<span class="sd">        :param lon: Longitude of interest.</span>
+<span class="sd">        :type rtype: str, optional</span>
+<span class="sd">        :param rtype: Return type. Can be one of ``&#39;code&#39;``, ``&#39;region&#39;`` or</span>
+<span class="sd">            ``&#39;both&#39;``. Defaults to ``&#39;both&#39;``.</span>
+<span class="sd">        :rtype: int, str, or tuple</span>
+<span class="sd">        :returns: Returns Flinn-Engdahl region code or name or both, depending</span>
+<span class="sd">            on the request type parameter ``rtype``.</span>
+
+<span class="sd">        .. rubric:: Examples</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy.clients.iris import Client</span>
+<span class="sd">        &gt;&gt;&gt; client = Client()</span>
+<span class="sd">        &gt;&gt;&gt; client.flinnengdahl(lat=-20.5, lon=-100.6, rtype=&quot;code&quot;)</span>
+<span class="sd">        683</span>
+
+<span class="sd">        &gt;&gt;&gt; print(client.flinnengdahl(lat=42, lon=-122.24, rtype=&quot;region&quot;))</span>
+<span class="sd">        OREGON</span>
+
+<span class="sd">        &gt;&gt;&gt; code, region = client.flinnengdahl(lat=-20.5, lon=-100.6)</span>
+<span class="sd">        &gt;&gt;&gt; print(code, region)</span>
+<span class="sd">        683 SOUTHEAST CENTRAL PACIFIC OCEAN</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">service</span> <span class="o">=</span> <span class="s1">&#39;flinnengdahl&#39;</span>
+        <span class="c1"># check rtype</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">rtype</span> <span class="o">==</span> <span class="s1">&#39;code&#39;</span><span class="p">:</span>
+                <span class="n">param_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;output=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">rtype</span><span class="p">,</span> <span class="s2">&quot;lat=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">lat</span><span class="p">,</span>
+                              <span class="s2">&quot;lon=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">lon</span><span class="p">]</span>
+                <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fetch</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">param_list</span><span class="o">=</span><span class="n">param_list</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">rtype</span> <span class="o">==</span> <span class="s1">&#39;region&#39;</span><span class="p">:</span>
+                <span class="n">param_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;output=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">rtype</span><span class="p">,</span> <span class="s2">&quot;lat=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">lat</span><span class="p">,</span>
+                              <span class="s2">&quot;lon=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">lon</span><span class="p">]</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch</span><span class="p">(</span><span class="n">service</span><span class="p">,</span>
+                                   <span class="n">param_list</span><span class="o">=</span><span class="n">param_list</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">param_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;output=code&quot;</span><span class="p">,</span> <span class="s2">&quot;lat=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">lat</span><span class="p">,</span>
+                              <span class="s2">&quot;lon=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">lon</span><span class="p">]</span>
+                <span class="n">code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fetch</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">param_list</span><span class="o">=</span><span class="n">param_list</span><span class="p">))</span>
+                <span class="n">param_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;output=region&quot;</span><span class="p">,</span> <span class="s2">&quot;lat=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">lat</span><span class="p">,</span>
+                              <span class="s2">&quot;lon=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">lon</span><span class="p">]</span>
+                <span class="n">region</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">param_list</span><span class="o">=</span><span class="n">param_list</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">region</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+        <span class="k">except</span> <span class="n">urllib_request</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No Flinn-Engdahl data available (</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">)&quot;</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.traveltime"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.iris.client.Client.traveltime.html#obspy.clients.iris.client.Client.traveltime">[docs]</a>    <span class="k">def</span> <span class="nf">traveltime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;iasp91&#39;</span><span class="p">,</span> <span class="n">phases</span><span class="o">=</span><span class="n">DEFAULT_PHASES</span><span class="p">,</span> <span class="n">evdepth</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                   <span class="n">distdeg</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">distkm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evloc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">staloc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                   <span class="n">noheader</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">traveltimeonly</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">rayparamonly</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                   <span class="n">mintimeonly</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Low-level interface for `traveltime` Web service of IRIS</span>
+<span class="sd">        (http://service.iris.edu/irisws/traveltime/) - release 1.1.1</span>
+<span class="sd">        (2012-05-15).</span>
+
+<span class="sd">        This method will calculates travel-times for seismic phases using a 1-D</span>
+<span class="sd">        spherical earth model.</span>
+
+<span class="sd">        :type model: str, optional</span>
+<span class="sd">        :param model: Name of 1-D earth velocity model to be used. Available</span>
+<span class="sd">            models include:</span>
+
+<span class="sd">            * ``&#39;iasp91&#39;`` (default) - by Int&#39;l Assoc of Seismology and</span>
+<span class="sd">              Physics of the Earth&#39;s Interior</span>
+<span class="sd">            * ``&#39;prem&#39;`` - Preliminary Reference Earth Model</span>
+<span class="sd">            * ``&#39;ak135&#39;``</span>
+
+<span class="sd">        :type phases: list of str, optional</span>
+<span class="sd">        :param phases: Comma separated list of phases. The default is as</span>
+<span class="sd">            follows::</span>
+
+<span class="sd">                [&#39;p&#39;,&#39;s&#39;,&#39;P&#39;,&#39;S&#39;,&#39;Pn&#39;,&#39;Sn&#39;,&#39;PcP&#39;,&#39;ScS&#39;,&#39;Pdiff&#39;,&#39;Sdiff&#39;,</span>
+<span class="sd">                 &#39;PKP&#39;,&#39;SKS&#39;,&#39;PKiKP&#39;,&#39;SKiKS&#39;,&#39;PKIKP&#39;,&#39;SKIKS&#39;]</span>
+
+<span class="sd">            Invalid phases will be ignored. Valid arbitrary phases can be made</span>
+<span class="sd">            up e.g. sSKJKP. See</span>
+<span class="sd">            `TauP documentation &lt;http://www.seis.sc.edu/TauP/&gt;`_ for more</span>
+<span class="sd">            information.</span>
+<span class="sd">        :type evdepth: float, optional</span>
+<span class="sd">        :param evdepth: The depth of the event, in kilometers. Default is ``0``</span>
+<span class="sd">            km.</span>
+
+<span class="sd">        **Geographical Parameters - required**</span>
+
+<span class="sd">        The travel time web service requires a great-circle distance between an</span>
+<span class="sd">        event and station be specified. There are three methods of specifying</span>
+<span class="sd">        this distance:</span>
+
+<span class="sd">        * Specify a great-circle distance in degrees, using ``distdeg``</span>
+<span class="sd">        * Specify a great-circle distance in kilometers, using ``distkm``</span>
+<span class="sd">        * Specify an event location and one or more station locations,</span>
+<span class="sd">          using ``evloc`` and ``staloc``</span>
+
+<span class="sd">        :type distdeg: float or list of float, optional</span>
+<span class="sd">        :param evtlon: Great-circle distance from source to station, in decimal</span>
+<span class="sd">            degrees. Multiple distances may be specified as a list.</span>
+<span class="sd">        :type distkm: float or list of float, optional</span>
+<span class="sd">        :param distkm: Distance between the source and station, in kilometers.</span>
+<span class="sd">            Multiple distances may be specified as a list.</span>
+<span class="sd">        :type evloc: tuple of two floats, optional</span>
+<span class="sd">        :param evloc: The Event location (lat,lon) using decimal degrees.</span>
+<span class="sd">        :type staloc: tuple of two floats or list of tuples, optional</span>
+<span class="sd">        :param staloc: Station locations for which the phases will be listed.</span>
+<span class="sd">            The general format is (lat,lon). Specify multiple station locations</span>
+<span class="sd">            with a list, e.g. ``[(lat1,lon1),(lat2,lon2),...,(latn,lonn)]``.</span>
+
+<span class="sd">        **Output Parameters**</span>
+
+<span class="sd">        :type noheader: bool, optional</span>
+<span class="sd">        :param noheader: Specifying noheader will strip the header from the</span>
+<span class="sd">            resulting table. Defaults to ``False``.</span>
+<span class="sd">        :type traveltimeonly: bool, optional</span>
+<span class="sd">        :param traveltimeonly: Returns a space-separated list of travel</span>
+<span class="sd">            times, in seconds. Defaults to ``False``.</span>
+
+<span class="sd">            .. note:: Travel times are produced in ascending order regardless</span>
+<span class="sd">                of the order in which the phases are specified</span>
+
+<span class="sd">        :type rayparamonly: bool, optional</span>
+<span class="sd">        :param rayparamonly: Returns a space-separated list of ray parameters,</span>
+<span class="sd">            in sec/deg.. Defaults to ``False``.</span>
+<span class="sd">        :type mintimeonly: bool, optional</span>
+<span class="sd">        :param mintimeonly: Returns only the first arrival of each phase for</span>
+<span class="sd">            each distance. Defaults to ``False``.</span>
+<span class="sd">        :type filename: str, optional</span>
+<span class="sd">        :param filename: Name of a output file. If this parameter is given</span>
+<span class="sd">            nothing will be returned. Default is ``None``.</span>
+<span class="sd">        :rtype: str or ``None``</span>
+<span class="sd">        :return: ASCII travel time table if no ``filename`` is given.</span>
+
+<span class="sd">        .. rubric:: Example</span>
+
+<span class="sd">        &gt;&gt;&gt; from obspy.clients.iris import Client</span>
+<span class="sd">        &gt;&gt;&gt; client = Client()</span>
+<span class="sd">        &gt;&gt;&gt; result = client.traveltime(evloc=(-36.122,-72.898),</span>
+<span class="sd">        ...     staloc=[(-33.45,-70.67),(47.61,-122.33),(35.69,139.69)],</span>
+<span class="sd">        ...     evdepth=22.9)</span>
+<span class="sd">        &gt;&gt;&gt; print(result.decode())  # doctest: +ELLIPSIS  +NORMALIZE_WHITESPACE</span>
+<span class="sd">        Model: iasp91</span>
+<span class="sd">        Distance   Depth   Phase   Travel    Ray Param  Takeoff  Incident ...</span>
+<span class="sd">          (deg)     (km)   Name    Time (s)  p (s/deg)   (deg)    (deg)   ...</span>
+<span class="sd">        ------------------------------------------------------------------...</span>
+<span class="sd">            3.24    22.9   P         49.39    13.750     53.77    45.82   ...</span>
+<span class="sd">            3.24    22.9   Pn        49.40    13.754     53.80    45.84   ...</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;phases&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">phases</span><span class="p">])</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;evdepth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">evdepth</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">distdeg</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;distdeg&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">d</span><span class="p">))</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">distdeg</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">distkm</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;distkm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">d</span><span class="p">))</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">distkm</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">evloc</span> <span class="ow">and</span> <span class="n">staloc</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">evloc</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;evloc needs to be a tuple&quot;</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;evloc&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="s2">&quot;[</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">evloc</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">staloc</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="c1"># single station coordinates</span>
+                <span class="n">staloc</span> <span class="o">=</span> <span class="p">[</span><span class="n">staloc</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">staloc</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;staloc needs to be set if using evloc&quot;</span><span class="p">)</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">staloc</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;staloc needs to be a tuple or list of tuples&quot;</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+                <span class="n">temp</span> <span class="o">+=</span> <span class="s2">&quot;,[</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">loc</span><span class="p">]))</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;staloc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Missing or incorrect geographical parameters distdeg, &quot;</span> <span class="o">+</span> \
+                <span class="s2">&quot;distkm or evloc/staloc.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">noheader</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;noheader&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">traveltimeonly</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;traveltimeonly&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">rayparamonly</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;rayparamonly&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">mintimeonly</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;mintimeonly&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1"># build up query</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch</span><span class="p">(</span><span class="s2">&quot;traveltime&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">urllib_request</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No response data available (</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">)&quot;</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_file_or_data</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.evalresp"><a class="viewcode-back" href="../../../../packages/autogen/obspy.clients.iris.client.Client.evalresp.html#obspy.clients.iris.client.Client.evalresp">[docs]</a>    <span class="k">def</span> <span class="nf">evalresp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">network</span><span class="p">,</span> <span class="n">station</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">UTCDateTime</span><span class="p">(),</span>
+                 <span class="n">minfreq</span><span class="o">=</span><span class="mf">0.00001</span><span class="p">,</span> <span class="n">maxfreq</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nfreq</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;def&#39;</span><span class="p">,</span>
+                 <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">annotate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;plot&#39;</span><span class="p">,</span>
+                 <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Low-level interface for `evalresp` Web service of IRIS</span>
+<span class="sd">        (http://service.iris.edu/irisws/evalresp/) - release 1.0.0</span>
+<span class="sd">        (2011-08-11).</span>
+
+<span class="sd">        This method evaluates instrument response information stored at the</span>
+<span class="sd">        IRIS DMC and outputs ASCII data or</span>
+<span class="sd">        `Bode Plots &lt;https://en.wikipedia.org/wiki/Bode_plots&gt;`_.</span>
+
+<span class="sd">        :type network: str</span>
+<span class="sd">        :param network: Network code, e.g. ``&#39;IU&#39;``.</span>
+<span class="sd">        :type station: str</span>
+<span class="sd">        :param station: Station code, e.g. ``&#39;ANMO&#39;``.</span>
+<span class="sd">        :type location: str</span>
+<span class="sd">        :param location: Location code, e.g. ``&#39;00&#39;``. Use ``&#39;--&#39;`` for empty</span>
+<span class="sd">            location codes.</span>
+<span class="sd">        :type channel: str</span>
+<span class="sd">        :param channel: Channel code, e.g. ``&#39;BHZ&#39;``.</span>
+<span class="sd">        :type time: :class:`~obspy.core.utcdatetime.UTCDateTime`</span>
+<span class="sd">        :param time: Evaluate the response at the given time. If not specified,</span>
+<span class="sd">            the current time is used.</span>
+<span class="sd">        :type minfreq: float, optional</span>
+<span class="sd">        :param minfreq: The minimum frequency (Hz) at which response will be</span>
+<span class="sd">            evaluated. Must be positive and less than the ``maxfreq`` value.</span>
+<span class="sd">            Defaults to ``0.00001`` Hz (1/day ~ 0.000012 Hz).</span>
+<span class="sd">        :type maxfreq: float, optional</span>
+<span class="sd">        :param maxfreq: The maximum frequency (Hz) at which response will be</span>
+<span class="sd">            evaluated. Must be positive and greater than the ``minfreq`` value.</span>
+<span class="sd">            Defaults to the channel sample-rate or the frequency of</span>
+<span class="sd">            sensitivity, which ever is larger.</span>
+<span class="sd">        :type nfreq: int, optional</span>
+<span class="sd">        :param nfreq: Number frequencies at which response will be evaluated.</span>
+<span class="sd">            Must be a positive integer no greater than ``10000``. The</span>
+<span class="sd">            instrument response is evaluated on a equally spaced logarithmic</span>
+<span class="sd">            scale. Defaults to ``200``.</span>
+<span class="sd">        :type units:  str, optional</span>
+<span class="sd">        :param units: Output Unit. Defaults to ``&#39;def&#39;``.</span>
+
+<span class="sd">            ``&#39;def&#39;``</span>
+<span class="sd">                default units indicated in response metadata</span>
+<span class="sd">            ``&#39;dis&#39;``</span>
+<span class="sd">                converts to units of displacement</span>
+<span class="sd">            ``&#39;vel&#39;``</span>
+<span class="sd">                converts to units of velocity</span>
+<span class="sd">            ``&#39;acc&#39;``</span>
+<span class="sd">                converts to units of acceleration</span>
+
+<span class="sd">            If units are not specified, then the units will default to those</span>
+<span class="sd">            indicated in the response metadata</span>
+<span class="sd">        :type width: int, optional</span>
+<span class="sd">        :param width: The width of the generated plot. Defaults to ``800``.</span>
+<span class="sd">            Can only be used with the ``output=&#39;plot&#39;``, ``output=&#39;plot-amp&#39;``</span>
+<span class="sd">            and ``output=&#39;plot-phase&#39;`` options. Cannot be larger than ``5000``</span>
+<span class="sd">            and the product of width and height cannot be larger than</span>
+<span class="sd">            ``6,000,000``.</span>
+<span class="sd">        :type height: int, optional</span>
+<span class="sd">        :param height: The height of the generated plot. Defaults to ``600``.</span>
+<span class="sd">            Can only be used with the ``output=&#39;plot&#39;``, ``output=&#39;plot-amp&#39;``</span>
+<span class="sd">            and ``output=&#39;plot-phase&#39;`` options. Cannot be larger than ``5000``</span>
+<span class="sd">            and the product of width and height cannot be larger than</span>
+<span class="sd">            ``6,000,000``.</span>
+<span class="sd">        :type annotate: bool, optional</span>
+<span class="sd">        :param annotate: Can be either ``True`` or ``False``. Defaults</span>
+<span class="sd">            to ``True``.</span>
+
+<span class="sd">            * Draws vertical lines at the Nyquist frequency (one half the</span>
+<span class="sd">              sample rate).</span>
+<span class="sd">            * Draw a vertical line at the stage-zero frequency of sensitivity.</span>
+<span class="sd">            * Draws a horizontal line at the stage-zero gain.</span>
+
+<span class="sd">            Can only be used with the ``output=&#39;plot&#39;``, ``output=&#39;plot-amp&#39;``</span>
+<span class="sd">            and ``output=&#39;plot-phase&#39;`` options.</span>
+<span class="sd">        :type output: str</span>
+<span class="sd">        :param output: Output Options. Defaults to ``&#39;plot&#39;``.</span>
+
+<span class="sd">            ``&#39;fap&#39;``</span>
+<span class="sd">                Three column ASCII (frequency, amplitude, phase)</span>
+<span class="sd">            ``&#39;cs&#39;``</span>
+<span class="sd">                Three column ASCII (frequency, real, imaginary)</span>
+<span class="sd">            ``&#39;plot&#39;``</span>
+<span class="sd">                Amplitude and phase plot</span>
+<span class="sd">            ``&#39;plot-amp&#39;``</span>
+<span class="sd">                Amplitude only plot</span>
+<span class="sd">            ``&#39;plot-phase&#39;``</span>
+<span class="sd">                Phase only plot</span>
+
+<span class="sd">            Plots are stored to the file system if the parameter ``filename``</span>
+<span class="sd">            is set, otherwise it will try to use matplotlib to directly plot</span>
+<span class="sd">            the returned image.</span>
+<span class="sd">        :type filename: str, optional</span>
+<span class="sd">        :param filename: Name of a output file. If this parameter is given</span>
+<span class="sd">            nothing will be returned. Default is ``None``.</span>
+<span class="sd">        :rtype: :class:`numpy.ndarray`, str or `None`</span>
+<span class="sd">        :returns: Returns either a NumPy :class:`~numpy.ndarray`, image string</span>
+<span class="sd">            or nothing, depending on the ``output`` parameter.</span>
+
+<span class="sd">        .. rubric:: Examples</span>
+
+<span class="sd">        (1) Returning frequency, amplitude, phase of first point.</span>
+
+<span class="sd">            &gt;&gt;&gt; from obspy.clients.iris import Client</span>
+<span class="sd">            &gt;&gt;&gt; client = Client()</span>
+<span class="sd">            &gt;&gt;&gt; dt = UTCDateTime(&quot;2005-01-01&quot;)</span>
+<span class="sd">            &gt;&gt;&gt; data = client.evalresp(&quot;IU&quot;, &quot;ANMO&quot;, &quot;00&quot;, &quot;BHZ&quot;, dt,</span>
+<span class="sd">            ...                        output=&#39;fap&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; data[0]  # frequency, amplitude, phase of first point</span>
+<span class="sd">            array([  1.00000000e-05,   1.05599900e+04,   1.79200700e+02])</span>
+
+<span class="sd">        (2) Returning amplitude and phase plot.</span>
+
+<span class="sd">            &gt;&gt;&gt; from obspy.clients.iris import Client</span>
+<span class="sd">            &gt;&gt;&gt; client = Client()</span>
+<span class="sd">            &gt;&gt;&gt; dt = UTCDateTime(&quot;2005-01-01&quot;)</span>
+<span class="sd">            &gt;&gt;&gt; client.evalresp(&quot;IU&quot;, &quot;ANMO&quot;, &quot;00&quot;, &quot;BHZ&quot;, dt) # doctest: +SKIP</span>
+
+<span class="sd">            .. plot::</span>
+
+<span class="sd">                from obspy import UTCDateTime</span>
+<span class="sd">                from obspy.clients.iris import Client</span>
+<span class="sd">                client = Client()</span>
+<span class="sd">                dt = UTCDateTime(&quot;2005-01-01&quot;)</span>
+<span class="sd">                client.evalresp(&quot;IU&quot;, &quot;ANMO&quot;, &quot;00&quot;, &quot;BHZ&quot;, dt)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;network&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">network</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">station</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">location</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">location</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;--&#39;</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;channel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">UTCDateTime</span><span class="p">(</span><span class="n">time</span><span class="p">)</span><span class="o">.</span><span class="n">format_iris_web_service</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;minfreq&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">minfreq</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">maxfreq</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;maxfreq&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">maxfreq</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;nfreq&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nfreq</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">units</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;def&#39;</span><span class="p">,</span> <span class="s1">&#39;dis&#39;</span><span class="p">,</span> <span class="s1">&#39;vel&#39;</span><span class="p">,</span> <span class="s1">&#39;acc&#39;</span><span class="p">]:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">units</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;def&#39;</span>
+        <span class="k">if</span> <span class="n">output</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;fap&#39;</span><span class="p">,</span> <span class="s1">&#39;cs&#39;</span><span class="p">,</span> <span class="s1">&#39;plot&#39;</span><span class="p">,</span> <span class="s1">&#39;plot-amp&#39;</span><span class="p">,</span> <span class="s1">&#39;plot-phase&#39;</span><span class="p">]:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;output&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">output</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;output&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;plot&#39;</span>
+        <span class="c1"># height, width and annotate work only for plots</span>
+        <span class="k">if</span> <span class="s1">&#39;plot&#39;</span> <span class="ow">in</span> <span class="n">output</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;annotate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">annotate</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch</span><span class="p">(</span><span class="s2">&quot;evalresp&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># check output</span>
+        <span class="k">if</span> <span class="s1">&#39;plot&#39;</span> <span class="ow">in</span> <span class="n">output</span><span class="p">:</span>
+            <span class="c1"># image</span>
+            <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># ugly way to show an image</span>
+                <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">image</span>
+                <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+                <span class="c1"># create new figure</span>
+                <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+                <span class="c1"># new axes using full window</span>
+                <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="c1"># need temporary file for reading into matplotlib</span>
+                <span class="k">with</span> <span class="n">NamedTemporaryFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">tf</span><span class="p">:</span>
+                    <span class="n">tf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                    <span class="c1"># force matplotlib to use internal PNG reader. image.imread</span>
+                    <span class="c1"># will use PIL if available</span>
+                    <span class="n">img</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">_png</span><span class="o">.</span><span class="n">read_png</span><span class="p">(</span><span class="n">native_str</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+                <span class="c1"># add image to axis</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+                <span class="c1"># hide axes</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">axison</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="c1"># show plot</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_to_file_or_data</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">binary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># ASCII data</span>
+            <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">loadtxt</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">ndmin</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_file_or_data</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">binary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">exclude_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>

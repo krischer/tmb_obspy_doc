@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>obspy.clients.seedlink.client.slstate &#8212; ObsPy Documentation (1.0.3)</title>
+    <link rel="stylesheet" href="../../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/font.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/css/base.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/css/custom.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../',
+        VERSION:     '1.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../../../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../../../../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript">
+  var shiftWindow = function() { scrollBy(0, -70) };
+  if (location.hash) shiftWindow();
+  window.addEventListener("hashchange", shiftWindow);
+</script>
+
+  </head>
+  <body>
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="/" class="navbar-brand" title="Home"><span class="icon-obspy"></span>&nbsp;ObsPy</a>
+</div>
+<div class="navbar-collapse collapse">
+<form class="navbar-form navbar-right" role="search" method="get" action="http://docs.obspy.org/search.html">
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search Docs" name="q">
+</div>
+</form>
+<ul class="nav navbar-nav navbar-right">
+<li><a href="https://github.com/obspy/obspy/" title="GitHub"><span class="icon-github iconx2"></span><span class="hidden-sm">&nbsp;GitHub</span></a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Documentation"><span class="glyphicon glyphicon-book iconx2"></span><span class="hidden-sm">&nbsp;Documentation</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Getting&nbsp;Started</li>
+<li><a href="https://github.com/obspy/obspy/wiki#installation">Installation</a></li>
+<li><a href="https://tutorial.obspy.org/">Tutorial</a></li>
+<li><a href="http://gallery.obspy.org/">Gallery</a></li>
+<li><a href="https://docs.obspy.org/">API&nbsp;Documentation&nbsp;(latest&nbsp;release)</a></li>
+<li><a href="https://docs.obspy.org/master/">API&nbsp;Documentation&nbsp;(current&nbsp;master)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Mailing&nbsp;Lists"><span class="glyphicon glyphicon-envelope iconx2"></span><span class="hidden-sm">&nbsp;Mailing&nbsp;Lists</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li class="dropdown-header">Announcements&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-announcements"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-announcements/"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archive</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Users&nbsp;Mailing&nbsp;List&nbsp;(public)</li>
+<li><a href="http://lists.swapbytes.de/mailman/listinfo/obspy-users"><span class="glyphicon glyphicon-user"></span>&nbsp;Subscribe</a></li>
+<li><a href="http://lists.swapbytes.de/archives/obspy-users"><span class="glyphicon glyphicon-inbox"></span>&nbsp;Archives</a></li>
+<li><a href="mailto:users@obspy.org"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Post&nbsp;a&nbsp;message</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Developer&nbsp;Resources"><span class="glyphicon glyphicon-cog iconx2"></span><span class="hidden-sm">&nbsp;Developer&nbsp;Resources</span>&nbsp;<b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="https://gitter.im/obspy/obspy">Gitter</a></li>
+<li><a href="https://github.com/obspy/obspy/blob/master/.github/CONTRIBUTING.md">How&nbsp;to&nbsp;contribute</a></li>
+<li><a href="http://docs.obspy.org/coding_style.html">Coding&nbsp;Style&nbsp;Guide</a></li>
+<li><a href="https://github.com/obspy/obspy/releases/">All&nbsp;Releases</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Code&nbsp;Analysis</li>
+<li><a href="http://docs.obspy.org/master/pep8/index.html">PEP8</a></li>
+<li><a href="http://docs.obspy.org/master/coverage/index.html">Python&nbsp;Coverage</a></li>
+<li><a href="http://docs.obspy.org/master/c_coverage/index.html">C&nbsp;Coverage</a></li>
+<li><a href="https://coveralls.io/r/obspy/obspy?branch=master">Coveralls</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Continuous&nbsp;Integration</li>
+<li><a href="http://tests.obspy.org/">Test&nbsp;Reports</a></li>
+<li><a href="https://travis-ci.org/obspy/obspy/"><span class="icon-travis"></span>&nbsp;Travis&nbsp;CI</a></li>
+<li><a href="https://ci.appveyor.com/project/obspy/obspy"><span class="icon-appveyor"></span>&nbsp;AppVeyor</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+
+<div id="content" class="container">
+  
+    <div class="breadcrumb pull-right"><a href="../../../../../genindex.html" title="General Index"
+         accesskey="I">index</a><span style="color: #ccc; padding: 0 5px;">| </span><a href="../../../../../py-modindex.html" title="Python Module Index"
+         >modules</a>
+    </div>
+    <ol class="breadcrumb">
+        <li><a href="../../../../../contents.html">ObsPy Documentation (1.0.3)</a></li>
+        <li><a href="../../../../index.html" accesskey="U">Module code</a></li> 
+    </ol>
+  
+  <h1>Source code for obspy.clients.seedlink.client.slstate</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module to manage SeedLinkConnection state.</span>
+
+<span class="sd">Part of Python implementation of libslink of Chad Trabant and</span>
+<span class="sd">JSeedLink of Anthony Lomax</span>
+
+<span class="sd">:copyright:</span>
+<span class="sd">    The ObsPy Development Team (devs@obspy.org) &amp; Anthony Lomax</span>
+<span class="sd">:license:</span>
+<span class="sd">    GNU Lesser General Public License, Version 3</span>
+<span class="sd">    (https://www.gnu.org/copyleft/lesser.html)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">unicode_literals</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">future.builtins</span> <span class="k">import</span> <span class="o">*</span>  <span class="c1"># NOQA</span>
+
+<span class="kn">from</span> <span class="nn">obspy.core.util.decorator</span> <span class="k">import</span> <span class="n">deprecated</span>
+<span class="kn">from</span> <span class="nn">..seedlinkexception</span> <span class="k">import</span> <span class="n">SeedLinkException</span>
+<span class="kn">from</span> <span class="nn">..slpacket</span> <span class="k">import</span> <span class="n">SLPacket</span>
+
+
+<div class="viewcode-block" id="SLState"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.seedlink.client.slstate.SLState.html#obspy.clients.seedlink.client.slstate.SLState">[docs]</a><span class="k">class</span> <span class="nc">SLState</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to manage SeedLinkConnection state.</span>
+
+<span class="sd">    :var SL_DOWN: Connection state down.</span>
+<span class="sd">    :type SL_DOWN: int</span>
+<span class="sd">    :var SL_UP: Connection state up.</span>
+<span class="sd">    :type SL_UP: int</span>
+<span class="sd">    :var SL_DATA: Connection state data.</span>
+<span class="sd">    :type SL_DATA: int</span>
+<span class="sd">    :var state: Connection state.</span>
+<span class="sd">    :type state: int</span>
+<span class="sd">    :var NO_QUERY: INFO query state NO_QUERY.</span>
+<span class="sd">    :type NO_QUERY: int</span>
+<span class="sd">    :var INFO_QUERY: INFO query state INFO_QUERY.</span>
+<span class="sd">    :type INFO_QUERY: int</span>
+<span class="sd">    :var KEEP_ALIVE_QUERY: INFO query state KEEP_ALIVE_QUERY.</span>
+<span class="sd">    :type KEEP_ALIVE_QUERY: int</span>
+<span class="sd">    :var query_mode: INFO query state.</span>
+<span class="sd">    :type query_mode: int</span>
+<span class="sd">    :var BUFSIZE: Size of receiving buffer (default is 8192).</span>
+<span class="sd">    :type BUFSIZE: int</span>
+<span class="sd">    :var databuf: Data buffer for received packets.</span>
+<span class="sd">    :type databuf: bytearray</span>
+<span class="sd">    :var recptr: Receive pointer for databuf.</span>
+<span class="sd">    :type recptr: int</span>
+<span class="sd">    :var sendptr: Send pointer for databuf.</span>
+<span class="sd">    :type sendptr: int</span>
+<span class="sd">    :var expect_info: Flag to indicate if an INFO response is expected.</span>
+<span class="sd">    :type expect_info: bool</span>
+<span class="sd">    :var netto_trig: Network timeout trigger.netto_trig</span>
+<span class="sd">    :type netto_trig: int</span>
+<span class="sd">    :var netdly_trig: Network re-connect delay trigger.</span>
+<span class="sd">    :type netdly_trig: int</span>
+<span class="sd">    :var keepalive_trig: Send keepalive trigger.</span>
+<span class="sd">    :type keepalive_trig: int</span>
+<span class="sd">    :var previous_time: Time stamp of last state update.</span>
+<span class="sd">    :type previous_time: float</span>
+<span class="sd">    :var netto_time: Network timeout time stamp.</span>
+<span class="sd">    :type netto_time: float</span>
+<span class="sd">    :var netdly_time: Network re-connect delay time stamp.</span>
+<span class="sd">    :type netdly_time: float</span>
+<span class="sd">    :var keepalive_time: Keepalive time stamp.</span>
+<span class="sd">    :type keepalive_time: float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">SL_DOWN</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">SL_UP</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">SL_DATA</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">NO_QUERY</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">INFO_QUERY</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">KEEP_ALIVE_QUERY</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">BUFSIZE</span> <span class="o">=</span> <span class="mi">8192</span>
+
+<div class="viewcode-block" id="SLState.__init__"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.seedlink.client.slstate.SLState.__init__.html#obspy.clients.seedlink.client.slstate.SLState.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">SLState</span><span class="o">.</span><span class="n">SL_DOWN</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">query_mode</span> <span class="o">=</span> <span class="n">SLState</span><span class="o">.</span><span class="n">NO_QUERY</span>
+        <span class="c1"># AJL self.databuf = [str() for __idx0 in range(BUFSIZE)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">databuf</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">SLState</span><span class="o">.</span><span class="n">BUFSIZE</span><span class="p">)</span>
+        <span class="c1"># AJL packed_buf = [str() for __idx0 in range(BUFSIZE)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">packed_buf</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">SLState</span><span class="o">.</span><span class="n">BUFSIZE</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recptr</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sendptr</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">expect_info</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">netto_trig</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">netdly_trig</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">keepalive_trig</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">previous_time</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">netto_time</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">netdly_time</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">keepalive_time</span> <span class="o">=</span> <span class="mf">0.0</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;getPacket&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;get_packet&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">getPacket</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;getPacket&#39; has been renamed to</span>
+<span class="sd">        &#39;get_packet&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_packet</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SLState.get_packet"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.seedlink.client.slstate.SLState.get_packet.html#obspy.clients.seedlink.client.slstate.SLState.get_packet">[docs]</a>    <span class="k">def</span> <span class="nf">get_packet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns last received packet.</span>
+
+<span class="sd">        :return: last received packet if data buffer contains a full packet to</span>
+<span class="sd">            send.</span>
+<span class="sd">        :raise SeedLinkException: if there is not a packet ready to send.</span>
+
+<span class="sd">        See also: :meth:`packet_available`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">packet_available</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="n">SeedLinkException</span><span class="p">(</span><span class="s2">&quot;SLPacket not available to send&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">SLPacket</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">databuf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendptr</span><span class="p">)</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;packetAvailable&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;packet_available&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">packetAvailable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;packetAvailable&#39; has been renamed to</span>
+<span class="sd">        &#39;packet_available&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">packet_available</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SLState.packet_available"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.seedlink.client.slstate.SLState.packet_available.html#obspy.clients.seedlink.client.slstate.SLState.packet_available">[docs]</a>    <span class="k">def</span> <span class="nf">packet_available</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check for full packet available to send.</span>
+
+<span class="sd">        :return: true if data buffer contains a full packet to send.</span>
+
+<span class="sd">        See also: :meth:`get_packet`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">recptr</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendptr</span> <span class="o">&gt;=</span> \
+            <span class="n">SLPacket</span><span class="o">.</span><span class="n">SLHEADSIZE</span> <span class="o">+</span> <span class="n">SLPacket</span><span class="o">.</span><span class="n">SLRECSIZE</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;bytesRemaining&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;bytes_remaining&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">bytesRemaining</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;bytesRemaining&#39; has been renamed to</span>
+<span class="sd">        &#39;bytes_remaining&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bytes_remaining</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SLState.bytes_remaining"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.seedlink.client.slstate.SLState.bytes_remaining.html#obspy.clients.seedlink.client.slstate.SLState.bytes_remaining">[docs]</a>    <span class="k">def</span> <span class="nf">bytes_remaining</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return number of bytes remaining in receiving buffer.</span>
+
+<span class="sd">        :return: number of bytes remaining.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">BUFSIZE</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">recptr</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;isError&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;is_error&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">isError</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;isError&#39; has been renamed to</span>
+<span class="sd">        &#39;is_error&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_error</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SLState.is_error"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.seedlink.client.slstate.SLState.is_error.html#obspy.clients.seedlink.client.slstate.SLState.is_error">[docs]</a>    <span class="k">def</span> <span class="nf">is_error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check for SeedLink ERROR packet.</span>
+
+<span class="sd">        :return: true if next send packet is a SeedLink ERROR packet</span>
+
+<span class="sd">        :raise SeedLinkException: if there are not enough bytes to determine</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">recptr</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendptr</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">SLPacket</span><span class="o">.</span><span class="n">ERRORSIGNATURE</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;not enough bytes to determine packet type&quot;</span>
+            <span class="k">raise</span> <span class="n">SeedLinkException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">databuf</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sendptr</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendptr</span> <span class="o">+</span>
+                            <span class="nb">len</span><span class="p">(</span><span class="n">SLPacket</span><span class="o">.</span><span class="n">ERRORSIGNATURE</span><span class="p">)]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> \
+            <span class="n">SLPacket</span><span class="o">.</span><span class="n">ERRORSIGNATURE</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>  <span class="c1"># @UndefinedVariable</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;isEnd&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;is_end&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">isEnd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;isEnd&#39; has been renamed to</span>
+<span class="sd">        &#39;is_end&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_end</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SLState.is_end"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.seedlink.client.slstate.SLState.is_end.html#obspy.clients.seedlink.client.slstate.SLState.is_end">[docs]</a>    <span class="k">def</span> <span class="nf">is_end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check for SeedLink END packet.</span>
+
+<span class="sd">        :return: true if next send packet is a SeedLink END packet</span>
+
+<span class="sd">        :raise SeedLinkException: if there are not enough bytes to determine</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">recptr</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendptr</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">SLPacket</span><span class="o">.</span><span class="n">ENDSIGNATURE</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;not enough bytes to determine packet type&quot;</span>
+            <span class="k">raise</span> <span class="n">SeedLinkException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">databuf</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sendptr</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendptr</span> <span class="o">+</span>
+                            <span class="nb">len</span><span class="p">(</span><span class="n">SLPacket</span><span class="o">.</span><span class="n">ENDSIGNATURE</span><span class="p">)]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> \
+            <span class="n">SLPacket</span><span class="o">.</span><span class="n">ENDSIGNATURE</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>  <span class="c1"># @UndefinedVariable</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;packetIsInfo&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;packet_is_info&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">packetIsInfo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;packetIsInfo&#39; has been renamed to</span>
+<span class="sd">        &#39;packet_is_info&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">packet_is_info</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SLState.packet_is_info"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.seedlink.client.slstate.SLState.packet_is_info.html#obspy.clients.seedlink.client.slstate.SLState.packet_is_info">[docs]</a>    <span class="k">def</span> <span class="nf">packet_is_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check for SeedLink INFO packet.</span>
+
+<span class="sd">        :return: true if next send packet is a SeedLink INFO packet</span>
+
+<span class="sd">        :raise SeedLinkException: if there are not enough bytes to determine</span>
+<span class="sd">            packet type</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">recptr</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendptr</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">SLPacket</span><span class="o">.</span><span class="n">INFOSIGNATURE</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;not enough bytes to determine packet type&quot;</span>
+            <span class="k">raise</span> <span class="n">SeedLinkException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">databuf</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sendptr</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendptr</span> <span class="o">+</span>
+                            <span class="nb">len</span><span class="p">(</span><span class="n">SLPacket</span><span class="o">.</span><span class="n">INFOSIGNATURE</span><span class="p">)]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> \
+            <span class="n">SLPacket</span><span class="o">.</span><span class="n">INFOSIGNATURE</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>  <span class="c1"># @UndefinedVariable</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;incrementSendPointer&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;increment_send_pointer&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">incrementSendPointer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;incrementSendPointer&#39; has been renamed to</span>
+<span class="sd">        &#39;increment_send_pointer&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">increment_send_pointer</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SLState.increment_send_pointer"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.seedlink.client.slstate.SLState.increment_send_pointer.html#obspy.clients.seedlink.client.slstate.SLState.increment_send_pointer">[docs]</a>    <span class="k">def</span> <span class="nf">increment_send_pointer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Increments the send pointer by size of one packet.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sendptr</span> <span class="o">+=</span> <span class="n">SLPacket</span><span class="o">.</span><span class="n">SLHEADSIZE</span> <span class="o">+</span> <span class="n">SLPacket</span><span class="o">.</span><span class="n">SLRECSIZE</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;packDataBuffer&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;pack_data_buffer&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">packDataBuffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;packDataBuffer&#39; has been renamed to</span>
+<span class="sd">        &#39;pack_data_buffer&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pack_data_buffer</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SLState.pack_data_buffer"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.seedlink.client.slstate.SLState.pack_data_buffer.html#obspy.clients.seedlink.client.slstate.SLState.pack_data_buffer">[docs]</a>    <span class="k">def</span> <span class="nf">pack_data_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Packs the buffer by removing all sent packets and shifting remaining</span>
+<span class="sd">        bytes to beginning of buffer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># AJL System.arraycopy(self.databuf, self.sendptr, self.packed_buf, 0,</span>
+        <span class="c1">#                     self.recptr - self.sendptr)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">packed_buf</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">recptr</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendptr</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">databuf</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sendptr</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">recptr</span><span class="p">]</span>
+        <span class="n">temp_buf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">databuf</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">databuf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">packed_buf</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">packed_buf</span> <span class="o">=</span> <span class="n">temp_buf</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recptr</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sendptr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sendptr</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+    <span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="s2">&quot;&#39;appendBytes&#39; has been renamed to &quot;</span>  <span class="c1"># noqa</span>
+        <span class="s2">&quot;&#39;append_bytes&#39;. Use that instead.&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">appendBytes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        DEPRECATED: &#39;appendBytes&#39; has been renamed to</span>
+<span class="sd">        &#39;append_bytes&#39;. Use that instead.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">append_bytes</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SLState.append_bytes"><a class="viewcode-back" href="../../../../../packages/autogen/obspy.clients.seedlink.client.slstate.SLState.append_bytes.html#obspy.clients.seedlink.client.slstate.SLState.append_bytes">[docs]</a>    <span class="k">def</span> <span class="nf">append_bytes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bytes_</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Appends bytes to the receive buffer after the last received data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bytes_remaining</span><span class="p">()</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">bytes_</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;not enough bytes remaining in buffer to append new bytes&quot;</span>
+            <span class="k">raise</span> <span class="n">SeedLinkException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">databuf</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">recptr</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">recptr</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">bytes_</span><span class="p">)]</span> <span class="o">=</span> <span class="n">bytes_</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recptr</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bytes_</span><span class="p">)</span></div></div>
+</pre></div>
+
+</div>
+
+<footer>
+<p class="text-muted small">
+By the <a href="https://github.com/orgs/obspy/people">ObsPy
+Development Team</a> and many <a href="#contributers" role="button"
+data-toggle="modal" data-target="#contributers">Awesome Contributors</a>™ &nbsp;|&nbsp; Built with
+<a href="http://getbootstrap.com/">Bootstrap</a> and
+<a href="http://glyphicons.com//">Glyphicons</a> &nbsp;|&nbsp; Copyright 2008-2016
+</p>
+</footer>
+<div id="contributers" class="modal fade" tabindex="-1"
+role="dialog" aria-labelledby="contributersLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"
+aria-hidden="true">&times;</button>
+<h3 class="modal-title" id="contributersLabel">Thank you!</h3>
+</div>
+<div class="modal-body">
+<p>We would like to thank our contributors, whose efforts make
+this software what it is. These people have helped by writing code
+and documentation, and by testing. They have created and
+maintained this product, its associated libraries and
+applications, our build tools and our web sites.</p>
+<h4>Contributors</h4>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<ul>
+<li>Ammon, Charles J.</li>
+<li>Arnarsson, Ólafur St.</li>
+<li>Barsch, Robert</li>
+<li>Bernardi, Fabrizio</li>
+<li>Beyreuther, Moritz</li>
+<li>Carothers, Lloyd</li>
+<li>Egdorf, Sven</li>
+<li>Ermert, Laura</li>
+<li>Fabbri, Tommaso</li>
+<li>Grunberg, Marc</li>
+<li>Heimann, Sebastian</li>
+<li>Hope, Gaute</li>
+<li>Inza, Adolfo</li>
+<li>Ketchum, David</li>
+<li>Kremers, Simon</li>
+<li>Krieger, Lars</li>
+<li>Käufl, Paul</li>
+<li>Lecocq, Thomas</li>
+<li>Lesage, Philippe</li>
+<li>Lopes, Rui L.</li>
+<li>Maggi, Alessia</li>
+<li>Megies, Tobias</li>
+<li>Michelini, Alberto</li>
+<li>Morgenstern, Bernhard</li>
+<li>Panning, Mark P.</li>
+<li>Reyes, Celso</li>
+<li>Rothenhäusler, Nicolas</li>
+<li>Sales de Andrade, Elliott</li>
+<li>Saul, Joachim</li>
+<li>Sippl, Christian</li>
+<li>Stange, Stefan</li>
+<li>Trabant, Chad</li>
+<li>Walker, Andrew</li>
+<li>Wassermann, Joachim</li>
+<li>Winkelman, Andrew</li>
+<li>van Driel, Martin</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul>
+<li>Antunes, Emanuel</li>
+<li>Bank, Markus</li>
+<li>Behr, Yannik</li>
+<li>Bernauer, Felix</li>
+<li>Bonaimé, Sébastien</li>
+<li>Danecek, Peter</li>
+<li>Engels, Fabian</li>
+<li>Eulenfeld, Tom</li>
+<li>Grellier, Clément</li>
+<li>Hammer, Conny</li>
+<li>Heiniger, Lukas</li>
+<li>Igel, Heiner</li>
+<li>Isken, Marius</li>
+<li>Koymans, Mathijs</li>
+<li>Kress, Victor</li>
+<li>Krischer, Lion</li>
+<li>Köhler, Andreas</li>
+<li>Leeman, John</li>
+<li>Lomax, Anthony</li>
+<li>MacCarthy, Jonathan</li>
+<li>Martin, Henri</li>
+<li>Meschede, Matthias</li>
+<li>Miller, Nathaniel C.</li>
+<li>Nof, Ran Novitsky</li>
+<li>Rapagnani, Giovanni</li>
+<li>Ringler, Adam</li>
+<li>Russo, Emiliano</li>
+<li>Satriano, Claudio</li>
+<li>Scheingraber, Chris</li>
+<li>Snoke, Arthur</li>
+<li>Sullivan, Benjamin</li>
+<li>Uieda, Leonardo</li>
+<li>Walther, Marcus</li>
+<li>Williams, Mark C.</li>
+<li>Zad, Seyed Kasra Hosseini</li>
+</ul>
+</div>
+</div>
+</div>
+<h4>Funds</h4>
+<p>ObsPy was partially funded by the</p>
+<ul>
+<li>German Science Foundation (DFG) via grant DFG IG 16/9-1</li>
+<li>German Ministry for Education and Research (BMBF), GEOTECHNOLOGIEN grant 03G0646H.</li>
+<li>NERA project (Network of European Research Infrastructures for Earthquake Risk Assessment and Mitigation) under the European Community&#39;s Seventh Framework Programme (FP7/2007-2013) grant agreement n° 262330</li>
+<li>Leibniz Institute for Applied Geophysics (LIAG)</li>
+<li>VERCE EU-FP7 project (no. 283543)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+  </body>
+</html>
